@@ -1,7 +1,8 @@
 html,
 body {
-    font-family: Inter, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    overflow-x: hidden;
+    font-family: Inter, system-ui, sans-serif;
+    overflow-x: clip;
+    background-color: var(--beige-100);
 }
 
 html {
@@ -29,4 +30,14 @@ h6 {
 
 svg {
     fill: currentColor;
+}
+
+.sr-only {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
 }

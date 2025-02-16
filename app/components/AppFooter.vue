@@ -134,8 +134,8 @@ const archives = [
 .newsletter-form {
     position: relative;
     border-radius: 20px;
-    background-color: var(--brown-100);
-    border: 1px solid var(--black-900);
+    background-color: var(--beige-100);
+    border: 1px solid var(--gray-900);
     padding: 40px 16px;
     @media (--md) {
         padding: 48px 32px;
@@ -164,7 +164,7 @@ const archives = [
         width: calc(100% - 35px);
         height: 3px;
         transform: translateX(-50%);
-        background-color: var(--brown-100);
+        background-color: var(--beige-100);
         @media (--md) {
             top: 50%;
             left: -2px;
@@ -180,16 +180,16 @@ const archives = [
 .email-input {
     width: 100%;
     border-radius: 8px;
-    border: 1px solid var(--black-300);
+    border: 1px solid var(--gray-300);
     padding: 10px 14px;
 }
 .form-submit {
     width: 100%;
 }
 .footer {
-    background-color: var(--black-900);
+    background-color: var(--gray-900);
     border-radius: 24px 24px 0 0;
-    color: var(--brown-100);
+    color: var(--beige-100);
     @media (--md) {
         border-radius: 40px 40px 0 0;
     }
@@ -231,7 +231,7 @@ const archives = [
     margin: 0;
 }
 .social-link {
-    color: var(--brown-100);
+    color: var(--beige-100);
     transition: color var(--hover-transition);
     &:hover,
     &:focus-visible {
@@ -259,7 +259,7 @@ const archives = [
         font-size: rem(16px);
     }
     a {
-        color: var(--brown-100);
+        color: var(--beige-100);
         text-decoration: none;
         font-weight: 500;
         &:hover,
@@ -294,7 +294,7 @@ const archives = [
 .credits {
     font-size: rem(12px);
     a {
-        color: var(--brown-100);
+        color: var(--beige-100);
         &:hover,
         &:focus-visible {
             text-decoration: none;

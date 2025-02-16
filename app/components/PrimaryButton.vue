@@ -45,30 +45,30 @@ const component = computed(() => {
     align-items: center;
     gap: 8px;
     padding: 18px 32px;
-    background-color: var(--black-900);
-    color: var(--brown-100);
+    background-color: var(--gray-900);
+    color: var(--beige-100);
     font-weight: 500;
     border-radius: 12px;
     cursor: pointer;
     transition:
         background-color var(--hover-transition),
         color var(--hover-transition);
-    border: 2px solid var(--black-900);
+    border: 2px solid var(--gray-900);
     text-decoration: none;
     &:hover,
     &:focus-visible {
-        background-color: var(--brown-100);
-        color: var(--black-900);
+        background-color: var(--beige-100);
+        color: var(--gray-900);
     }
 }
 .is-outlined {
-    color: var(--black-900);
+    color: var(--gray-900);
     background-color: transparent;
-    border-color: var(--black-900);
+    border-color: var(--gray-900);
     &:hover,
     &:focus-visible {
-        background-color: var(--black-900);
-        color: var(--brown-100);
+        background-color: var(--gray-900);
+        color: var(--beige-100);
     }
 }
 .is-small {

@@ -58,7 +58,6 @@ defineProps(getSliceComponentProps<Content.HeroSlice>(['slice', 'index', 'slices
 }
 
 .es-fullpage-hero {
-    font-family: system-ui, sans-serif;
     background-color: #fff;
     color: #333;
 }

@@ -71,7 +71,6 @@ defineProps(getSliceComponentProps<Content.AlternateGridSlice>(['slice', 'index'
 }
 
 .es-alternate-grid {
-    font-family: system-ui, sans-serif;
     background-color: #fff;
     color: #333;
 }

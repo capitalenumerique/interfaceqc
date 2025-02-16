@@ -15,7 +15,7 @@
     "slicemachine": "start-slicemachine"
   },
   "dependencies": {
-    "@csstools/postcss-global-data": "^3.0.0",
+    "focus-trap": "^7.6.4",
     "normalize.css": "^8.0.1",
     "nuxt": "^3.15.4",
     "vue": "latest",
@@ -24,11 +24,16 @@
   "devDependencies": {
     "@csstools/postcss-global-data": "^3.0.0",
     "@nuxt/eslint": "^0.7.5",
+    "@nuxt/fonts": "^0.10.3",
     "@nuxt/image": "^1.9.0",
     "@nuxtjs/i18n": "^9.1.4",
     "@nuxtjs/prismic": "^4.0.1",
     "@slicemachine/adapter-nuxt": "^0.3.66",
     "@types/eslint-config-prettier": "^6.11.3",
+    "@vueuse/components": "^12.5.0",
+    "@vueuse/core": "^12.5.0",
+    "@vueuse/integrations": "^12.5.0",
+    "@vueuse/nuxt": "^12.5.0",
     "concurrently": "^9.1.2",
     "eslint": "9.19.0",
     "eslint-config-prettier": "^10.0.1",
