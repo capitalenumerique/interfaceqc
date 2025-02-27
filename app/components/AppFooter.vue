@@ -38,10 +38,10 @@
         </div>
         <ClientOnly v-if="showMarquee">
             <Vue3Marquee>
-                <img class="logo" src="@/assets/svg/logo-with-star.svg" :alt="t('interface')" />
+                <img class="logo" src="@/assets/svg/logo-with-glyph.svg" :alt="t('interface')" />
             </Vue3Marquee>
         </ClientOnly>
-        <img v-else class="logo" src="@/assets/svg/logo-with-star.svg" :alt="t('interface')" />
+        <img v-else class="logo" src="@/assets/svg/logo-with-glyph.svg" :alt="t('interface')" />
         <div class="credits-wrapper">
             <div class="credits">
                 <span>
@@ -79,7 +79,7 @@ import IconInstagram from '@/assets/svg/instagram.svg?component';
 import IconLinkedin from '@/assets/svg/linkedin.svg?component';
 
 const { t } = useI18n();
-const breakpoints = useBreakpoints({ lg: 1024 });
+const breakpoints = useBreakpoints({ lg: 1024 }, { ssrWidth: 1024 });
 const showMarquee = breakpoints.smaller('lg');
 
 const socials = [
@@ -111,12 +111,12 @@ const socials = [
 
 <style lang="postcss" scoped>
 .footer {
-    position: sticky;
-    bottom: 0;
     background-color: var(--gray-900);
     border-radius: 24px 24px 0 0;
     color: var(--beige-100);
     @media (--md) {
+        position: sticky;
+        bottom: 0;
         border-radius: 40px 40px 0 0;
     }
 }

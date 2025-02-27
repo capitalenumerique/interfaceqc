@@ -51,7 +51,7 @@ import IconAsterisk from '@/assets/svg/shapes/asterisk.svg?component';
 import IconHexagon from '@/assets/svg/shapes/hexagon.svg?component';
 import IconLemon from '@/assets/svg/shapes/lemon.svg?component';
 import IconStar from '@/assets/svg/shapes/star.svg?component';
-import IconLogo from '@/assets/svg/interface-logo.svg?component';
+import IconLogo from '@/assets/svg/logo.svg?component';
 
 const { t } = useI18n();
 const activeIndex = ref(0);
@@ -59,7 +59,7 @@ const shapes = [IconAsterisk, IconLemon, IconStar, IconHexagon];
 const shapesColors = ['--orange-400', '--red-500', '--green-700', '--red-500'];
 const backgroundColors = ['--blue-700', '--pink-300', '--teal-500', '--yellow-200'];
 
-const breakpoints = useBreakpoints({ lg: 1024 });
+const breakpoints = useBreakpoints({ lg: 1024 }, { ssrWidth: 1024 });
 const showMarquee = breakpoints.smaller('lg');
 
 function changeShape() {

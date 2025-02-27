@@ -121,7 +121,8 @@ const { t } = useI18n();
         "Infolettre": "Newsletter",
         "Pour tout savoir, l’infolettre est le secret le moins bien gardé.": "To know everything, the newsletter is the worst-kept secret.",
         "Adresse courriel": "Email address",
-        "adresse{'@'}exemple.com": "email{'@'}example.com"
+        "adresse{'@'}exemple.com": "email{'@'}example.com",
+        "m’inscrire": "register"
     }
 }
 </i18n>
