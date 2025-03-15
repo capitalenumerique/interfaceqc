@@ -128,14 +128,14 @@ function changeShape() {
     z-index: 1;
     @media (--lg) {
         margin: auto;
-        width: 1272px;
+        width: var(--page-container-max-width);
         padding: 0 16px;
     }
 }
 .event-infos-wrapper {
     margin: 40px auto 0;
     width: 100%;
-    max-width: 1272px;
+    max-width: var(--page-container-max-width);
     padding: 0 16px;
     @media (--lg) {
         margin: 64px auto 0;

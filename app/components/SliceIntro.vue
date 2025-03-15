@@ -18,7 +18,7 @@
     align-items: flex-start;
     flex-direction: column;
     justify-content: space-between;
-    max-width: 1272px;
+    max-width: var(--page-container-max-width);
     margin: 0 auto;
     padding: 0 16px;
     gap: 24px 32px;

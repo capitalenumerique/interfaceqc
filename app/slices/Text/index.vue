@@ -33,7 +33,7 @@ defineProps(getSliceComponentProps<Content.TextSlice>(['slice', 'index', 'slices
 }
 .container {
     display: block;
-    max-width: 1272px;
+    max-width: var(--page-container-max-width);
     padding: 0 16px;
     margin: 0 auto;
     width: 100%;

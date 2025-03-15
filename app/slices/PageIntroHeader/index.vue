@@ -17,7 +17,7 @@ defineProps(getSliceComponentProps<Content.PageIntroHeaderSlice>(['slice', 'inde
 
 <style lang="postcss" scoped>
 .page-header {
-    max-width: 1272px;
+    max-width: var(--page-container-max-width);
     padding: 0 16px;
     margin: 64px auto;
 }
@@ -37,6 +37,11 @@ defineProps(getSliceComponentProps<Content.PageIntroHeaderSlice>(['slice', 'inde
     @media (--lg) {
         font-size: rem(36px);
         font-weight: 500;
+    }
+    :deep(p) {
+        &:last-child {
+            margin-bottom: 0;
+        }
     }
 }
 </style>

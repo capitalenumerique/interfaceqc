@@ -34,7 +34,7 @@ const { t } = useI18n();
 .newsletter-section {
     display: flex;
     flex-direction: column;
-    max-width: 1272px;
+    max-width: var(--page-container-max-width);
     margin: 80px auto;
     padding: 0 16px;
     @media (--lg) {

@@ -3,7 +3,15 @@ import ViteSvgLoader from 'vite-svg-loader';
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-    modules: ['@nuxt/eslint', '@nuxtjs/prismic', '@nuxt/fonts', '@nuxtjs/i18n', '@nuxt/image', '@vueuse/nuxt'],
+    modules: [
+        '@nuxt/eslint',
+        '@nuxtjs/prismic',
+        '@nuxt/fonts',
+        '@nuxtjs/i18n',
+        '@nuxt/image',
+        '@vueuse/nuxt',
+        '@hebilicious/vue-query-nuxt',
+    ],
 
     devtools: {
         enabled: true,
@@ -46,10 +54,18 @@ export default defineNuxtConfig({
         public: {
             commitTag: process.env.COMMIT_TAG || process.env.NUXT_ENV_CURRENT_GIT_TAG,
             commitShortSha: process.env.COMMIT_SHORT_SHA || process.env.NUXT_ENV_CURRENT_GIT_SHA,
+            swapcardGraphqlEndpoint: process.env.NUXT_PUBLIC_SWAPCARD_GRAPHQL_ENDPOINT,
         },
+        swapcardToken: process.env.NUXT_SWAPCARD_AUTH_TOKEN,
+        swapcardEventId: process.env.NUXT_SWAPCARD_EVENT_ID,
     },
+
     future: {
         compatibilityVersion: 4,
+    },
+
+    experimental: {
+        inlineRouteRules: true,
     },
 
     compatibilityDate: '2024-04-03',

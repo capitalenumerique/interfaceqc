@@ -37,7 +37,7 @@ defineProps(getSliceComponentProps<Content.PartnersGridSlice>(['slice', 'index',
 <style lang="postcss" scoped>
 .partners-section {
     position: relative;
-    max-width: 1272px;
+    max-width: var(--page-container-max-width);
     margin: 64px auto;
 }
 .animation-container {

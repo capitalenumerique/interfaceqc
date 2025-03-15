@@ -18,7 +18,7 @@ defineProps(getSliceComponentProps<Content.AccordionsSlice>(['slice', 'index', '
 
 <style lang="postcss" scoped>
 .accordions-slice {
-    max-width: 1272px;
+    max-width: var(--page-container-max-width);
     padding: 0 16px;
     margin: 64px auto;
 }

@@ -110,7 +110,7 @@ const next = () => {
     align-items: center;
     margin: 0 auto;
     margin-top: 32px;
-    max-width: 1272px;
+    max-width: var(--page-container-max-width);
     padding: 0 16px;
 }
 .swiper-button-prev,

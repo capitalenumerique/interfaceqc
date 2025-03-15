@@ -75,7 +75,7 @@ const items = computed(() => [
     },
     {
         label: t('Programmation'),
-        path: 'schedule',
+        path: { name: 'schedule-day', params: { day: 1 } },
         icon: IconHalfCircle,
         color: 'red-500',
     },

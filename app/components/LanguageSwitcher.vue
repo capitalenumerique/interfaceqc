@@ -2,6 +2,11 @@
 const { locale, locales } = useI18n();
 const switchLocalePath = useSwitchLocalePath();
 
+const { $luxon } = useNuxtApp();
+watchEffect(() => {
+    $luxon.Settings.defaultLocale = locale.value;
+});
+
 const availableLocales = computed(() => {
     return locales.value.filter((i) => i.code !== locale.value);
 });

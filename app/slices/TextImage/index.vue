@@ -30,7 +30,7 @@ defineProps(getSliceComponentProps<Content.TextImageSlice>(['slice', 'index', 's
     display: flex;
     justify-content: space-between;
     margin: 64px auto;
-    max-width: 1272px;
+    max-width: var(--page-container-max-width);
     padding: 0 16px;
     flex-direction: column;
     @media (--lg) {

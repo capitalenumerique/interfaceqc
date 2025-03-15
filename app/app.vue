@@ -18,11 +18,12 @@ useHead(() => ({
 
 <template>
     <NuxtLayout>
+        <NuxtLoadingIndicator :height="5" color="#333230" :throttle="500" />
         <NuxtPage />
     </NuxtLayout>
 </template>
 
-<style lang="postcss" scoped>
+<style lang="postcss">
 .page-enter-active,
 .page-leave-active {
     transition: opacity 500ms ease-in-out;
