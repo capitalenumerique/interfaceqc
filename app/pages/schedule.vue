@@ -44,7 +44,9 @@ const { data: page } = await useAsyncData('schedule', () => {
 
 const { data, error, suspense, isLoading } = useSchedule();
 
-await suspense;
+onServerPrefetch(async () => {
+    await suspense();
+});
 
 const { $luxon } = useNuxtApp();
 
@@ -65,10 +67,6 @@ defineI18nRoute({
         fr: '/programmation',
         en: '/schedule',
     },
-});
-
-defineRouteRules({
-    prerender: false,
 });
 
 useSeoMeta({

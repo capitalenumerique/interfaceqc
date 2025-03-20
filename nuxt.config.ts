@@ -59,9 +59,6 @@ export default defineNuxtConfig({
     future: {
         compatibilityVersion: 4,
     },
-    experimental: {
-        inlineRouteRules: true,
-    },
     compatibilityDate: '2024-04-03',
     vite: {
         plugins: [

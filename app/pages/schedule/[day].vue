@@ -9,7 +9,9 @@
             <span
                 class="time"
                 :class="{
-                    'has-place': i === 0 || data[day - 1].timeslots[i - 1].type !== 'regular',
+                    'has-place':
+                        data[day - 1].timeslots[i].type !== 'regular' ||
+                        data[day - 1].timeslots[i - 1].type !== 'regular',
                 }"
             >
                 {{ formatSessionTime(timeslot.time) }}

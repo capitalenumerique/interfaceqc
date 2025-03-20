@@ -56,7 +56,9 @@ const sessionId = route.params.id.split('-').pop();
 
 const { data, error, suspense, isLoading } = useSession(sessionId);
 
-await suspense;
+onServerPrefetch(async () => {
+    await suspense();
+});
 
 const { $luxon } = useNuxtApp();
 
@@ -73,10 +75,6 @@ defineI18nRoute({
     paths: {
         fr: '/conference/[id]',
     },
-});
-
-defineRouteRules({
-    prerender: false,
 });
 
 const seoTitle = computed(() => data.value?.title || '');
