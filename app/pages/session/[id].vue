@@ -1,6 +1,6 @@
 <template>
     <div class="page-wrapper">
-        <NuxtLinkLocale :to="{ name: 'schedule-day', params: { day: 1 } }" class="back-button">
+        <NuxtLinkLocale :to="{ name: 'schedule-day', params: { day: $route.params.day } }" class="back-button">
             <IconBackArrow width="16" height="10" />
             {{ t('Retour à la programmation') }}
         </NuxtLinkLocale>
@@ -73,7 +73,8 @@ function formatDate(date) {
 
 defineI18nRoute({
     paths: {
-        fr: '/conference/[id]',
+        fr: '/programmation/[day]/conference/[id]',
+        en: '/schedule/[day]/session/[id]',
     },
 });
 

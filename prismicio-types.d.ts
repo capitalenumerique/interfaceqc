@@ -501,14 +501,14 @@ export type HomeHeaderSlice = prismic.SharedSlice<'home_header', HomeHeaderSlice
  */
 export interface HomeProgrammingSliceDefaultPrimarySpeakersItem {
     /**
-     * Speaker ID field in *HomeSchedule → Default → Primary → Speakers*
+     * Session Url field in *HomeSchedule → Default → Primary → Speakers*
      *
      * - **Field Type**: Text
      * - **Placeholder**: *None*
-     * - **API ID Path**: home_programming.default.primary.speakers[].speaker_id
+     * - **API ID Path**: home_programming.default.primary.speakers[].session_url
      * - **Documentation**: https://prismic.io/docs/field#key-text
      */
-    speaker_id: prismic.KeyTextField;
+    session_url: prismic.KeyTextField;
 
     /**
      * First Name field in *HomeSchedule → Default → Primary → Speakers*

@@ -25,10 +25,10 @@
             "label": "Speakers",
             "repeat": true,
             "fields": {
-              "speaker_id": {
+              "session_url": {
                 "type": "Text",
                 "config": {
-                  "label": "Speaker ID",
+                  "label": "Session Url",
                   "placeholder": ""
                 }
               },

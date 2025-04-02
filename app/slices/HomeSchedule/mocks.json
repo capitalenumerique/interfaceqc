@@ -81,10 +81,10 @@
 								}
 							],
 							[
-								"speaker_id",
+								"session_url",
 								{
 									"__TYPE__": "FieldContent",
-									"value": "hold",
+									"value": "treated",
 									"type": "Text"
 								}
 							]
@@ -160,10 +160,10 @@
 								}
 							],
 							[
-								"speaker_id",
+								"session_url",
 								{
 									"__TYPE__": "FieldContent",
-									"value": "introduced",
+									"value": "struck",
 									"type": "Text"
 								}
 							]
@@ -172,14 +172,6 @@
 					{
 						"__TYPE__": "GroupItemContent",
 						"value": [
-							[
-								"speaker_id",
-								{
-									"__TYPE__": "FieldContent",
-									"value": "means",
-									"type": "Text"
-								}
-							],
 							[
 								"first_name",
 								{
@@ -245,6 +237,14 @@
 									"value": "#f8063e",
 									"type": "Color"
 								}
+							],
+							[
+								"session_url",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "typical",
+									"type": "Text"
+								}
 							]
 						]
 					},
@@ -272,14 +272,6 @@
 								{
 									"__TYPE__": "FieldContent",
 									"value": "castle",
-									"type": "Text"
-								}
-							],
-							[
-								"speaker_id",
-								{
-									"__TYPE__": "FieldContent",
-									"value": "army",
 									"type": "Text"
 								}
 							],
@@ -324,20 +316,20 @@
 									"value": "#8da34c",
 									"type": "Color"
 								}
+							],
+							[
+								"session_url",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "term",
+									"type": "Text"
+								}
 							]
 						]
 					},
 					{
 						"__TYPE__": "GroupItemContent",
 						"value": [
-							[
-								"speaker_id",
-								{
-									"__TYPE__": "FieldContent",
-									"value": "green",
-									"type": "Text"
-								}
-							],
 							[
 								"first_name",
 								{
@@ -403,6 +395,14 @@
 									"value": "#fd6ad3",
 									"type": "Color"
 								}
+							],
+							[
+								"session_url",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "scientific",
+									"type": "Text"
+								}
 							]
 						]
 					},
@@ -430,14 +430,6 @@
 								{
 									"__TYPE__": "FieldContent",
 									"value": "left",
-									"type": "Text"
-								}
-							],
-							[
-								"speaker_id",
-								{
-									"__TYPE__": "FieldContent",
-									"value": "dark",
 									"type": "Text"
 								}
 							],
@@ -481,6 +473,14 @@
 									"__TYPE__": "FieldContent",
 									"value": "#fe9f67",
 									"type": "Color"
+								}
+							],
+							[
+								"session_url",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "will",
+									"type": "Text"
 								}
 							]
 						]
@@ -555,10 +555,10 @@
 								}
 							],
 							[
-								"speaker_id",
+								"session_url",
 								{
 									"__TYPE__": "FieldContent",
-									"value": "best",
+									"value": "voyage",
 									"type": "Text"
 								}
 							]
@@ -567,14 +567,6 @@
 					{
 						"__TYPE__": "GroupItemContent",
 						"value": [
-							[
-								"speaker_id",
-								{
-									"__TYPE__": "FieldContent",
-									"value": "education",
-									"type": "Text"
-								}
-							],
 							[
 								"first_name",
 								{
@@ -640,6 +632,14 @@
 									"value": "#2fd0a9",
 									"type": "Color"
 								}
+							],
+							[
+								"session_url",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "dinner",
+									"type": "Text"
+								}
 							]
 						]
 					},
@@ -667,14 +667,6 @@
 								{
 									"__TYPE__": "FieldContent",
 									"value": "mouse",
-									"type": "Text"
-								}
-							],
-							[
-								"speaker_id",
-								{
-									"__TYPE__": "FieldContent",
-									"value": "hope",
 									"type": "Text"
 								}
 							],
@@ -718,6 +710,14 @@
 									"credits": null,
 									"__TYPE__": "ImageContent",
 									"thumbnails": {}
+								}
+							],
+							[
+								"session_url",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "aid",
+									"type": "Text"
 								}
 							]
 						]
@@ -776,14 +776,6 @@
 								}
 							],
 							[
-								"speaker_id",
-								{
-									"__TYPE__": "FieldContent",
-									"value": "week",
-									"type": "Text"
-								}
-							],
-							[
 								"background_color",
 								{
 									"__TYPE__": "FieldContent",
@@ -797,6 +789,14 @@
 									"__TYPE__": "FieldContent",
 									"value": "#056a2f",
 									"type": "Color"
+								}
+							],
+							[
+								"session_url",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "country",
+									"type": "Text"
 								}
 							]
 						]

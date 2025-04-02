@@ -51,13 +51,17 @@
                     | {{ t('© Interface - Québec {n}. Tous droits réservés.', new Date().getFullYear()) }}
                 </span>
                 <span>
-                    <template v-if="$config.public.commitTag || $config.public.commitShortSha">{{
-                        t('Version:')
-                    }}</template>
-                    {{ $config.public.commitTag }}
-                    {{
-                        $config.public.commitTag ? `(${$config.public.commitShortSha})` : $config.public.commitShortSha
-                    }}
+                    <template v-if="$config.public.commitTag || $config.public.commitShortSha">
+                        {{ t('Version:') }}
+                    </template>
+                    <span v-if="$config.public.commitTag">&nbsp;{{ $config.public.commitTag }}</span>
+                    <span
+                        >&nbsp;{{
+                            $config.public.commitTag
+                                ? `(${$config.public.commitShortSha})`
+                                : $config.public.commitShortSha
+                        }}</span
+                    >
                 </span>
             </div>
             <ul class="organizers">
@@ -196,17 +200,17 @@ const socials = [
     padding: 48px 16px 32px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     flex-direction: column;
     flex-wrap: wrap;
     gap: 48px;
     @media (--md) {
         padding: 32px;
         flex-direction: row;
+        align-items: center;
     }
 }
 .credits {
-    display: flex;
     gap: 4px;
     font-size: rem(12px);
     a {
@@ -235,7 +239,7 @@ const socials = [
     text-align: right;
 }
 .support-label {
-    padding-right: 12px;
+    padding-right: 10px;
     font-size: rem(12px);
 }
 </style>

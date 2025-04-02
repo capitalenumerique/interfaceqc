@@ -13,9 +13,15 @@ export default defineNuxtConfig({
         '@hebilicious/vue-query-nuxt',
         '@nuxt/scripts',
     ],
+    $development: {
+        scripts: {
+            registry: {
+                googleTagManager: 'mock',
+            },
+        },
+    },
     devtools: {
         enabled: true,
-        componentInspector: false,
     },
     app: {
         pageTransition: { name: 'page', mode: 'out-in' },
