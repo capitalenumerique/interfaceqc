@@ -91,12 +91,20 @@ useSeoMeta({
     padding: 8px;
     margin: 0 0 64px;
     list-style: none;
+    width: 100%;
+    max-width: 400px;
+    justify-content: space-between;
+    @media (--md) {
+        width: auto;
+        max-width: none;
+    }
 }
 .date-tab {
     display: block;
     text-decoration: none;
-    font-size: rem(14px);
+    font-size: rem(12px);
     line-height: 1.25;
+    font-weight: 600;
     color: var(--gray-900);
     background-color: transparent;
     border-radius: 6px;
@@ -110,6 +118,9 @@ useSeoMeta({
         color var(--hover-transition),
         border-style var(--hover-transition),
         border-color var(--hover-transition);
+    @media (--md) {
+        font-size: rem(14px);
+    }
     @media (--lg) {
         font-size: rem(16px);
         padding: 10px 12px;

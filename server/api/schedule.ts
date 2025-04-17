@@ -107,6 +107,7 @@ export default defineEventHandler(async () => {
     });
 
     // Extraire les salles uniques
+    const prioritizedPlace = 'Grande salle';
     const uniquePlaces = Array.from(
         new Set(
             sessions
@@ -114,12 +115,10 @@ export default defineEventHandler(async () => {
                 .map((session) => session.place),
         ),
     ).sort((a, b) => {
-        // Ordonner les salles et prendre en compte si leur nom contient un chiffre
-        const extractNumericValue = (place: string): number => {
-            const match = place.match(/(\d+)/);
-            return match ? parseInt(match[0], 10) : Infinity;
-        };
-        return extractNumericValue(a) - extractNumericValue(b);
+        // Ordonner les salles en plaçant "Grande salle" en premier
+        if (a === prioritizedPlace) return -1;
+        if (b === prioritizedPlace) return 1;
+        return 0;
     });
 
     // Ordonner les sessions par date et créneaux horaires
