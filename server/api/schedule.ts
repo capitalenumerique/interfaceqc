@@ -107,6 +107,7 @@ export default defineEventHandler(async () => {
     });
 
     // Extraire les salles uniques
+    const orderedPlaces = ['Grande salle', 'Salle PLG numérique', 'Salle Axeptio', 'Espace Offside'];
     const uniquePlaces = Array.from(
         new Set(
             sessions
@@ -114,12 +115,12 @@ export default defineEventHandler(async () => {
                 .map((session) => session.place),
         ),
     ).sort((a, b) => {
-        // Ordonner les salles et prendre en compte si leur nom contient un chiffre
-        const extractNumericValue = (place: string): number => {
-            const match = place.match(/(\d+)/);
-            return match ? parseInt(match[0], 10) : Infinity;
-        };
-        return extractNumericValue(a) - extractNumericValue(b);
+        // Ordonner les salles selon le array "orderedPlaces"
+        const indexA = orderedPlaces.indexOf(a);
+        const indexB = orderedPlaces.indexOf(b);
+
+        // Les salles définies dans orderedPlaces viennent avant celles non définies
+        return (indexA === -1 ? Infinity : indexA) - (indexB === -1 ? Infinity : indexB);
     });
 
     // Ordonner les sessions par date et créneaux horaires
