@@ -51,7 +51,7 @@ const breakpoints = useBreakpoints({ lg: 1024 }, { ssrWidth: 1024 });
 const showPlace = breakpoints.smaller('lg');
 const day = route.params.day;
 
-const { data } = defineProps({
+defineProps({
     data: {
         type: Array,
         default: () => [],
@@ -63,30 +63,6 @@ defineI18nRoute({
         fr: '/programmation/[day]',
     },
 });
-
-// const formatRedirects = (day) => {
-//     return data[day - 1].timeslots
-//         .reduce((acc, timeslot) => {
-//             return [...acc, ...timeslot.places];
-//         }, [])
-//         .filter((t) => t.session)
-//         .filter((t) => !['Pause', '5 à 7'].includes(t.session.type))
-//         .map((t) => t.session)
-//         .filter((s) => !s.speakers.some((s) => s.id === 'RXZlbnRQZW9wbGVfMzY5OTE2MzM='))
-//         .reduce((acc, session) => {
-//             acc[`/conference/${useSlug(session.title)}-${session.id}`] = {
-//                 redirect: `/programmation/${day}/conference/${useSlug(session.title)}-${session.id}`,
-//                 statusCode: 301,
-//             };
-//             acc[`/session/${useSlug(session.title)}-${session.id}`] = {
-//                 redirect: `/en/schedule/${day}/session/${useSlug(session.title)}-${session.id}`,
-//                 statusCode: 301,
-//             };
-//             return acc;
-//         }, {});
-// };
-
-// const redirects = { ...formatRedirects(1), ...formatRedirects(2), ...formatRedirects(3) };
 </script>
 
 <style lang="postcss" scoped>
