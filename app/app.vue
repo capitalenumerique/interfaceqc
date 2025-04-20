@@ -3,6 +3,10 @@ const route = useRoute();
 const getRouteBaseName = useRouteBaseName();
 const i18nHead = useLocaleHead();
 
+const { locale } = useI18n();
+const config = useRuntimeConfig();
+const ogImage = computed(() => `${config.public.i18n.baseUrl}/og-image-${locale.value}.png`);
+
 useHead(() => ({
     titleTemplate: (title) => {
         if (getRouteBaseName(route) === 'index') return title;
@@ -12,7 +16,13 @@ useHead(() => ({
         lang: i18nHead.value.htmlAttrs.lang,
     },
     link: [...(i18nHead.value.link || [])],
-    meta: [...(i18nHead.value.meta || [])],
+    meta: [
+        ...(i18nHead.value.meta || []),
+        {
+            property: 'og:image',
+            content: ogImage,
+        },
+    ],
 }));
 </script>
 

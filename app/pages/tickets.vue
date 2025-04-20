@@ -82,6 +82,6 @@ const { data: page } = await useAsyncData('tickets', () => {
 useSeoMeta({
     title: page.value?.data.meta_title,
     description: page.value?.data.meta_description,
-    ogImage: computed(() => prismic.asImageSrc(page.value?.data.meta_image)),
+    // ogImage: computed(() => prismic.asImageSrc(page.value?.data.meta_image)),
 });
 </script>
