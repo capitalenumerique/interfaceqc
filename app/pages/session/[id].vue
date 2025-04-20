@@ -25,14 +25,16 @@
             <ul class="speakers-list">
                 <li v-for="speaker in data.speakers" :key="speaker.id">
                     <div class="speaker-wrapper">
-                        <img
-                            v-if="speaker.photoUrl"
-                            class="speaker-photo"
-                            width="128"
-                            height="128"
-                            :src="speaker.photoUrl"
-                            alt=""
-                        />
+                        <div class="speaker-photo">
+                            <img v-if="speaker.photoUrl" width="128" height="128" :src="speaker.photoUrl" alt="" />
+                            <img
+                                v-else
+                                width="128"
+                                height="128"
+                                :src="`https://ui-avatars.com/api/?name=${speaker.firstName}+${speaker.lastName}&background=e2d5c6&color=593e35&bold=true&format=svg`"
+                                alt=""
+                            />
+                        </div>
                         <div>
                             <h2 class="speaker-name">{{ speaker.firstName }} {{ speaker.lastName }}</h2>
                             <p class="speaker-infos">{{ speaker.jobTitle }}, {{ speaker.organization }}</p>
@@ -176,6 +178,8 @@ useSeoMeta({
     height: 128px;
     background: var(--beige-200);
     border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
 }
 .speaker-name {
     font-size: rem(18px);
