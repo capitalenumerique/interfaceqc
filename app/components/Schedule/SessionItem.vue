@@ -42,7 +42,7 @@ const props = defineProps({
 const sessionSlug = useSlug(props.session.title);
 
 const hasNoDetailPage = computed(() => {
-    const hasNoSpeaker = props.session.speakers.some((s) => s.id === 'RXZlbnRQZW9wbGVfMzY5OTE2MzM=');
+    const hasNoSpeaker = props.session.speakers.some((s) => s.id === 'RXZlbnRQZW9wbGVfMzgyMTc4NjI=');
     return hasNoSpeaker;
 });
 
