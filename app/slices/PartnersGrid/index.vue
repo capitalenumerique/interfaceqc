@@ -11,23 +11,19 @@ defineProps(getSliceComponentProps<Content.PartnersGridSlice>(['slice', 'index',
 
 <template>
     <section class="partners-section" :data-slice-type="slice.slice_type" :data-slice-variation="slice.variation">
+        <PrimaryButton class="partners-cta" to="mailto:info@capitalenumerique.com">
+            {{ t('Devenir partenaire') }}
+        </PrimaryButton>
         <BouncingAnimation class="animation-container" :duration="9000">
             <IconAsterisk class="asterisk" width="180" />
         </BouncingAnimation>
         <BouncingAnimation class="animation-container is-reversed" :duration="9000">
             <IconLemon class="lemon" width="180" />
         </BouncingAnimation>
-        <SliceIntro>
-            <template #title>{{ t('Partenaires') }}</template>
-            <template #wysiwyg>{{ slice.primary.description }}</template>
-            <template #cta>
-                <PrimaryButton to="mailto:info@capitalenumerique.com">{{ t('Devenir partenaire') }}</PrimaryButton>
-            </template>
-        </SliceIntro>
         <ul class="partners-list">
-            <li v-for="(partner, index) in slice.primary.partner" :key="`partner-${index}`" class="partner-item">
-                <a :href="partner.website.url" target="_blank">
-                    <img class="partner-logo" :src="partner.logo.url" :alt="partner.logo.alt" />
+            <li v-for="(item, index) in slice.primary.partners_grid" :key="`partner-${index}`" class="partner-item">
+                <a :href="item.partner.data.website.url" target="_blank">
+                    <img class="partner-logo" :src="item.partner.data.logo.url" :alt="item.partner.data.logo.alt" />
                 </a>
             </li>
         </ul>
@@ -42,6 +38,9 @@ defineProps(getSliceComponentProps<Content.PartnersGridSlice>(['slice', 'index',
     @media (--lg) {
         margin: 100px auto;
     }
+}
+.partners-cta {
+    margin: 0 16px 32px;
 }
 .animation-container {
     position: absolute;

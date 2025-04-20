@@ -139,6 +139,135 @@ export type HomeDocument<Lang extends string = string> = prismic.PrismicDocument
     Lang
 >;
 
+/**
+ * Content for Partner documents
+ */
+interface PartnerDocumentData {
+    /**
+     * Logo field in *Partner*
+     *
+     * - **Field Type**: Image
+     * - **Placeholder**: *None*
+     * - **API ID Path**: partner.logo
+     * - **Tab**: Main
+     * - **Documentation**: https://prismic.io/docs/field#image
+     */
+    logo: prismic.ImageField<never>;
+
+    /**
+     * Name field in *Partner*
+     *
+     * - **Field Type**: Text
+     * - **Placeholder**: Nom du partenaire
+     * - **API ID Path**: partner.name
+     * - **Tab**: Main
+     * - **Documentation**: https://prismic.io/docs/field#key-text
+     */
+    name: prismic.KeyTextField;
+
+    /**
+     * Website field in *Partner*
+     *
+     * - **Field Type**: Link
+     * - **Placeholder**: Site Web du partenaire
+     * - **API ID Path**: partner.website
+     * - **Tab**: Main
+     * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+     */
+    website: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
+
+    /**
+     * Category field in *Partner*
+     *
+     * - **Field Type**: Select
+     * - **Placeholder**: Catégorie du partenaire
+     * - **Default Value**: Principaux
+     * - **API ID Path**: partner.category
+     * - **Tab**: Main
+     * - **Documentation**: https://prismic.io/docs/field#select
+     */
+    category: prismic.SelectField<'Principaux' | 'Secondaires', 'filled'>;
+}
+
+/**
+ * Partner document from Prismic
+ *
+ * - **API ID**: `partner`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type PartnerDocument<Lang extends string = string> = prismic.PrismicDocumentWithUID<
+    Simplify<PartnerDocumentData>,
+    'partner',
+    Lang
+>;
+
+type PartnersDocumentDataSlicesSlice = PageIntroHeaderSlice | PartnersGridSlice;
+
+/**
+ * Content for Partners documents
+ */
+interface PartnersDocumentData {
+    /**
+     * Slice Zone field in *Partners*
+     *
+     * - **Field Type**: Slice Zone
+     * - **Placeholder**: *None*
+     * - **API ID Path**: partners.slices[]
+     * - **Tab**: Main
+     * - **Documentation**: https://prismic.io/docs/field#slices
+     */
+    slices: prismic.SliceZone<PartnersDocumentDataSlicesSlice> /**
+     * Meta Title field in *Partners*
+     *
+     * - **Field Type**: Text
+     * - **Placeholder**: A title of the page used for social media and search engines
+     * - **API ID Path**: partners.meta_title
+     * - **Tab**: SEO & Metadata
+     * - **Documentation**: https://prismic.io/docs/field#key-text
+     */;
+    meta_title: prismic.KeyTextField;
+
+    /**
+     * Meta Description field in *Partners*
+     *
+     * - **Field Type**: Text
+     * - **Placeholder**: A brief summary of the page
+     * - **API ID Path**: partners.meta_description
+     * - **Tab**: SEO & Metadata
+     * - **Documentation**: https://prismic.io/docs/field#key-text
+     */
+    meta_description: prismic.KeyTextField;
+
+    /**
+     * Meta Image field in *Partners*
+     *
+     * - **Field Type**: Image
+     * - **Placeholder**: *None*
+     * - **API ID Path**: partners.meta_image
+     * - **Tab**: SEO & Metadata
+     * - **Documentation**: https://prismic.io/docs/field#image
+     */
+    meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * Partners document from Prismic
+ *
+ * - **API ID**: `partners`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type PartnersDocument<Lang extends string = string> = prismic.PrismicDocumentWithoutUID<
+    Simplify<PartnersDocumentData>,
+    'partners',
+    Lang
+>;
+
 type ProgramDocumentDataSlicesSlice = PageIntroHeaderSlice;
 
 /**
@@ -385,7 +514,14 @@ export type TicketsDocument<Lang extends string = string> = prismic.PrismicDocum
     Lang
 >;
 
-export type AllDocumentTypes = FaqDocument | HomeDocument | ProgramDocument | TicketTypesDocument | TicketsDocument;
+export type AllDocumentTypes =
+    | FaqDocument
+    | HomeDocument
+    | PartnerDocument
+    | PartnersDocument
+    | ProgramDocument
+    | TicketTypesDocument
+    | TicketsDocument;
 
 /**
  * Item in *Accordions → Default → Primary → Accordions*
@@ -763,49 +899,18 @@ type PageIntroHeaderSliceVariation = PageIntroHeaderSliceDefault;
 export type PageIntroHeaderSlice = prismic.SharedSlice<'page_intro_header', PageIntroHeaderSliceVariation>;
 
 /**
- * Item in *PartnersGrid → Default → Primary → Partner*
+ * Item in *PartnersGrid → Default → Primary → Partners grid*
  */
-export interface PartnersGridSliceDefaultPrimaryPartnerItem {
+export interface PartnersGridSliceDefaultPrimaryPartnersGridItem {
     /**
-     * Logo field in *PartnersGrid → Default → Primary → Partner*
+     * Partner field in *PartnersGrid → Default → Primary → Partners grid*
      *
-     * - **Field Type**: Image
+     * - **Field Type**: Content Relationship
      * - **Placeholder**: *None*
-     * - **API ID Path**: partners_grid.default.primary.partner[].logo
-     * - **Documentation**: https://prismic.io/docs/field#image
-     */
-    logo: prismic.ImageField<never>;
-
-    /**
-     * Name field in *PartnersGrid → Default → Primary → Partner*
-     *
-     * - **Field Type**: Text
-     * - **Placeholder**: Nom du partenaire
-     * - **API ID Path**: partners_grid.default.primary.partner[].name
-     * - **Documentation**: https://prismic.io/docs/field#key-text
-     */
-    name: prismic.KeyTextField;
-
-    /**
-     * Website field in *PartnersGrid → Default → Primary → Partner*
-     *
-     * - **Field Type**: Link
-     * - **Placeholder**: Url du site Web du partenaire
-     * - **API ID Path**: partners_grid.default.primary.partner[].website
+     * - **API ID Path**: partners_grid.default.primary.partners_grid[].partner
      * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
      */
-    website: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
-
-    /**
-     * Category field in *PartnersGrid → Default → Primary → Partner*
-     *
-     * - **Field Type**: Select
-     * - **Placeholder**: Catégorie du partenaire
-     * - **Default Value**: Principaux
-     * - **API ID Path**: partners_grid.default.primary.partner[].category
-     * - **Documentation**: https://prismic.io/docs/field#select
-     */
-    category: prismic.SelectField<'Principaux' | 'Secondaires', 'filled'>;
+    partner: prismic.ContentRelationshipField<'partner'>;
 }
 
 /**
@@ -823,14 +928,14 @@ export interface PartnersGridSliceDefaultPrimary {
     description: prismic.KeyTextField;
 
     /**
-     * Partner field in *PartnersGrid → Default → Primary*
+     * Partners grid field in *PartnersGrid → Default → Primary*
      *
      * - **Field Type**: Group
      * - **Placeholder**: *None*
-     * - **API ID Path**: partners_grid.default.primary.partner[]
+     * - **API ID Path**: partners_grid.default.primary.partners_grid[]
      * - **Documentation**: https://prismic.io/docs/field#group
      */
-    partner: prismic.GroupField<Simplify<PartnersGridSliceDefaultPrimaryPartnerItem>>;
+    partners_grid: prismic.GroupField<Simplify<PartnersGridSliceDefaultPrimaryPartnersGridItem>>;
 }
 
 /**
@@ -1001,6 +1106,11 @@ declare module '@prismicio/client' {
             HomeDocument,
             HomeDocumentData,
             HomeDocumentDataSlicesSlice,
+            PartnerDocument,
+            PartnerDocumentData,
+            PartnersDocument,
+            PartnersDocumentData,
+            PartnersDocumentDataSlicesSlice,
             ProgramDocument,
             ProgramDocumentData,
             ProgramDocumentDataSlicesSlice,
@@ -1035,7 +1145,7 @@ declare module '@prismicio/client' {
             PageIntroHeaderSliceVariation,
             PageIntroHeaderSliceDefault,
             PartnersGridSlice,
-            PartnersGridSliceDefaultPrimaryPartnerItem,
+            PartnersGridSliceDefaultPrimaryPartnersGridItem,
             PartnersGridSliceDefaultPrimary,
             PartnersGridSliceVariation,
             PartnersGridSliceDefault,

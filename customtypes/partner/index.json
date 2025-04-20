@@ -1,0 +1,52 @@
+{
+    "format": "custom",
+    "id": "partner",
+    "label": "Partner",
+    "repeatable": true,
+    "status": true,
+    "json": {
+        "Main": {
+            "uid": {
+                "type": "UID",
+                "config": {
+                    "label": "UID"
+                }
+            },
+            "logo": {
+                "type": "Image",
+                "config": {
+                    "label": "Logo",
+                    "constraint": {},
+                    "thumbnails": []
+                }
+            },
+            "name": {
+                "type": "Text",
+                "config": {
+                    "label": "Name",
+                    "placeholder": "Nom du partenaire"
+                }
+            },
+            "website": {
+                "type": "Link",
+                "config": {
+                    "label": "Website",
+                    "placeholder": "Site Web du partenaire",
+                    "select": null,
+                    "allowTargetBlank": true,
+                    "allowText": false,
+                    "repeat": false
+                }
+            },
+            "category": {
+                "type": "Select",
+                "config": {
+                    "label": "Category",
+                    "placeholder": "Catégorie du partenaire",
+                    "options": ["Principaux", "Secondaires"],
+                    "default_value": "Principaux"
+                }
+            }
+        }
+    }
+}

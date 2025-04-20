@@ -3,73 +3,31 @@
 		"__TYPE__": "SharedSliceContent",
 		"variation": "default",
 		"primary": {
-			"partner": {
+			"description": {
+				"__TYPE__": "FieldContent",
+				"value": "elephant",
+				"type": "Text"
+			},
+			"partners_grid": {
 				"__TYPE__": "GroupContentType",
 				"value": [
 					{
 						"__TYPE__": "GroupItemContent",
 						"value": [
 							[
-								"logo",
+								"partner",
 								{
-									"origin": {
-										"id": "main",
-										"url": "https://images.unsplash.com/photo-1448932223592-d1fc686e76ea",
-										"width": 3500,
-										"height": 2338
-									},
-									"url": "https://images.unsplash.com/photo-1448932223592-d1fc686e76ea",
-									"width": 3500,
-									"height": 2338,
-									"edit": {
-										"zoom": 1,
-										"crop": {
-											"x": 0,
-											"y": 0
-										},
-										"background": "transparent"
-									},
-									"credits": null,
-									"alt": null,
-									"__TYPE__": "ImageContent",
-									"thumbnails": {}
-								}
-							],
-							[
-								"name",
-								{
-									"__TYPE__": "FieldContent",
-									"value": "spring",
-									"type": "Text"
-								}
-							],
-							[
-								"website",
-								{
-									"key": "6b6444e5-eb5f-4cdf-aa4f-de3a63689014",
+									"key": "d7896327-3c8b-46d8-bf48-04ad1c3fac0b",
 									"__TYPE__": "LinkContent",
 									"value": {
-										"__TYPE__": "ExternalLink",
-										"url": "http://twitter.com"
+										"__TYPE__": "DocumentLink",
+										"id": "mock_document_id"
 									}
-								}
-							],
-							[
-								"category",
-								{
-									"__TYPE__": "FieldContent",
-									"value": "Principaux",
-									"type": "Select"
 								}
 							]
 						]
 					}
 				]
-			},
-			"description": {
-				"__TYPE__": "FieldContent",
-				"value": "elephant",
-				"type": "Text"
 			}
 		},
 		"items": []

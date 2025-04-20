@@ -27,10 +27,15 @@ const { data: page } = await useAsyncData('index', () => {
                         }
                     }
                     ...on partners_grid {
-                       variation {
+                        variation {
                             ...on default {
                                 primary {
                                     ...primaryFields
+                                    partners_grid {
+                                        partner {
+                                            ...partnerFields
+                                        }
+                                    }
                                 }
                             }
                         }
