@@ -90,7 +90,7 @@ const seoDescription = computed(() => {
     }
     return result.trim();
 });
-const seoOgImage = computed(() => data.value?.speakers?.[0]?.bannerUrl || '');
+const seoOgImage = computed(() => data.value?.bannerUrl || data.value?.speakers?.[0]?.photoUrl);
 
 useSeoMeta({
     title: seoTitle,
