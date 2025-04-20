@@ -12,6 +12,7 @@ type Session = {
     categories: string[];
     place: string;
     title: string;
+    bannerUrl: string;
     titleTranslations: { language: string; value: string }[];
 };
 
@@ -60,6 +61,7 @@ export default defineEventHandler(async (event) => {
         description: session.description,
         descriptionTranslations: session.descriptionTranslations,
         htmlDescription: session.htmlDescription,
+        bannerUrl: session.bannerUrl,
         categories: session.categories.map((category) => ({
             name: category,
             colors: getCategoryColor(category),

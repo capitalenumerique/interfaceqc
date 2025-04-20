@@ -27,6 +27,7 @@ export const GET_SESSION_BY_ID = gql`
                         language
                         value
                     }
+                    bannerUrl
                     description
                     htmlDescription
                     categories
