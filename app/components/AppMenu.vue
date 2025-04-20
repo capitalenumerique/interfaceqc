@@ -169,6 +169,7 @@ const onEscape = () => {
     width: 100%;
     padding: 0 32px;
     height: 72px;
+    gap: 40px;
     @media (--md) {
         height: auto;
         flex-direction: column;
