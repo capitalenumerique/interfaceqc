@@ -77,25 +77,10 @@ export default defineEventHandler(async () => {
     const groupedSessions = groupBy(sessions, (session) => session.date);
 
     // Définir les créneaux horaire pour la journée
-    const timeslotRange = Array.from({ length: 9 }, (_, i) => {
-        const hour = 9 + i;
-        return new Date(0, 0, 0, hour, 0, 0);
-    });
+    const baseTimeslotRange = Array.from({ length: 9 }, (_, i) => new Date(0, 0, 0, 9 + i, 0, 0));
 
-    // Associe les bonnes sessions aux bons créneaux horaires
-    const findTimeslot = (time: string): string => {
-        const [hour, minute] = time.split(':').map(Number);
-        const sessionTime = new Date(0, 0, 0, hour, minute, 0);
-
-        return (
-            timeslotRange
-                .slice()
-                .reverse()
-                .find((slot) => slot <= sessionTime)
-                ?.toTimeString()
-                .split(' ')[0] || '09:00:00'
-        );
-    };
+    // Créneau spécial avant 9h
+    const earlyTimeslot = new Date(0, 0, 0, 7, 30, 0);
 
     // Extraire les catégories uniques et leur assigner des couleurs
     const allCategories = Array.from(new Set(sessions.flatMap((session) => session.categories)));
@@ -127,84 +112,109 @@ export default defineEventHandler(async () => {
     // @TODO: Rendre le code plus lisible, jtel donne Laurent :D
     const sortedResult = Object.keys(groupedSessions)
         .sort((a, b) => new Date(a).getTime() - new Date(b).getTime())
-        .map((date) => ({
-            date,
-            timeslots: timeslotRange.map((slot) => {
-                const timeString = slot.toTimeString().split(' ')[0];
-
-                // Trouver les sessions de ce créneau horaire
-                const sessionsInTimeslot = groupedSessions[date].filter(
-                    (session) => findTimeslot(session.beginsAt) === timeString,
+        .map((date) => {
+            const findTimeslot = (time: string, slots: Date[]): string => {
+                const [hour, minute] = time.split(':').map(Number);
+                const sessionTime = new Date(0, 0, 0, hour, minute, 0);
+                return (
+                    slots
+                        .slice()
+                        .reverse()
+                        .find((slot) => slot <= sessionTime)
+                        ?.toTimeString()
+                        .split(' ')[0] || '09:00:00'
                 );
+            };
 
-                // Valider s'il s'agit d'une conférence
-                const specialSession = sessionsInTimeslot.find((session) => session.type !== 'Conférence');
+            // Déterminer si une session spéciale avant 9h existe pour ce jour
+            const hasEarlySession = groupedSessions[date].some((session) => {
+                const [hour, minute] = session.beginsAt.split(':').map(Number);
+                const sessionTime = new Date(0, 0, 0, hour, minute, 0);
+                return sessionTime < new Date(0, 0, 0, 9, 0, 0);
+            });
 
-                let places;
-                let type;
-                if (specialSession) {
-                    // S'il s'agit d'un autre type que "Conférence", par exemple: un keynote, un atelier au dîner
-                    // ou un 5 à 7, elle sera la seule session du créneau horaire
-                    places = [
-                        {
-                            name: specialSession.place,
-                            session: {
-                                id: specialSession.id,
-                                title: specialSession.title,
-                                beginsAt: specialSession.beginsAt,
-                                endsAt: specialSession.endsAt,
-                                categories: specialSession.categories.map((category) => ({
-                                    name: category,
-                                    colors: getCategoryColor(category),
-                                })),
-                                type: specialSession.type,
-                                speakers: uniqBy(
-                                    groupedSessions[date]
-                                        .filter((s) => s.title === specialSession.title)
-                                        .map((s) => s.speaker),
-                                    (speaker) => speaker.id,
-                                ),
+            // Ajouter le créneau spécial uniquement si nécessaire
+            const dayTimeslotRange = hasEarlySession ? [earlyTimeslot, ...baseTimeslotRange] : [...baseTimeslotRange];
+
+            return {
+                date,
+                timeslots: dayTimeslotRange.map((slot) => {
+                    const timeString = slot.toTimeString().split(' ')[0];
+
+                    // Trouver les sessions de ce créneau horaire
+                    const sessionsInTimeslot = groupedSessions[date].filter(
+                        (session) => findTimeslot(session.beginsAt, dayTimeslotRange) === timeString,
+                    );
+
+                    // Valider s'il s'agit d'une conférence
+                    const specialSession = sessionsInTimeslot.find((session) => session.type !== 'Conférence');
+
+                    let places;
+                    let type;
+                    if (specialSession) {
+                        // S'il s'agit d'un autre type que "Conférence", par exemple: un keynote, un atelier au dîner
+                        // ou un 5 à 7, elle sera la seule session du créneau horaire
+                        places = [
+                            {
+                                name: specialSession.place,
+                                session: {
+                                    id: specialSession.id,
+                                    title: specialSession.title,
+                                    beginsAt: specialSession.beginsAt,
+                                    endsAt: specialSession.endsAt,
+                                    categories: specialSession.categories.map((category) => ({
+                                        name: category,
+                                        colors: getCategoryColor(category),
+                                    })),
+                                    type: specialSession.type,
+                                    speakers: uniqBy(
+                                        groupedSessions[date]
+                                            .filter((s) => s.title === specialSession.title)
+                                            .map((s) => s.speaker),
+                                        (speaker) => speaker.id,
+                                    ),
+                                },
                             },
-                        },
-                    ];
-                    type = 'special';
-                } else {
-                    // Conférences par défaut
-                    places = uniquePlaces.map((place) => {
-                        const sessionInPlace = sessionsInTimeslot.find((session) => session.place === place);
-                        return {
-                            name: place,
-                            session: sessionInPlace
-                                ? {
-                                      id: sessionInPlace.id,
-                                      title: sessionInPlace.title,
-                                      beginsAt: sessionInPlace.beginsAt,
-                                      endsAt: sessionInPlace.endsAt,
-                                      categories: sessionInPlace.categories.map((category) => ({
-                                          name: category,
-                                          colors: getCategoryColor(category),
-                                      })),
-                                      type: sessionInPlace.type,
-                                      speakers: uniqBy(
-                                          groupedSessions[date]
-                                              .filter((s) => s.title === sessionInPlace.title)
-                                              .map((s) => s.speaker),
-                                          (speaker) => speaker.id,
-                                      ),
-                                  }
-                                : null,
-                        };
-                    });
-                    type = 'regular';
-                }
+                        ];
+                        type = 'special';
+                    } else {
+                        // Conférences par défaut
+                        places = uniquePlaces.map((place) => {
+                            const sessionInPlace = sessionsInTimeslot.find((session) => session.place === place);
+                            return {
+                                name: place,
+                                session: sessionInPlace
+                                    ? {
+                                          id: sessionInPlace.id,
+                                          title: sessionInPlace.title,
+                                          beginsAt: sessionInPlace.beginsAt,
+                                          endsAt: sessionInPlace.endsAt,
+                                          categories: sessionInPlace.categories.map((category) => ({
+                                              name: category,
+                                              colors: getCategoryColor(category),
+                                          })),
+                                          type: sessionInPlace.type,
+                                          speakers: uniqBy(
+                                              groupedSessions[date]
+                                                  .filter((s) => s.title === sessionInPlace.title)
+                                                  .map((s) => s.speaker),
+                                              (speaker) => speaker.id,
+                                          ),
+                                      }
+                                    : null,
+                            };
+                        });
+                        type = 'regular';
+                    }
 
-                return {
-                    time: timeString,
-                    places,
-                    type,
-                };
-            }),
-        }));
+                    return {
+                        time: timeString,
+                        places,
+                        type,
+                    };
+                }),
+            };
+        });
 
     return sortedResult;
 });
