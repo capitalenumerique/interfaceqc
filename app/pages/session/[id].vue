@@ -37,7 +37,11 @@
                         </div>
                         <div>
                             <h2 class="speaker-name">{{ speaker.firstName }} {{ speaker.lastName }}</h2>
-                            <p class="speaker-infos">{{ speaker.jobTitle }}, {{ speaker.organization }}</p>
+                            <p v-if="speaker.jobTitle || speaker.organization" class="speaker-infos">
+                                <span v-if="speaker.jobTitle">{{ speaker.jobTitle }}</span>
+                                <span v-if="speaker.jobTitle && speaker.organization">, </span>
+                                <span v-if="speaker.organization">{{ speaker.organization }}</span>
+                            </p>
                             <p v-if="speaker.biography" class="speaker-biography">{{ speaker.biography }}</p>
                         </div>
                     </div>
