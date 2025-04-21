@@ -13,7 +13,7 @@ defineProps(getSliceComponentProps<Content.TextImageSlice>(['slice', 'index', 's
             <h2 class="content-title">
                 {{ slice.primary.title }}
             </h2>
-            <div class="content-cta">
+            <div v-if="slice.primary.cta.url" class="content-cta">
                 <PrimaryButton :to="slice.primary.cta.url">{{ slice.primary.cta.text }}</PrimaryButton>
                 <IconHalfCircle class="icon-half-circle" />
             </div>

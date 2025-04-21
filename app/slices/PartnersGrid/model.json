@@ -12,11 +12,29 @@
       "description": "Default",
       "imageUrl": "",
       "primary": {
+        "title": {
+          "type": "Text",
+          "config": {
+            "label": "Title",
+            "placeholder": ""
+          }
+        },
         "description": {
           "type": "Text",
           "config": {
             "label": "Description",
             "placeholder": "Description de la section"
+          }
+        },
+        "cta": {
+          "type": "Link",
+          "config": {
+            "label": "Call to action",
+            "placeholder": "",
+            "select": null,
+            "allowTargetBlank": true,
+            "allowText": true,
+            "repeat": false
           }
         },
         "partners_grid": {

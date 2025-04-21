@@ -18,6 +18,15 @@
 						}
 					}
 				]
+			},
+			"cta": {
+				"__TYPE__": "LinkContent",
+				"key": "e15fb71a-56ec-4580-a872-40b0431eabb3",
+				"value": {
+					"__TYPE__": "ExternalLink",
+					"url": "https://slicemachine.dev",
+					"text": "simple"
+				}
 			}
 		},
 		"items": []

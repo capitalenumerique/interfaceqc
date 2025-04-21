@@ -12,6 +12,9 @@ defineProps(getSliceComponentProps<Content.PageIntroHeaderSlice>(['slice', 'inde
         <div class="header-intro">
             <PrismicRichText :field="slice.primary.introduction" />
         </div>
+        <PrimaryButton v-if="slice.primary.cta.url" :to="slice.primary.cta.url" class="header-cta">
+            {{ slice.primary.cta.text }}
+        </PrimaryButton>
     </header>
 </template>
 
@@ -42,5 +45,9 @@ defineProps(getSliceComponentProps<Content.PageIntroHeaderSlice>(['slice', 'inde
             margin-bottom: 0;
         }
     }
+}
+.header-cta {
+    text-transform: lowercase;
+    margin-top: 24px;
 }
 </style>

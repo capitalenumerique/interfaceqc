@@ -27,6 +27,17 @@
             "allowTargetBlank": true,
             "multi": "paragraph,strong,em,hyperlink"
           }
+        },
+        "cta": {
+          "type": "Link",
+          "config": {
+            "label": "Call to action",
+            "placeholder": "",
+            "select": null,
+            "allowTargetBlank": false,
+            "allowText": true,
+            "repeat": false
+          }
         }
       },
       "items": {}

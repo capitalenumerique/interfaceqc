@@ -2,7 +2,6 @@
 import type { Content } from '@prismicio/client';
 import IconAsterisk from '@/assets/svg/shapes/asterisk.svg?component';
 import IconLemon from '@/assets/svg/shapes/lemon.svg?component';
-const { t } = useI18n();
 
 // The array passed to `getSliceComponentProps` is purely optional.
 // Consider it as a visual hint for you when templating your slice.
@@ -11,15 +10,21 @@ defineProps(getSliceComponentProps<Content.PartnersGridSlice>(['slice', 'index',
 
 <template>
     <section class="partners-section" :data-slice-type="slice.slice_type" :data-slice-variation="slice.variation">
-        <PrimaryButton class="partners-cta" to="mailto:info@capitalenumerique.com">
-            {{ t('Devenir partenaire') }}
-        </PrimaryButton>
         <BouncingAnimation class="animation-container" :duration="9000">
             <IconAsterisk class="asterisk" width="180" />
         </BouncingAnimation>
         <BouncingAnimation class="animation-container is-reversed" :duration="9000">
             <IconLemon class="lemon" width="180" />
         </BouncingAnimation>
+        <SliceIntro v-if="slice.primary.title && slice.primary.description && slice.primary.cta.url">
+            <template v-if="slice.primary.title" #title>{{ slice.primary.title }}</template>
+            <template v-if="slice.primary.description" #wysiwyg>{{ slice.primary.description }}</template>
+            <template v-if="slice.primary.cta.url" #cta>
+                <PrimaryButton :to="slice.primary.cta.url">
+                    {{ slice.primary.cta.text }}
+                </PrimaryButton>
+            </template>
+        </SliceIntro>
         <ul class="partners-list">
             <li v-for="(item, index) in slice.primary.partners_grid" :key="`partner-${index}`" class="partner-item">
                 <a :href="item.partner.data.website.url" target="_blank">
@@ -83,12 +88,3 @@ defineProps(getSliceComponentProps<Content.PartnersGridSlice>(['slice', 'index',
     }
 }
 </style>
-
-<i18n lang="json">
-{
-    "en": {
-        "Partenaires": "Partners",
-        "Devenir partenaire": "Become a partner"
-    }
-}
-</i18n>

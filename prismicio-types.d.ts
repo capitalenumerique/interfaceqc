@@ -869,6 +869,16 @@ export interface PageIntroHeaderSliceDefaultPrimary {
      * - **Documentation**: https://prismic.io/docs/field#rich-text-title
      */
     introduction: prismic.RichTextField;
+
+    /**
+     * Call to action field in *PageIntroHeader → Default → Primary*
+     *
+     * - **Field Type**: Link
+     * - **Placeholder**: *None*
+     * - **API ID Path**: page_intro_header.default.primary.cta
+     * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+     */
+    cta: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
 }
 
 /**
@@ -918,6 +928,16 @@ export interface PartnersGridSliceDefaultPrimaryPartnersGridItem {
  */
 export interface PartnersGridSliceDefaultPrimary {
     /**
+     * Title field in *PartnersGrid → Default → Primary*
+     *
+     * - **Field Type**: Text
+     * - **Placeholder**: *None*
+     * - **API ID Path**: partners_grid.default.primary.title
+     * - **Documentation**: https://prismic.io/docs/field#key-text
+     */
+    title: prismic.KeyTextField;
+
+    /**
      * Description field in *PartnersGrid → Default → Primary*
      *
      * - **Field Type**: Text
@@ -926,6 +946,16 @@ export interface PartnersGridSliceDefaultPrimary {
      * - **Documentation**: https://prismic.io/docs/field#key-text
      */
     description: prismic.KeyTextField;
+
+    /**
+     * Call to action field in *PartnersGrid → Default → Primary*
+     *
+     * - **Field Type**: Link
+     * - **Placeholder**: *None*
+     * - **API ID Path**: partners_grid.default.primary.cta
+     * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+     */
+    cta: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
 
     /**
      * Partners grid field in *PartnersGrid → Default → Primary*
