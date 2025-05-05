@@ -49,6 +49,10 @@ const breakpoints = useBreakpoints({ lg: 1024 }, { ssrWidth: 1024 });
 const showPlace = breakpoints.smaller('lg');
 const day = route.params.day;
 
+definePageMeta({
+    scrollToTop: false,
+});
+
 defineProps({
     data: {
         type: Array,
