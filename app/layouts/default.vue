@@ -73,10 +73,11 @@ const { t } = useI18n();
     text-transform: lowercase;
     @media (--md) {
         position: absolute;
-        top: 64px;
+        top: 32px;
     }
     @media (--lg) {
         padding: 14px 18px;
+        top: 64px;
     }
     @media (--xl) {
         right: 64px;

@@ -22,7 +22,10 @@ defineProps(getSliceComponentProps<Content.PageIntroHeaderSlice>(['slice', 'inde
 .page-header {
     max-width: var(--page-container-max-width);
     padding: 0 16px;
-    margin: 64px auto;
+    margin: 32px auto;
+    @media (--lg) {
+        margin: 64px auto;
+    }
 }
 .header-title {
     font-size: rem(36px);
