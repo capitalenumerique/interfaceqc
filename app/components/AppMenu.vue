@@ -328,12 +328,12 @@ const onEscape = () => {
     width: 24px;
     height: 24px;
     box-sizing: content-box;
-    padding: 12px;
+    padding: 20px;
     margin: 0;
     color: var(--gray-900);
     border: 0;
     appearance: none;
-    margin-left: -41px;
+    margin-left: -48px;
     @media (--md) {
         margin: -12px;
     }
