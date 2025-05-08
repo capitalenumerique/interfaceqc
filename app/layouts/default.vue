@@ -32,6 +32,7 @@ const { t } = useI18n();
     margin-top: 72px;
     z-index: 10;
     background: var(--beige-100);
+    transform: translate3d(0, 0, 0);
     @media (--md) {
         display: grid;
         grid-template-columns: 68px 1fr;
