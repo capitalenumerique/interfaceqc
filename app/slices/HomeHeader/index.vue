@@ -73,12 +73,13 @@ defineProps(getSliceComponentProps<Content.HomeHeaderSlice>(['slice', 'index', '
                         {{ t('Découvrez notre programmation et faites votre parcours comme vous voulez mes chums.') }}
                     </p>
                     <div class="infos-links">
-                        <!-- TODO: Add link -->
-                        <a href="#" target="_blank">
+                        <a href="https://apps.apple.com/ca/app/swapcard-smart-event-app/id879488719" target="_blank">
                             <img :src="`/app-store-${locale}.svg`" alt="" />
                         </a>
-                        <!-- TODO: Add link -->
-                        <a href="#" target="_blank">
+                        <a
+                            href="https://play.google.com/store/apps/details?id=com.swapcard.apps.android&pcampaignid=web_share"
+                            target="_blank"
+                        >
                             <img :src="`/google-play-${locale}.svg`" alt="" />
                         </a>
                     </div>
