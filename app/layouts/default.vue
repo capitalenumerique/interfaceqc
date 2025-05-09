@@ -36,6 +36,7 @@ const { t } = useI18n();
         display: grid;
         grid-template-columns: 68px 1fr;
         margin-top: 0;
+        transform: translate3d(0, 0, 0);
     }
     &::before,
     &::after {
@@ -72,10 +73,11 @@ const { t } = useI18n();
     text-transform: lowercase;
     @media (--md) {
         position: absolute;
-        top: 64px;
+        top: 32px;
     }
     @media (--lg) {
         padding: 14px 18px;
+        top: 64px;
     }
     @media (--xl) {
         right: 64px;

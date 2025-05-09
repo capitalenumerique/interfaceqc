@@ -7,7 +7,7 @@ import IconLemon from '@/assets/svg/shapes/lemon.svg?component';
 import IconStar from '@/assets/svg/shapes/star.svg?component';
 import IconLogo from '@/assets/svg/logo.svg?component';
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
 const activeIndex = ref(0);
 const shapes = [IconAsterisk, IconLemon, IconStar, IconHexagon];
 const shapesColors = ['--orange-400', '--red-500', '--green-700', '--red-500'];
@@ -51,11 +51,11 @@ defineProps(getSliceComponentProps<Content.HomeHeaderSlice>(['slice', 'index', '
         </ClientOnly>
         <IconLogo v-else class="logo" />
         <div class="event-infos-wrapper">
-            <div class="event-infos">
+            <div class="event-infos infos-top">
                 <h2 class="infos-title">{{ t('Qu’est-ce que l’événement?') }}</h2>
                 <p class="infos-text">{{ slice.primary.home_header_text }}</p>
             </div>
-            <div class="event-infos infos-cta">
+            <!-- <div class="event-infos infos-bottom">
                 <PrimaryButton
                     to="https://ti.to/cnum/interface-2025"
                     target="_blank"
@@ -65,6 +65,25 @@ defineProps(getSliceComponentProps<Content.HomeHeaderSlice>(['slice', 'index', '
                     {{ t('Participer') }}
                 </PrimaryButton>
                 <IconAsterisk width="40" />
+            </div> -->
+            <div class="event-infos infos-bottom infos-download">
+                <div>
+                    <h2 class="infos-title">{{ t('Téléchargez notre application mobile') }}</h2>
+                    <p class="infos-text">
+                        {{ t('Découvrez notre programmation et faites votre parcours comme vous voulez mes chums.') }}
+                    </p>
+                    <div class="infos-links">
+                        <a href="https://apps.apple.com/ca/app/swapcard-smart-event-app/id879488719" target="_blank">
+                            <img :src="`/app-store-${locale}.svg`" alt="" />
+                        </a>
+                        <a
+                            href="https://play.google.com/store/apps/details?id=com.swapcard.apps.android&pcampaignid=web_share"
+                            target="_blank"
+                        >
+                            <img :src="`/google-play-${locale}.svg`" alt="" />
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -86,6 +105,9 @@ defineProps(getSliceComponentProps<Content.HomeHeaderSlice>(['slice', 'index', '
     @media (--md) {
         max-width: 1150px;
         width: 70%;
+        padding: 32px 16px;
+    }
+    @media (--lg) {
         padding: 64px 48px;
     }
 }
@@ -151,30 +173,69 @@ defineProps(getSliceComponentProps<Content.HomeHeaderSlice>(['slice', 'index', '
         padding: 32px;
     }
 }
-.infos-title {
-    font-size: rem(18px);
-    font-weight: 600;
-    margin-bottom: 24px;
-    text-transform: lowercase;
-    @media (--lg) {
-        font-size: rem(20px);
-        margin-bottom: 32px;
+
+.infos-top {
+    .infos-title {
+        font-size: rem(18px);
+        font-weight: 600;
+        margin-bottom: 24px;
+        text-transform: lowercase;
+        text-wrap: pretty;
+        @media (--lg) {
+            font-size: rem(20px);
+            margin-bottom: 32px;
+        }
+    }
+    .infos-text {
+        font-size: rem(28px);
+        font-weight: 600;
+        margin: 0;
+        text-wrap: pretty;
+        @media (--lg) {
+            font-size: rem(48px);
+        }
     }
 }
-.infos-text {
-    font-size: rem(32px);
-    font-weight: 600;
-    margin: 0;
-    @media (--lg) {
-        font-size: rem(48px);
-    }
-}
-.infos-cta {
+.infos-bottom {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    .infos-title {
+        font-size: rem(18px);
+        font-weight: 600;
+        margin-bottom: 16px;
+        text-wrap: pretty;
+        @media (--lg) {
+            font-size: rem(20px);
+            margin-bottom: 16px;
+        }
+    }
+    .infos-text {
+        font-size: rem(28px);
+        font-weight: 600;
+        margin: 16px 0;
+        text-wrap: balance;
+        @media (--lg) {
+            font-size: rem(36px);
+        }
+    }
     .primary-button {
         text-transform: lowercase;
+    }
+    .infos-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 24px;
+        @media (--lg) {
+            margin-top: 32px;
+        }
+    }
+    img {
+        height: 44px;
+        @media (--lg) {
+            height: 56px;
+        }
     }
 }
 </style>
@@ -185,7 +246,9 @@ defineProps(getSliceComponentProps<Content.HomeHeaderSlice>(['slice', 'index', '
         "27 au 29 <br>mai 2025": "May 27 to 29 <br>2025",
         "Terminal de croisière <br>Port de Québec": "Cruise Terminal <br>Port of Québec",
         "Qu’est-ce que l’événement?": "What is the event?",
-        "Participer": "Participate"
+        "Participer": "Participate",
+        "Téléchargez notre application mobile": "Download our mobile application",
+        "Découvrez notre programmation et faites votre parcours comme vous voulez mes chums.": "Discover our programming and make your schedule as you want my friends."
     }
 }
 </i18n>
