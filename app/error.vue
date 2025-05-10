@@ -3,10 +3,13 @@ import IconAsterisk from '@/assets/svg/shapes/asterisk.svg?component';
 const { t } = useI18n();
 
 useHead(() => ({
-    titleTemplate: 'Interface',
+    titleTemplate: () => {
+        const title = props.error.statusCode === 404 ? t('Page non trouvée') : t('Une erreur est survenue');
+        return `${title} | Interface`;
+    },
 }));
 
-defineProps({
+const props = defineProps({
     error: {
         type: Object,
         required: true,
@@ -50,9 +53,6 @@ const handleError = () => clearError({ redirect: '/' });
 </template>
 
 <style lang="postcss">
-.animation-container {
-    z-index: -1;
-}
 .shape-container {
     display: flex;
     justify-content: center;
@@ -83,6 +83,13 @@ const handleError = () => clearError({ redirect: '/' });
     min-height: 60vh;
     @media (--lg) {
         min-height: 100vh;
+    }
+    .animation-container {
+        position: absolute;
+        height: 100%;
+        left: 0;
+        top: 0;
+        z-index: -1;
     }
 }
 .error-title {
