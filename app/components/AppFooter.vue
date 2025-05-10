@@ -239,7 +239,6 @@ const socials = [
     justify-content: space-between;
     align-items: flex-start;
     flex-direction: column;
-    flex-wrap: wrap;
     gap: 48px;
     @media (--md) {
         padding: 16px 32px;
