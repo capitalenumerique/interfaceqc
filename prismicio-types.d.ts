@@ -210,11 +210,11 @@ export type HomeDocument<Lang extends string = string> = prismic.PrismicDocument
 >;
 
 /**
- * Content for Partner documents
+ * Content for Partners documents
  */
 interface PartnerDocumentData {
     /**
-     * Logo field in *Partner*
+     * Logo field in *Partners*
      *
      * - **Field Type**: Image
      * - **Placeholder**: *None*
@@ -225,7 +225,7 @@ interface PartnerDocumentData {
     logo: prismic.ImageField<never>;
 
     /**
-     * Name field in *Partner*
+     * Name field in *Partners*
      *
      * - **Field Type**: Text
      * - **Placeholder**: Nom du partenaire
@@ -236,7 +236,7 @@ interface PartnerDocumentData {
     name: prismic.KeyTextField;
 
     /**
-     * Website field in *Partner*
+     * Website field in *Partners*
      *
      * - **Field Type**: Link
      * - **Placeholder**: Site Web du partenaire
@@ -247,7 +247,7 @@ interface PartnerDocumentData {
     website: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
 
     /**
-     * Category field in *Partner*
+     * Category field in *Partners*
      *
      * - **Field Type**: Select
      * - **Placeholder**: Catégorie du partenaire
@@ -260,7 +260,7 @@ interface PartnerDocumentData {
 }
 
 /**
- * Partner document from Prismic
+ * Partners document from Prismic
  *
  * - **API ID**: `partner`
  * - **Repeatable**: `true`
@@ -766,7 +766,7 @@ export interface HomeHeaderSliceDefaultPrimary {
      * Home header text field in *HomeHeader → Default → Primary*
      *
      * - **Field Type**: Text
-     * - **Placeholder**: Qu'est-ce que l'événement?
+     * - **Placeholder**: *None*
      * - **API ID Path**: home_header.default.primary.home_header_text
      * - **Documentation**: https://prismic.io/docs/field#key-text
      */
