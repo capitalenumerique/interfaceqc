@@ -8,12 +8,12 @@ defineProps(getSliceComponentProps<Content.Text2ColumnsSlice>(['slice', 'index',
 
 <template>
     <section :data-slice-type="slice.slice_type" :data-slice-variation="slice.variation" class="text-2columns">
-        <div class="block-grid">
+        <div class="slice-grid">
             <div>
-                <div class="block-surtitle">{{ slice.primary.surtitle }}</div>
-                <h2 class="block-title">{{ slice.primary.title }}</h2>
+                <div class="slice-surtitle">{{ slice.primary.surtitle }}</div>
+                <h2 class="slice-title">{{ slice.primary.title }}</h2>
             </div>
-            <div class="block-content wysiwyg">
+            <div class="slice-content wysiwyg">
                 <PrismicRichText :field="slice.primary.content" />
             </div>
         </div>
@@ -29,12 +29,12 @@ defineProps(getSliceComponentProps<Content.Text2ColumnsSlice>(['slice', 'index',
         margin: 64px auto;
     }
 }
-.block-surtitle {
+.slice-surtitle {
     font-weight: 600;
     margin: 0;
     margin-bottom: 12px;
 }
-.block-title {
+.slice-title {
     font-size: rem(32px);
     font-weight: 600;
     margin: 0;
@@ -42,13 +42,13 @@ defineProps(getSliceComponentProps<Content.Text2ColumnsSlice>(['slice', 'index',
         font-size: rem(48px);
     }
 }
-.block-content {
+.slice-content {
     font-size: rem(18px);
     @media (--lg) {
         font-size: rem(20px);
     }
 }
-.block-grid {
+.slice-grid {
     display: grid;
     gap: 24px;
     @media (--lg) {

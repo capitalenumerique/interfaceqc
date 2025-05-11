@@ -74,7 +74,7 @@ const mapping = [
 
 <template>
     <section :data-slice-type="slice.slice_type" :data-slice-variation="slice.variation" class="block">
-        <h2 v-if="slice.primary.section_title" class="block-title">
+        <h2 v-if="slice.primary.section_title" class="slice-title">
             <span>{{ slice.primary.section_title }}</span>
         </h2>
         <ul v-if="slice.primary.volunteers" class="volunteers-grid">
@@ -128,7 +128,7 @@ const mapping = [
         margin: 100px 0;
     }
 }
-.block-title {
+.slice-title {
     font-size: rem(18px);
     font-weight: bold;
     padding: 24px 0;

@@ -12,7 +12,7 @@ const { t } = useI18n();
 
 <template>
     <section class="block" :data-slice-type="slice.slice_type" :data-slice-variation="slice.variation">
-        <h2 v-if="slice.primary.section_title" class="block-title">
+        <h2 v-if="slice.primary.section_title" class="slice-title">
             <span>{{ slice.primary.section_title }}</span>
         </h2>
         <div class="ticket-types-wrapper">
@@ -89,7 +89,7 @@ const { t } = useI18n();
         margin: 100px 0;
     }
 }
-.block-title {
+.slice-title {
     font-size: rem(18px);
     font-weight: bold;
     padding: 24px 0;
