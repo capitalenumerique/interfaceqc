@@ -7,10 +7,9 @@
                     <li>
                         <a href="mailto:info@interfaceqc.com">{{ t("info{'@'}interfaceqc.com") }}</a>
                     </li>
-                    <!-- @TODO: Ajout les vrais liens lorsque les pages existeront -->
-                    <!-- <li>
-                        <a href="#">{{ t('Partenaires') }}</a>
-                    </li> -->
+                    <li>
+                        <NuxtLinkLocale to="partners">{{ t('Partenaires') }}</NuxtLinkLocale>
+                    </li>
                     <li>
                         <NuxtLinkLocale to="faq">{{ t('Faq') }}</NuxtLinkLocale>
                     </li>
