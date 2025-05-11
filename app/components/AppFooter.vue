@@ -35,6 +35,20 @@
                     </li>
                 </ul>
             </div>
+            <div class="column">
+                <img
+                    class="quebec-city-logo"
+                    src="@/assets/img/ville-quebec.svg"
+                    :alt="t('Ville de Québec l’accent d’Amérique')"
+                />
+                <p class="quebec-city-text">
+                    {{
+                        t(
+                            'Ce projet est réalisé grâce au soutien financier de la Vision Entrepreneuriale Québec 2026 de la Ville de Québec',
+                        )
+                    }}
+                </p>
+            </div>
         </div>
         <ClientOnly v-if="showMarquee">
             <Vue3Marquee>
@@ -48,7 +62,7 @@
                     <a href="https://capitalenumerique.com/politique-de-confidentialite/" target="_blank">
                         {{ t('Politique de confidentialité') }}
                     </a>
-                    | {{ t('© Interface - Québec {n}. Tous droits réservés.', new Date().getFullYear()) }}
+                    | {{ t('© Interface - Québec {n}. Tous droits réservés.', new Date().getFullYear()) }}&nbsp;
                 </span>
                 <span>
                     <template v-if="$config.public.commitTag || $config.public.commitShortSha">
@@ -68,7 +82,7 @@
                 <li>
                     <a class="organizer-link" href="https://capitalenumerique.com/" target="_blank">
                         <span class="support-label">{{ t('supporté par') }}</span>
-                        <img src="@/assets/img/capitale-numerique.png" :alt="t('Capitale Numérique')" />
+                        <img src="@/assets/img/capitale-numerique.svg" :alt="t('Capitale Numérique')" />
                     </a>
                 </li>
             </ul>
@@ -136,7 +150,10 @@ const socials = [
     gap: 48px 24px;
     @media (--md) {
         padding: 80px 40px;
-        flex-direction: row;
+    }
+    @media (--lg) {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 .socials-list {
@@ -145,6 +162,11 @@ const socials = [
     gap: 40px;
     padding: 0;
     margin: 0;
+    @media (--lg) {
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
 }
 .social-link {
     color: var(--beige-100);
@@ -196,16 +218,30 @@ const socials = [
         height: auto;
     }
 }
+.quebec-city-logo {
+    display: block;
+    @media (--lg) {
+        margin-left: auto;
+    }
+}
+.quebec-city-text {
+    font-size: rem(12px);
+    text-wrap: balance;
+    max-width: 275px;
+    @media (--lg) {
+        text-align: right;
+        margin-left: auto;
+    }
+}
 .credits-wrapper {
     padding: 48px 16px 32px;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     flex-direction: column;
-    flex-wrap: wrap;
     gap: 48px;
     @media (--md) {
-        padding: 32px;
+        padding: 16px 32px;
         flex-direction: row;
         align-items: center;
     }
@@ -213,6 +249,10 @@ const socials = [
 .credits {
     gap: 4px;
     font-size: rem(12px);
+    margin-right: 64px;
+    @media (--md) {
+        margin-right: 0;
+    }
     a {
         color: var(--beige-100);
         &:hover,
@@ -226,8 +266,11 @@ const socials = [
     padding: 0;
     margin: 0;
     gap: 32px;
+    margin-right: 48px;
     @media (--md-down) {
         order: -1;
+        margin-left: auto;
+        margin-right: 0;
     }
 }
 .organizer-link {
@@ -239,8 +282,8 @@ const socials = [
     text-align: right;
 }
 .support-label {
-    padding-right: 10px;
     font-size: rem(12px);
+    margin-bottom: 4px;
 }
 </style>
 
@@ -251,6 +294,7 @@ const socials = [
         "Faq": "Faq",
         "Politique de confidentialité": "Privacy policy",
         "Édition {year}": "{year} edition",
+        "Ce projet est réalisé grâce au soutien financier de la Vision Entrepreneuriale Québec 2026 de la Ville de Québec": "This project is made possible thanks to the financial support of Québec City’s Vision Entrepreneuriale Québec 2026.",
         "supporté par": "supported by",
         "© Interface - Québec {n}. Tous droits réservés.": "© Interface - Québec {n}. All rights reserved."
     }
