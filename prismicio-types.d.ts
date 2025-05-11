@@ -4,6 +4,76 @@ import type * as prismic from '@prismicio/client';
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
+type AboutUsDocumentDataSlicesSlice =
+    | VolunteersSlice
+    | Text2ColumnsSlice
+    | AccordionsSlice
+    | TextSlice
+    | TextImageSlice
+    | PageIntroHeaderSlice;
+
+/**
+ * Content for About Us documents
+ */
+interface AboutUsDocumentData {
+    /**
+     * Slice Zone field in *About Us*
+     *
+     * - **Field Type**: Slice Zone
+     * - **Placeholder**: *None*
+     * - **API ID Path**: about_us.slices[]
+     * - **Tab**: Main
+     * - **Documentation**: https://prismic.io/docs/field#slices
+     */
+    slices: prismic.SliceZone<AboutUsDocumentDataSlicesSlice> /**
+     * Meta Title field in *About Us*
+     *
+     * - **Field Type**: Text
+     * - **Placeholder**: A title of the page used for social media and search engines
+     * - **API ID Path**: about_us.meta_title
+     * - **Tab**: SEO & Metadata
+     * - **Documentation**: https://prismic.io/docs/field#key-text
+     */;
+    meta_title: prismic.KeyTextField;
+
+    /**
+     * Meta Description field in *About Us*
+     *
+     * - **Field Type**: Text
+     * - **Placeholder**: A brief summary of the page
+     * - **API ID Path**: about_us.meta_description
+     * - **Tab**: SEO & Metadata
+     * - **Documentation**: https://prismic.io/docs/field#key-text
+     */
+    meta_description: prismic.KeyTextField;
+
+    /**
+     * Meta Image field in *About Us*
+     *
+     * - **Field Type**: Image
+     * - **Placeholder**: *None*
+     * - **API ID Path**: about_us.meta_image
+     * - **Tab**: SEO & Metadata
+     * - **Documentation**: https://prismic.io/docs/field#image
+     */
+    meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * About Us document from Prismic
+ *
+ * - **API ID**: `about_us`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type AboutUsDocument<Lang extends string = string> = prismic.PrismicDocumentWithoutUID<
+    Simplify<AboutUsDocumentData>,
+    'about_us',
+    Lang
+>;
+
 type FaqDocumentDataSlicesSlice = TextImageSlice | TextSlice | AccordionsSlice | PageIntroHeaderSlice;
 
 /**
@@ -514,14 +584,112 @@ export type TicketsDocument<Lang extends string = string> = prismic.PrismicDocum
     Lang
 >;
 
+/**
+ * Content for Volunteers documents
+ */
+interface VolunteersDocumentData {
+    /**
+     * First Name field in *Volunteers*
+     *
+     * - **Field Type**: Text
+     * - **Placeholder**: *None*
+     * - **API ID Path**: volunteers.first_name
+     * - **Tab**: Main
+     * - **Documentation**: https://prismic.io/docs/field#key-text
+     */
+    first_name: prismic.KeyTextField;
+
+    /**
+     * Last Name field in *Volunteers*
+     *
+     * - **Field Type**: Text
+     * - **Placeholder**: *None*
+     * - **API ID Path**: volunteers.last_name
+     * - **Tab**: Main
+     * - **Documentation**: https://prismic.io/docs/field#key-text
+     */
+    last_name: prismic.KeyTextField;
+
+    /**
+     * Job field in *Volunteers*
+     *
+     * - **Field Type**: Text
+     * - **Placeholder**: *None*
+     * - **API ID Path**: volunteers.job
+     * - **Tab**: Main
+     * - **Documentation**: https://prismic.io/docs/field#key-text
+     */
+    job: prismic.KeyTextField;
+
+    /**
+     * img field in *Volunteers*
+     *
+     * - **Field Type**: Image
+     * - **Placeholder**: *None*
+     * - **API ID Path**: volunteers.img
+     * - **Tab**: Main
+     * - **Documentation**: https://prismic.io/docs/field#image
+     */
+    img: prismic.ImageField<never>;
+
+    /**
+     * linkedin field in *Volunteers*
+     *
+     * - **Field Type**: Link
+     * - **Placeholder**: *None*
+     * - **API ID Path**: volunteers.linkedin
+     * - **Tab**: Main
+     * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+     */
+    linkedin: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
+
+    /**
+     * Comitee field in *Volunteers*
+     *
+     * - **Field Type**: Select
+     * - **Placeholder**: *None*
+     * - **API ID Path**: volunteers.comitee
+     * - **Tab**: Main
+     * - **Documentation**: https://prismic.io/docs/field#select
+     */
+    comitee: prismic.SelectField<
+        | 'Notre C.A.'
+        | 'Responsables'
+        | 'Comité programmation '
+        | 'Comité design '
+        | 'Comité web'
+        | 'Comité communications'
+        | 'Comité logistique'
+        | 'Comité délégations'
+        | 'Autres comités'
+    >;
+}
+
+/**
+ * Volunteers document from Prismic
+ *
+ * - **API ID**: `volunteers`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type VolunteersDocument<Lang extends string = string> = prismic.PrismicDocumentWithUID<
+    Simplify<VolunteersDocumentData>,
+    'volunteers',
+    Lang
+>;
+
 export type AllDocumentTypes =
+    | AboutUsDocument
     | FaqDocument
     | HomeDocument
     | PartnerDocument
     | PartnersDocument
     | ProgramDocument
     | TicketTypesDocument
-    | TicketsDocument;
+    | TicketsDocument
+    | VolunteersDocument;
 
 /**
  * Item in *Accordions → Default → Primary → Accordions*
@@ -1044,6 +1212,68 @@ type TextSliceVariation = TextSliceDefault;
 export type TextSlice = prismic.SharedSlice<'text', TextSliceVariation>;
 
 /**
+ * Primary content in *Text2Columns → Default → Primary*
+ */
+export interface Text2ColumnsSliceDefaultPrimary {
+    /**
+     * Surtitle field in *Text2Columns → Default → Primary*
+     *
+     * - **Field Type**: Text
+     * - **Placeholder**: *None*
+     * - **API ID Path**: text2_columns.default.primary.surtitle
+     * - **Documentation**: https://prismic.io/docs/field#key-text
+     */
+    surtitle: prismic.KeyTextField;
+
+    /**
+     * Title field in *Text2Columns → Default → Primary*
+     *
+     * - **Field Type**: Text
+     * - **Placeholder**: *None*
+     * - **API ID Path**: text2_columns.default.primary.title
+     * - **Documentation**: https://prismic.io/docs/field#key-text
+     */
+    title: prismic.KeyTextField;
+
+    /**
+     * Content field in *Text2Columns → Default → Primary*
+     *
+     * - **Field Type**: Rich Text
+     * - **Placeholder**: *None*
+     * - **API ID Path**: text2_columns.default.primary.content
+     * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+     */
+    content: prismic.RichTextField;
+}
+
+/**
+ * Default variation for Text2Columns Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type Text2ColumnsSliceDefault = prismic.SharedSliceVariation<
+    'default',
+    Simplify<Text2ColumnsSliceDefaultPrimary>,
+    never
+>;
+
+/**
+ * Slice variation for *Text2Columns*
+ */
+type Text2ColumnsSliceVariation = Text2ColumnsSliceDefault;
+
+/**
+ * Text2Columns Shared Slice
+ *
+ * - **API ID**: `text2_columns`
+ * - **Description**: Text2Columns
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type Text2ColumnsSlice = prismic.SharedSlice<'text2_columns', Text2ColumnsSliceVariation>;
+
+/**
  * Primary content in *TextImage → Default → Primary*
  */
 export interface TextImageSliceDefaultPrimary {
@@ -1115,6 +1345,73 @@ type TextImageSliceVariation = TextImageSliceDefault;
  */
 export type TextImageSlice = prismic.SharedSlice<'text_image', TextImageSliceVariation>;
 
+/**
+ * Item in *Volunteers → Default → Primary → Volunteers*
+ */
+export interface VolunteersSliceDefaultPrimaryVolunteersItem {
+    /**
+     * Volunteer field in *Volunteers → Default → Primary → Volunteers*
+     *
+     * - **Field Type**: Content Relationship
+     * - **Placeholder**: *None*
+     * - **API ID Path**: volunteers.default.primary.volunteers[].volunteer
+     * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+     */
+    volunteer: prismic.ContentRelationshipField<'volunteers'>;
+}
+
+/**
+ * Primary content in *Volunteers → Default → Primary*
+ */
+export interface VolunteersSliceDefaultPrimary {
+    /**
+     * Section Title field in *Volunteers → Default → Primary*
+     *
+     * - **Field Type**: Text
+     * - **Placeholder**: *None*
+     * - **API ID Path**: volunteers.default.primary.section_title
+     * - **Documentation**: https://prismic.io/docs/field#key-text
+     */
+    section_title: prismic.KeyTextField;
+
+    /**
+     * Volunteers field in *Volunteers → Default → Primary*
+     *
+     * - **Field Type**: Group
+     * - **Placeholder**: *None*
+     * - **API ID Path**: volunteers.default.primary.volunteers[]
+     * - **Documentation**: https://prismic.io/docs/field#group
+     */
+    volunteers: prismic.GroupField<Simplify<VolunteersSliceDefaultPrimaryVolunteersItem>>;
+}
+
+/**
+ * Default variation for Volunteers Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type VolunteersSliceDefault = prismic.SharedSliceVariation<
+    'default',
+    Simplify<VolunteersSliceDefaultPrimary>,
+    never
+>;
+
+/**
+ * Slice variation for *Volunteers*
+ */
+type VolunteersSliceVariation = VolunteersSliceDefault;
+
+/**
+ * Volunteers Shared Slice
+ *
+ * - **API ID**: `volunteers`
+ * - **Description**: Volunteers
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type VolunteersSlice = prismic.SharedSlice<'volunteers', VolunteersSliceVariation>;
+
 declare module '@prismicio/client' {
     interface CreateClient {
         (repositoryNameOrEndpoint: string, options?: prismic.ClientConfig): prismic.Client<AllDocumentTypes>;
@@ -1130,6 +1427,9 @@ declare module '@prismicio/client' {
 
     namespace Content {
         export type {
+            AboutUsDocument,
+            AboutUsDocumentData,
+            AboutUsDocumentDataSlicesSlice,
             FaqDocument,
             FaqDocumentData,
             FaqDocumentDataSlicesSlice,
@@ -1150,6 +1450,8 @@ declare module '@prismicio/client' {
             TicketsDocument,
             TicketsDocumentData,
             TicketsDocumentDataSlicesSlice,
+            VolunteersDocument,
+            VolunteersDocumentData,
             AllDocumentTypes,
             AccordionsSlice,
             AccordionsSliceDefaultPrimaryAccordionsItem,
@@ -1183,10 +1485,19 @@ declare module '@prismicio/client' {
             TextSliceDefaultPrimary,
             TextSliceVariation,
             TextSliceDefault,
+            Text2ColumnsSlice,
+            Text2ColumnsSliceDefaultPrimary,
+            Text2ColumnsSliceVariation,
+            Text2ColumnsSliceDefault,
             TextImageSlice,
             TextImageSliceDefaultPrimary,
             TextImageSliceVariation,
             TextImageSliceDefault,
+            VolunteersSlice,
+            VolunteersSliceDefaultPrimaryVolunteersItem,
+            VolunteersSliceDefaultPrimary,
+            VolunteersSliceVariation,
+            VolunteersSliceDefault,
         };
     }
 }
