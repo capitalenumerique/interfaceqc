@@ -409,7 +409,7 @@ const onEscape = () => {
         "Partenaires": "Partners",
         "Participer": "Participate",
         "Médiathèque": "media Library",
-        "À propos": "About",
+        "À propos": "About Us",
         "Contact": "Contact",
         "Faq": "Faq"
     }
