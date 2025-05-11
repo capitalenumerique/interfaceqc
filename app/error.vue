@@ -1,5 +1,13 @@
 <script setup>
 import IconAsterisk from '@/assets/svg/shapes/asterisk.svg?component';
+
+const props = defineProps({
+    error: {
+        type: Object,
+        required: true,
+    },
+});
+
 const { t } = useI18n();
 
 useHead(() => ({
@@ -8,13 +16,6 @@ useHead(() => ({
         return `${title} | Interface`;
     },
 }));
-
-const props = defineProps({
-    error: {
-        type: Object,
-        required: true,
-    },
-});
 
 const handleError = () => clearError({ redirect: '/' });
 </script>

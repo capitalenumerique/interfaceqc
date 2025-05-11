@@ -15,5 +15,20 @@ export default withNuxt({
         'vue/no-v-html': 'off',
         'vue/v-slot-style': ['error', 'shorthand'],
         'vue/no-bare-strings-in-template': 'error',
+        'vue/define-macros-order': [
+            'error',
+            {
+                order: [
+                    'defineOptions',
+                    'definePageMeta',
+                    'defineI18nRoute',
+                    'defineModel',
+                    'defineProps',
+                    'defineEmits',
+                    'defineSlots',
+                ],
+                defineExposeLast: true,
+            },
+        ],
     },
 });

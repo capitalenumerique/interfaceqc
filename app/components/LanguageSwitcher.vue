@@ -1,8 +1,8 @@
 <script setup>
 const { locale, locales } = useI18n();
 const switchLocalePath = useSwitchLocalePath();
-
 const { $luxon } = useNuxtApp();
+
 watchEffect(() => {
     $luxon.Settings.defaultLocale = locale.value;
 });

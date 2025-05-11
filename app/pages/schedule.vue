@@ -35,7 +35,15 @@ definePageMeta({
     },
 });
 
+defineI18nRoute({
+    paths: {
+        fr: '/programmation',
+        en: '/schedule',
+    },
+});
+
 const { locale } = useI18n();
+const { $luxon } = useNuxtApp();
 const prismic = usePrismic();
 
 const { data: page } = await useAsyncData('schedule', () => {
@@ -48,7 +56,10 @@ onServerPrefetch(async () => {
     await suspense();
 });
 
-const { $luxon } = useNuxtApp();
+useSeoMeta({
+    title: page.value?.data.meta_title,
+    description: page.value?.data.meta_description,
+});
 
 const dates = computed(() => {
     if (!data.value) return [];
@@ -60,18 +71,6 @@ const dates = computed(() => {
         });
         return formattedDate;
     });
-});
-
-defineI18nRoute({
-    paths: {
-        fr: '/programmation',
-        en: '/schedule',
-    },
-});
-
-useSeoMeta({
-    title: page.value?.data.meta_title,
-    description: page.value?.data.meta_description,
 });
 </script>
 

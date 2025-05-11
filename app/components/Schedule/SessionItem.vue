@@ -29,9 +29,6 @@
 </template>
 
 <script setup>
-const { t } = useI18n();
-const { formatSessionTime } = useTimeFormatter();
-
 const props = defineProps({
     session: {
         type: Object,
@@ -39,6 +36,8 @@ const props = defineProps({
     },
 });
 
+const { t } = useI18n();
+const { formatSessionTime } = useTimeFormatter();
 const sessionSlug = useSlug(props.session.title);
 
 const hasNoDetailPage = computed(() => {

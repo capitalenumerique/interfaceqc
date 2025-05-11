@@ -3,11 +3,11 @@ import IconStar from '@/assets/svg/shapes/star.svg?component';
 import IconCheck from '@/assets/svg/shapes/check.svg?component';
 import type { Content } from '@prismicio/client';
 
-const { t } = useI18n();
-
 // The array passed to `getSliceComponentProps` is purely optional.
 // Consider it as a visual hint for you when templating your slice.
 defineProps(getSliceComponentProps<Content.HomeTicketsSlice>(['slice', 'index', 'slices', 'context']));
+
+const { t } = useI18n();
 </script>
 
 <template>

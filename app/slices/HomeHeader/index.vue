@@ -7,6 +7,10 @@ import IconLemon from '@/assets/svg/shapes/lemon.svg?component';
 import IconStar from '@/assets/svg/shapes/star.svg?component';
 import IconLogo from '@/assets/svg/logo.svg?component';
 
+// The array passed to `getSliceComponentProps` is purely optional.
+// Consider it as a visual hint for you when templating your slice.
+defineProps(getSliceComponentProps<Content.HomeHeaderSlice>(['slice', 'index', 'slices', 'context']));
+
 const { t, locale } = useI18n();
 const activeIndex = ref(0);
 const shapes = [IconAsterisk, IconLemon, IconStar, IconHexagon];
@@ -23,10 +27,6 @@ function changeShape() {
         activeIndex.value = 0;
     }
 }
-
-// The array passed to `getSliceComponentProps` is purely optional.
-// Consider it as a visual hint for you when templating your slice.
-defineProps(getSliceComponentProps<Content.HomeHeaderSlice>(['slice', 'index', 'slices', 'context']));
 </script>
 
 <template>
