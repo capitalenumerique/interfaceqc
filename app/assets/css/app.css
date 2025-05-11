@@ -3,6 +3,7 @@ body {
     font-family: Inter, system-ui, sans-serif;
     overflow-x: clip;
     background-color: var(--beige-100);
+    color: var(--gray-900);
 }
 
 html {
