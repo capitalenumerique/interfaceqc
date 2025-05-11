@@ -53,7 +53,7 @@ const handleError = () => clearError({ redirect: '/' });
     </NuxtLayout>
 </template>
 
-<style lang="postcss">
+<style lang="postcss" scoped>
 .shape-container {
     display: flex;
     justify-content: center;
