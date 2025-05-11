@@ -225,6 +225,7 @@ const socials = [
 }
 .quebec-city-text {
     font-size: rem(12px);
+    line-height: 1.3;
     text-wrap: balance;
     max-width: 275px;
     @media (--lg) {
