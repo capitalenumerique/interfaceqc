@@ -79,9 +79,9 @@ const mapping = [
         </h2>
         <ul v-if="slice.primary.volunteers" class="volunteers-grid">
             <li v-for="(category, title) in sortedCategories" :key="title">
-                <h3>{{ title }}</h3>
+                <h3 v-if="Object.values(sortedCategories).length > 1">{{ title }}</h3>
                 <ul class="volunteers-group">
-                    <li v-for="(item, index) in category" :key="index" class="volunteer">
+                    <li v-for="(item, index) in category" :key="index" class="volunteer-item">
                         <Component
                             :is="item.volunteer.data.linkedin?.url ? 'a' : 'span'"
                             :href="item.volunteer.data.linkedin?.url"
