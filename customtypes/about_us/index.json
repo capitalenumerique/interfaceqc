@@ -17,15 +17,6 @@
                         "text2_columns": {
                             "type": "SharedSlice"
                         },
-                        "accordions": {
-                            "type": "SharedSlice"
-                        },
-                        "text": {
-                            "type": "SharedSlice"
-                        },
-                        "text_image": {
-                            "type": "SharedSlice"
-                        },
                         "page_intro_header": {
                             "type": "SharedSlice"
                         }

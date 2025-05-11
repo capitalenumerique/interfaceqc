@@ -13,5 +13,5 @@ export const components = defineSliceZoneComponents({
     text: defineAsyncComponent(() => import('./Text/index.vue')),
     text2_columns: defineAsyncComponent(() => import('./Text2Columns/index.vue')),
     text_image: defineAsyncComponent(() => import('./TextImage/index.vue')),
-    volunteers: defineAsyncComponent(() => import('./Volunteers/index.vue')),
+    volunteers: defineAsyncComponent(() => import('./VolunteersGrid/index.vue')),
 });

@@ -4,13 +4,7 @@ import type * as prismic from '@prismicio/client';
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
-type AboutUsDocumentDataSlicesSlice =
-    | VolunteersSlice
-    | Text2ColumnsSlice
-    | AccordionsSlice
-    | TextSlice
-    | TextImageSlice
-    | PageIntroHeaderSlice;
+type AboutUsDocumentDataSlicesSlice = VolunteersSlice | Text2ColumnsSlice | PageIntroHeaderSlice;
 
 /**
  * Content for About Us documents
@@ -341,11 +335,11 @@ export type PartnersDocument<Lang extends string = string> = prismic.PrismicDocu
 type ProgramDocumentDataSlicesSlice = PageIntroHeaderSlice;
 
 /**
- * Content for Program documents
+ * Content for Schedule documents
  */
 interface ProgramDocumentData {
     /**
-     * Slice Zone field in *Program*
+     * Slice Zone field in *Schedule*
      *
      * - **Field Type**: Slice Zone
      * - **Placeholder**: *None*
@@ -354,7 +348,7 @@ interface ProgramDocumentData {
      * - **Documentation**: https://prismic.io/docs/field#slices
      */
     slices: prismic.SliceZone<ProgramDocumentDataSlicesSlice> /**
-     * Meta Title field in *Program*
+     * Meta Title field in *Schedule*
      *
      * - **Field Type**: Text
      * - **Placeholder**: A title of the page used for social media and search engines
@@ -365,7 +359,7 @@ interface ProgramDocumentData {
     meta_title: prismic.KeyTextField;
 
     /**
-     * Meta Description field in *Program*
+     * Meta Description field in *Schedule*
      *
      * - **Field Type**: Text
      * - **Placeholder**: A brief summary of the page
@@ -376,7 +370,7 @@ interface ProgramDocumentData {
     meta_description: prismic.KeyTextField;
 
     /**
-     * Meta Image field in *Program*
+     * Meta Image field in *Schedule*
      *
      * - **Field Type**: Image
      * - **Placeholder**: *None*
@@ -388,7 +382,7 @@ interface ProgramDocumentData {
 }
 
 /**
- * Program document from Prismic
+ * Schedule document from Prismic
  *
  * - **API ID**: `program`
  * - **Repeatable**: `false`
@@ -403,11 +397,11 @@ export type ProgramDocument<Lang extends string = string> = prismic.PrismicDocum
 >;
 
 /**
- * Item in *Ticket types → Inclusions*
+ * Item in *Tickets → Inclusions*
  */
 export interface TicketTypesDocumentDataInclusionsItem {
     /**
-     * Items field in *Ticket types → Inclusions*
+     * Items field in *Tickets → Inclusions*
      *
      * - **Field Type**: Text
      * - **Placeholder**: *None*
@@ -418,11 +412,11 @@ export interface TicketTypesDocumentDataInclusionsItem {
 }
 
 /**
- * Content for Ticket types documents
+ * Content for Tickets documents
  */
 interface TicketTypesDocumentData {
     /**
-     * Name field in *Ticket types*
+     * Name field in *Tickets*
      *
      * - **Field Type**: Text
      * - **Placeholder**: *None*
@@ -433,7 +427,7 @@ interface TicketTypesDocumentData {
     name: prismic.KeyTextField;
 
     /**
-     * Price field in *Ticket types*
+     * Price field in *Tickets*
      *
      * - **Field Type**: Number
      * - **Placeholder**: *None*
@@ -444,7 +438,7 @@ interface TicketTypesDocumentData {
     price: prismic.NumberField;
 
     /**
-     * Inclusions field in *Ticket types*
+     * Inclusions field in *Tickets*
      *
      * - **Field Type**: Group
      * - **Placeholder**: *None*
@@ -455,7 +449,7 @@ interface TicketTypesDocumentData {
     inclusions: prismic.GroupField<Simplify<TicketTypesDocumentDataInclusionsItem>>;
 
     /**
-     * Sharable field in *Ticket types*
+     * Sharable field in *Tickets*
      *
      * - **Field Type**: Boolean
      * - **Placeholder**: *None*
@@ -467,7 +461,7 @@ interface TicketTypesDocumentData {
     sharable: prismic.BooleanField;
 
     /**
-     * Link field in *Ticket types*
+     * Link field in *Tickets*
      *
      * - **Field Type**: Link
      * - **Placeholder**: *None*
@@ -478,7 +472,7 @@ interface TicketTypesDocumentData {
     link: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
 
     /**
-     * Background Color field in *Ticket types*
+     * Background Color field in *Tickets*
      *
      * - **Field Type**: Color
      * - **Placeholder**: *None*
@@ -489,7 +483,7 @@ interface TicketTypesDocumentData {
     background_color: prismic.ColorField;
 
     /**
-     * Text Color field in *Ticket types*
+     * Text Color field in *Tickets*
      *
      * - **Field Type**: Color
      * - **Placeholder**: *None*
@@ -501,7 +495,7 @@ interface TicketTypesDocumentData {
 }
 
 /**
- * Ticket types document from Prismic
+ * Tickets document from Prismic
  *
  * - **API ID**: `ticket_types`
  * - **Repeatable**: `true`
@@ -589,26 +583,15 @@ export type TicketsDocument<Lang extends string = string> = prismic.PrismicDocum
  */
 interface VolunteersDocumentData {
     /**
-     * First Name field in *Volunteers*
+     * name field in *Volunteers*
      *
      * - **Field Type**: Text
      * - **Placeholder**: *None*
-     * - **API ID Path**: volunteers.first_name
+     * - **API ID Path**: volunteers.name
      * - **Tab**: Main
      * - **Documentation**: https://prismic.io/docs/field#key-text
      */
-    first_name: prismic.KeyTextField;
-
-    /**
-     * Last Name field in *Volunteers*
-     *
-     * - **Field Type**: Text
-     * - **Placeholder**: *None*
-     * - **API ID Path**: volunteers.last_name
-     * - **Tab**: Main
-     * - **Documentation**: https://prismic.io/docs/field#key-text
-     */
-    last_name: prismic.KeyTextField;
+    name: prismic.KeyTextField;
 
     /**
      * Job field in *Volunteers*
@@ -655,8 +638,8 @@ interface VolunteersDocumentData {
     comitee: prismic.SelectField<
         | 'Notre C.A.'
         | 'Responsables'
-        | 'Comité programmation '
-        | 'Comité design '
+        | 'Comité programmation'
+        | 'Comité design'
         | 'Comité web'
         | 'Comité communications'
         | 'Comité logistique'
@@ -766,7 +749,7 @@ export interface HomeHeaderSliceDefaultPrimary {
      * Home header text field in *HomeHeader → Default → Primary*
      *
      * - **Field Type**: Text
-     * - **Placeholder**: *None*
+     * - **Placeholder**: Qu'est-ce que l'événement?
      * - **API ID Path**: home_header.default.primary.home_header_text
      * - **Documentation**: https://prismic.io/docs/field#key-text
      */
@@ -1346,11 +1329,11 @@ type TextImageSliceVariation = TextImageSliceDefault;
 export type TextImageSlice = prismic.SharedSlice<'text_image', TextImageSliceVariation>;
 
 /**
- * Item in *Volunteers → Default → Primary → Volunteers*
+ * Item in *VolunteersGrid → Default → Primary → Volunteers*
  */
 export interface VolunteersSliceDefaultPrimaryVolunteersItem {
     /**
-     * Volunteer field in *Volunteers → Default → Primary → Volunteers*
+     * Volunteer field in *VolunteersGrid → Default → Primary → Volunteers*
      *
      * - **Field Type**: Content Relationship
      * - **Placeholder**: *None*
@@ -1361,11 +1344,11 @@ export interface VolunteersSliceDefaultPrimaryVolunteersItem {
 }
 
 /**
- * Primary content in *Volunteers → Default → Primary*
+ * Primary content in *VolunteersGrid → Default → Primary*
  */
 export interface VolunteersSliceDefaultPrimary {
     /**
-     * Section Title field in *Volunteers → Default → Primary*
+     * Section Title field in *VolunteersGrid → Default → Primary*
      *
      * - **Field Type**: Text
      * - **Placeholder**: *None*
@@ -1375,7 +1358,7 @@ export interface VolunteersSliceDefaultPrimary {
     section_title: prismic.KeyTextField;
 
     /**
-     * Volunteers field in *Volunteers → Default → Primary*
+     * Volunteers field in *VolunteersGrid → Default → Primary*
      *
      * - **Field Type**: Group
      * - **Placeholder**: *None*
@@ -1386,7 +1369,7 @@ export interface VolunteersSliceDefaultPrimary {
 }
 
 /**
- * Default variation for Volunteers Slice
+ * Default variation for VolunteersGrid Slice
  *
  * - **API ID**: `default`
  * - **Description**: Default
@@ -1399,12 +1382,12 @@ export type VolunteersSliceDefault = prismic.SharedSliceVariation<
 >;
 
 /**
- * Slice variation for *Volunteers*
+ * Slice variation for *VolunteersGrid*
  */
 type VolunteersSliceVariation = VolunteersSliceDefault;
 
 /**
- * Volunteers Shared Slice
+ * VolunteersGrid Shared Slice
  *
  * - **API ID**: `volunteers`
  * - **Description**: Volunteers

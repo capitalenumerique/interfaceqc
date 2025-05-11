@@ -1,0 +1,44 @@
+{
+    "id": "volunteers",
+    "type": "SharedSlice",
+    "name": "VolunteersGrid",
+    "description": "Volunteers",
+    "variations": [
+        {
+            "id": "default",
+            "name": "Default",
+            "docURL": "...",
+            "version": "initial",
+            "description": "Default",
+            "imageUrl": "",
+            "primary": {
+                "section_title": {
+                    "type": "Text",
+                    "config": {
+                        "label": "Section Title",
+                        "placeholder": ""
+                    }
+                },
+                "volunteers": {
+                    "type": "Group",
+                    "config": {
+                        "label": "Volunteers",
+                        "repeat": true,
+                        "fields": {
+                            "volunteer": {
+                                "type": "Link",
+                                "config": {
+                                    "label": "Volunteer",
+                                    "select": "document",
+                                    "repeat": false,
+                                    "customtypes": ["volunteers"]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "items": {}
+        }
+    ]
+}
