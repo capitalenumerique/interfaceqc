@@ -164,7 +164,8 @@ const onEscape = () => {
         border-bottom: 0;
     }
     &.menu-opened,
-    &:hover {
+    &:hover,
+    &:focus-visible {
         background-color: var(--beige-100);
     }
 }
@@ -283,7 +284,8 @@ const onEscape = () => {
         translate: -100%;
     }
     &.router-link-active,
-    &:hover {
+    &:hover,
+    &:focus-visible {
         font-weight: 600;
         padding-left: 24px;
         .menu-icon {

@@ -1,5 +1,5 @@
 <template>
-    <div class="session-wrapper" :style="hasNoDetailPage ? null : hoverColors">
+    <div class="session-wrapper" :style="!hasNoDetailPage ? hoverColors : null">
         <div>
             <h2 class="session-title">
                 <template v-if="hasNoDetailPage">{{ session.title }}</template>

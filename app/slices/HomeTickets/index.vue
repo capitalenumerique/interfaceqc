@@ -11,8 +11,8 @@ const { t } = useI18n();
 </script>
 
 <template>
-    <section class="home-tickets" :data-slice-type="slice.slice_type" :data-slice-variation="slice.variation">
-        <h2 v-if="slice.primary.section_title" class="home-tickets-title">
+    <section class="block" :data-slice-type="slice.slice_type" :data-slice-variation="slice.variation">
+        <h2 v-if="slice.primary.section_title" class="block-title">
             <span>{{ slice.primary.section_title }}</span>
         </h2>
         <div class="ticket-types-wrapper">
@@ -83,13 +83,13 @@ const { t } = useI18n();
 </template>
 
 <style lang="postcss" scoped>
-.home-tickets {
+.block {
     margin: 64px 0;
     @media (--lg) {
         margin: 100px 0;
     }
 }
-.home-tickets-title {
+.block-title {
     font-size: rem(18px);
     font-weight: bold;
     padding: 24px 0;

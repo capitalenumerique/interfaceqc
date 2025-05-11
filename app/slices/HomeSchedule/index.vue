@@ -62,7 +62,7 @@ const next = () => {
             </SwiperSlide>
             <SwiperSlide
                 v-for="(speaker, index) in slice.primary.speakers"
-                :key="`${speaker.firstName} ${speaker.lastName}`"
+                :key="`${speaker.first_name} ${speaker.last_name}`"
                 class="slide-speaker"
                 :class="{
                     'is-reversed': index % 2 === 0,
@@ -156,7 +156,8 @@ const next = () => {
         text-decoration: none;
         color: var(--gray-900);
         transition: scale 300ms ease-in-out;
-        &:hover {
+        &:hover,
+        &:focus-visible {
             scale: 1.1;
         }
     }
