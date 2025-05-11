@@ -35,12 +35,18 @@ defineProps(getSliceComponentProps<Content.Text2ColumnsSlice>(['slice', 'index',
     margin-bottom: 12px;
 }
 .block-title {
-    font-size: rem(48px);
+    font-size: rem(32px);
     font-weight: 600;
     margin: 0;
+    @media (--lg) {
+        font-size: rem(48px);
+    }
 }
 .block-content {
-    font-size: rem(20px);
+    font-size: rem(18px);
+    @media (--lg) {
+        font-size: rem(20px);
+    }
 }
 .block-grid {
     display: grid;

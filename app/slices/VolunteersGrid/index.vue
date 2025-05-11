@@ -162,10 +162,16 @@ const mapping = [
 }
 .volunteers-group {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: 1fr;
     gap: 24px;
     padding: 0;
     list-style: none;
+    @media (--md) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    @media (--lg) {
+        grid-template-columns: repeat(4, 1fr);
+    }
 }
 .volunteer-link {
     position: relative;
