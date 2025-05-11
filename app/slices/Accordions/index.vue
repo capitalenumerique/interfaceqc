@@ -9,7 +9,12 @@ defineProps(getSliceComponentProps<Content.AccordionsSlice>(['slice', 'index', '
 <template>
     <section :data-slice-type="slice.slice_type" :data-slice-variation="slice.variation" class="accordions-slice">
         <ul class="accordion-list">
-            <AppAccordion v-for="accordion in slice.primary.accordions" :key="accordion.title" :title="accordion.title">
+            <AppAccordion
+                v-for="accordion in slice.primary.accordions"
+                :key="accordion.title"
+                :title="accordion.title"
+                class="wysiwyg"
+            >
                 <PrismicRichText :field="accordion.content" />
             </AppAccordion>
         </ul>

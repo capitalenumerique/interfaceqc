@@ -12,7 +12,7 @@ defineProps(getSliceComponentProps<Content.TextSlice>(['slice', 'index', 'slices
             <span class="container">{{ slice.primary.title }}</span>
         </h2>
         <div class="container">
-            <div class="content">
+            <div class="content wysiwyg">
                 <PrismicRichText :field="slice.primary.content" />
             </div>
         </div>

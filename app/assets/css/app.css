@@ -42,3 +42,19 @@ svg {
     white-space: nowrap;
     width: 1px;
 }
+
+.wysiwyg {
+    p {
+        margin: 0;
+        &:not(:last-child) {
+            margin-bottom: 1rem;
+        }
+    }
+    a {
+        color: currentColor;
+        &:hover,
+        &:focus-visible {
+            text-decoration: none;
+        }
+    }
+}
