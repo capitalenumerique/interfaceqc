@@ -62,7 +62,7 @@
                     <a href="https://capitalenumerique.com/politique-de-confidentialite/" target="_blank">
                         {{ t('Politique de confidentialité') }}
                     </a>
-                    | {{ t('© Interface - Québec {n}. Tous droits réservés.', new Date().getFullYear()) }}
+                    | {{ t('© Interface - Québec {n}. Tous droits réservés.', new Date().getFullYear()) }}&nbsp;
                 </span>
                 <span>
                     <template v-if="$config.public.commitTag || $config.public.commitShortSha">
@@ -282,8 +282,8 @@ const socials = [
     text-align: right;
 }
 .support-label {
-    padding-right: 10px;
     font-size: rem(12px);
+    margin-bottom: 4px;
 }
 </style>
 
