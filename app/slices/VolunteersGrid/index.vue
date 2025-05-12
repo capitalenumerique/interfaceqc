@@ -220,7 +220,6 @@ const mapping = [
     border-radius: 20px;
     overflow: hidden;
     transform-origin: 32px 0;
-
     transition:
         transform 300ms ease,
         border-radius 300ms ease;
