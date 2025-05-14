@@ -245,10 +245,6 @@ function changeShape() {
     "en": {
         "27 au 29 <br>mai 2025": "May 27 to 29 <br>2025",
         "Terminal de croisière <br>Port de Québec": "Cruise Terminal <br>Port of Québec",
-<<<<<<< HEAD
-=======
-        "Qu’est-ce que l’événement?": "What is the event?",
->>>>>>> @{-1}
         "Participer": "Participate",
         "Téléchargez notre application mobile": "Download our mobile application",
         "Découvrez notre programmation et faites votre parcours comme vous voulez mes chums.": "Discover our programming and make your schedule as you want my friends."
