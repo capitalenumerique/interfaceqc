@@ -159,11 +159,12 @@ const mapping = [
 .volunteers-group {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 16px;
     padding: 0;
     list-style: none;
-    @media (--md) {
+    @media (--sm) {
         grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
     }
     @media (--lg) {
         grid-template-columns: repeat(4, 1fr);
@@ -186,6 +187,18 @@ const mapping = [
         background-color 300ms ease,
         border-color 300ms ease;
     &:is(a) {
+        & {
+            @media (--sm-down) {
+                background-color: var(--backgroundColor);
+                color: var(--textColor);
+                border-color: transparent;
+                .shape-container,
+                .volunteer-img {
+                    transform: scale(0.5);
+                    border-radius: 40px;
+                }
+            }
+        }
         &:hover,
         &:focus-visible {
             background-color: var(--backgroundColor);

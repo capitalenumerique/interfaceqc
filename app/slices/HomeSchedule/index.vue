@@ -142,7 +142,7 @@ const next = () => {
 }
 .slide-speaker,
 .slide-view-all {
-    width: 171px;
+    width: 240px;
     height: auto;
     margin-right: 16px;
     @media (--md) {
@@ -162,17 +162,11 @@ const next = () => {
         }
     }
     .speaker-title {
-        font-size: rem(14px);
+        font-size: rem(16px);
         margin: 0;
-        @media (--md) {
-            font-size: rem(16px);
-        }
     }
     .speaker-subtitle {
-        font-size: rem(10px);
-        @media (--md) {
-            font-size: rem(12px);
-        }
+        font-size: rem(12px);
     }
 }
 .slide-speaker {

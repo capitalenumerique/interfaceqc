@@ -10,7 +10,7 @@ defineProps(getSliceComponentProps<Content.Text2ColumnsSlice>(['slice', 'index',
     <section :data-slice-type="slice.slice_type" :data-slice-variation="slice.variation" class="text-2columns">
         <div class="slice-grid">
             <div>
-                <div class="slice-surtitle">{{ slice.primary.surtitle }}</div>
+                <div v-if="slice.primary.surtitle" class="slice-surtitle">{{ slice.primary.surtitle }}</div>
                 <h2 class="slice-title">{{ slice.primary.title }}</h2>
             </div>
             <div class="slice-content wysiwyg">
@@ -44,6 +44,8 @@ defineProps(getSliceComponentProps<Content.Text2ColumnsSlice>(['slice', 'index',
 }
 .slice-content {
     font-size: rem(18px);
+    line-height: 1.5;
+    color: var(--gray-600);
     @media (--lg) {
         font-size: rem(20px);
     }
