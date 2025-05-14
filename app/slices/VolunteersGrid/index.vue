@@ -104,11 +104,10 @@ const mapping = [
                                 </div>
                             </div>
 
-                            <img
-                                v-if="item.volunteer.data.img?.url"
+                            <PrismicImage
+                                v-if="item.volunteer.data.img"
                                 class="volunteer-img"
-                                :src="item.volunteer.data.img.url"
-                                alt=""
+                                :field="item.volunteer.data.img"
                             />
                             <div v-else class="shape-container">
                                 <IconGlyph class="shape" />
