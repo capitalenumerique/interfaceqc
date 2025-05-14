@@ -636,15 +636,13 @@ interface VolunteersDocumentData {
      * - **Documentation**: https://prismic.io/docs/field#select
      */
     comitee: prismic.SelectField<
-        | 'Notre C.A.'
-        | 'Responsables'
         | 'Comité programmation'
         | 'Comité design'
         | 'Comité web'
         | 'Comité communications'
         | 'Comité logistique'
         | 'Comité délégations'
-        | 'Autres comités'
+        | 'Capitale Numérique'
     >;
 }
 

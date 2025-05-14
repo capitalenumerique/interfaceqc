@@ -54,15 +54,13 @@
                     "label": "Comitee",
                     "placeholder": "",
                     "options": [
-                        "Notre C.A.",
-                        "Responsables",
                         "Comité programmation",
                         "Comité design",
                         "Comité web",
                         "Comité communications",
                         "Comité logistique",
                         "Comité délégations",
-                        "Autres comités"
+                        "Capitale Numérique"
                     ]
                 }
             }

@@ -12,8 +12,6 @@ const { slice } = defineProps(getSliceComponentProps<Content.VolunteersSlice>(['
 const categories = groupBy(slice.primary.volunteers, (item) => item.volunteer.data?.comitee ?? 'Autres comités');
 
 const sortOrder = [
-    'Notre C.A.',
-    'Responsables',
     'Comité programmation',
     'Comité web',
     'Comité design',
@@ -21,7 +19,7 @@ const sortOrder = [
     'Comité logistique',
     'Comité délégations',
     'Autres comités',
-    'undefined',
+    'Capitale Numérique',
 ];
 
 const sortedCategories = Object.fromEntries(
@@ -155,9 +153,7 @@ const mapping = [
         font-size: rem(18px);
         font-weight: 600;
         margin-bottom: 24px;
-        &::first-letter {
-            text-transform: lowercase;
-        }
+        text-transform: lowercase;
     }
 }
 .volunteers-group {
