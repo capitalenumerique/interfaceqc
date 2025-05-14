@@ -6,6 +6,7 @@
 
 <script lang="ts" setup>
 import { components } from '~/slices';
+
 defineI18nRoute({
     paths: {
         fr: '/billetterie',

@@ -68,9 +68,9 @@ function changeShape() {
             </div> -->
             <div class="event-infos infos-bottom infos-download">
                 <div>
-                    <h2 class="infos-title">{{ t('Téléchargez notre application mobile') }}</h2>
+                    <h2 class="infos-title">{{ t("Téléchargez l'application SwapCard") }}</h2>
                     <p class="infos-text">
-                        {{ t('Découvrez notre programmation et faites votre parcours comme vous voulez mes chums.') }}
+                        {{ t('Découvrez la programmation et faites votre parcours comme vous voulez.') }}
                     </p>
                     <div class="infos-links">
                         <a href="https://apps.apple.com/ca/app/swapcard-smart-event-app/id879488719" target="_blank">
