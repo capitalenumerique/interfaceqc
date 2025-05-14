@@ -169,11 +169,11 @@ const mapping = [
     gap: 16px;
     padding: 0;
     list-style: none;
-    @media (--sm) {
+    @media (min-width: 375px) {
         grid-template-columns: repeat(2, 1fr);
-        gap: 24px;
     }
     @media (--md) {
+        gap: 24px;
         grid-template-columns: repeat(3, 1fr);
     }
     @media (--lg) {
@@ -223,9 +223,12 @@ const mapping = [
     }
 }
 .volunteer-header {
-    padding: 16px;
+    padding: 10px;
     line-height: 1.25;
     flex-grow: 1;
+    @media (--md) {
+        padding: 16px;
+    }
 }
 .volunteer-name {
     margin-bottom: 8px;
@@ -238,10 +241,13 @@ const mapping = [
     width: 100%;
     border-radius: 20px;
     overflow: hidden;
-    transform-origin: 32px 0;
+    transform-origin: 20px 0;
     transition:
         transform 300ms ease,
         border-radius 300ms ease;
+    @media (--md) {
+        transform-origin: 32px 0;
+    }
 }
 .shape-container {
     display: flex;
@@ -251,10 +257,13 @@ const mapping = [
     background-color: var(--textColor);
     border-radius: 20px;
     overflow: hidden;
-    transform-origin: 32px 0;
+    transform-origin: 20px 0;
     transition:
         transform 300ms ease,
         border-radius 300ms ease;
+    @media (--md) {
+        transform-origin: 32px 0;
+    }
 }
 .shape {
     width: 75%;
@@ -263,12 +272,17 @@ const mapping = [
 .profile-link {
     position: absolute;
     bottom: 16px;
-    left: 16px;
+    left: 10px;
     z-index: -1;
     color: var(--textColor);
     display: flex;
     align-items: center;
     font-weight: 500;
+    font-size: rem(14px);
+    @media (--md) {
+        bottom: 16px;
+        left: 16px;
+    }
     .icon-linkedin {
         width: 24px;
         height: 24px;
@@ -283,7 +297,7 @@ const mapping = [
     span {
         text-decoration: underline;
         text-underline-offset: 4px;
-        margin-top: -4px;
+        margin-top: -2px;
     }
 }
 </style>
