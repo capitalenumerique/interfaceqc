@@ -4,22 +4,23 @@
     </div>
 </template>
 
-<script lang="ts" setup>
+<script setup>
 import { components } from '~/slices';
+
 defineI18nRoute({
     paths: {
-        fr: '/billetterie',
+        fr: '/a-propos',
     },
 });
 
 const { locale } = useI18n();
 const prismic = usePrismic();
 
-const { data: page } = await useAsyncData('tickets', () => {
-    return prismic.client.getSingle('tickets', {
+const { data: page } = await useAsyncData('about_us', () => {
+    return prismic.client.getSingle('about_us', {
         graphQuery: `{
-            tickets {
-                ...ticketsFields
+            about_us {
+                ...about_usFields
                 slices {
                     ...on page_intro_header {
                        variation {
@@ -30,43 +31,25 @@ const { data: page } = await useAsyncData('tickets', () => {
                             }
                         }
                     }
-                    ...on home_tickets {
+                    ...on text2_columns {
+                       variation {
+                            ...on default {
+                                primary {
+                                    ...primaryFields
+                                }
+                            }
+                        }
+                    }
+                    ...on volunteers {
                         variation {
                             ...on default {
                                 primary {
                                     ...primaryFields
-                                    tickets {
-                                        ticket_type {
-                                            ...ticket_typeFields
+                                    volunteers {
+                                        volunteer {
+                                            ...volunteerFields
                                         }
                                     }
-                                }
-                            }
-                        }
-                    }
-                    ...on text {
-                       variation {
-                            ...on default {
-                                primary {
-                                    ...primaryFields
-                                }
-                            }
-                        }
-                    }
-                    ...on text_image {
-                       variation {
-                            ...on default {
-                                primary {
-                                    ...primaryFields
-                                }
-                            }
-                        }
-                    }
-                    ...on accordions {
-                       variation {
-                            ...on default {
-                                primary {
-                                    ...primaryFields
                                 }
                             }
                         }

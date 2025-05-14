@@ -7,6 +7,10 @@ import IconLemon from '@/assets/svg/shapes/lemon.svg?component';
 import IconStar from '@/assets/svg/shapes/star.svg?component';
 import IconLogo from '@/assets/svg/logo.svg?component';
 
+// The array passed to `getSliceComponentProps` is purely optional.
+// Consider it as a visual hint for you when templating your slice.
+defineProps(getSliceComponentProps<Content.HomeHeaderSlice>(['slice', 'index', 'slices', 'context']));
+
 const { t, locale } = useI18n();
 const activeIndex = ref(0);
 const shapes = [IconAsterisk, IconLemon, IconStar, IconHexagon];
@@ -23,10 +27,6 @@ function changeShape() {
         activeIndex.value = 0;
     }
 }
-
-// The array passed to `getSliceComponentProps` is purely optional.
-// Consider it as a visual hint for you when templating your slice.
-defineProps(getSliceComponentProps<Content.HomeHeaderSlice>(['slice', 'index', 'slices', 'context']));
 </script>
 
 <template>
@@ -52,8 +52,8 @@ defineProps(getSliceComponentProps<Content.HomeHeaderSlice>(['slice', 'index', '
         <IconLogo v-else class="logo" />
         <div class="event-infos-wrapper">
             <div class="event-infos infos-top">
-                <h2 class="infos-title">{{ t('Qu’est-ce que l’événement?') }}</h2>
-                <p class="infos-text">{{ slice.primary.home_header_text }}</p>
+                <h2 class="infos-title">{{ slice.primary.title }}</h2>
+                <p class="infos-text">{{ slice.primary.description }}</p>
             </div>
             <!-- <div class="event-infos infos-bottom">
                 <PrimaryButton
@@ -245,7 +245,6 @@ defineProps(getSliceComponentProps<Content.HomeHeaderSlice>(['slice', 'index', '
     "en": {
         "27 au 29 <br>mai 2025": "May 27 to 29 <br>2025",
         "Terminal de croisière <br>Port de Québec": "Cruise Terminal <br>Port of Québec",
-        "Qu’est-ce que l’événement?": "What is the event?",
         "Participer": "Participate",
         "Téléchargez notre application mobile": "Download our mobile application",
         "Découvrez notre programmation et faites votre parcours comme vous voulez mes chums.": "Discover our programming and make your schedule as you want my friends."

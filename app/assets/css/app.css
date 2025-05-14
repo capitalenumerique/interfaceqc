@@ -3,6 +3,7 @@ body {
     font-family: Inter, system-ui, sans-serif;
     overflow-x: clip;
     background-color: var(--beige-100);
+    color: var(--gray-900);
 }
 
 html {
@@ -40,4 +41,20 @@ svg {
     position: absolute;
     white-space: nowrap;
     width: 1px;
+}
+
+.wysiwyg {
+    p {
+        margin: 0;
+        &:not(:last-child) {
+            margin-bottom: 1rem;
+        }
+    }
+    a {
+        color: currentColor;
+        &:hover,
+        &:focus-visible {
+            text-decoration: none;
+        }
+    }
 }

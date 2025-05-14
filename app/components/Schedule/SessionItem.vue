@@ -1,17 +1,17 @@
 <template>
-    <div class="session-wrapper" :style="hasNoDetailPage ? null : hoverColors">
+    <div class="session-wrapper" :class="{ 'has-details': hasDetails }" :style="hoverColors">
         <div>
             <h2 class="session-title">
-                <template v-if="hasNoDetailPage">{{ session.title }}</template>
                 <NuxtLinkLocale
-                    v-else
+                    v-if="hasDetails"
                     :to="{ name: 'session-id', params: { id: `${sessionSlug}-${session.id}` } }"
                     class="session-link"
                 >
                     {{ session.title }}
                 </NuxtLinkLocale>
+                <template v-else>{{ session.title }}</template>
             </h2>
-            <ul v-if="!hasNoDetailPage" class="speakers-list">
+            <ul v-if="hasDetails" class="speakers-list">
                 <li v-for="(speaker, i) in session.speakers" :key="`speaker-${session.id}-${i}`" class="speaker-item">
                     <p class="speaker-name">{{ speaker.firstName }} {{ speaker.lastName }}</p>
                     <p class="speaker-organization">{{ speaker.organization }}</p>
@@ -29,9 +29,6 @@
 </template>
 
 <script setup>
-const { t } = useI18n();
-const { formatSessionTime } = useTimeFormatter();
-
 const props = defineProps({
     session: {
         type: Object,
@@ -39,12 +36,11 @@ const props = defineProps({
     },
 });
 
+const { t } = useI18n();
+const { formatSessionTime } = useTimeFormatter();
 const sessionSlug = useSlug(props.session.title);
 
-const hasNoDetailPage = computed(() => {
-    const hasNoSpeaker = props.session.speakers.some((s) => s.id === 'RXZlbnRQZW9wbGVfMzgyMTc4NjI=');
-    return hasNoSpeaker;
-});
+const hasDetails = computed(() => props.session.speakers.every((s) => s.id !== 'RXZlbnRQZW9wbGVfMzgyMTc4NjI='));
 
 const hoverColors = computed(() => {
     const colors = props.session.categories?.[0]?.colors || { bg: 'var(--red-600)', text: 'var(--yellow-200)' };
@@ -67,8 +63,8 @@ const hoverColors = computed(() => {
     transition:
         background-color var(--hover-transition),
         color var(--hover-transition);
-    &:hover,
-    &:focus-visible {
+    &.has-details:hover,
+    &.has-details:focus-visible {
         background-color: var(--hover-bg);
         color: var(--hover-text);
         :deep(.category-item) {

@@ -1,7 +1,7 @@
 {
     "format": "page",
-    "id": "program",
-    "label": "Schedule",
+    "id": "about_us",
+    "label": "About Us",
     "repeatable": false,
     "status": true,
     "json": {
@@ -11,6 +11,12 @@
                 "fieldset": "Slice Zone",
                 "config": {
                     "choices": {
+                        "volunteers": {
+                            "type": "SharedSlice"
+                        },
+                        "text2_columns": {
+                            "type": "SharedSlice"
+                        },
                         "page_intro_header": {
                             "type": "SharedSlice"
                         }

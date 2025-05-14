@@ -134,13 +134,6 @@ const onEnter = () => {
         font-size: rem(18px);
         padding: 24px;
     }
-    :deep(a) {
-        color: var(--textColor);
-        &:hover,
-        &:focus-visible {
-            text-decoration: none;
-        }
-    }
 }
 
 .collapse-enter-active,

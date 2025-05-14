@@ -45,7 +45,7 @@ import { useFocusTrap } from '@vueuse/integrations/useFocusTrap';
 import LogoInterface from '@/assets/svg/logo.svg?component';
 import LogoInterfaceVertical from '@/assets/svg/logo-with-glyph-vertical.svg?component';
 
-// import IconLemon from '@/assets/svg/shapes/lemon.svg?component';
+import IconLemon from '@/assets/svg/shapes/lemon.svg?component';
 import IconStar from '@/assets/svg/shapes/star.svg?component';
 import IconHalfCircle from '@/assets/svg/shapes/half-circle.svg?component';
 import IconAsterisk from '@/assets/svg/shapes/asterisk.svg?component';
@@ -53,6 +53,7 @@ import IconAsterisk from '@/assets/svg/shapes/asterisk.svg?component';
 import IconGlyph from '@/assets/svg/shapes/glyph.svg?component';
 // import IconHexagon from '@/assets/svg/shapes/hexagon.svg?component';
 import IconCircle from '@/assets/svg/shapes/circle.svg?component';
+// import IconPlus from '@/assets/svg/shapes/plus.svg?component';
 
 const { t } = useI18n();
 const isOpen = ref(false);
@@ -65,55 +66,55 @@ const items = computed(() => [
         label: t('Accueil'),
         path: 'index',
         icon: IconGlyph,
-        color: 'yellow-200',
+        color: 'yellow-DEFAULT',
     },
     {
         label: t('Billetterie'),
         path: 'tickets',
         icon: IconStar,
-        color: 'pink-300',
+        color: 'pink-DEFAULT',
     },
     {
         label: t('Programmation'),
         path: { name: 'schedule' },
         icon: IconHalfCircle,
-        color: 'red-500',
+        color: 'red-DEFAULT',
     },
     {
         label: t('Partenaires'),
         path: 'partners',
         icon: IconAsterisk,
-        color: 'green-700',
+        color: 'green-DEFAULT',
     },
     // {
     //     label: t('Participer'),
     //     path: 'participate',
     //     icon: IconAsterisk,
-    //     color: 'green-700',
+    //     color: 'green-DEFAULT',
     // },
     // {
     //     label: t('Médiathèque'),
     //     path: 'media-library',
     //     icon: IconTriangle,
-    //     color: 'teal-500',
+    //     color: 'teal-DEFAULT',
     // },
-    // {
-    //     label: t('À propos'),
-    //     path: 'about-us',
-    //     icon: IconGlyph,
-    //     color: 'yellow-200',
-    // },
+    {
+        label: t('À propos'),
+        path: 'about-us',
+        icon: IconLemon,
+        color: 'teal-DEFAULT',
+    },
     // {
     //     label: t('Contact'),
     //     path: 'contact-us',
     //     icon: IconHexagon,
-    //     color: 'orange-400',
+    //     color: 'orange-DEFAULT',
     // },
     {
         label: t('Faq'),
         path: 'faq',
         icon: IconCircle,
-        color: 'blue-700',
+        color: 'blue-DEFAULT',
     },
 ]);
 
@@ -163,7 +164,8 @@ const onEscape = () => {
         border-bottom: 0;
     }
     &.menu-opened,
-    &:hover {
+    &:hover,
+    &:focus-visible {
         background-color: var(--beige-100);
     }
 }
@@ -282,7 +284,8 @@ const onEscape = () => {
         translate: -100%;
     }
     &.router-link-active,
-    &:hover {
+    &:hover,
+    &:focus-visible {
         font-weight: 600;
         padding-left: 24px;
         .menu-icon {
@@ -406,7 +409,7 @@ const onEscape = () => {
         "Partenaires": "Partners",
         "Participer": "Participate",
         "Médiathèque": "media Library",
-        "À propos": "About",
+        "À propos": "About Us",
         "Contact": "Contact",
         "Faq": "Faq"
     }

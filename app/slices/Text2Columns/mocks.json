@@ -1,0 +1,30 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"title": {
+				"__TYPE__": "FieldContent",
+				"value": "forty",
+				"type": "Text"
+			},
+			"surtitle": {
+				"__TYPE__": "FieldContent",
+				"value": "stove",
+				"type": "Text"
+			},
+			"content": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Eu exercitation id consectetur aliqua. Nulla aliqua consequat occaecat nostrud eiusmod sint laborum proident culpa consectetur non."
+						}
+					}
+				]
+			}
+		},
+		"items": []
+	}
+]

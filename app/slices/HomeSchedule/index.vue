@@ -62,7 +62,7 @@ const next = () => {
             </SwiperSlide>
             <SwiperSlide
                 v-for="(speaker, index) in slice.primary.speakers"
-                :key="`${speaker.firstName} ${speaker.lastName}`"
+                :key="`${speaker.first_name} ${speaker.last_name}`"
                 class="slide-speaker"
                 :class="{
                     'is-reversed': index % 2 === 0,
@@ -142,7 +142,7 @@ const next = () => {
 }
 .slide-speaker,
 .slide-view-all {
-    width: 171px;
+    width: 240px;
     height: auto;
     margin-right: 16px;
     @media (--md) {
@@ -156,22 +156,17 @@ const next = () => {
         text-decoration: none;
         color: var(--gray-900);
         transition: scale 300ms ease-in-out;
-        &:hover {
+        &:hover,
+        &:focus-visible {
             scale: 1.1;
         }
     }
     .speaker-title {
-        font-size: rem(14px);
+        font-size: rem(16px);
         margin: 0;
-        @media (--md) {
-            font-size: rem(16px);
-        }
     }
     .speaker-subtitle {
-        font-size: rem(10px);
-        @media (--md) {
-            font-size: rem(12px);
-        }
+        font-size: rem(12px);
     }
 }
 .slide-speaker {

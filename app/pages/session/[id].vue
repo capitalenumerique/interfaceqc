@@ -53,10 +53,17 @@
 
 <script setup>
 import IconBackArrow from '@/assets/svg/back-arrow.svg?component';
+
+defineI18nRoute({
+    paths: {
+        fr: '/programmation/[day]/conference/[id]',
+        en: '/schedule/[day]/session/[id]',
+    },
+});
+
 const { formatSessionTime } = useTimeFormatter();
-
 const { t } = useI18n();
-
+const { $luxon } = useNuxtApp();
 const route = useRoute();
 const sessionId = route.params.id.split('-').pop();
 
@@ -64,24 +71,6 @@ const { data, error, suspense, isLoading } = useSession(sessionId);
 
 onServerPrefetch(async () => {
     await suspense();
-});
-
-const { $luxon } = useNuxtApp();
-
-function formatDate(date) {
-    const formattedDate = $luxon.DateTime.fromISO(date).toLocaleString({
-        weekday: 'long',
-        day: 'numeric',
-        month: 'long',
-    });
-    return formattedDate;
-}
-
-defineI18nRoute({
-    paths: {
-        fr: '/programmation/[day]/conference/[id]',
-        en: '/schedule/[day]/session/[id]',
-    },
 });
 
 const seoTitle = computed(() => data.value?.title || '');
@@ -103,6 +92,15 @@ useSeoMeta({
     description: seoDescription,
     ogImage: seoOgImage,
 });
+
+function formatDate(date) {
+    const formattedDate = $luxon.DateTime.fromISO(date).toLocaleString({
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+    });
+    return formattedDate;
+}
 </script>
 
 <style lang="postcss" scoped>

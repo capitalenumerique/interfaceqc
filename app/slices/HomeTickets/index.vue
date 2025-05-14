@@ -3,16 +3,16 @@ import IconStar from '@/assets/svg/shapes/star.svg?component';
 import IconCheck from '@/assets/svg/shapes/check.svg?component';
 import type { Content } from '@prismicio/client';
 
-const { t } = useI18n();
-
 // The array passed to `getSliceComponentProps` is purely optional.
 // Consider it as a visual hint for you when templating your slice.
 defineProps(getSliceComponentProps<Content.HomeTicketsSlice>(['slice', 'index', 'slices', 'context']));
+
+const { t } = useI18n();
 </script>
 
 <template>
-    <section class="home-tickets" :data-slice-type="slice.slice_type" :data-slice-variation="slice.variation">
-        <h2 v-if="slice.primary.section_title" class="home-tickets-title">
+    <section class="block" :data-slice-type="slice.slice_type" :data-slice-variation="slice.variation">
+        <h2 v-if="slice.primary.section_title" class="slice-title">
             <span>{{ slice.primary.section_title }}</span>
         </h2>
         <div class="ticket-types-wrapper">
@@ -83,13 +83,13 @@ defineProps(getSliceComponentProps<Content.HomeTicketsSlice>(['slice', 'index', 
 </template>
 
 <style lang="postcss" scoped>
-.home-tickets {
+.block {
     margin: 64px 0;
     @media (--lg) {
         margin: 100px 0;
     }
 }
-.home-tickets-title {
+.slice-title {
     font-size: rem(18px);
     font-weight: bold;
     padding: 24px 0;

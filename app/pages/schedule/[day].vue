@@ -41,16 +41,14 @@
 import { useBreakpoints } from '@vueuse/core';
 import { useRoute } from 'vue-router';
 
-const { t } = useI18n();
-const { formatSessionTime } = useTimeFormatter();
-
-const route = useRoute();
-const breakpoints = useBreakpoints({ lg: 1024 }, { ssrWidth: 1024 });
-const showPlace = breakpoints.smaller('lg');
-const day = route.params.day;
-
 definePageMeta({
     scrollToTop: false,
+});
+
+defineI18nRoute({
+    paths: {
+        fr: '/programmation/[day]',
+    },
 });
 
 defineProps({
@@ -60,11 +58,12 @@ defineProps({
     },
 });
 
-defineI18nRoute({
-    paths: {
-        fr: '/programmation/[day]',
-    },
-});
+const { t } = useI18n();
+const { formatSessionTime } = useTimeFormatter();
+const route = useRoute();
+const breakpoints = useBreakpoints({ lg: 1024 }, { ssrWidth: 1024 });
+const showPlace = breakpoints.smaller('lg');
+const day = route.params.day;
 </script>
 
 <style lang="postcss" scoped>
