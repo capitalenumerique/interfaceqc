@@ -7,8 +7,8 @@
 
 <script setup>
 import { components } from '~/slices';
-const { locale } = useI18n();
 
+const { locale } = useI18n();
 const prismic = usePrismic();
 
 const { data: page } = await useAsyncData('home', () => {
