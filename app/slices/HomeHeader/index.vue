@@ -246,8 +246,8 @@ function changeShape() {
         "27 au 29 <br>mai 2025": "May 27 to 29 <br>2025",
         "Terminal de croisière <br>Port de Québec": "Cruise Terminal <br>Port of Québec",
         "Participer": "Participate",
-        "Téléchargez notre application mobile": "Download our mobile application",
-        "Découvrez notre programmation et faites votre parcours comme vous voulez mes chums.": "Discover our programming and make your schedule as you want my friends."
+        "Téléchargez l'application SwapCard": "Download the SwapCard app",
+        "Découvrez la programmation et faites votre parcours comme vous voulez.": "Discover the schedule and plan your days as you want."
     }
 }
 </i18n>
