@@ -744,14 +744,24 @@ export type AccordionsSlice = prismic.SharedSlice<'accordions', AccordionsSliceV
  */
 export interface HomeHeaderSliceDefaultPrimary {
     /**
-     * Home header text field in *HomeHeader → Default → Primary*
+     * Title field in *HomeHeader → Default → Primary*
      *
      * - **Field Type**: Text
-     * - **Placeholder**: Qu'est-ce que l'événement?
-     * - **API ID Path**: home_header.default.primary.home_header_text
+     * - **Placeholder**: *None*
+     * - **API ID Path**: home_header.default.primary.title
      * - **Documentation**: https://prismic.io/docs/field#key-text
      */
-    home_header_text: prismic.KeyTextField;
+    title: prismic.KeyTextField;
+
+    /**
+     * Description field in *HomeHeader → Default → Primary*
+     *
+     * - **Field Type**: Text
+     * - **Placeholder**: *None*
+     * - **API ID Path**: home_header.default.primary.description
+     * - **Documentation**: https://prismic.io/docs/field#key-text
+     */
+    description: prismic.KeyTextField;
 }
 
 /**

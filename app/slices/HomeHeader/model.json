@@ -12,11 +12,18 @@
       "description": "Default",
       "imageUrl": "",
       "primary": {
-        "home_header_text": {
+        "title": {
           "type": "Text",
           "config": {
-            "label": "Home header text",
-            "placeholder": "Qu'est-ce que l'événement?"
+            "label": "Title",
+            "placeholder": ""
+          }
+        },
+        "description": {
+          "type": "Text",
+          "config": {
+            "label": "Description",
+            "placeholder": ""
           }
         }
       },
