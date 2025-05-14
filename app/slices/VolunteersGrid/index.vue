@@ -1,13 +1,17 @@
 <script setup lang="ts">
 import type { Content } from '@prismicio/client';
+import { useI18n } from 'vue-i18n';
 import { groupBy } from 'es-toolkit';
 
 import IconGlyph from '@/assets/svg/shapes/glyph.svg?component';
+import IconExternal from '@/assets/svg/external.svg?component';
 import IconLinkedin from '@/assets/svg/linkedin.svg?component';
 
 // The array passed to `getSliceComponentProps` is purely optional.
 // Consider it as a visual hint for you when templating your slice.
 const { slice } = defineProps(getSliceComponentProps<Content.VolunteersSlice>(['slice', 'index', 'slices', 'context']));
+
+const { t } = useI18n();
 
 const categories = groupBy(slice.primary.volunteers, (item) => item.volunteer.data?.comitee ?? 'Autres comités');
 
@@ -110,7 +114,11 @@ const mapping = [
                                 <IconGlyph class="shape" />
                             </div>
 
-                            <IconLinkedin class="icon-linkedin" />
+                            <div class="profile-link">
+                                <IconLinkedin class="icon-linkedin" />
+                                <span>{{ t('Voir le profil') }}</span>
+                                <IconExternal class="icon-external" />
+                            </div>
                         </Component>
                     </li>
                 </ul>
@@ -166,6 +174,9 @@ const mapping = [
         grid-template-columns: repeat(2, 1fr);
         gap: 24px;
     }
+    @media (--md) {
+        grid-template-columns: repeat(3, 1fr);
+    }
     @media (--lg) {
         grid-template-columns: repeat(4, 1fr);
     }
@@ -188,7 +199,7 @@ const mapping = [
         border-color 300ms ease;
     &:is(a) {
         & {
-            @media (--sm-down) {
+            @media (--md-down) {
                 background-color: var(--backgroundColor);
                 color: var(--textColor);
                 border-color: transparent;
@@ -250,13 +261,38 @@ const mapping = [
     width: 75%;
     color: var(--backgroundColor);
 }
-.icon-linkedin {
+.profile-link {
     position: absolute;
-    width: 24px;
-    height: 24px;
     bottom: 16px;
     left: 16px;
     z-index: -1;
     color: var(--textColor);
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    .icon-linkedin {
+        width: 24px;
+        height: 24px;
+        margin-right: 10px;
+    }
+    .icon-external {
+        width: 12px;
+        height: 12px;
+        margin: 6px 0;
+        margin-left: 4px;
+    }
+    span {
+        text-decoration: underline;
+        text-underline-offset: 4px;
+        margin-top: -4px;
+    }
 }
 </style>
+
+<i18n lang="json">
+{
+    "en": {
+        "Voir le profil": "View profile"
+    }
+}
+</i18n>
