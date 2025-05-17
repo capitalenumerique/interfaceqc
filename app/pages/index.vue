@@ -11,7 +11,7 @@ import { components } from '~/slices';
 const { locale } = useI18n();
 const prismic = usePrismic();
 
-const { data: page } = await useAsyncData('home', () => {
+const { data: page } = await useAsyncData(`home-${locale.value}`, () => {
     return prismic.client.getSingle('home', {
         graphQuery: `{
             home {
