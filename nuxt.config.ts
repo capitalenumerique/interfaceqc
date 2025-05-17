@@ -119,6 +119,7 @@ export default defineNuxtConfig({
             },
         },
     },
+    fonts: { defaults: { weights: [400, 500, 600, 700] } },
     i18n: {
         baseUrl: 'https://interfaceqc.com',
         strategy: 'prefix_except_default',

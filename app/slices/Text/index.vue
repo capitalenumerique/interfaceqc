@@ -25,7 +25,7 @@ defineProps(getSliceComponentProps<Content.TextSlice>(['slice', 'index', 'slices
 }
 .text-title {
     font-size: rem(18px);
-    font-weight: bold;
+    font-weight: 700;
     padding: 24px 0;
     border-top: 1px solid var(--gray-900);
     border-bottom: 1px solid var(--gray-900);
