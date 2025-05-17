@@ -138,13 +138,15 @@ export default defineEventHandler(async () => {
 
             return {
                 date,
-                timeslots: dayTimeslotRange.map((slot) => {
+                timeslots: dayTimeslotRange.flatMap((slot) => {
                     const timeString = slot.toTimeString().split(' ')[0];
-
-                    // Trouver les sessions de ce créneau horaire
                     const sessionsInTimeslot = groupedSessions[date].filter(
                         (session) => findTimeslot(session.beginsAt, dayTimeslotRange) === timeString,
                     );
+                    // Ne pas ajouter le créneau s'il n'y a aucune session
+                    if (sessionsInTimeslot.length === 0) {
+                        return [];
+                    }
 
                     // Valider s'il s'agit d'une conférence
                     const specialSession = sessionsInTimeslot.find((session) => session.type !== 'Conférence');
