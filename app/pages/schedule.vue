@@ -80,6 +80,9 @@ const dates = computed(() => {
     min-height: 100vh;
     margin: 64px auto;
     padding: 0 16px;
+    @media (--md) {
+        padding: 0 32px;
+    }
 }
 .date-tabs {
     display: inline-flex;

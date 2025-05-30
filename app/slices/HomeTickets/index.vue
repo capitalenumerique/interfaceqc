@@ -102,6 +102,9 @@ const { t } = useI18n();
         padding: 0 16px;
         margin: 0 auto;
         width: 100%;
+        @media (--md) {
+            padding: 0 32px;
+        }
     }
 }
 .ticket-types-wrapper {
@@ -109,6 +112,9 @@ const { t } = useI18n();
     width: 100%;
     max-width: 1368px;
     padding: 0 16px;
+    @media (--md) {
+        padding: 0 32px;
+    }
     @media (--lg) {
         margin: 64px auto;
     }
@@ -118,6 +124,9 @@ const { t } = useI18n();
     color: var(--beige-100);
     padding: 48px 16px;
     border-radius: 40px;
+    @media (--md) {
+        padding: 48px 32px;
+    }
     @media (--lg) {
         padding: 64px 48px;
     }

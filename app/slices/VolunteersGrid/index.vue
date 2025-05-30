@@ -146,6 +146,9 @@ const mapping = [
         padding: 0 16px;
         margin: 0 auto;
         width: 100%;
+        @media (--md) {
+            padding: 0 32px;
+        }
     }
 }
 .volunteers-grid {
@@ -156,6 +159,9 @@ const mapping = [
     flex-direction: column;
     gap: 40px;
     list-style: none;
+    @media (--md) {
+        padding: 0 32px;
+    }
     h3 {
         font-size: rem(18px);
         font-weight: 600;

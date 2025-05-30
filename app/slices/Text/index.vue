@@ -37,6 +37,9 @@ defineProps(getSliceComponentProps<Content.TextSlice>(['slice', 'index', 'slices
     padding: 0 16px;
     margin: 0 auto;
     width: 100%;
+    @media (--md) {
+        padding: 0 32px;
+    }
     .content {
         margin: 48px 0 96px;
         max-width: 768px;

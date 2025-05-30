@@ -105,7 +105,7 @@ function changeShape() {
     @media (--md) {
         max-width: 1150px;
         width: 70%;
-        padding: 32px 16px;
+        padding: 32px;
     }
     @media (--lg) {
         padding: 64px 48px;
@@ -159,6 +159,9 @@ function changeShape() {
     width: 100%;
     max-width: var(--page-container-max-width);
     padding: 0 16px;
+    @media (--md) {
+        padding: 0 32px;
+    }
     @media (--lg) {
         margin: 64px auto 0;
     }

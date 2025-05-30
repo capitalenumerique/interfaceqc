@@ -82,6 +82,9 @@ const handleError = () => clearError({ redirect: '/' });
     gap: 24px 32px;
     margin-bottom: 64px;
     min-height: 60vh;
+    @media (--md) {
+        padding: 0 32px;
+    }
     @media (--lg) {
         min-height: 100vh;
     }

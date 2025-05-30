@@ -114,6 +114,9 @@ const next = () => {
     margin-top: 32px;
     max-width: var(--page-container-max-width);
     padding: 0 16px;
+    @media (--md) {
+        padding: 0 32px;
+    }
 }
 .swiper-button-prev,
 .swiper-button-next {

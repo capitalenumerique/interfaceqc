@@ -73,6 +73,7 @@ const { t } = useI18n();
     text-transform: lowercase;
     @media (--md) {
         position: absolute;
+        right: 32px;
         top: 32px;
     }
     @media (--lg) {

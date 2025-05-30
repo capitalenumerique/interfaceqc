@@ -61,13 +61,9 @@ const sortedCategories = Object.fromEntries(
     position: relative;
     max-width: var(--page-container-max-width);
     margin: 64px auto;
-    padding: 0 16px;
     @media (--lg) {
         margin: 100px auto;
     }
-}
-.partners-cta {
-    margin: 0 16px 32px;
 }
 .animation-container {
     position: absolute;
@@ -90,6 +86,10 @@ const sortedCategories = Object.fromEntries(
     list-style: none;
     padding: 0;
     margin: 0;
+    padding: 0 16px;
+    @media (--md) {
+        padding: 0 32px;
+    }
     h3 {
         font-size: rem(18px);
         font-weight: 600;

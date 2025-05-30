@@ -25,6 +25,9 @@ defineProps(getSliceComponentProps<Content.Text2ColumnsSlice>(['slice', 'index',
     max-width: var(--page-container-max-width);
     padding: 0 16px;
     margin: 32px auto;
+    @media (--md) {
+        padding: 0 32px;
+    }
     @media (--lg) {
         margin: 64px auto;
     }

@@ -41,6 +41,9 @@ const { t } = useI18n();
     max-width: var(--page-container-max-width);
     margin: 80px auto;
     padding: 0 16px;
+    @media (--md) {
+        padding: 0 32px;
+    }
     @media (--lg) {
         flex-direction: row;
     }

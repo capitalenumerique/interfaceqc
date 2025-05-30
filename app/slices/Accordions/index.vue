@@ -26,6 +26,9 @@ defineProps(getSliceComponentProps<Content.AccordionsSlice>(['slice', 'index', '
     max-width: var(--page-container-max-width);
     padding: 0 16px;
     margin: 64px auto;
+    @media (--md) {
+        padding: 0 32px;
+    }
 }
 .accordion-list {
     display: flex;

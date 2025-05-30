@@ -23,6 +23,9 @@
     padding: 0 16px;
     gap: 24px 32px;
     margin-bottom: 64px;
+    @media (--md) {
+        padding: 0 32px;
+    }
     @media (--lg) {
         flex-direction: row;
     }

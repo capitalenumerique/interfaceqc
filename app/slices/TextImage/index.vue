@@ -34,6 +34,9 @@ defineProps(getSliceComponentProps<Content.TextImageSlice>(['slice', 'index', 's
     max-width: var(--page-container-max-width);
     padding: 0 16px;
     flex-direction: column;
+    @media (--md) {
+        padding: 0 32px;
+    }
     @media (--lg) {
         align-items: flex-end;
         flex-direction: row;
