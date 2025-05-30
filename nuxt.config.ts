@@ -45,6 +45,10 @@ export default defineNuxtConfig({
                     type: 'image/svg+xml',
                     media: '(prefers-color-scheme: light)',
                 },
+                {
+                    href: '/site.webmanifest',
+                    rel: 'manifest',
+                },
             ],
         },
     },
