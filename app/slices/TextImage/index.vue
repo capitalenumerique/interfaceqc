@@ -13,7 +13,7 @@ defineProps(getSliceComponentProps<Content.TextImageSlice>(['slice', 'index', 's
             <h2 class="content-title">
                 {{ slice.primary.title }}
             </h2>
-            <p v-if="slice.primary.text">{{ slice.primary.text }}</p>
+            <p v-if="slice.primary.text" class="content-description">{{ slice.primary.text }}</p>
             <div v-if="slice.primary.cta.url" class="content-cta">
                 <PrimaryButton :to="slice.primary.cta.url">{{ slice.primary.cta.text }}</PrimaryButton>
                 <IconHalfCircle class="icon-half-circle" />
@@ -45,7 +45,6 @@ defineProps(getSliceComponentProps<Content.TextImageSlice>(['slice', 'index', 's
     align-items: flex-start;
     flex-direction: column;
     justify-content: space-between;
-    gap: 75px;
 }
 .content-title {
     font-size: rem(32px);
@@ -53,10 +52,14 @@ defineProps(getSliceComponentProps<Content.TextImageSlice>(['slice', 'index', 's
     max-width: 760px;
     flex-shrink: 0;
     margin: 0;
+    margin-bottom: 24px;
     @media (--lg) {
         font-size: rem(48px);
         margin-right: -160px;
     }
+}
+.content-description {
+    margin: 0;
 }
 .content-cta {
     display: flex;
@@ -64,6 +67,7 @@ defineProps(getSliceComponentProps<Content.TextImageSlice>(['slice', 'index', 's
     font-size: rem(16px);
     line-height: 1.777;
     gap: 90px;
+    margin-top: 40px;
     @media (--lg) {
         gap: 44px;
         font-size: rem(18px);
