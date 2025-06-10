@@ -2,13 +2,7 @@
     <div>
         <SliceZone :slices="page?.data?.slices ?? []" :components="components" />
         <div class="page-container">
-            <div v-if="!isLoading && error?.message">
-                {{ t('La programmation est présentement indisponible, veuillez réessayer plus tard.') }}
-            </div>
-            <div v-else-if="isLoading">
-                <ScheduleLazyGrid />
-            </div>
-            <div v-else class="schedule-grid">
+            <div class="schedule-grid">
                 <template v-if="dates.length">
                     <ul class="date-tabs">
                         <li v-for="(date, i) in dates" :key="`date-${i}`">
@@ -46,15 +40,13 @@ const { locale } = useI18n();
 const { $luxon } = useNuxtApp();
 const prismic = usePrismic();
 
-const { data: page } = await useAsyncData('schedule', () => {
-    return prismic.client.getSingle('program', { lang: `${locale.value}-ca` });
+const { data: response } = await useAsyncData('schedule', async () => {
+    const { data, suspense } = useSchedule();
+    const [page] = await Promise.all([prismic.client.getSingle('program', { lang: `${locale.value}-ca` }), suspense()]);
+    return [page, data];
 });
 
-const { data, error, suspense, isLoading } = useSchedule();
-
-onServerPrefetch(async () => {
-    await suspense();
-});
+const [page, data] = response.value;
 
 useSeoMeta({
     title: page.value?.data.meta_title,
