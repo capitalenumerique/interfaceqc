@@ -11,7 +11,7 @@ import IconLogo from '@/assets/svg/logo.svg?component';
 // Consider it as a visual hint for you when templating your slice.
 defineProps(getSliceComponentProps<Content.HomeHeaderSlice>(['slice', 'index', 'slices', 'context']));
 
-const { t, locale } = useI18n();
+const { t, locale, localeProperties } = useI18n();
 const activeIndex = ref(0);
 const shapes = [IconAsterisk, IconLemon, IconStar, IconHexagon];
 const shapesColors = ['--orange-400', '--red-500', '--green-700', '--red-500'];
@@ -73,14 +73,20 @@ function changeShape() {
                         {{ t('Découvrez la programmation et faites votre parcours comme vous voulez.') }}
                     </p>
                     <div class="infos-links">
-                        <a href="https://apps.apple.com/ca/app/swapcard-smart-event-app/id879488719" target="_blank">
+                        <a
+                            :href="`https://apps.apple.com/ca/app/swapcard-smart-event-app/id879488719?l=${localeProperties.language}`"
+                            target="_blank"
+                        >
                             <img :src="`/app-store-${locale}.svg`" alt="" />
                         </a>
                         <a
-                            href="https://play.google.com/store/apps/details?id=com.swapcard.apps.android&pcampaignid=web_share"
+                            :href="`https://play.google.com/store/apps/details?id=com.swapcard.apps.android&pcampaignid=web_share&hl=${localeProperties.language}`"
                             target="_blank"
                         >
                             <img :src="`/google-play-${locale}.svg`" alt="" />
+                        </a>
+                        <a href="https://app.swapcard.com/login" target="_blank">
+                            <img :src="`/swapcard-${locale}.svg`" alt="" />
                         </a>
                     </div>
                 </div>
@@ -228,9 +234,10 @@ function changeShape() {
     .infos-links {
         display: flex;
         flex-wrap: wrap;
-        gap: 8px;
+        gap: 3px;
         margin-top: 24px;
         @media (--lg) {
+            gap: 8px;
             margin-top: 32px;
         }
     }
