@@ -157,7 +157,7 @@ function changeShape() {
         margin: auto;
         width: var(--page-container-max-width);
         height: auto;
-        padding: 0 16px;
+        padding: 0 32px;
     }
 }
 .event-infos-wrapper {
