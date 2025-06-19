@@ -4,11 +4,7 @@
             <IconBackArrow width="16" height="10" />
             {{ t('Retour à la programmation') }}
         </NuxtLinkLocale>
-        <div v-if="!isLoading && error?.message">
-            {{ error?.message }}
-        </div>
-        <div v-else-if="isLoading"><ScheduleLazySessionCard /></div>
-        <div v-else class="session-wrapper">
+        <div class="session-wrapper">
             <div class="session-header">
                 <span class="session-date">{{ formatDate(data.date) }}</span>
                 <span class="session-time">{{
@@ -67,10 +63,10 @@ const { $luxon } = useNuxtApp();
 const route = useRoute();
 const sessionId = route.params.id.split('-').pop();
 
-const { data, error, suspense, isLoading } = useSession(sessionId);
-
-onServerPrefetch(async () => {
+const { data } = await useAsyncData(`schedule-${sessionId}`, async () => {
+    const { data, suspense } = useSession(sessionId);
     await suspense();
+    return data.value;
 });
 
 const seoTitle = computed(() => data.value?.title || '');
