@@ -19,7 +19,7 @@ const sortOrder = [
     'Comité programmation',
     'Comité web',
     'Comité design',
-    'Comité communications',
+    'Comité communication',
     'Comité logistique',
     'Comité délégations',
     'Comité XP conférenciers',
@@ -80,8 +80,8 @@ const mapping = [
             <span>{{ slice.primary.section_title }}</span>
         </h2>
         <ul v-if="slice.primary.volunteers" class="volunteers-grid">
-            <li v-for="(category, title) in sortedCategories" :key="title">
-                <h3 v-if="Object.values(sortedCategories).length > 1">{{ title }}</h3>
+            <li v-for="(category, committee) in sortedCategories" :key="committee">
+                <h3 v-if="Object.values(sortedCategories).length > 1">{{ t(committee) }}</h3>
                 <ul class="volunteers-group">
                     <li v-for="(item, index) in category" :key="index" class="volunteer-item">
                         <Component
@@ -311,7 +311,15 @@ const mapping = [
 <i18n lang="json">
 {
     "en": {
-        "Voir le profil": "View profile"
+        "Voir le profil": "View profile",
+        "Comité programmation": "Programming committee",
+        "Comité web": "Web committee",
+        "Comité design": "Design committee",
+        "Comité communication": "Communication committee",
+        "Comité logistique": "Logistic committee",
+        "Comité délégations": "Delegations committee",
+        "Comité XP conférenciers": "Speaker XP committee",
+        "Autres comités": " Other committees"
     }
 }
 </i18n>

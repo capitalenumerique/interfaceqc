@@ -639,7 +639,7 @@ interface VolunteersDocumentData {
         | 'Comité programmation'
         | 'Comité design'
         | 'Comité web'
-        | 'Comité communications'
+        | 'Comité communication'
         | 'Comité logistique'
         | 'Comité délégations'
         | 'Comité XP conférenciers'
