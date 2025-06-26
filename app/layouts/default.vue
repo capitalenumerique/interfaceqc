@@ -4,7 +4,7 @@
             <AppMenu />
             <main class="content-wrapper">
                 <PrimaryButton to="https://ti.to/cnum/interface-2025" target="_blank" class="btn-cta">
-                    <IconTickets class="icon-star-outline" />
+                    <IconTickets />
                     <span>{{ t('Acheter mon billet') }}</span>
                     <span>{{ t('Billets') }}</span>
                 </PrimaryButton>
@@ -82,7 +82,7 @@ const { t } = useI18n();
     @media (--xl) {
         right: 64px;
     }
-    .icon-star-outline {
+    svg {
         margin: -2px;
         width: 22px;
     }

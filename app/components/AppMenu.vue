@@ -17,7 +17,7 @@
                     <LogoInterface />
                 </NuxtLinkLocale>
                 <PrimaryButton to="https://ti.to/cnum/interface-2025" target="_blank" class="btn-cta">
-                    <IconTickets class="icon-star-outline" />
+                    <IconTickets />
                     <span>{{ t('Acheter mon billet') }}</span>
                     <span>{{ t('Billets') }}</span>
                 </PrimaryButton>
@@ -398,12 +398,10 @@ const onEscape = () => {
     @media (--md) {
         display: none;
     }
-    .icon-star-outline {
+    svg {
         margin: -2px;
         width: 22px;
     }
-}
-.btn-cta {
     span {
         &:first-of-type {
             display: none;
