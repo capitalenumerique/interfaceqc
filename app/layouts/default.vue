@@ -2,12 +2,12 @@
     <div class="layout-wrapper">
         <div class="page-wrapper">
             <AppMenu />
-            <PrimaryButton to="https://ti.to/cnum/interface-2025" target="_blank" class="btn-cta">
-                <IconTickets class="icon-star-outline" />
-                <span>{{ t('Acheter mon billet') }}</span>
-                <span>{{ t('Billets') }}</span>
-            </PrimaryButton>
             <main class="content-wrapper">
+                <PrimaryButton to="https://ti.to/cnum/interface-2025" target="_blank" class="btn-cta">
+                    <IconTickets class="icon-star-outline" />
+                    <span>{{ t('Acheter mon billet') }}</span>
+                    <span>{{ t('Billets') }}</span>
+                </PrimaryButton>
                 <slot />
             </main>
         </div>
@@ -17,6 +17,7 @@
 
 <script lang="ts" setup>
 import IconTickets from '@/assets/svg/tickets.svg?component';
+import IconExternal from '@/assets/svg/external.svg?component';
 const { t } = useI18n();
 </script>
 
@@ -29,7 +30,6 @@ const { t } = useI18n();
 .page-wrapper {
     position: relative;
     flex-grow: 1;
-    margin-top: 72px;
     z-index: 10;
     background: var(--beige-100);
     @media (--md) {
@@ -59,22 +59,21 @@ const { t } = useI18n();
     }
 }
 .content-wrapper {
+    position: relative;
     min-width: 0;
 }
 .primary-button.btn-cta {
     display: flex;
     gap: 8px;
-    position: fixed;
-    top: 17px;
-    right: 16px;
+    position: absolute;
+    right: 32px;
+    top: 32px;
     z-index: 50;
     padding: 8px 12px;
     border-radius: 8px;
     text-transform: lowercase;
-    @media (--md) {
-        position: absolute;
-        right: 32px;
-        top: 32px;
+    @media (--md-down) {
+        display: none;
     }
     @media (--lg) {
         padding: 14px 18px;
@@ -87,8 +86,6 @@ const { t } = useI18n();
         margin: -2px;
         width: 22px;
     }
-}
-.btn-cta {
     span {
         &:first-of-type {
             display: none;
