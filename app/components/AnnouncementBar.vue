@@ -32,7 +32,7 @@
         font-weight: 500;
         font-size: rem(14px);
         transition: color 0.2s ease;
-        gap: 6px;
+        gap: 4px;
         &:hover,
         &:focus {
             color: var(--yellow-200);
