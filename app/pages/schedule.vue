@@ -40,7 +40,7 @@ const { locale } = useI18n();
 const { $luxon } = useNuxtApp();
 const prismic = usePrismic();
 
-const { data: response } = await useAsyncData('schedule', async () => {
+const { data: response } = await useAsyncData(`schedule-${locale.value}`, async () => {
     const { data, suspense } = useSchedule();
     const [page] = await Promise.all([prismic.client.getSingle('program', { lang: `${locale.value}-ca` }), suspense()]);
     return [page, data];

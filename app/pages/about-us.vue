@@ -16,7 +16,7 @@ defineI18nRoute({
 const { locale } = useI18n();
 const prismic = usePrismic();
 
-const { data: page } = await useAsyncData('about_us', () => {
+const { data: page } = await useAsyncData(`about-us-${locale.value}`, () => {
     return prismic.client.getSingle('about_us', {
         graphQuery: `{
             about_us {

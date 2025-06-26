@@ -58,12 +58,12 @@ defineI18nRoute({
 });
 
 const { formatSessionTime } = useTimeFormatter();
-const { t } = useI18n();
+const { t, locale } = useI18n();
 const { $luxon } = useNuxtApp();
 const route = useRoute();
 const sessionId = route.params.id.split('-').pop();
 
-const { data } = await useAsyncData(`schedule-${sessionId}`, async () => {
+const { data } = await useAsyncData(`schedule-${sessionId}-${locale.value}`, async () => {
     const { data, suspense } = useSession(sessionId);
     await suspense();
     return data.value;
