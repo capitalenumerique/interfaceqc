@@ -272,6 +272,9 @@ const socials = [
         margin-left: auto;
         margin-right: 0;
     }
+    img {
+        max-height: 36px;
+    }
 }
 .organizer-link {
     color: var(--color-white);

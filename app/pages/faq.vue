@@ -10,7 +10,7 @@ import { components } from '~/slices';
 const { locale } = useI18n();
 const prismic = usePrismic();
 
-const { data: page } = await useAsyncData('faq', () => {
+const { data: page } = await useAsyncData(`faq-${locale.value}`, () => {
     return prismic.client.getSingle('faq', { lang: `${locale.value}-ca` });
 });
 
