@@ -17,7 +17,6 @@
 
 <script lang="ts" setup>
 import IconTickets from '@/assets/svg/tickets.svg?component';
-import IconExternal from '@/assets/svg/external.svg?component';
 const { t } = useI18n();
 </script>
 
