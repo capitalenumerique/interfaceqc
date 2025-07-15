@@ -3,7 +3,7 @@
         <div class="page-wrapper">
             <AppMenu />
             <main class="content-wrapper">
-                <PrimaryButton to="https://ti.to/cnum/interface-2025" target="_blank" class="btn-cta">
+                <PrimaryButton :to="$config.public.ticketing_url" target="_blank" class="btn-cta">
                     <IconTickets />
                     <span>{{ t('Acheter mon billet') }}</span>
                     <span>{{ t('Billets') }}</span>

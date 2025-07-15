@@ -76,29 +76,10 @@ const { data: page } = await useAsyncData(`home-${locale.value}`, () => {
                             }
                         }
                     }
-                    ...on home_tickets {
-                        variation {
-                            ...on default {
-                                primary {
-                                    ...primaryFields
-                                    tickets {
-                                        ticket_type {
-                                            ...ticket_typeFields
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
                 }
             }
         }`,
         lang: `${locale.value}-ca`,
     });
-});
-
-useSeoMeta({
-    title: page.value?.data.meta_title,
-    description: page.value?.data.meta_description,
 });
 </script>
