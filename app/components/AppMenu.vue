@@ -16,7 +16,7 @@
                     <span class="sr-only">{{ t('Retour à l’accueil') }}</span>
                     <LogoInterface />
                 </NuxtLinkLocale>
-                <PrimaryButton to="https://ti.to/cnum/interface-2025" target="_blank" class="btn-cta">
+                <PrimaryButton :to="$config.public.ticketing_url" target="_blank" class="btn-cta">
                     <IconTickets />
                     <span>{{ t('Acheter mon billet') }}</span>
                     <span>{{ t('Billets') }}</span>
@@ -51,7 +51,7 @@ import LogoInterface from '@/assets/svg/logo.svg?component';
 import LogoInterfaceVertical from '@/assets/svg/logo-with-glyph-vertical.svg?component';
 
 import IconLemon from '@/assets/svg/shapes/lemon.svg?component';
-import IconStar from '@/assets/svg/shapes/star.svg?component';
+// import IconStar from '@/assets/svg/shapes/star.svg?component';
 import IconHalfCircle from '@/assets/svg/shapes/half-circle.svg?component';
 import IconAsterisk from '@/assets/svg/shapes/asterisk.svg?component';
 // import IconTriangle from '@/assets/svg/shapes/triangle.svg?component';
@@ -74,12 +74,12 @@ const items = computed(() => [
         icon: IconGlyph,
         color: 'yellow-DEFAULT',
     },
-    {
-        label: t('Billetterie'),
-        path: 'tickets',
-        icon: IconStar,
-        color: 'pink-DEFAULT',
-    },
+    // {
+    //     label: t('Billetterie'),
+    //     path: 'tickets',
+    //     icon: IconStar,
+    //     color: 'pink-DEFAULT',
+    // },
     {
         label: t('Programmation'),
         path: { name: 'schedule' },

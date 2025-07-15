@@ -1,16 +1,15 @@
 <script setup>
-const route = useRoute();
-const getRouteBaseName = useRouteBaseName();
 const i18nHead = useLocaleHead();
 
-const { locale } = useI18n();
+const { locale, t } = useI18n();
 const config = useRuntimeConfig();
 const ogImage = computed(() => `${config.public.i18n.baseUrl}/og-image-${locale.value}.png`);
 
+const { eventDates } = useEventDates();
+
 useHead(() => ({
     titleTemplate: (title) => {
-        if (getRouteBaseName(route) === 'index') return title;
-        return title ? `${title} | Interface` : 'Interface';
+        return title ? `${title} | Interface` : `Interface | ${eventDates.value}`;
     },
     htmlAttrs: {
         lang: i18nHead.value.htmlAttrs.lang,
@@ -24,6 +23,11 @@ useHead(() => ({
         },
     ],
 }));
+
+useSeoMeta({
+    description: () =>
+        t("Découvre Interface, l'événement incontournable du numérique, créé par et pour la communauté!"),
+});
 </script>
 
 <template>
@@ -43,3 +47,11 @@ useHead(() => ({
     opacity: 0;
 }
 </style>
+
+<i18n lang="json">
+{
+    "en": {
+        "Découvre Interface, l'événement incontournable du numérique, créé par et pour la communauté!": "Discover Interface, the must-attend digital event created by and for the community!"
+    }
+}
+</i18n>

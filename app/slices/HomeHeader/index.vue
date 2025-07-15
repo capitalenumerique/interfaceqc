@@ -19,6 +19,7 @@ const backgroundColors = ['--blue-700', '--pink-300', '--teal-500', '--yellow-20
 
 const breakpoints = useBreakpoints({ lg: 1024 }, { ssrWidth: 1024 });
 const showMarquee = breakpoints.smaller('lg');
+const { eventDates } = useEventDates();
 
 function changeShape() {
     if (activeIndex.value < shapes.length - 1) {
@@ -32,8 +33,14 @@ function changeShape() {
 <template>
     <section class="home-header">
         <div class="header-top">
-            <span class="header-text" v-html="t('27 au 29 <br>mai 2025')"> </span>
-            <span class="header-text" v-html="t('Terminal de croisière <br>Port de Québec')"> </span>
+            <span class="header-text" v-html="eventDates.replace(/(.[^,]*)([,]?\s)/, '$1<br>')"> </span>
+            <a
+                href="https://maps.app.goo.gl/J7VqhaiBDvHEzNwC9"
+                target="_blank"
+                class="header-text"
+                v-html="t('Terminal de croisière <br>Port de Québec')"
+            >
+            </a>
         </div>
         <BouncingAnimation class="bouncing-animation-zone" @bounce="changeShape">
             <div class="bouncing-object" :style="{ backgroundColor: `var(${backgroundColors[activeIndex]})` }">
@@ -57,7 +64,7 @@ function changeShape() {
             </div>
             <!-- <div class="event-infos infos-bottom">
                 <PrimaryButton
-                    to="https://ti.to/cnum/interface-2025"
+                    :to="$config.public.ticketing_url"
                     target="_blank"
                     primary-color="green-800"
                     secondary-color="yellow-200"
@@ -123,6 +130,16 @@ function changeShape() {
 .header-text {
     font-size: rem(20px);
     font-weight: 500;
+    text-decoration: none;
+    color: var(--color-black);
+    transition: opacity 300ms ease;
+    &:is(a) {
+        &:hover,
+        &:focus-visible {
+            opacity: 0.7;
+            text-decoration: underline;
+        }
+    }
     @media (--lg) {
         font-size: rem(24px);
     }
@@ -256,7 +273,6 @@ function changeShape() {
 <i18n lang="json">
 {
     "en": {
-        "27 au 29 <br>mai 2025": "May 27 to 29 <br>2025",
         "Terminal de croisière <br>Port de Québec": "Cruise Terminal <br>Port of Québec",
         "Participer": "Participate",
         "Téléchargez l'application SwapCard": "Download the SwapCard app",
