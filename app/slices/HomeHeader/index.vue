@@ -274,7 +274,7 @@ function changeShape() {
         "Terminal de croisière <br>Port de Québec": "Cruise Terminal <br>Port of Québec",
         "Participer": "Participate",
         "Télécharge l’application SwapCard": "Download the SwapCard app",
-        "Rediffusions des conférences 2025 en cours.": "Discover the schedule and plan your days as you want.",
+        "Si tu as manqué des conférences à l’édition 2025, les rediffusions sont en cours.": "If you missed some talks at the 2025 edition, the replays are now available.",
         "Télécharger Swapcard sur l’App Store": "Download Swapcard on the App Store",
         "Télécharger Swapcard sur Google Play": "Download Swapcard on Google Play",
         "Accéder à l’application Web de Swapcard": "Go to the Swapcard Web application"
