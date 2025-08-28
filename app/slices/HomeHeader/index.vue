@@ -75,16 +75,16 @@ function changeShape() {
             </div> -->
             <div class="event-infos infos-bottom infos-download">
                 <div>
-                    <h2 class="infos-title">{{ t("Téléchargez l'application SwapCard") }}</h2>
+                    <h2 class="infos-title">{{ t('Télécharge l’application SwapCard') }}</h2>
                     <p class="infos-text">
-                        {{ t('Découvrez la programmation et faites votre parcours comme vous voulez.') }}
+                        {{ t('Si tu as manqué des conférences à l’édition 2025, les rediffusions sont en cours.') }}
                     </p>
                     <div class="infos-links">
                         <a
                             :href="`https://apps.apple.com/ca/app/swapcard-smart-event-app/id879488719?l=${localeProperties.language}`"
                             target="_blank"
                         >
-                            <img :src="`/app-store-${locale}.svg`" :alt="t('Télécharger Swapcard sur l\'App Store')" />
+                            <img :src="`/app-store-${locale}.svg`" :alt="t('Télécharger Swapcard sur l’App Store')" />
                         </a>
                         <a
                             :href="`https://play.google.com/store/apps/details?id=com.swapcard.apps.android&pcampaignid=web_share&hl=${localeProperties.language}`"
@@ -93,10 +93,7 @@ function changeShape() {
                             <img :src="`/google-play-${locale}.svg`" :alt="t('Télécharger Swapcard sur Google Play')" />
                         </a>
                         <a href="https://app.swapcard.com/login" target="_blank">
-                            <img
-                                :src="`/swapcard-${locale}.svg`"
-                                :alt="t('Accéder à l\'application Web de Swapcard')"
-                            />
+                            <img :src="`/swapcard-${locale}.svg`" :alt="t('Accéder à l’application Web de Swapcard')" />
                         </a>
                     </div>
                 </div>
@@ -233,6 +230,7 @@ function changeShape() {
         font-size: rem(18px);
         font-weight: 600;
         margin-bottom: 16px;
+        text-transform: lowercase;
         text-wrap: pretty;
         @media (--lg) {
             font-size: rem(20px);
@@ -275,11 +273,11 @@ function changeShape() {
     "en": {
         "Terminal de croisière <br>Port de Québec": "Cruise Terminal <br>Port of Québec",
         "Participer": "Participate",
-        "Téléchargez l'application SwapCard": "Download the SwapCard app",
-        "Découvrez la programmation et faites votre parcours comme vous voulez.": "Discover the schedule and plan your days as you want.",
-        "Télécharger Swapcard sur l'App Store": "Download Swapcard on the App Store",
+        "Télécharge l’application SwapCard": "Download the SwapCard app",
+        "Rediffusions des conférences 2025 en cours.": "Discover the schedule and plan your days as you want.",
+        "Télécharger Swapcard sur l’App Store": "Download Swapcard on the App Store",
         "Télécharger Swapcard sur Google Play": "Download Swapcard on Google Play",
-        "Accéder à l'application Web de Swapcard": "Go to the Swapcard Web application"
+        "Accéder à l’application Web de Swapcard": "Go to the Swapcard Web application"
     }
 }
 </i18n>
