@@ -51,10 +51,10 @@
         </div>
         <ClientOnly v-if="showMarquee">
             <Vue3Marquee>
-                <img class="logo" src="@/assets/svg/logo-with-glyph.svg" :alt="t('interface')" />
+                <img class="logo" src="@/assets/svg/logo-with-glyph.svg" :alt="t('interface')" fetchpriority="high" />
             </Vue3Marquee>
         </ClientOnly>
-        <img v-else class="logo" src="@/assets/svg/logo-with-glyph.svg" :alt="t('interface')" />
+        <img v-else class="logo" src="@/assets/svg/logo-with-glyph.svg" :alt="t('interface')" fetchpriority="high" />
         <div class="credits-wrapper">
             <div class="credits">
                 <span>

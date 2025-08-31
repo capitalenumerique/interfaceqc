@@ -108,6 +108,10 @@ const mapping = [
                                 v-if="item.volunteer.data.img"
                                 class="volunteer-img"
                                 :field="item.volunteer.data.img"
+                                fallback-alt=""
+                                :widths="[282]"
+                                width="282"
+                                height="282"
                             />
                             <div v-else class="shape-container">
                                 <IconGlyph class="shape" />
