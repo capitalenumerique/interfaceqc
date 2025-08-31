@@ -43,11 +43,10 @@ import { useRoute } from 'vue-router';
 
 definePageMeta({
     scrollToTop: false,
-});
-
-defineI18nRoute({
-    paths: {
-        fr: '/programmation/[day]',
+    i18n: {
+        paths: {
+            fr: '/programmation/[day]',
+        },
     },
 });
 

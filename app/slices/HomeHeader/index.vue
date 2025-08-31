@@ -84,16 +84,31 @@ function changeShape() {
                             :href="`https://apps.apple.com/ca/app/swapcard-smart-event-app/id879488719?l=${localeProperties.language}`"
                             target="_blank"
                         >
-                            <img :src="`/app-store-${locale}.svg`" :alt="t('Télécharger Swapcard sur l’App Store')" />
+                            <img
+                                :src="`/app-store-${locale}.svg`"
+                                :alt="t('Télécharger Swapcard sur l’App Store')"
+                                width="168"
+                                height="56"
+                            />
                         </a>
                         <a
                             :href="`https://play.google.com/store/apps/details?id=com.swapcard.apps.android&pcampaignid=web_share&hl=${localeProperties.language}`"
                             target="_blank"
                         >
-                            <img :src="`/google-play-${locale}.svg`" :alt="t('Télécharger Swapcard sur Google Play')" />
+                            <img
+                                :src="`/google-play-${locale}.svg`"
+                                :alt="t('Télécharger Swapcard sur Google Play')"
+                                width="186"
+                                height="56"
+                            />
                         </a>
                         <a href="https://app.swapcard.com/login" target="_blank">
-                            <img :src="`/swapcard-${locale}.svg`" :alt="t('Accéder à l’application Web de Swapcard')" />
+                            <img
+                                :src="`/swapcard-${locale}.svg`"
+                                :alt="t('Accéder à l’application Web de Swapcard')"
+                                width="186"
+                                height="56"
+                            />
                         </a>
                     </div>
                 </div>

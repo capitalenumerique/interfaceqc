@@ -39,6 +39,8 @@
                     class="quebec-city-logo"
                     src="@/assets/img/ville-quebec.svg"
                     :alt="t('Ville de Québec l’accent d’Amérique')"
+                    width="276"
+                    height="81"
                 />
                 <p class="quebec-city-text">
                     {{
@@ -51,10 +53,10 @@
         </div>
         <ClientOnly v-if="showMarquee">
             <Vue3Marquee>
-                <img class="logo" src="@/assets/svg/logo-with-glyph.svg" :alt="t('interface')" />
+                <img class="logo" src="@/assets/svg/logo-with-glyph.svg" :alt="t('interface')" fetchpriority="high" />
             </Vue3Marquee>
         </ClientOnly>
-        <img v-else class="logo" src="@/assets/svg/logo-with-glyph.svg" :alt="t('interface')" />
+        <img v-else class="logo" src="@/assets/svg/logo-with-glyph.svg" :alt="t('interface')" fetchpriority="high" />
         <div class="credits-wrapper">
             <div class="credits">
                 <span>
@@ -81,7 +83,12 @@
                 <li>
                     <a class="organizer-link" href="https://capitalenumerique.com/" target="_blank">
                         <span class="support-label">{{ t('supporté par') }}</span>
-                        <img src="@/assets/img/capitale-numerique.svg" :alt="t('Capitale Numérique')" />
+                        <img
+                            src="@/assets/img/capitale-numerique.svg"
+                            :alt="t('Capitale Numérique')"
+                            width="112"
+                            height="36"
+                        />
                     </a>
                 </li>
             </ul>

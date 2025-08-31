@@ -11,7 +11,7 @@ export default defineNuxtConfig({
         '@nuxtjs/i18n',
         '@nuxt/image',
         '@vueuse/nuxt',
-        '@hebilicious/vue-query-nuxt',
+        '@peterbud/nuxt-query',
         '@nuxt/scripts',
     ],
     $development: {
@@ -54,14 +54,15 @@ export default defineNuxtConfig({
     },
     css: [
         'normalize.css/normalize.css',
+        'swiper/css',
         '@/assets/css/colors.css',
         '@/assets/css/variables.css',
         '@/assets/css/app.css',
     ],
     runtimeConfig: {
         public: {
-            start_date: '2026-05-26',
-            end_date: '2026-05-28',
+            start_date: '2026-05-26T00:00:00',
+            end_date: '2026-05-28T00:00:00',
             ticketing_url: 'https://ti.to/cnum/interface2026',
             commitTag: process.env.COMMIT_TAG || process.env.NUXT_ENV_CURRENT_GIT_TAG,
             commitShortSha: process.env.COMMIT_SHORT_SHA || process.env.NUXT_ENV_CURRENT_GIT_SHA,
@@ -131,6 +132,7 @@ export default defineNuxtConfig({
         baseUrl: 'https://interfaceqc.com',
         strategy: 'prefix_except_default',
         defaultLocale: 'fr',
+        customRoutes: 'meta',
         compilation: {
             strictMessage: false,
         },
@@ -157,6 +159,9 @@ export default defineNuxtConfig({
         provider: 'prismic',
         quality: 70,
         format: ['webp'],
+    },
+    nuxtQuery: {
+        autoImports: ['useQuery', 'useMutation'],
     },
     prismic: {
         endpoint: repositoryName,

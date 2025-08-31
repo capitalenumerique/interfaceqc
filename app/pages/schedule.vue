@@ -27,12 +27,11 @@ definePageMeta({
         name: 'schedule-day',
         params: { day: 1 },
     },
-});
-
-defineI18nRoute({
-    paths: {
-        fr: '/programmation',
-        en: '/schedule',
+    i18n: {
+        paths: {
+            fr: '/programmation',
+            en: '/schedule',
+        },
     },
 });
 

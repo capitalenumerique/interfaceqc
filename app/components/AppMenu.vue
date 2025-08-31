@@ -23,6 +23,7 @@
                 </PrimaryButton>
             </div>
             <NuxtLinkLocale to="index" class="logo-interface-vertical">
+                <span class="sr-only">{{ t('Retour à l’accueil') }}</span>
                 <LogoInterfaceVertical />
             </NuxtLinkLocale>
         </div>

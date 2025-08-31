@@ -22,7 +22,7 @@
                 <li v-for="speaker in data.speakers" :key="speaker.id">
                     <div class="speaker-wrapper">
                         <div class="speaker-photo">
-                            <img v-if="speaker.photoUrl" width="128" height="128" :src="speaker.photoUrl" alt="" />
+                            <img v-if="speaker.photoUrl" :src="speaker.photoUrl" alt="" width="128" height="128" />
                             <img
                                 v-else
                                 width="128"
@@ -50,10 +50,12 @@
 <script setup>
 import IconBackArrow from '@/assets/svg/back-arrow.svg?component';
 
-defineI18nRoute({
-    paths: {
-        fr: '/programmation/[day]/conference/[id]',
-        en: '/schedule/[day]/session/[id]',
+definePageMeta({
+    i18n: {
+        paths: {
+            fr: '/programmation/[day]/conference/[id]',
+            en: '/schedule/[day]/session/[id]',
+        },
     },
 });
 
