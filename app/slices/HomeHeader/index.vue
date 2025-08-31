@@ -275,6 +275,7 @@ function changeShape() {
         }
     }
     img {
+        width: auto;
         height: 44px;
         @media (--lg) {
             height: 56px;
