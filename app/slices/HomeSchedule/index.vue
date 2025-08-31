@@ -43,6 +43,7 @@ const next = () => {
             :centered-slides="true"
             :center-insufficient-slides="true"
             :speed="2000"
+            :simulate-touch="false"
             :autoplay="{
                 delay: 4000,
                 pauseOnMouseEnter: true,
