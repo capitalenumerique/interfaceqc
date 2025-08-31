@@ -117,17 +117,17 @@ const dates = computed(() => {
         font-size: rem(16px);
         padding: 10px 12px;
     }
-    &.router-link-exact-active {
-        background-color: var(--gray-900);
-        color: var(--beige-100);
-        border-color: var(--gray-900);
-    }
     &:hover,
     &:focus-visible {
         background-color: var(--beige-100);
         color: var(--gray-900);
         border-color: var(--gray-900);
         border-style: dashed;
+    }
+    &.router-link-exact-active {
+        background-color: var(--gray-900);
+        color: var(--beige-100);
+        border-color: var(--gray-900);
     }
 }
 .schedule-grid {
