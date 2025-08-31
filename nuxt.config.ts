@@ -61,8 +61,8 @@ export default defineNuxtConfig({
     ],
     runtimeConfig: {
         public: {
-            start_date: '2026-05-26',
-            end_date: '2026-05-28',
+            start_date: '2026-05-26T00:00:00',
+            end_date: '2026-05-28T00:00:00',
             ticketing_url: 'https://ti.to/cnum/interface2026',
             commitTag: process.env.COMMIT_TAG || process.env.NUXT_ENV_CURRENT_GIT_TAG,
             commitShortSha: process.env.COMMIT_SHORT_SHA || process.env.NUXT_ENV_CURRENT_GIT_SHA,
