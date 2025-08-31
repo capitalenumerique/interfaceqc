@@ -1,5 +1,5 @@
 export default function () {
-    const { locale } = useI18n();
+    const { locale } = useI18n({ useScope: 'global' });
     const { $luxon } = useNuxtApp();
 
     function formatSessionTime(time: string): string {

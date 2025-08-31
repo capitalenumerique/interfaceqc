@@ -1,6 +1,6 @@
 export default function () {
     const config = useRuntimeConfig();
-    const { locale } = useI18n();
+    const { locale } = useI18n({ useScope: 'global' });
 
     const eventDates = computed(() => {
         const formatter = new Intl.DateTimeFormat(locale.value, {
