@@ -15,10 +15,10 @@
     "slicemachine": "start-slicemachine"
   },
   "dependencies": {
-    "@hebilicious/vue-query-nuxt": "^0.3.0",
     "@nuxt/fonts": "^0.11.4",
     "@nuxt/schema": "^4.0.3",
     "@nuxt/scripts": "^0.11.13",
+    "@peterbud/nuxt-query": "^1.1.0",
     "@prismicio/client": "^7.20.1",
     "@tanstack/vue-query": "^5.85.6",
     "@unhead/vue": "^2.0.14",

@@ -11,7 +11,7 @@ export default defineNuxtConfig({
         '@nuxtjs/i18n',
         '@nuxt/image',
         '@vueuse/nuxt',
-        '@hebilicious/vue-query-nuxt',
+        '@peterbud/nuxt-query',
         '@nuxt/scripts',
     ],
     $development: {
@@ -158,6 +158,9 @@ export default defineNuxtConfig({
         provider: 'prismic',
         quality: 70,
         format: ['webp'],
+    },
+    nuxtQuery: {
+        autoImports: ['useQuery', 'useMutation'],
     },
     prismic: {
         endpoint: repositoryName,
