@@ -7,9 +7,11 @@
 <script setup>
 import { components } from '~/slices';
 
-defineI18nRoute({
-    paths: {
-        fr: '/a-propos',
+definePageMeta({
+    i18n: {
+        paths: {
+            fr: '/a-propos',
+        },
     },
 });
 

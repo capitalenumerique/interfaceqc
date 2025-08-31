@@ -131,6 +131,7 @@ export default defineNuxtConfig({
         baseUrl: 'https://interfaceqc.com',
         strategy: 'prefix_except_default',
         defaultLocale: 'fr',
+        customRoutes: 'meta',
         compilation: {
             strictMessage: false,
         },

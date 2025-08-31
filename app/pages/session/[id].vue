@@ -50,10 +50,12 @@
 <script setup>
 import IconBackArrow from '@/assets/svg/back-arrow.svg?component';
 
-defineI18nRoute({
-    paths: {
-        fr: '/programmation/[day]/conference/[id]',
-        en: '/schedule/[day]/session/[id]',
+definePageMeta({
+    i18n: {
+        paths: {
+            fr: '/programmation/[day]/conference/[id]',
+            en: '/schedule/[day]/session/[id]',
+        },
     },
 });
 

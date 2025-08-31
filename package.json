@@ -17,7 +17,7 @@
   "dependencies": {
     "@hebilicious/vue-query-nuxt": "^0.3.0",
     "@nuxt/fonts": "^0.11.4",
-    "@nuxt/schema": "^3.18.1",
+    "@nuxt/schema": "^4.0.3",
     "@nuxt/scripts": "^0.11.13",
     "@prismicio/client": "^7.20.1",
     "@tanstack/vue-query": "^5.85.6",
@@ -28,7 +28,7 @@
     "graphql-request": "^7.2.0",
     "luxon": "^3.7.1",
     "normalize.css": "^8.0.1",
-    "nuxt": "^3.18.1",
+    "nuxt": "^4.0.3",
     "swiper": "^11.2.10",
     "vue": "^3.5.20",
     "vue3-marquee": "^4.2.2"
@@ -37,7 +37,7 @@
     "@csstools/postcss-global-data": "^3.1.0",
     "@nuxt/eslint": "^1.9.0",
     "@nuxt/image": "^1.11.0",
-    "@nuxtjs/i18n": "^9.5.6",
+    "@nuxtjs/i18n": "^10.0.6",
     "@nuxtjs/prismic": "^4.1.0",
     "@slicemachine/adapter-nuxt": "^0.3.83",
     "@types/eslint-config-prettier": "^6.11.3",
