@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import 'swiper/css';
-
 import { NuxtLinkLocale } from '#components';
 import type { Content } from '@prismicio/client';
 import { Swiper, SwiperSlide } from 'swiper/vue';

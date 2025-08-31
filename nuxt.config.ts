@@ -54,6 +54,7 @@ export default defineNuxtConfig({
     },
     css: [
         'normalize.css/normalize.css',
+        'swiper/css',
         '@/assets/css/colors.css',
         '@/assets/css/variables.css',
         '@/assets/css/app.css',
