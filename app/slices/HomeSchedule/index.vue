@@ -50,44 +50,46 @@ const next = () => {
             }"
             @swiper="(s) => (swiperRef = s)"
         >
-            <SwiperSlide class="slide-view-all">
-                <NuxtLinkLocale to="schedule" class="slide-link">
-                    <div class="icon-wrapper">
-                        <IconStar />
-                    </div>
-                    <div class="slide-content">
-                        <h3 class="speaker-title" v-html="t('Voir <br>la programmation <br>complète')"></h3>
-                        <IconArrow class="icon-arrow" />
-                    </div>
-                </NuxtLinkLocale>
-            </SwiperSlide>
-            <SwiperSlide
-                v-for="(speaker, index) in slice.primary.speakers"
-                :key="`${speaker.first_name} ${speaker.last_name}`"
-                class="slide-speaker"
-                :class="{
-                    'is-reversed': index % 2 === 0,
-                }"
-                :style="{
-                    '--backgroundColor': speaker.background_color,
-                    '--textColor': speaker.text_color,
-                }"
-            >
-                <Component
-                    :is="speaker.session_url ? NuxtLinkLocale : 'div'"
-                    :to="speaker.session_url"
-                    class="slide-link"
+            <template v-for="i in 2" :key="`group-${i}`">
+                <SwiperSlide class="slide-view-all">
+                    <NuxtLinkLocale to="schedule" class="slide-link">
+                        <div class="icon-wrapper">
+                            <IconStar />
+                        </div>
+                        <div class="slide-content">
+                            <h3 class="speaker-title" v-html="t('Voir <br>la programmation <br>complète')"></h3>
+                            <IconArrow class="icon-arrow" />
+                        </div>
+                    </NuxtLinkLocale>
+                </SwiperSlide>
+                <SwiperSlide
+                    v-for="(speaker, index) in slice.primary.speakers"
+                    :key="`${speaker.first_name} ${speaker.last_name}`"
+                    class="slide-speaker"
+                    :class="{
+                        'is-reversed': index % 2 === 0,
+                    }"
+                    :style="{
+                        '--backgroundColor': speaker.background_color,
+                        '--textColor': speaker.text_color,
+                    }"
                 >
-                    <PrismicImage :field="speaker.img" fallback-alt="" :widths="[322]" width="322" height="375" />
-                    <div class="slide-content">
-                        <h3 class="speaker-title">
-                            {{ speaker.first_name }}<br />
-                            {{ speaker.last_name }}
-                        </h3>
-                        <div class="speaker-subtitle">{{ speaker.job }}</div>
-                    </div>
-                </Component>
-            </SwiperSlide>
+                    <Component
+                        :is="speaker.session_url ? NuxtLinkLocale : 'div'"
+                        :to="speaker.session_url"
+                        class="slide-link"
+                    >
+                        <PrismicImage :field="speaker.img" fallback-alt="" :widths="[322]" width="322" height="375" />
+                        <div class="slide-content">
+                            <h3 class="speaker-title">
+                                {{ speaker.first_name }}<br />
+                                {{ speaker.last_name }}
+                            </h3>
+                            <div class="speaker-subtitle">{{ speaker.job }}</div>
+                        </div>
+                    </Component>
+                </SwiperSlide>
+            </template>
             <div class="swiper-actions">
                 <button type="button" class="swiper-button-prev" @click="prev">
                     <span class="sr-only">{{ $t('Précédent') }}</span>
