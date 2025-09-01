@@ -155,10 +155,10 @@ const next = () => {
 .slide-view-all {
     width: 240px;
     height: auto;
-    margin-right: 16px;
+    margin: 0 8px;
     @media (--md) {
         width: 322px;
-        margin-right: 24px;
+        margin: 0 12px;
     }
     .slide-link {
         height: 100%;
