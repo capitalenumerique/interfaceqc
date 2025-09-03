@@ -41,6 +41,7 @@
 import { useBreakpoints } from '@vueuse/core';
 import { useRoute } from 'vue-router';
 
+// FIXME: https://github.com/nuxt/nuxt/issues/31638
 definePageMeta({
     scrollToTop: false,
     i18n: {

@@ -35,6 +35,11 @@ definePageMeta({
     },
 });
 
+// FIXME: https://github.com/nuxt/nuxt/issues/31638
+onMounted(() => {
+    window.scrollTo(0, 0);
+});
+
 const { locale } = useI18n();
 const { $luxon } = useNuxtApp();
 const prismic = usePrismic();
