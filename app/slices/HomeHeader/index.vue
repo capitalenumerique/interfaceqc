@@ -11,7 +11,7 @@ import IconLogo from '@/assets/svg/logo.svg?component';
 // Consider it as a visual hint for you when templating your slice.
 defineProps(getSliceComponentProps<Content.HomeHeaderSlice>(['slice', 'index', 'slices', 'context']));
 
-const { t, locale, localeProperties } = useI18n();
+const { t } = useI18n();
 const activeIndex = ref(0);
 const shapes = [IconAsterisk, IconLemon, IconStar, IconHexagon];
 const shapesColors = ['--orange-400', '--red-500', '--green-700', '--red-500'];
@@ -62,7 +62,7 @@ function changeShape() {
                 <h2 class="infos-title">{{ slice.primary.title }}</h2>
                 <p class="infos-text">{{ slice.primary.description }}</p>
             </div>
-            <!-- <div class="event-infos infos-bottom">
+            <div class="event-infos infos-bottom">
                 <PrimaryButton
                     :to="$config.public.ticketing_url"
                     target="_blank"
@@ -72,8 +72,8 @@ function changeShape() {
                     {{ t('Participer') }}
                 </PrimaryButton>
                 <IconAsterisk width="40" />
-            </div> -->
-            <div class="event-infos infos-bottom infos-download">
+            </div>
+            <!-- <div class="event-infos infos-bottom infos-download">
                 <div>
                     <h2 class="infos-title">{{ t('Télécharge l’application SwapCard') }}</h2>
                     <p class="infos-text">
@@ -112,7 +112,7 @@ function changeShape() {
                         </a>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </section>
 </template>
