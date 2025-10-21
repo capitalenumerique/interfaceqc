@@ -15,16 +15,16 @@
                     </li>
                 </ul>
             </div>
-            <!-- <div class="column">
+            <div class="column">
                 <span class="column-icon"><IconHexagon width="18" /></span>
                 <ul class="column-list">
-                    <li v-for="(archive, i) in archives" :key="`archive-${i}`">
-                        <a :href="`/programmation/${archive.year}`">
-                            {{ t('Édition {year}', { year: archive.year }) }}
+                    <li v-for="(year, i) in archives" :key="`archive-${i}`">
+                        <a :href="`https://${year}.interfaceqc.com`" target="_blank">
+                            {{ t('Édition {year}', { year: year }) }}
                         </a>
                     </li>
                 </ul>
-            </div> -->
+            </div>
             <div class="column">
                 <ul class="socials-list">
                     <li v-for="(social, i) in socials" :key="`social-${i}`">
@@ -125,13 +125,7 @@ const socials = [
     },
 ];
 
-// @TODO: À dynamiser lorsqu'on aura déterminer la logique des archives
-// et qu'il y aura au moins une édition passée
-// const archives = [
-//     {
-//         year: 2024,
-//     },
-// ];
+const archives = [2025];
 </script>
 
 <style lang="postcss" scoped>
