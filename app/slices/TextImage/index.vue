@@ -118,6 +118,7 @@ defineProps(getSliceComponentProps<Content.TextImageSlice>(['slice', 'index', 's
     .image-1 {
         width: 66%;
         height: auto;
+        border-radius: 20px;
     }
     .image-2 {
         width: 30%;

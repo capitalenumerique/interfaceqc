@@ -23,6 +23,7 @@ const sortOrder = [
     'Comité logistique',
     'Comité délégations',
     'Comité XP conférenciers',
+    'Comité technique',
     'Autres comités',
 ];
 
@@ -323,6 +324,7 @@ const mapping = [
         "Comité logistique": "Logistic committee",
         "Comité délégations": "Delegations committee",
         "Comité XP conférenciers": "Speaker XP committee",
+        "Comité technique": "Technics committee",
         "Autres comités": " Other committees"
     }
 }
