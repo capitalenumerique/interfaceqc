@@ -23,6 +23,7 @@ const sortOrder = [
     'Comité logistique',
     'Comité délégations',
     'Comité XP conférenciers',
+    'Comité technique',
     'Autres comités',
 ];
 
