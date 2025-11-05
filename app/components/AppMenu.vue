@@ -111,7 +111,7 @@ const items = computed(() => [
         label: t('Boutique'),
         path: 'https://boutique.interfaceqc.com/',
         icon: IconTriangle,
-        color: 'teal-DEFAULT',
+        color: 'orange-DEFAULT',
     },
     {
         label: t('À propos'),
