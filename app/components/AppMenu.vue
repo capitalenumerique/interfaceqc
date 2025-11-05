@@ -34,6 +34,7 @@
                         <NuxtLinkLocale :to="item.path" class="menu-link">
                             <Component :is="item.icon" :style="`fill: var(--${item.color})`" class="menu-icon" />
                             {{ item.label }}
+                            <IconExternal v-if="item.path.startsWith('https://')" class="icon-external" />
                         </NuxtLinkLocale>
                     </li>
                     <li class="menu-item">
@@ -51,11 +52,12 @@ import { useFocusTrap } from '@vueuse/integrations/useFocusTrap';
 import LogoInterface from '@/assets/svg/logo.svg?component';
 import LogoInterfaceVertical from '@/assets/svg/logo-with-glyph-vertical.svg?component';
 
+import IconExternal from '@/assets/svg/external.svg?component';
 import IconLemon from '@/assets/svg/shapes/lemon.svg?component';
 // import IconStar from '@/assets/svg/shapes/star.svg?component';
 import IconHalfCircle from '@/assets/svg/shapes/half-circle.svg?component';
 import IconAsterisk from '@/assets/svg/shapes/asterisk.svg?component';
-// import IconTriangle from '@/assets/svg/shapes/triangle.svg?component';
+import IconTriangle from '@/assets/svg/shapes/triangle.svg?component';
 import IconGlyph from '@/assets/svg/shapes/glyph.svg?component';
 // import IconHexagon from '@/assets/svg/shapes/hexagon.svg?component';
 import IconCircle from '@/assets/svg/shapes/circle.svg?component';
@@ -83,7 +85,7 @@ const items = computed(() => [
     // },
     {
         label: t('Programmation'),
-        path: { name: 'schedule' },
+        path: 'schedule',
         icon: IconHalfCircle,
         color: 'red-DEFAULT',
     },
@@ -105,6 +107,12 @@ const items = computed(() => [
     //     icon: IconTriangle,
     //     color: 'teal-DEFAULT',
     // },
+    {
+        label: t('Boutique'),
+        path: 'https://boutique.interfaceqc.com/',
+        icon: IconTriangle,
+        color: 'teal-DEFAULT',
+    },
     {
         label: t('À propos'),
         path: 'about-us',
@@ -264,6 +272,10 @@ const onEscape = () => {
             opacity: 1;
             transition-delay: 900ms;
         }
+    }
+    .icon-external {
+        width: 12px;
+        height: 12px;
     }
 }
 .menu-link {
@@ -450,7 +462,8 @@ const onEscape = () => {
         "Médiathèque": "media Library",
         "À propos": "About Us",
         "Contact": "Contact",
-        "Faq": "Faq"
+        "Faq": "Faq",
+        "Boutique": "Shop"
     }
 }
 </i18n>
