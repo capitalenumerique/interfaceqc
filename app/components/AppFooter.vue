@@ -99,6 +99,7 @@
 <script lang="ts" setup>
 import { useBreakpoints } from '@vueuse/core';
 import IconAsterisk from '@/assets/svg/shapes/asterisk.svg?component';
+import IconHexagon from '@/assets/svg/shapes/hexagon.svg?component';
 import IconFacebook from '@/assets/svg/facebook.svg?component';
 import IconInstagram from '@/assets/svg/instagram.svg?component';
 import IconLinkedin from '@/assets/svg/linkedin.svg?component';
@@ -133,7 +134,7 @@ const archives = [2025];
     background-color: var(--gray-900);
     border-radius: 24px 24px 0 0;
     color: var(--beige-100);
-    @media (--md) {
+    @media (--lg) {
         position: sticky;
         bottom: 0;
         border-radius: 40px 40px 0 0;
@@ -147,13 +148,14 @@ const archives = [2025];
     padding: 48px 16px;
     max-width: var(--page-container-max-width);
     margin: auto;
-    gap: 48px 24px;
+    gap: 36px 24px;
     @media (--md) {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
         padding: 80px 40px;
     }
     @media (--lg) {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(4, 1fr);
     }
 }
 .socials-list {
@@ -162,10 +164,12 @@ const archives = [2025];
     gap: 40px;
     padding: 0;
     margin: 0;
-    @media (--lg) {
-        justify-content: center;
+    @media (--md) {
         align-items: center;
         height: 100%;
+    }
+    @media (--lg) {
+        justify-content: center;
     }
 }
 .social-link {
@@ -185,6 +189,7 @@ const archives = [2025];
     }
 }
 .column-list {
+    margin: 0;
     list-style: none;
     display: flex;
     flex-direction: column;
