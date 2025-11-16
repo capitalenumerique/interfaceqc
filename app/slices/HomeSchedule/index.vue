@@ -77,7 +77,13 @@ const next = () => {
                         :to="speaker.session_url"
                         class="slide-link"
                     >
-                        <PrismicImage :field="speaker.img" fallback-alt="" :widths="[322]" width="322" height="375" />
+                        <NuxtImg
+                            provider="prismic"
+                            :src="speaker.img.url"
+                            :alt="speaker.img.alt"
+                            width="322"
+                            height="375"
+                        />
                         <div class="slide-content">
                             <h3 class="speaker-title">
                                 {{ speaker.first_name }}<br />

@@ -156,7 +156,7 @@ export default defineNuxtConfig({
         },
     },
     image: {
-        provider: 'prismic',
+        // provider: 'prismic',
         quality: 70,
         format: ['webp'],
     },

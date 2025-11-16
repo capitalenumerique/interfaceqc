@@ -43,11 +43,11 @@ const sortedCategories = Object.fromEntries(
                 <ul class="partners-group">
                     <li v-for="(item, index) in category" :key="index" class="partner-item">
                         <a :href="item.partner.data.website.url" target="_blank">
-                            <PrismicImage
+                            <NuxtImg
+                                provider="prismic"
                                 class="partner-logo"
-                                :field="item.partner.data.logo"
-                                fallback-alt=""
-                                :widths="[200]"
+                                :src="item.partner.data.logo.url"
+                                :alt="item.partner.data.logo.alt"
                                 width="200"
                                 height="200"
                             />
