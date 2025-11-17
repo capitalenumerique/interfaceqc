@@ -157,8 +157,8 @@ export default defineNuxtConfig({
     },
     image: {
         ipx: {},
-        provider: 'prismic',
-        domains: ['static.swapcard.com'],
+        provider: 'ipx',
+        domains: ['static.swapcard.com', 'images.prismic.io', 'interface-qc.cdn.prismic.io'],
         quality: 70,
         format: ['webp'],
     },

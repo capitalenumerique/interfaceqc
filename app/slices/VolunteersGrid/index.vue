@@ -107,9 +107,8 @@ const mapping = [
 
                             <NuxtImg
                                 v-if="item.volunteer.data.img"
-                                provider="prismic"
                                 class="volunteer-img"
-                                :src="item.volunteer.data.img.url"
+                                :src="item.volunteer.data.img.url.split('?')[0]"
                                 :alt="item.volunteer.data.img.alt"
                                 width="282"
                                 height="282"

@@ -21,17 +21,15 @@ defineProps(getSliceComponentProps<Content.TextImageSlice>(['slice', 'index', 's
         </div>
         <div class="images-wrapper">
             <NuxtImg
-                provider="prismic"
                 class="image-2"
-                :src="slice.primary.image_2.url"
+                :src="slice.primary.image_2.url.split('?')[0]"
                 :alt="slice.primary.image_2.alt"
                 width="160"
                 height="200"
             />
             <NuxtImg
-                provider="prismic"
                 class="image-1"
-                :src="slice.primary.image_1.url"
+                :src="slice.primary.image_1.url.split('?')[0]"
                 :alt="slice.primary.image_1.alt"
                 width="360"
                 height="450"
