@@ -4,14 +4,14 @@ import { defineAsyncComponent } from 'vue';
 import { defineSliceZoneComponents } from '@prismicio/vue';
 
 export const components = defineSliceZoneComponents({
-    accordions: defineAsyncComponent(() => import('./Accordions/index.vue')),
-    home_header: defineAsyncComponent(() => import('./HomeHeader/index.vue')),
-    home_programming: defineAsyncComponent(() => import('./HomeSchedule/index.vue')),
-    home_tickets: defineAsyncComponent(() => import('./HomeTickets/index.vue')),
-    page_intro_header: defineAsyncComponent(() => import('./PageIntroHeader/index.vue')),
-    partners_grid: defineAsyncComponent(() => import('./PartnersGrid/index.vue')),
-    text: defineAsyncComponent(() => import('./Text/index.vue')),
-    text2_columns: defineAsyncComponent(() => import('./Text2Columns/index.vue')),
-    text_image: defineAsyncComponent(() => import('./TextImage/index.vue')),
-    volunteers: defineAsyncComponent(() => import('./VolunteersGrid/index.vue')),
+    accordions: defineAsyncComponent(() => import('./Accordions/index.vue').then((r) => r.default)),
+    home_header: defineAsyncComponent(() => import('./HomeHeader/index.vue').then((r) => r.default)),
+    home_programming: defineAsyncComponent(() => import('./HomeSchedule/index.vue').then((r) => r.default)),
+    home_tickets: defineAsyncComponent(() => import('./HomeTickets/index.vue').then((r) => r.default)),
+    page_intro_header: defineAsyncComponent(() => import('./PageIntroHeader/index.vue').then((r) => r.default)),
+    partners_grid: defineAsyncComponent(() => import('./PartnersGrid/index.vue').then((r) => r.default)),
+    text: defineAsyncComponent(() => import('./Text/index.vue').then((r) => r.default)),
+    text2_columns: defineAsyncComponent(() => import('./Text2Columns/index.vue').then((r) => r.default)),
+    text_image: defineAsyncComponent(() => import('./TextImage/index.vue').then((r) => r.default)),
+    volunteers: defineAsyncComponent(() => import('./VolunteersGrid/index.vue').then((r) => r.default)),
 });
