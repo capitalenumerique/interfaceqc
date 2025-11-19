@@ -1,4 +1,3 @@
-import { repositoryName } from './slicemachine.config.json';
 import redirects from './redirects.json';
 import ViteSvgLoader from 'vite-svg-loader';
 
@@ -174,7 +173,7 @@ export default defineNuxtConfig({
         autoImports: ['useQuery', 'useMutation'],
     },
     prismic: {
-        endpoint: repositoryName,
+        endpoint: 'interface-qc',
     },
     scripts: {
         registry: {
