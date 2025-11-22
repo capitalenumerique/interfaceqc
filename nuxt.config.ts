@@ -77,13 +77,13 @@ export default defineNuxtConfig({
         compatibilityVersion: 4,
     },
     compatibilityDate: '2024-09-19',
-    nitro: {
-        preset: 'cloudflare_pages',
-        cloudflare: {
-            deployConfig: true,
-            nodeCompat: true,
-        },
-    },
+    // nitro: {
+    //     preset: 'cloudflare_modules',
+    //     cloudflare: {
+    //         deployConfig: true,
+    //         nodeCompat: true,
+    //     },
+    // },
     vite: {
         define: {
             __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: true,
