@@ -105,12 +105,11 @@ const mapping = [
                                 </div>
                             </div>
 
-                            <PrismicImage
+                            <NuxtImg
                                 v-if="item.volunteer.data.img"
                                 class="volunteer-img"
-                                :field="item.volunteer.data.img"
-                                fallback-alt=""
-                                :widths="[282]"
+                                :src="item.volunteer.data.img.url.split('?')[0]"
+                                :alt="item.volunteer.data.img.alt"
                                 width="282"
                                 height="282"
                             />

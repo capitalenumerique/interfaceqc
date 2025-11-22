@@ -22,9 +22,17 @@
                 <li v-for="speaker in data.speakers" :key="speaker.id">
                     <div class="speaker-wrapper">
                         <div class="speaker-photo">
-                            <img v-if="speaker.photoUrl" :src="speaker.photoUrl" alt="" width="128" height="128" />
-                            <img
+                            <NuxtImg
+                                v-if="speaker.photoUrl"
+                                provider="ipx"
+                                :src="speaker.photoUrl"
+                                alt=""
+                                width="128"
+                                height="128"
+                            />
+                            <NuxtImg
                                 v-else
+                                provider="ipx"
                                 width="128"
                                 height="128"
                                 :src="`https://ui-avatars.com/api/?name=${speaker.firstName}+${speaker.lastName}&background=e2d5c6&color=593e35&bold=true&format=svg`"
