@@ -38,7 +38,7 @@
                 <img
                     class="quebec-city-logo"
                     src="@/assets/img/ville-quebec.svg"
-                    :alt="t('Ville de Québec l’accent d’Amérique')"
+                    :alt="t('Ville de Québec, l’accent d’Amérique')"
                     width="276"
                     height="81"
                 />
@@ -53,10 +53,10 @@
         </div>
         <ClientOnly v-if="showMarquee">
             <Vue3Marquee>
-                <img class="logo" src="@/assets/svg/logo-with-glyph.svg" :alt="t('interface')" fetchpriority="high" />
+                <img class="logo" src="@/assets/svg/logo-with-glyph.svg" :alt="t('Interface')" />
             </Vue3Marquee>
         </ClientOnly>
-        <img v-else class="logo" src="@/assets/svg/logo-with-glyph.svg" :alt="t('interface')" fetchpriority="high" />
+        <img v-else class="logo" src="@/assets/svg/logo-with-glyph.svg" :alt="t('Interface')" />
         <div class="credits-wrapper">
             <div class="credits">
                 <span>
@@ -299,6 +299,9 @@ const archives = [2025];
 <i18n lang="json">
 {
     "en": {
+        "Capitale Numérique": "Capitale Numérique",
+        "Interface": "Interface",
+        "Ville de Québec, l’accent d’Amérique": "Québec City, l’accent d’Amérique",
         "Partenaires": "Partners",
         "Faq": "Faq",
         "Politique de confidentialité": "Privacy policy",
