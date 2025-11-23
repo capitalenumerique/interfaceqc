@@ -54,7 +54,7 @@ import LogoInterfaceVertical from '@/assets/svg/logo-with-glyph-vertical.svg?com
 
 import IconExternal from '@/assets/svg/external.svg?component';
 import IconLemon from '@/assets/svg/shapes/lemon.svg?component';
-// import IconStar from '@/assets/svg/shapes/star.svg?component';
+import IconStar from '@/assets/svg/shapes/star.svg?component';
 import IconHalfCircle from '@/assets/svg/shapes/half-circle.svg?component';
 import IconAsterisk from '@/assets/svg/shapes/asterisk.svg?component';
 import IconTriangle from '@/assets/svg/shapes/triangle.svg?component';
@@ -77,12 +77,12 @@ const items = computed(() => [
         icon: IconGlyph,
         color: 'yellow-DEFAULT',
     },
-    // {
-    //     label: t('Billetterie'),
-    //     path: 'tickets',
-    //     icon: IconStar,
-    //     color: 'pink-DEFAULT',
-    // },
+    {
+        label: t('Billetterie'),
+        path: 'tickets',
+        icon: IconStar,
+        color: 'pink-DEFAULT',
+    },
     {
         label: t('Programmation'),
         path: 'schedule',

@@ -76,6 +76,20 @@ const { data: page } = await useAsyncData(`home-${locale.value}`, () => {
                             }
                         }
                     }
+                    ...on home_tickets {
+                        variation {
+                            ...on default {
+                                primary {
+                                    ...primaryFields
+                                    tickets {
+                                        ticket_type {
+                                            ...ticket_typeFields
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }`,
