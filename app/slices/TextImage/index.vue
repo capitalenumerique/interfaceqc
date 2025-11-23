@@ -98,9 +98,9 @@ defineProps(getSliceComponentProps<Content.TextImageSlice>(['slice', 'index', 's
     }
 }
 .images-wrapper {
-    display: flex;
+    display: grid;
+    grid-template-columns: 4fr 9fr;
     align-items: flex-end;
-    justify-content: space-between;
     gap: 24px;
     width: 100%;
     margin-right: -16px;
@@ -112,16 +112,9 @@ defineProps(getSliceComponentProps<Content.TextImageSlice>(['slice', 'index', 's
     }
     img {
         flex-shrink: 0;
-    }
-    .image-1 {
-        width: 66%;
-        height: auto;
-        border-radius: 20px;
-    }
-    .image-2 {
-        width: 30%;
-        height: auto;
         border-radius: 12px;
+        width: 100%;
+        height: auto;
     }
 }
 </style>
