@@ -1,7 +1,7 @@
 type CategoryColor = { bg: string; text: string };
 
 const CATEGORY_COLORS: Record<string, CategoryColor> = {
-    'Art numérique': { bg: 'var(--yellow-200)', text: 'var(--red-600)' },
+    'Créativité numérique': { bg: 'var(--yellow-200)', text: 'var(--red-600)' },
     'Communication et marketing': { bg: 'var(--blue-700)', text: 'var(--orange-300)' },
     'Design': { bg: 'var(--pink-300)', text: 'var(--green-800)' },
     'Développement': { bg: 'var(--orange-300)', text: 'var(--blue-700)' },

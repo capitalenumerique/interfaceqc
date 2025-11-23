@@ -3,7 +3,8 @@
         <SliceZone :slices="page?.data?.slices ?? []" :components="components" />
         <div class="page-container">
             <div class="schedule-grid">
-                <template v-if="dates.length">
+                <UpcommingSchedule v-if="!scheduleEnabled" :categories="categories" />
+                <template v-else-if="dates.length">
                     <ul class="date-tabs">
                         <li v-for="(date, i) in dates" :key="`date-${i}`">
                             <NuxtLinkLocale class="date-tab" :to="{ name: 'schedule-day', params: { day: i + 1 } }">
@@ -11,7 +12,7 @@
                             </NuxtLinkLocale>
                         </li>
                     </ul>
-                    <NuxtPage :data="data" />
+                    <NuxtPage :data="schedule" />
                 </template>
             </div>
         </div>
@@ -35,6 +36,8 @@ definePageMeta({
     },
 });
 
+const scheduleEnabled = ref(false);
+
 // FIXME: https://github.com/nuxt/nuxt/issues/31638
 onMounted(() => {
     window.scrollTo(0, 0);
@@ -51,6 +54,7 @@ const { data: response } = await useAsyncData(`schedule-${locale.value}`, async 
 });
 
 const [page, data] = response.value;
+const { categories, schedule } = data.value;
 
 useSeoMeta({
     title: page.value?.data.meta_title,
@@ -58,8 +62,8 @@ useSeoMeta({
 });
 
 const dates = computed(() => {
-    if (!data.value) return [];
-    return data.value.map((entry) => {
+    if (!schedule) return [];
+    return schedule.map((entry) => {
         const formattedDate = $luxon.DateTime.fromISO(entry.date).toLocaleString({
             weekday: 'long',
             day: 'numeric',
@@ -143,6 +147,7 @@ const dates = computed(() => {
 <i18n lang="json">
 {
     "en": {
+        "Programmation à venir": "Schedule comming soon",
         "La programmation est présentement indisponible, veuillez réessayer plus tard.": "The schedule is currently unavailable. Please try again later."
     }
 }

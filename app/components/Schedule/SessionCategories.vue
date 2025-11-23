@@ -2,7 +2,7 @@
     <ul class="categories-list">
         <li
             v-for="(category, i) in categories"
-            :key="`category-${listId}-${i}`"
+            :key="`category-${i}`"
             :style="getCategoryStyle(category.colors)"
             class="category-item"
         >
@@ -13,10 +13,6 @@
 
 <script setup>
 const props = defineProps({
-    listId: {
-        type: String,
-        required: true,
-    },
     categories: {
         type: Array,
         required: true,
