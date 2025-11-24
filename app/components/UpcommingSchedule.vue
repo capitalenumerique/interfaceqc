@@ -76,7 +76,7 @@ const hoverColors = computed(() => {
 <i18n lang="json">
 {
     "en": {
-        "Programmation <br />à venir": "Schedule <br />comming soon"
+        "Programmation <br />à venir": "Schedule <br />coming soon"
     }
 }
 </i18n>

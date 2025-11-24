@@ -146,7 +146,6 @@ const dates = computed(() => {
 <i18n lang="json">
 {
     "en": {
-        "Programmation à venir": "Schedule coming soon",
         "La programmation est présentement indisponible, veuillez réessayer plus tard.": "The schedule is currently unavailable. Please try again later."
     }
 }
