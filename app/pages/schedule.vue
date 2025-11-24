@@ -77,7 +77,6 @@ const dates = computed(() => {
 <style lang="postcss" scoped>
 .page-container {
     max-width: var(--page-container-max-width);
-    min-height: 100vh;
     margin: 64px auto;
     padding: 0 16px;
     @media (--md) {
