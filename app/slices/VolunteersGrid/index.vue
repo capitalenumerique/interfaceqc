@@ -109,7 +109,7 @@ const mapping = [
                                 v-if="item.volunteer.data.img"
                                 class="volunteer-img"
                                 :src="item.volunteer.data.img.url.split('?')[0]"
-                                :alt="item.volunteer.data.img.alt"
+                                :alt="item.volunteer.data.name"
                                 width="282"
                                 height="282"
                             />

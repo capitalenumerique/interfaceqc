@@ -23,14 +23,14 @@ defineProps(getSliceComponentProps<Content.TextImageSlice>(['slice', 'index', 's
             <NuxtImg
                 class="image-2"
                 :src="slice.primary.image_2.url.split('?')[0]"
-                :alt="slice.primary.image_2.alt"
+                :alt="slice.primary.image_2.alt || ''"
                 width="160"
                 height="200"
             />
             <NuxtImg
                 class="image-1"
                 :src="slice.primary.image_1.url.split('?')[0]"
-                :alt="slice.primary.image_1.alt"
+                :alt="slice.primary.image_1.alt || ''"
                 width="360"
                 height="450"
             />
