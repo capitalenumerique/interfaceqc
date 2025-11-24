@@ -9,7 +9,10 @@ defineProps({
 const { t } = useI18n();
 
 const hoverColors = computed(() => {
-    const colors = { bg: 'var(--red-600)', text: 'var(--yellow-200)' };
+    const colors = {
+        bg: 'var(--red-600)',
+        text: 'var(--yellow-200)',
+    };
     return {
         '--hover-text': colors.text,
         '--hover-bg': colors.bg,

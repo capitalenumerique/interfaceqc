@@ -48,7 +48,10 @@ const hasDetails = computed(() => {
 });
 
 const hoverColors = computed(() => {
-    const colors = props.session.categories?.[0]?.colors || { bg: 'var(--red-600)', text: 'var(--yellow-200)' };
+    const colors = props.session.categories?.[0]?.colors || {
+        bg: 'var(--red-600)',
+        text: 'var(--yellow-200)',
+    };
     return {
         '--hover-text': colors.text,
         '--hover-bg': colors.bg,
