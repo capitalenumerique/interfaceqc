@@ -48,6 +48,7 @@ const sortedCategories = Object.fromEntries(
                                 :src="item.partner.data.logo.url.split('?')[0]"
                                 :alt="item.partner.data.name"
                                 width="200"
+                                format="webp"
                             />
                         </a>
                     </li>

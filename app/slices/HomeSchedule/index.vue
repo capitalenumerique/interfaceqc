@@ -82,6 +82,7 @@ const next = () => {
                             :alt="`${speaker.first_name} ${speaker.last_name}`"
                             width="322"
                             height="375"
+                            format="webp"
                         />
                         <div class="slide-content">
                             <h3 class="speaker-title">

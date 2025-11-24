@@ -112,6 +112,7 @@ const mapping = [
                                 :alt="item.volunteer.data.name"
                                 width="282"
                                 height="282"
+                                format="webp"
                             />
                             <div v-else class="shape-container">
                                 <IconGlyph class="shape" />
