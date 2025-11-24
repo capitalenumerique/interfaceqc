@@ -12,7 +12,7 @@
                             </NuxtLinkLocale>
                         </li>
                     </ul>
-                    <NuxtPage :data="schedule" />
+                    <NuxtPage :data="data" />
                 </template>
             </div>
         </div>
@@ -24,10 +24,6 @@ import { components } from '~/slices';
 import { NuxtLinkLocale } from '#components';
 
 definePageMeta({
-    localeRedirect: {
-        name: 'schedule-day',
-        params: { day: 1 },
-    },
     i18n: {
         paths: {
             fr: '/programmation',
@@ -36,34 +32,41 @@ definePageMeta({
     },
 });
 
-const scheduleEnabled = ref(false);
-
 // FIXME: https://github.com/nuxt/nuxt/issues/31638
 onMounted(() => {
     window.scrollTo(0, 0);
 });
 
+const scheduleEnabled = ref(false);
+const prismic = usePrismic();
+const route = useRoute();
+const localePath = useLocalePath();
+const getRouteBaseName = useRouteBaseName();
+
 const { locale } = useI18n();
 const { $luxon } = useNuxtApp();
-const prismic = usePrismic();
 
 const { data: response } = await useAsyncData(`schedule-${locale.value}`, async () => {
+    // redirect to day 1 when schedule is enabled
+    if (scheduleEnabled.value && getRouteBaseName(route.name) !== 'schedule-day') {
+        return navigateTo(localePath({ name: 'schedule-day', params: { day: 1 } }));
+    }
+
     const { data, suspense } = useSchedule();
     const [page] = await Promise.all([prismic.client.getSingle('program', { lang: `${locale.value}-ca` }), suspense()]);
     return [page, data];
 });
 
-const [page, data] = response.value;
-const { categories, schedule } = data.value;
+const [page, data] = response.value ?? [];
 
 useSeoMeta({
-    title: page.value?.data.meta_title,
-    description: page.value?.data.meta_description,
+    title: page?.value?.data.meta_title,
+    description: page?.value?.data.meta_description,
 });
 
 const dates = computed(() => {
-    if (!schedule) return [];
-    return schedule.map((entry) => {
+    if (!data.value) return [];
+    return data.value.map((entry) => {
         const formattedDate = $luxon.DateTime.fromISO(entry.date).toLocaleString({
             weekday: 'long',
             day: 'numeric',
