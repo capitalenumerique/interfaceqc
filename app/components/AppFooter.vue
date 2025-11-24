@@ -57,41 +57,43 @@
             </Vue3Marquee>
         </ClientOnly>
         <img v-else class="logo" src="@/assets/svg/logo-with-glyph.svg" :alt="t('Interface')" />
-        <div class="credits-wrapper">
-            <div class="credits">
-                <span>
-                    <a href="https://capitalenumerique.com/politique-de-confidentialite/" target="_blank">
-                        {{ t('Politique de confidentialité') }}
-                    </a>
-                    | {{ t('© Interface - Québec {n}. Tous droits réservés.', new Date().getFullYear()) }}&nbsp;
-                </span>
-                <span>
-                    <template v-if="$config.public.commitTag || $config.public.commitShortSha">
-                        {{ t('Version:') }}
-                    </template>
-                    <span v-if="$config.public.commitTag">&nbsp;{{ $config.public.commitTag }}</span>
-                    <span
-                        >&nbsp;{{
-                            $config.public.commitTag
-                                ? `(${$config.public.commitShortSha})`
-                                : $config.public.commitShortSha
-                        }}</span
-                    >
-                </span>
+        <div class="credits">
+            <div class="credits-wrapper">
+                <div class="copyright">
+                    <span>
+                        <a href="https://capitalenumerique.com/politique-de-confidentialite/" target="_blank">
+                            {{ t('Politique de confidentialité') }}
+                        </a>
+                        | {{ t('© Interface - Québec {n}. Tous droits réservés.', new Date().getFullYear()) }}&nbsp;
+                    </span>
+                    <span>
+                        <template v-if="$config.public.commitTag || $config.public.commitShortSha">
+                            {{ t('Version:') }}
+                        </template>
+                        <span v-if="$config.public.commitTag">&nbsp;{{ $config.public.commitTag }}</span>
+                        <span
+                            >&nbsp;{{
+                                $config.public.commitTag
+                                    ? `(${$config.public.commitShortSha})`
+                                    : $config.public.commitShortSha
+                            }}</span
+                        >
+                    </span>
+                </div>
+                <ul class="organizers">
+                    <li>
+                        <a class="organizer-link" href="https://capitalenumerique.com/" target="_blank">
+                            <span class="support-label">{{ t('supporté par') }}</span>
+                            <img
+                                src="@/assets/img/capitale-numerique.svg"
+                                :alt="t('Capitale Numérique')"
+                                width="112"
+                                height="36"
+                            />
+                        </a>
+                    </li>
+                </ul>
             </div>
-            <ul class="organizers">
-                <li>
-                    <a class="organizer-link" href="https://capitalenumerique.com/" target="_blank">
-                        <span class="support-label">{{ t('supporté par') }}</span>
-                        <img
-                            src="@/assets/img/capitale-numerique.svg"
-                            :alt="t('Capitale Numérique')"
-                            width="112"
-                            height="36"
-                        />
-                    </a>
-                </li>
-            </ul>
         </div>
     </footer>
 </template>
@@ -217,7 +219,9 @@ const archives = [2025];
     max-width: none;
     height: 200px;
     padding: 0 0 18px 50px;
-    border-bottom: 1px solid var(--yellow-200);
+    max-width: var(--page-container-max-width);
+    margin: 0 auto;
+    display: block;
     @media (--md) {
         padding: 0 0 24px;
         height: auto;
@@ -239,20 +243,24 @@ const archives = [2025];
         margin-left: auto;
     }
 }
+.credits {
+    border-top: 1px solid var(--yellow-200);
+}
 .credits-wrapper {
-    padding: 48px 16px 32px;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     flex-direction: column;
     gap: 48px;
+    max-width: var(--page-container-max-width);
+    margin: 0 auto;
     @media (--md) {
         padding: 16px 32px;
         flex-direction: row;
         align-items: center;
     }
 }
-.credits {
+.copyright {
     gap: 4px;
     font-size: rem(12px);
     margin-right: 64px;
