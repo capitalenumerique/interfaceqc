@@ -48,7 +48,11 @@ const sortedCategories = Object.fromEntries(
                                 :src="item.partner.data.logo.url.split('?')[0]"
                                 :alt="item.partner.data.name"
                                 width="200"
-                                format="webp"
+                                :format="
+                                    !item.partner.data.logo.url.includes('interface-qc.cdn.prismic.io')
+                                        ? 'webp'
+                                        : undefined
+                                "
                             />
                         </a>
                     </li>
