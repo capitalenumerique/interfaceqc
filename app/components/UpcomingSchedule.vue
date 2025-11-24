@@ -1,10 +1,5 @@
 <script setup>
-defineProps({
-    categories: {
-        type: Array,
-        default: () => [],
-    },
-});
+import { CATEGORY_COLORS } from '@/utils/categoryColors';
 
 const { t } = useI18n();
 
@@ -18,6 +13,13 @@ const hoverColors = computed(() => {
         '--hover-bg': colors.bg,
     };
 });
+
+const categories = computed(() =>
+    Object.entries(CATEGORY_COLORS).map(([name, colors]) => ({
+        name,
+        colors,
+    })),
+);
 </script>
 
 <template>

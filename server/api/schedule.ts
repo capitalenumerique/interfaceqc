@@ -241,11 +241,5 @@ export default defineEventHandler(async () => {
             };
         });
 
-    return {
-        categories: allCategories.map((category) => ({
-            name: category,
-            colors: getCategoryColor(category),
-        })),
-        schedule: sortedResult,
-    };
+    return sortedResult;
 });

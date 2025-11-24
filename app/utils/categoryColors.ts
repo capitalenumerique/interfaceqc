@@ -3,18 +3,14 @@ type CategoryColor = {
     text: string;
 };
 
-const CATEGORY_COLORS: Record<string, CategoryColor> = {
-    'Créativité numérique': {
-        bg: 'var(--yellow-200)',
-        text: 'var(--red-600)',
+export const CATEGORY_COLORS: Record<string, CategoryColor> = {
+    'Soft skills': {
+        bg: 'var(--teal-600)',
+        text: 'var(--beige-100)',
     },
     'Communication et marketing': {
         bg: 'var(--blue-700)',
         text: 'var(--orange-300)',
-    },
-    'Design': {
-        bg: 'var(--pink-300)',
-        text: 'var(--green-800)',
     },
     'Développement': {
         bg: 'var(--orange-300)',
@@ -24,17 +20,21 @@ const CATEGORY_COLORS: Record<string, CategoryColor> = {
         bg: 'var(--gray-900)',
         text: 'var(--pink-300)',
     },
+    'Design': {
+        bg: 'var(--pink-300)',
+        text: 'var(--green-800)',
+    },
     'Intelligence artificielle': {
         bg: 'var(--green-800)',
         text: 'var(--yellow-200)',
     },
-    'Soft skills': {
-        bg: 'var(--teal-600)',
-        text: 'var(--beige-100)',
-    },
     'Keynote': {
         bg: 'var(--red-600)',
         text: 'var(--yellow-200)',
+    },
+    'Créativité numérique': {
+        bg: 'var(--yellow-200)',
+        text: 'var(--red-600)',
     },
 };
 

@@ -3,7 +3,7 @@
         <SliceZone :slices="page?.data?.slices ?? []" :components="components" />
         <div class="page-container">
             <div class="schedule-grid">
-                <UpcommingSchedule v-if="!scheduleEnabled" :categories="categories" />
+                <UpcomingSchedule v-if="!scheduleEnabled" />
                 <template v-else-if="dates.length">
                     <ul class="date-tabs">
                         <li v-for="(date, i) in dates" :key="`date-${i}`">
