@@ -9,14 +9,26 @@ export default withNuxt({
         prettier: prettierPlugin,
     },
     rules: {
-        // TODO: Template order
-        // TODO: Force setup lang="ts"
         // ...prettierPlugin.configs.recommended.rules,
         ...eslintConfigPrettier.rules,
         ...eslintPluginPrettierRecommended.rules,
         'vue/no-v-html': 'off',
         'vue/v-slot-style': ['error', 'shorthand'],
         'vue/no-bare-strings-in-template': 'error',
+        'vue/block-order': [
+            'error',
+            {
+                order: [['script', 'template'], 'style'],
+            },
+        ],
+        'vue/block-lang': [
+            'error',
+            {
+                script: {
+                    lang: 'ts',
+                },
+            },
+        ],
         'vue/define-macros-order': [
             'error',
             {

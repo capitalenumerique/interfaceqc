@@ -11,19 +11,22 @@
     </ul>
 </template>
 
-<script setup>
-const props = defineProps({
+<script lang="ts" setup>
+const props = defineProps<{
     categories: {
-        type: Array,
-        required: true,
-    },
+        name: string;
+        colors: {
+            bg: string;
+            text: string;
+        };
+    }[];
     hoverColors: {
-        type: Object,
-        default: null,
-    },
-});
+        '--hover-bg': string;
+        '--hover-text': string;
+    };
+}>();
 
-const getCategoryStyle = (colors) => {
+const getCategoryStyle = (colors: { bg: string; text: string }) => {
     return {
         '--category-bg': colors.bg,
         '--category-text': colors.text,

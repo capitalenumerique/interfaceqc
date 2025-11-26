@@ -28,7 +28,7 @@
     </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 const props = defineProps({
     session: {
         type: Object,
@@ -42,7 +42,7 @@ const sessionSlug = useSlug(props.session.title);
 
 const hasDetails = computed(() => {
     return (
-        props.session.speakers.every((s) => s.id !== 'RXZlbnRQZW9wbGVfMzgyMTc4NjI=') &&
+        props.session.speakers.every((s: { id: string }) => s.id !== 'RXZlbnRQZW9wbGVfMzgyMTc4NjI=') &&
         ['Conférence', 'Keynote'].includes(props.session.type)
     );
 });

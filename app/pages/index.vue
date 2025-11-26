@@ -5,7 +5,7 @@
     </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { components } from '~/slices';
 
 const { locale } = useI18n();

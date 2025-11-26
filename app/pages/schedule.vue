@@ -19,7 +19,7 @@
     </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { components } from '~/slices';
 import { NuxtLinkLocale } from '#components';
 
@@ -37,7 +37,7 @@ onMounted(() => {
     window.scrollTo(0, 0);
 });
 
-const scheduleEnabled = ref(false);
+const scheduleEnabled = ref(true);
 const prismic = usePrismic();
 const route = useRoute();
 const localePath = useLocalePath();
@@ -46,18 +46,18 @@ const getRouteBaseName = useRouteBaseName();
 const { locale } = useI18n();
 const { $luxon } = useNuxtApp();
 
-const { data: response } = await useAsyncData(`schedule-${locale.value}`, async () => {
-    // redirect to day 1 when schedule is enabled
-    if (scheduleEnabled.value && getRouteBaseName(route.name) !== 'schedule-day') {
-        return navigateTo(localePath({ name: 'schedule-day', params: { day: 1 } }));
-    }
+// redirect to day 1 when schedule is enabled
+if (scheduleEnabled.value && getRouteBaseName(route.name!) !== 'schedule-day') {
+    await navigateTo(localePath({ name: 'schedule-day', params: { day: 1 } }));
+}
 
+const { data: response } = await useAsyncData(`schedule-${locale.value}`, async () => {
     const { data, suspense } = useSchedule();
     const [page] = await Promise.all([prismic.client.getSingle('program', { lang: `${locale.value}-ca` }), suspense()]);
-    return [page, data];
+    return { page: ref(page), data: ref(data.value) };
 });
 
-const [page, data] = response.value ?? [];
+const { page, data } = response.value ?? {};
 
 useSeoMeta({
     title: page?.value?.data.meta_title,
@@ -65,7 +65,7 @@ useSeoMeta({
 });
 
 const dates = computed(() => {
-    if (!data.value) return [];
+    if (!data?.value) return [];
     return data.value.map((entry) => {
         const formattedDate = $luxon.DateTime.fromISO(entry.date).toLocaleString({
             weekday: 'long',
@@ -114,7 +114,7 @@ const dates = computed(() => {
     padding: 8px;
     line-height: 1.5;
     cursor: pointer;
-    border: 2px solid transparent;
+    border: 2px dashed transparent;
     text-wrap: balance;
     transition:
         background-color var(--hover-transition),
