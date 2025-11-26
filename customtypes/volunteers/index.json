@@ -19,13 +19,6 @@
                     "placeholder": ""
                 }
             },
-            "job": {
-                "type": "Text",
-                "config": {
-                    "label": "Job",
-                    "placeholder": ""
-                }
-            },
             "img": {
                 "type": "Image",
                 "config": {
@@ -63,6 +56,15 @@
                         "Comité XP conférenciers",
                         "Comité technique"
                     ]
+                }
+            },
+            "committee_head": {
+                "type": "Boolean",
+                "config": {
+                    "label": "Committee head",
+                    "placeholder_false": "false",
+                    "placeholder_true": "true",
+                    "default_value": false
                 }
             }
         }

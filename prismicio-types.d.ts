@@ -644,17 +644,6 @@ interface VolunteersDocumentData {
     name: prismic.KeyTextField;
 
     /**
-     * Job field in *Volunteers*
-     *
-     * - **Field Type**: Text
-     * - **Placeholder**: *None*
-     * - **API ID Path**: volunteers.job
-     * - **Tab**: Main
-     * - **Documentation**: https://prismic.io/docs/fields/text
-     */
-    job: prismic.KeyTextField;
-
-    /**
      * img field in *Volunteers*
      *
      * - **Field Type**: Image
@@ -695,6 +684,18 @@ interface VolunteersDocumentData {
         | 'Comité XP conférenciers'
         | 'Comité technique'
     >;
+
+    /**
+     * Committee head field in *Volunteers*
+     *
+     * - **Field Type**: Boolean
+     * - **Placeholder**: *None*
+     * - **Default Value**: false
+     * - **API ID Path**: volunteers.committee_head
+     * - **Tab**: Main
+     * - **Documentation**: https://prismic.io/docs/fields/boolean
+     */
+    committee_head: prismic.BooleanField;
 }
 
 /**
