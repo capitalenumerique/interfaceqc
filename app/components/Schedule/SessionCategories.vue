@@ -13,20 +13,14 @@
 
 <script lang="ts" setup>
 const props = defineProps<{
-    categories: {
-        name: string;
-        colors: {
-            bg: string;
-            text: string;
-        };
-    }[];
-    hoverColors: {
+    categories: Category[];
+    hoverColors?: {
         '--hover-bg': string;
         '--hover-text': string;
     };
 }>();
 
-const getCategoryStyle = (colors: { bg: string; text: string }) => {
+const getCategoryStyle = (colors: Category['colors']) => {
     return {
         '--category-bg': colors.bg,
         '--category-text': colors.text,

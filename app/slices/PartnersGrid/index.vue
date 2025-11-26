@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Content } from '@prismicio/client';
+import { isFilled, type Content } from '@prismicio/client';
 import { groupBy } from 'es-toolkit';
 
 import IconAsterisk from '@/assets/svg/shapes/asterisk.svg?component';
@@ -11,7 +11,12 @@ const { slice } = defineProps(
     getSliceComponentProps<Content.PartnersGridSlice>(['slice', 'index', 'slices', 'context']),
 );
 
-const categories = groupBy(slice.primary.partners_grid, (item) => item.partner.data?.category ?? 'Autres');
+const categories = groupBy(slice.primary.partners_grid, (item) => {
+    if (isFilled.contentRelationship(item.partner)) {
+        return item.partner.data?.category ?? 'Autres';
+    }
+    return 'Autres';
+});
 
 const sortOrder = ['Principaux', 'Secondaires'];
 

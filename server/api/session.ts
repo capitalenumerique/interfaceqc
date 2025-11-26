@@ -41,10 +41,10 @@ export default defineEventHandler(async (event) => {
     const query = getQuery(event);
     const sessionId = query.id as string;
 
-    const response = (await useSwapcardClient({
+    const response = await useSwapcardClient<SessionResponse>({
         query: GET_SESSION_BY_ID,
         variables: { sessionId },
-    })) as SessionResponse;
+    });
 
     const speakers: EventPerson[] = response.data.eventPerson.nodes;
 
@@ -81,5 +81,5 @@ export default defineEventHandler(async (event) => {
             biography: person.biography,
             biographyTranslations: person.biographyTranslations,
         })),
-    };
+    } as SessionData;
 });

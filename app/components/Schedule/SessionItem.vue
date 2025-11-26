@@ -29,12 +29,9 @@
 </template>
 
 <script lang="ts" setup>
-const props = defineProps({
-    session: {
-        type: Object,
-        required: true,
-    },
-});
+const props = defineProps<{
+    session: Session;
+}>();
 
 const { t } = useI18n();
 const { formatSessionTime } = useTimeFormatter();

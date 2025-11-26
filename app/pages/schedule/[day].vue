@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div v-if="day">
         <div
-            v-for="(timeslot, i) in data[day - 1].timeslots"
+            v-for="(timeslot, i) in day.timeslots"
             :key="`timeslot-${timeslot.time}`"
             class="timeslot"
             :class="timeslot.type"
@@ -9,7 +9,7 @@
             <span
                 class="time"
                 :class="{
-                    'has-place': timeslot.type !== 'regular' || data[day - 1].timeslots[i - 1]?.type !== 'regular',
+                    'has-place': timeslot.type !== 'regular' || day.timeslots[i - 1]?.type !== 'regular',
                 }"
             >
                 {{ formatSessionTime(timeslot.time) }}
@@ -20,7 +20,7 @@
                         v-if="
                             i === 0 ||
                             timeslot.type === 'special' ||
-                            data[day - 1].timeslots[i - 1]?.type !== 'regular' ||
+                            day.timeslots[i - 1]?.type !== 'regular' ||
                             showPlace
                         "
                         class="place"
@@ -37,7 +37,7 @@
     </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { useBreakpoints } from '@vueuse/core';
 import { useRoute } from 'vue-router';
 
@@ -51,19 +51,16 @@ definePageMeta({
     },
 });
 
-defineProps({
-    data: {
-        type: Array,
-        default: () => [],
-    },
-});
+const { data } = defineProps<{
+    data: ScheduleData[];
+}>();
 
 const { t } = useI18n();
 const { formatSessionTime } = useTimeFormatter();
 const route = useRoute();
 const breakpoints = useBreakpoints({ lg: 1024 }, { ssrWidth: 1024 });
 const showPlace = breakpoints.smaller('lg');
-const day = route.params.day;
+const day = computed(() => data[parseInt(route.params.day as string) - 1]);
 </script>
 
 <style lang="postcss" scoped>

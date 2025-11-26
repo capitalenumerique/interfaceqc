@@ -1,5 +1,5 @@
 <template>
-    <div class="page-wrapper">
+    <div v-if="data" class="page-wrapper">
         <NuxtLinkLocale :to="{ name: 'schedule-day', params: { day: $route.params.day } }" class="back-button">
             <IconBackArrow width="16" height="10" />
             {{ t('Retour à la programmation') }}
@@ -55,7 +55,7 @@
     </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import IconBackArrow from '@/assets/svg/back-arrow.svg?component';
 
 definePageMeta({
@@ -71,12 +71,12 @@ const { formatSessionTime } = useTimeFormatter();
 const { t, locale } = useI18n();
 const { $luxon } = useNuxtApp();
 const route = useRoute();
-const sessionId = route.params.id.split('-').pop();
+const sessionId = (route.params.id as string).split('-').pop() || '';
 
 const { data } = await useAsyncData(`schedule-${sessionId}-${locale.value}`, async () => {
     const { data, suspense } = useSession(sessionId);
     await suspense();
-    return data.value;
+    return data.value as SessionData;
 });
 
 const seoTitle = computed(() => data.value?.title || '');
@@ -99,7 +99,7 @@ useSeoMeta({
     ogImage: seoOgImage,
 });
 
-function formatDate(date) {
+function formatDate(date: string) {
     const formattedDate = $luxon.DateTime.fromISO(date).toLocaleString({
         weekday: 'long',
         day: 'numeric',

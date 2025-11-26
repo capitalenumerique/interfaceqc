@@ -3,16 +3,6 @@ import { getCategoryColor } from '~~/app/utils/categoryColors';
 import useSwapcardClient from '../useSwapcardClient';
 import { groupBy, uniqBy } from 'es-toolkit';
 
-interface Speaker {
-    id: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    photoUrl: string;
-    organization: string;
-    jobTitle: string;
-}
-
 interface Session {
     id: string;
     beginsAt: string;
@@ -44,9 +34,9 @@ interface EventResponse {
 }
 
 export default defineEventHandler(async () => {
-    const response = (await useSwapcardClient({ query: GET_EVENT_BY_ID })) as EventResponse;
+    const response = await useSwapcardClient<EventResponse>({ query: GET_EVENT_BY_ID });
 
-    const speakers: EventPerson[] = response.data.eventPerson.nodes;
+    const speakers = response.data.eventPerson.nodes;
 
     // Forcer les dates vu les données erronnées de Swapcard
     const allowedDates = ['2025-05-27', '2025-05-28', '2025-05-29'];
@@ -54,12 +44,12 @@ export default defineEventHandler(async () => {
     // Réorganiser les sessions
     const sessions = speakers.flatMap((speaker) =>
         speaker.speakerOnPlannings
-            .filter((session) => allowedDates.includes(session.beginsAt.split(' ')[0])) // Keep only sessions on allowed dates
+            .filter((session) => allowedDates.includes(session.beginsAt.split(' ')[0]!)) // Keep only sessions on allowed dates
             .map((session) => ({
                 id: session.id,
-                date: session.beginsAt.split(' ')[0],
-                beginsAt: session.beginsAt.split(' ')[1],
-                endsAt: session.endsAt.split(' ')[1],
+                date: session.beginsAt.split(' ')[0]!,
+                beginsAt: session.beginsAt.split(' ')[1]!,
+                endsAt: session.endsAt.split(' ')[1]!,
                 title: session.title,
                 categories: session.categories,
                 place: session.place,
@@ -69,7 +59,7 @@ export default defineEventHandler(async () => {
                     firstName: speaker.firstName,
                     lastName: speaker.lastName,
                     organization: speaker.organization,
-                } as Speaker,
+                },
             })),
     );
 
@@ -88,7 +78,9 @@ export default defineEventHandler(async () => {
     const categoryColorMap: Record<string, string> = {};
 
     allCategories.forEach((category, index) => {
-        categoryColorMap[category] = category === 'Keynote' ? 'transparent' : colorArray[index % colorArray.length];
+        categoryColorMap[category] =
+            // eslint-disable-next-line prettier/prettier
+            category === 'Keynote' ? 'transparent' : colorArray[index % colorArray.length] ?? 'transparent';
     });
 
     // Extraire les salles uniques
@@ -110,136 +102,132 @@ export default defineEventHandler(async () => {
 
     // Ordonner les sessions par date et créneaux horaires
     // @TODO: Rendre le code plus lisible, jtel donne Laurent :D
-    const sortedResult = Object.keys(groupedSessions)
-        .sort((a, b) => new Date(a).getTime() - new Date(b).getTime())
-        .map((date) => {
-            const findTimeslot = (time: string, slots: Date[]): string => {
-                const [hour, minute] = time.split(':').map(Number);
-                const sessionTime = new Date(0, 0, 0, hour, minute, 0);
-                return (
-                    slots
-                        .slice()
-                        .reverse()
-                        .find((slot) => slot <= sessionTime)
-                        ?.toTimeString()
-                        .split(' ')[0] || '09:00:00'
+    const sortedResult = Object.entries(groupedSessions).map(([date, sessions]) => {
+        const findTimeslot = (time: string, slots: Date[]): string => {
+            const [hour, minute] = time.split(':').map(Number);
+            const sessionTime = new Date(0, 0, 0, hour, minute, 0);
+            return (
+                slots
+                    .slice()
+                    .reverse()
+                    .find((slot) => slot <= sessionTime)
+                    ?.toTimeString()
+                    .split(' ')[0] || '09:00:00'
+            );
+        };
+
+        // Déterminer si une session spéciale avant 9h existe pour ce jour
+        const hasEarlySession = sessions.some((session) => {
+            const [hour, minute] = session.beginsAt.split(':').map(Number);
+            const sessionTime = new Date(0, 0, 0, hour, minute, 0);
+            return sessionTime < new Date(0, 0, 0, 9, 0, 0);
+        });
+
+        // Ajouter le créneau spécial uniquement si nécessaire
+        const dayTimeslotRange = hasEarlySession ? [earlyTimeslot, ...baseTimeslotRange] : [...baseTimeslotRange];
+
+        return {
+            date,
+            timeslots: dayTimeslotRange.flatMap((slot) => {
+                const timeString = slot.toTimeString().split(' ')[0];
+                const sessionsInTimeslot = sessions.filter(
+                    (session) => findTimeslot(session.beginsAt, dayTimeslotRange) === timeString,
                 );
-            };
+                // Ne pas ajouter le créneau s'il n'y a aucune session
+                if (sessionsInTimeslot.length === 0) {
+                    return [];
+                }
 
-            // Déterminer si une session spéciale avant 9h existe pour ce jour
-            const hasEarlySession = groupedSessions[date].some((session) => {
-                const [hour, minute] = session.beginsAt.split(':').map(Number);
-                const sessionTime = new Date(0, 0, 0, hour, minute, 0);
-                return sessionTime < new Date(0, 0, 0, 9, 0, 0);
-            });
+                // Valider s'il s'agit d'une conférence
+                const specialSession = [...sessionsInTimeslot].find((session) => session.type !== 'Conférence');
 
-            // Ajouter le créneau spécial uniquement si nécessaire
-            const dayTimeslotRange = hasEarlySession ? [earlyTimeslot, ...baseTimeslotRange] : [...baseTimeslotRange];
-
-            return {
-                date,
-                timeslots: dayTimeslotRange.flatMap((slot) => {
-                    const timeString = slot.toTimeString().split(' ')[0];
-                    const sessionsInTimeslot = groupedSessions[date].filter(
-                        (session) => findTimeslot(session.beginsAt, dayTimeslotRange) === timeString,
-                    );
-                    // Ne pas ajouter le créneau s'il n'y a aucune session
-                    if (sessionsInTimeslot.length === 0) {
-                        return [];
-                    }
-
-                    // Valider s'il s'agit d'une conférence
-                    const specialSession = sessionsInTimeslot.find((session) => session.type !== 'Conférence');
-
-                    let places;
-                    let type;
-                    if (specialSession) {
-                        // S'il s'agit d'un autre type que "Conférence", par exemple: un keynote, un atelier au dîner
-                        // ou un 5 à 7, elle sera la seule session du créneau horaire
-                        places = [
-                            {
-                                name: specialSession.place,
-                                session: {
-                                    id: specialSession.id,
-                                    title: specialSession.title,
-                                    beginsAt: specialSession.beginsAt,
-                                    endsAt: specialSession.endsAt,
-                                    categories: specialSession.categories.map((category) => ({
-                                        name: category,
-                                        colors: getCategoryColor(category),
-                                    })),
-                                    type: specialSession.type,
-                                    speakers: uniqBy(
-                                        groupedSessions[date]
-                                            .filter((s) => s.title === specialSession.title)
-                                            .map((s) => s.speaker),
-                                        (speaker) => speaker.id,
-                                    ),
-                                },
+                let places;
+                let type;
+                if (specialSession) {
+                    // S'il s'agit d'un autre type que "Conférence", par exemple: un keynote, un atelier au dîner
+                    // ou un 5 à 7, elle sera la seule session du créneau horaire
+                    places = [
+                        {
+                            name: specialSession.place,
+                            session: {
+                                id: specialSession.id,
+                                title: specialSession.title,
+                                beginsAt: specialSession.beginsAt,
+                                endsAt: specialSession.endsAt,
+                                categories: specialSession.categories.map((category) => ({
+                                    name: category,
+                                    colors: getCategoryColor(category),
+                                })),
+                                type: specialSession.type,
+                                speakers: uniqBy(
+                                    sessions.filter((s) => s.title === specialSession.title).map((s) => s.speaker),
+                                    (speaker) => speaker.id,
+                                ),
                             },
-                        ];
-                        type = 'special';
-                    } else {
-                        // Conférences par défaut
-                        places = uniquePlaces.map((place) => {
-                            const sessionInPlace = sessionsInTimeslot.find((session) => session.place === place);
-                            if (sessionInPlace) {
+                        },
+                    ];
+                    type = 'special';
+                } else {
+                    // Conférences par défaut
+                    places = uniquePlaces.map((place) => {
+                        const sessionInPlace = sessionsInTimeslot.find((session) => session.place === place);
+                        if (sessionInPlace) {
+                            return {
+                                name: place,
+                                session: sessionInPlace
+                                    ? {
+                                          id: sessionInPlace.id,
+                                          title: sessionInPlace.title,
+                                          beginsAt: sessionInPlace.beginsAt,
+                                          endsAt: sessionInPlace.endsAt,
+                                          categories: sessionInPlace.categories.map((category) => ({
+                                              name: category,
+                                              colors: getCategoryColor(category),
+                                          })),
+                                          type: sessionInPlace.type,
+                                          speakers: uniqBy(
+                                              sessions
+                                                  .filter((s) => s.title === sessionInPlace.title)
+                                                  .map((s) => s.speaker),
+                                              (speaker) => speaker.id,
+                                          ),
+                                      }
+                                    : null,
+                            };
+                        } else {
+                            // Affichage différent pour le créneau de 13h
+                            if (timeString === '13:00:00') {
                                 return {
                                     name: place,
-                                    session: sessionInPlace
-                                        ? {
-                                              id: sessionInPlace.id,
-                                              title: sessionInPlace.title,
-                                              beginsAt: sessionInPlace.beginsAt,
-                                              endsAt: sessionInPlace.endsAt,
-                                              categories: sessionInPlace.categories.map((category) => ({
-                                                  name: category,
-                                                  colors: getCategoryColor(category),
-                                              })),
-                                              type: sessionInPlace.type,
-                                              speakers: uniqBy(
-                                                  groupedSessions[date]
-                                                      .filter((s) => s.title === sessionInPlace.title)
-                                                      .map((s) => s.speaker),
-                                                  (speaker) => speaker.id,
-                                              ),
-                                          }
-                                        : null,
+                                    session: {
+                                        id: `lunch-${place}`,
+                                        title: 'Heure de dîner',
+                                        beginsAt: '13:00:00',
+                                        endsAt: '14:00:00',
+                                        categories: [],
+                                        type: 'Lunch',
+                                        speakers: [],
+                                    },
                                 };
                             } else {
-                                // Affichage différent pour le créneau de 13h
-                                if (timeString === '13:00:00') {
-                                    return {
-                                        name: place,
-                                        session: {
-                                            id: `lunch-${place}`,
-                                            title: 'Heure de dîner',
-                                            beginsAt: '13:00:00',
-                                            endsAt: '14:00:00',
-                                            categories: [],
-                                            type: 'Lunch',
-                                            speakers: [],
-                                        },
-                                    };
-                                } else {
-                                    return {
-                                        name: place,
-                                        session: null,
-                                    };
-                                }
+                                return {
+                                    name: place,
+                                    session: null,
+                                };
                             }
-                        });
-                        type = 'regular';
-                    }
+                        }
+                    });
+                    type = 'regular';
+                }
 
-                    return {
-                        time: timeString,
-                        places,
-                        type,
-                    };
-                }),
-            };
-        });
+                return {
+                    time: timeString,
+                    places,
+                    type,
+                };
+            }),
+        };
+    });
 
     return sortedResult;
 });
