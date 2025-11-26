@@ -132,7 +132,7 @@ function changeShape() {
     padding: 32px 16px;
     @media (--md) {
         max-width: 1150px;
-        width: 70%;
+        width: 64%;
         padding: 32px;
     }
     @media (--lg) {

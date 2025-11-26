@@ -75,26 +75,26 @@ const { t } = useI18n();
         display: none;
     }
     @media (--lg) {
-        padding: 14px 18px;
+        padding: 16px 18px;
         top: 64px;
     }
     @media (--xl) {
         right: 64px;
     }
     svg {
-        margin: -2px;
+        margin: -3px 0;
         width: 22px;
     }
     span {
         &:first-of-type {
             display: none;
-            @media (min-width: 375px) {
+            @media (min-width: 390px) {
                 display: inline;
             }
         }
         &:last-of-type {
             display: inline;
-            @media (min-width: 375px) {
+            @media (min-width: 390px) {
                 display: none;
             }
         }

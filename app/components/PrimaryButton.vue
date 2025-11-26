@@ -58,10 +58,12 @@ const component = computed(() => {
     justify-content: center;
     align-items: center;
     gap: 8px;
-    padding: 18px 32px;
+    padding: 16px 32px;
     background-color: var(--primary-color);
     color: var(--secondary-color);
     font-weight: 500;
+    font-size: rem(16px);
+    line-height: 20px;
     border-radius: 12px;
     cursor: pointer;
     transition:
