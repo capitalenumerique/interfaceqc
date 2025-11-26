@@ -143,9 +143,11 @@ defineProps(getSliceComponentProps<Content.TextImageSlice>(['slice', 'index', 's
         width: 544px;
     }
     .text-image-slice--flip & {
-        grid-template-columns: 9fr 4fr;
-        .image-1 {
-            order: -1;
+        @media (--lg) {
+            grid-template-columns: 9fr 4fr;
+            .image-1 {
+                order: -1;
+            }
         }
     }
     img {
