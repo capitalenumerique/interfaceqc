@@ -9,6 +9,8 @@ export default withNuxt({
         prettier: prettierPlugin,
     },
     rules: {
+        // TODO: Template order
+        // TODO: Force setup lang="ts"
         // ...prettierPlugin.configs.recommended.rules,
         ...eslintConfigPrettier.rules,
         ...eslintPluginPrettierRecommended.rules,

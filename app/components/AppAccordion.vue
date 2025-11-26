@@ -26,7 +26,7 @@ import IconPlus from '@/assets/svg/plus.svg?component';
 import IconMinus from '@/assets/svg/minus.svg?component';
 
 defineProps<{
-    title: string;
+    title: string | null;
 }>();
 
 const triggerId = useId();

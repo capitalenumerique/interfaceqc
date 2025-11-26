@@ -68,7 +68,7 @@ const { t } = useI18n();
 const isOpen = ref(false);
 const isAnimating = ref(false);
 const maxHeight = ref('0px');
-const menu = useTemplateRef('menu');
+const menu = useTemplateRef<HTMLElement>('menu');
 const menuList = useTemplateRef('menuList');
 const items = computed(() => [
     {

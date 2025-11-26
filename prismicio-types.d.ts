@@ -982,7 +982,22 @@ export interface HomeTicketsSliceDefaultPrimaryTicketsItem {
      * - **API ID Path**: home_tickets.default.primary.tickets[].ticket_type
      * - **Documentation**: https://prismic.io/docs/fields/content-relationship
      */
-    ticket_type: prismic.ContentRelationshipField<'ticket_types'>;
+    ticket_type: ContentRelationshipFieldWithData<
+        [
+            {
+                id: 'ticket_types';
+                fields: [
+                    { id: 'inclusions'; fields: ['item'] },
+                    'name',
+                    'price',
+                    'sharable',
+                    'link',
+                    'background_color',
+                    'text_color',
+                ];
+            },
+        ]
+    >;
 }
 
 /**
@@ -1131,7 +1146,7 @@ export interface PartnersGridSliceDefaultPrimaryPartnersGridItem {
      * - **API ID Path**: partners_grid.default.primary.partners_grid[].partner
      * - **Documentation**: https://prismic.io/docs/fields/content-relationship
      */
-    partner: prismic.ContentRelationshipField<'partner'>;
+    partner: ContentRelationshipFieldWithData<[{ id: 'partner'; fields: ['logo', 'name', 'website', 'category'] }]>;
 }
 
 /**
@@ -1421,7 +1436,9 @@ export interface VolunteersSliceDefaultPrimaryVolunteersItem {
      * - **API ID Path**: volunteers.default.primary.volunteers[].volunteer
      * - **Documentation**: https://prismic.io/docs/fields/content-relationship
      */
-    volunteer: prismic.ContentRelationshipField<'volunteers'>;
+    volunteer: ContentRelationshipFieldWithData<
+        [{ id: 'volunteers'; fields: ['committee_head', 'comitee', 'linkedin', 'img', 'name'] }]
+    >;
 }
 
 /**

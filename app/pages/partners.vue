@@ -19,39 +19,7 @@ const { locale } = useI18n();
 const prismic = usePrismic();
 
 const { data: page } = await useAsyncData(`partners-${locale.value}`, () => {
-    return prismic.client.getSingle('partners', {
-        graphQuery: `{
-            partners {
-                ...partnersFields
-                slices {
-                    ...on page_intro_header {
-                       variation {
-                            ...on default {
-                                primary {
-                                    ...primaryFields
-                                }
-                            }
-                        }
-                    }
-                    ...on partners_grid {
-                        variation {
-                            ...on default {
-                                primary {
-                                    ...primaryFields
-                                    partners_grid {
-                                        partner {
-                                            ...partnerFields
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }`,
-        lang: `${locale.value}-ca`,
-    });
+    return prismic.client.getSingle('partners', { lang: `${locale.value}-ca` });
 });
 
 useSeoMeta({

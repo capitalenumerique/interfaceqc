@@ -28,7 +28,9 @@ const sortedCategories = Object.fromEntries(
         <BouncingAnimation class="animation-container is-reversed" :duration="9000">
             <IconLemon class="lemon" width="180" />
         </BouncingAnimation>
-        <SliceIntro v-if="slice.primary.title && slice.primary.description && slice.primary.cta.url">
+        <SliceIntro
+            v-if="slice.primary.title && slice.primary.description && $prismic.isFilled.link(slice.primary.cta)"
+        >
             <template v-if="slice.primary.title" #title>{{ slice.primary.title }}</template>
             <template v-if="slice.primary.description" #wysiwyg>{{ slice.primary.description }}</template>
             <template v-if="slice.primary.cta.url" #cta>
@@ -42,14 +44,21 @@ const sortedCategories = Object.fromEntries(
                 <h3 v-if="Object.values(sortedCategories).length > 1">{{ title }}</h3>
                 <ul class="partners-group">
                     <li v-for="(item, index) in category" :key="index" class="partner-item">
-                        <a :href="item.partner.data.website.url" target="_blank">
+                        <a
+                            v-if="
+                                $prismic.isFilled.contentRelationship(item.partner) &&
+                                $prismic.isFilled.link(item.partner.data?.website)
+                            "
+                            :href="item.partner.data.website.url"
+                            target="_blank"
+                        >
                             <NuxtImg
                                 class="partner-logo"
-                                :src="item.partner.data.logo.url.split('?')[0]"
+                                :src="item.partner.data.logo.url?.split('?')[0]"
                                 :alt="item.partner.data.name"
                                 width="200"
                                 :format="
-                                    !item.partner.data.logo.url.includes('interface-qc.cdn.prismic.io')
+                                    !item.partner.data.logo.url?.includes('interface-qc.cdn.prismic.io')
                                         ? 'webp'
                                         : undefined
                                 "
