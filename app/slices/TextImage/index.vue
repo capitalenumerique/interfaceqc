@@ -10,10 +10,10 @@ defineProps(getSliceComponentProps<Content.TextImageSlice>(['slice', 'index', 's
 <template>
     <section :data-slice-type="slice.slice_type" :data-slice-variation="slice.variation" class="text-image-slice">
         <div class="content">
-            <h2 class="content-title">
-                {{ slice.primary.title }}
-            </h2>
-            <p v-if="slice.primary.text" class="content-description">{{ slice.primary.text }}</p>
+            <div class="content-inner">
+                <h2 class="content-title">{{ slice.primary.title }}</h2>
+                <p v-if="slice.primary.text" class="content-description wysiwyg">{{ slice.primary.text }}</p>
+            </div>
             <div v-if="slice.primary.cta.url" class="content-cta">
                 <PrimaryButton :to="slice.primary.cta.url">{{ slice.primary.cta.text }}</PrimaryButton>
                 <IconHalfCircle class="icon-half-circle" />
@@ -63,6 +63,11 @@ defineProps(getSliceComponentProps<Content.TextImageSlice>(['slice', 'index', 's
     flex-direction: column;
     justify-content: space-between;
 }
+.content-inner {
+    @media (--lg) {
+        margin-right: -160px;
+    }
+}
 .content-title {
     font-size: rem(32px);
     font-weight: 600;
@@ -72,11 +77,15 @@ defineProps(getSliceComponentProps<Content.TextImageSlice>(['slice', 'index', 's
     margin-bottom: 24px;
     @media (--lg) {
         font-size: rem(48px);
-        margin-right: -160px;
     }
 }
-.content-description {
+.wysiwyg {
     margin: 0;
+    font-size: rem(16px);
+    line-height: 1.777;
+    @media (--lg) {
+        font-size: rem(18px);
+    }
 }
 .content-cta {
     display: flex;
@@ -86,10 +95,11 @@ defineProps(getSliceComponentProps<Content.TextImageSlice>(['slice', 'index', 's
     gap: 90px;
     margin-top: 40px;
     @media (--lg) {
-        gap: 44px;
+        gap: 56px;
         font-size: rem(18px);
         align-items: flex-start;
         max-width: 668px;
+        margin-top: 70px;
     }
     .primary-button {
         text-transform: lowercase;
@@ -110,7 +120,6 @@ defineProps(getSliceComponentProps<Content.TextImageSlice>(['slice', 'index', 's
     @media (--lg) {
         flex-shrink: 0;
         width: 544px;
-        margin-right: -35px;
     }
     img {
         flex-shrink: 0;
