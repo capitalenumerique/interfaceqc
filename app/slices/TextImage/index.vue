@@ -8,7 +8,12 @@ defineProps(getSliceComponentProps<Content.TextImageSlice>(['slice', 'index', 's
 </script>
 
 <template>
-    <section :data-slice-type="slice.slice_type" :data-slice-variation="slice.variation" class="text-image-slice">
+    <section
+        :data-slice-type="slice.slice_type"
+        :data-slice-variation="slice.variation"
+        class="text-image-slice"
+        :class="{ 'text-image-slice--flip': slice.primary.flip }"
+    >
         <div class="content">
             <div class="content-inner">
                 <h2 class="content-title">{{ slice.primary.title }}</h2>
@@ -48,6 +53,7 @@ defineProps(getSliceComponentProps<Content.TextImageSlice>(['slice', 'index', 's
     max-width: var(--page-container-max-width);
     padding: 0 16px;
     flex-direction: column;
+    gap: 40px;
     @media (--md) {
         padding: 0 32px;
     }
@@ -56,8 +62,14 @@ defineProps(getSliceComponentProps<Content.TextImageSlice>(['slice', 'index', 's
         flex-direction: row;
         margin: 100px auto;
     }
+    &.text-image-slice--flip {
+        @media (--lg) {
+            flex-direction: row-reverse;
+        }
+    }
 }
 .content {
+    width: 100%;
     display: flex;
     align-items: flex-start;
     flex-direction: column;
@@ -65,13 +77,18 @@ defineProps(getSliceComponentProps<Content.TextImageSlice>(['slice', 'index', 's
 }
 .content-inner {
     @media (--lg) {
-        margin-right: -160px;
+        margin-right: -200px;
+    }
+    .text-image-slice--flip & {
+        @media (--lg) {
+            margin-left: -200px;
+            margin-right: 0;
+        }
     }
 }
 .content-title {
     font-size: rem(32px);
     font-weight: 600;
-    max-width: 760px;
     flex-shrink: 0;
     margin: 0;
     margin-bottom: 24px;
@@ -115,11 +132,21 @@ defineProps(getSliceComponentProps<Content.TextImageSlice>(['slice', 'index', 's
     align-items: flex-end;
     gap: 24px;
     width: 100%;
-    margin-right: -16px;
-    margin-top: -106px;
+    margin-top: -150px;
+    align-self: end;
+    @media (--sm) {
+        margin-top: -234px;
+        max-width: 70%;
+    }
     @media (--lg) {
         flex-shrink: 0;
         width: 544px;
+    }
+    .text-image-slice--flip & {
+        grid-template-columns: 9fr 4fr;
+        .image-1 {
+            order: -1;
+        }
     }
     img {
         flex-shrink: 0;
