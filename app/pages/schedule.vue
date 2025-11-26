@@ -1,24 +1,3 @@
-<template>
-    <div>
-        <SliceZone :slices="page?.data?.slices ?? []" :components="components" />
-        <div class="page-container">
-            <div class="schedule-grid">
-                <UpcomingSchedule v-if="!scheduleEnabled" />
-                <template v-else-if="dates.length">
-                    <ul class="date-tabs">
-                        <li v-for="(date, i) in dates" :key="`date-${i}`">
-                            <NuxtLinkLocale class="date-tab" :to="{ name: 'schedule-day', params: { day: i + 1 } }">
-                                {{ date }}
-                            </NuxtLinkLocale>
-                        </li>
-                    </ul>
-                    <NuxtPage :data="data" />
-                </template>
-            </div>
-        </div>
-    </div>
-</template>
-
 <script lang="ts" setup>
 import { components } from '~/slices';
 import { NuxtLinkLocale } from '#components';
@@ -76,6 +55,27 @@ const dates = computed(() => {
     });
 });
 </script>
+
+<template>
+    <div>
+        <SliceZone :slices="page?.data?.slices ?? []" :components="components" />
+        <div class="page-container">
+            <div class="schedule-grid">
+                <UpcomingSchedule v-if="!scheduleEnabled" />
+                <template v-else-if="dates.length">
+                    <ul class="date-tabs">
+                        <li v-for="(date, i) in dates" :key="`date-${i}`">
+                            <NuxtLinkLocale class="date-tab" :to="{ name: 'schedule-day', params: { day: i + 1 } }">
+                                {{ date }}
+                            </NuxtLinkLocale>
+                        </li>
+                    </ul>
+                    <NuxtPage :data="data" />
+                </template>
+            </div>
+        </div>
+    </div>
+</template>
 
 <style lang="postcss" scoped>
 .page-container {

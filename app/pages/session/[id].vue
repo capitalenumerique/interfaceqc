@@ -1,3 +1,57 @@
+<script lang="ts" setup>
+import IconBackArrow from '@/assets/svg/back-arrow.svg?component';
+
+definePageMeta({
+    i18n: {
+        paths: {
+            fr: '/programmation/[day]/conference/[id]',
+            en: '/schedule/[day]/session/[id]',
+        },
+    },
+});
+
+const { formatSessionTime } = useTimeFormatter();
+const { t, locale } = useI18n();
+const { $luxon } = useNuxtApp();
+const route = useRoute();
+const sessionId = (route.params.id as string).split('-').pop() || '';
+
+const { data } = await useAsyncData(`schedule-${sessionId}-${locale.value}`, async () => {
+    const { data, suspense } = useSession(sessionId);
+    await suspense();
+    return data.value as SessionData;
+});
+
+const seoTitle = computed(() => data.value?.title || '');
+const seoDescription = computed(() => {
+    const fullDescription = data.value?.description || '';
+    if (fullDescription.length <= 150) return fullDescription;
+    const sentences = fullDescription.match(/[^.!?]+[.!?]+/g) || [fullDescription];
+    let result = '';
+    for (const sentence of sentences) {
+        if ((result + sentence).length > 150) break;
+        result += sentence;
+    }
+    return result.trim();
+});
+const seoOgImage = computed(() => data.value?.bannerUrl || data.value?.speakers?.[0]?.photoUrl || undefined);
+
+useSeoMeta({
+    title: seoTitle,
+    description: seoDescription,
+    ogImage: seoOgImage,
+});
+
+function formatDate(date: string) {
+    const formattedDate = $luxon.DateTime.fromISO(date).toLocaleString({
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+    });
+    return formattedDate;
+}
+</script>
+
 <template>
     <div v-if="data" class="page-wrapper">
         <NuxtLinkLocale :to="{ name: 'schedule-day', params: { day: $route.params.day } }" class="back-button">
@@ -54,60 +108,6 @@
         </div>
     </div>
 </template>
-
-<script lang="ts" setup>
-import IconBackArrow from '@/assets/svg/back-arrow.svg?component';
-
-definePageMeta({
-    i18n: {
-        paths: {
-            fr: '/programmation/[day]/conference/[id]',
-            en: '/schedule/[day]/session/[id]',
-        },
-    },
-});
-
-const { formatSessionTime } = useTimeFormatter();
-const { t, locale } = useI18n();
-const { $luxon } = useNuxtApp();
-const route = useRoute();
-const sessionId = (route.params.id as string).split('-').pop() || '';
-
-const { data } = await useAsyncData(`schedule-${sessionId}-${locale.value}`, async () => {
-    const { data, suspense } = useSession(sessionId);
-    await suspense();
-    return data.value as SessionData;
-});
-
-const seoTitle = computed(() => data.value?.title || '');
-const seoDescription = computed(() => {
-    const fullDescription = data.value?.description || '';
-    if (fullDescription.length <= 150) return fullDescription;
-    const sentences = fullDescription.match(/[^.!?]+[.!?]+/g) || [fullDescription];
-    let result = '';
-    for (const sentence of sentences) {
-        if ((result + sentence).length > 150) break;
-        result += sentence;
-    }
-    return result.trim();
-});
-const seoOgImage = computed(() => data.value?.bannerUrl || data.value?.speakers?.[0]?.photoUrl || undefined);
-
-useSeoMeta({
-    title: seoTitle,
-    description: seoDescription,
-    ogImage: seoOgImage,
-});
-
-function formatDate(date: string) {
-    const formattedDate = $luxon.DateTime.fromISO(date).toLocaleString({
-        weekday: 'long',
-        day: 'numeric',
-        month: 'long',
-    });
-    return formattedDate;
-}
-</script>
 
 <style lang="postcss" scoped>
 .page-wrapper {

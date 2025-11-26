@@ -1,16 +1,3 @@
-<template>
-    <ul class="categories-list">
-        <li
-            v-for="(category, i) in categories"
-            :key="`category-${i}`"
-            :style="getCategoryStyle(category.colors)"
-            class="category-item"
-        >
-            {{ category.name }}
-        </li>
-    </ul>
-</template>
-
 <script lang="ts" setup>
 const props = defineProps<{
     categories: Category[];
@@ -29,6 +16,19 @@ const getCategoryStyle = (colors: Category['colors']) => {
     };
 };
 </script>
+
+<template>
+    <ul class="categories-list">
+        <li
+            v-for="(category, i) in categories"
+            :key="`category-${i}`"
+            :style="getCategoryStyle(category.colors)"
+            class="category-item"
+        >
+            {{ category.name }}
+        </li>
+    </ul>
+</template>
 
 <style lang="postcss" scoped>
 .categories-list {

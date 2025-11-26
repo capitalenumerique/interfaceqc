@@ -1,9 +1,3 @@
-<template>
-    <div>
-        <SliceZone :slices="page?.data?.slices ?? []" :components="components" />
-    </div>
-</template>
-
 <script lang="ts" setup>
 import { components } from '~/slices';
 
@@ -19,3 +13,9 @@ useSeoMeta({
     description: page.value?.data.meta_description,
 });
 </script>
+
+<template>
+    <div>
+        <SliceZone :slices="page?.data?.slices ?? []" :components="components" />
+    </div>
+</template>

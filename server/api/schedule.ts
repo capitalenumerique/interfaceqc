@@ -79,8 +79,7 @@ export default defineEventHandler(async () => {
 
     allCategories.forEach((category, index) => {
         categoryColorMap[category] =
-            // eslint-disable-next-line prettier/prettier
-            category === 'Keynote' ? 'transparent' : colorArray[index % colorArray.length] ?? 'transparent';
+            category === 'Keynote' ? 'transparent' : (colorArray[index % colorArray.length] ?? 'transparent');
     });
 
     // Extraire les salles uniques

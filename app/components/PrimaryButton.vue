@@ -1,22 +1,3 @@
-<template>
-    <component
-        :is="component"
-        :to="to"
-        :class="{
-            'is-outlined': outline,
-            'is-small': small,
-        }"
-        :type="type"
-        class="primary-button"
-        :style="{
-            '--primary-color': `var(--${primaryColor})`,
-            '--secondary-color': `var(--${secondaryColor})`,
-        }"
-    >
-        <slot />
-    </component>
-</template>
-
 <script lang="ts" setup>
 import { NuxtLinkLocale } from '#components';
 
@@ -39,6 +20,25 @@ const component = computed(() => {
     return 'button';
 });
 </script>
+
+<template>
+    <component
+        :is="component"
+        :to="to"
+        :class="{
+            'is-outlined': outline,
+            'is-small': small,
+        }"
+        :type="type"
+        class="primary-button"
+        :style="{
+            '--primary-color': `var(--${primaryColor})`,
+            '--secondary-color': `var(--${secondaryColor})`,
+        }"
+    >
+        <slot />
+    </component>
+</template>
 
 <style lang="postcss" scoped>
 .primary-button {

@@ -1,9 +1,3 @@
-<template>
-    <div ref="container" class="container">
-        <div ref="object" class="object"><slot /></div>
-    </div>
-</template>
-
 <script lang="ts" setup>
 import { useMotion, type MotionInstance } from '@vueuse/motion';
 import { useResizeObserver } from '@vueuse/core';
@@ -131,6 +125,12 @@ useResizeObserver(container, () => {
     startAnimation();
 });
 </script>
+
+<template>
+    <div ref="container" class="container">
+        <div ref="object" class="object"><slot /></div>
+    </div>
+</template>
 
 <style lang="postcss" scoped>
 .container {
