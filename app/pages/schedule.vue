@@ -16,7 +16,7 @@ onMounted(() => {
     window.scrollTo(0, 0);
 });
 
-const scheduleEnabled = ref(true);
+const scheduleEnabled = ref(false);
 const prismic = usePrismic();
 const route = useRoute();
 const localePath = useLocalePath();
