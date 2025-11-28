@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 import { CATEGORY_COLORS } from '@/utils/categoryColors';
 
 const { t } = useI18n();

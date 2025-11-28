@@ -1,24 +1,26 @@
+import type { TypedInternalResponse, NitroFetchRequest } from 'nitropack';
 type Props = {
     query: string;
     variables?: Record<string, unknown>;
 };
 
-const useSwapcardClient = async ({ query, variables = {} }: Props) => {
+export default async function useSwapcardClient<T>({
+    query,
+    variables = {},
+}: Props): Promise<TypedInternalResponse<NitroFetchRequest, T, 'get'>> {
     const config = useRuntimeConfig();
 
-    const response = await $fetch(config.public.swapcardGraphqlEndpoint, {
+    const response = await $fetch<T>(config.public.swapcardGraphqlEndpoint, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `${config.swapcardToken}`, // Secure API key
+            'Authorization': `${config.swapcardToken}`,
         },
-        body: JSON.stringify({
+        body: {
             query,
             variables: { eventId: config.swapcardEventId, ...variables },
-        }),
+        },
     });
 
     return response;
-};
-
-export default useSwapcardClient;
+}

@@ -1,12 +1,11 @@
-<script setup>
+<script lang="ts" setup>
+import type { NuxtError } from '#app';
+
 import IconAsterisk from '@/assets/svg/shapes/asterisk.svg?component';
 
-const props = defineProps({
-    error: {
-        type: Object,
-        required: true,
-    },
-});
+const props = defineProps<{
+    error: NuxtError;
+}>();
 
 const { t } = useI18n();
 

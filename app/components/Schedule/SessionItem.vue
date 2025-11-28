@@ -1,3 +1,31 @@
+<script lang="ts" setup>
+const props = defineProps<{
+    session: Session;
+}>();
+
+const { t } = useI18n();
+const { formatSessionTime } = useTimeFormatter();
+const sessionSlug = useSlug(props.session.title);
+
+const hasDetails = computed(() => {
+    return (
+        props.session.speakers.every((s: { id: string }) => s.id !== 'RXZlbnRQZW9wbGVfMzgyMTc4NjI=') &&
+        ['Conférence', 'Keynote'].includes(props.session.type)
+    );
+});
+
+const hoverColors = computed(() => {
+    const colors = props.session.categories?.[0]?.colors || {
+        bg: 'var(--red-600)',
+        text: 'var(--yellow-200)',
+    };
+    return {
+        '--hover-text': colors.text,
+        '--hover-bg': colors.bg,
+    };
+});
+</script>
+
 <template>
     <div class="session-wrapper" :class="{ 'has-details': hasDetails }" :style="hoverColors">
         <div>
@@ -27,37 +55,6 @@
         <ScheduleSessionCategories :list-id="session.id" :categories="session.categories" :hover-colors="hoverColors" />
     </div>
 </template>
-
-<script setup>
-const props = defineProps({
-    session: {
-        type: Object,
-        required: true,
-    },
-});
-
-const { t } = useI18n();
-const { formatSessionTime } = useTimeFormatter();
-const sessionSlug = useSlug(props.session.title);
-
-const hasDetails = computed(() => {
-    return (
-        props.session.speakers.every((s) => s.id !== 'RXZlbnRQZW9wbGVfMzgyMTc4NjI=') &&
-        ['Conférence', 'Keynote'].includes(props.session.type)
-    );
-});
-
-const hoverColors = computed(() => {
-    const colors = props.session.categories?.[0]?.colors || {
-        bg: 'var(--red-600)',
-        text: 'var(--yellow-200)',
-    };
-    return {
-        '--hover-text': colors.text,
-        '--hover-bg': colors.bg,
-    };
-});
-</script>
 
 <style lang="postcss" scoped>
 .session-wrapper {
