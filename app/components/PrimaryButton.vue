@@ -63,7 +63,7 @@ const component = computed(() => {
     color: var(--secondary-color);
     font-weight: 500;
     font-size: rem(16px);
-    line-height: 20px;
+    line-height: 1.25;
     border-radius: 12px;
     cursor: pointer;
     transition:
