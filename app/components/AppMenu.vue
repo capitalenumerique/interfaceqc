@@ -412,19 +412,19 @@ const onEscape = () => {
         display: none;
     }
     svg {
-        margin: -2px;
+        margin: -3px 0;
         width: 22px;
     }
     span {
         &:first-of-type {
             display: none;
-            @media (min-width: 375px) {
+            @media (min-width: 390px) {
                 display: inline;
             }
         }
         &:last-of-type {
             display: inline;
-            @media (min-width: 375px) {
+            @media (min-width: 390px) {
                 display: none;
             }
         }

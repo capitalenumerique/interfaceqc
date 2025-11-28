@@ -644,17 +644,6 @@ interface VolunteersDocumentData {
     name: prismic.KeyTextField;
 
     /**
-     * Job field in *Volunteers*
-     *
-     * - **Field Type**: Text
-     * - **Placeholder**: *None*
-     * - **API ID Path**: volunteers.job
-     * - **Tab**: Main
-     * - **Documentation**: https://prismic.io/docs/fields/text
-     */
-    job: prismic.KeyTextField;
-
-    /**
      * img field in *Volunteers*
      *
      * - **Field Type**: Image
@@ -695,6 +684,18 @@ interface VolunteersDocumentData {
         | 'Comité XP conférenciers'
         | 'Comité technique'
     >;
+
+    /**
+     * Committee head field in *Volunteers*
+     *
+     * - **Field Type**: Boolean
+     * - **Placeholder**: *None*
+     * - **Default Value**: false
+     * - **API ID Path**: volunteers.committee_head
+     * - **Tab**: Main
+     * - **Documentation**: https://prismic.io/docs/fields/boolean
+     */
+    committee_head: prismic.BooleanField;
 }
 
 /**
@@ -1350,7 +1351,7 @@ export interface TextImageSliceDefaultPrimary {
     cta: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
 
     /**
-     * Image 1 field in *TextImage → Default → Primary*
+     * Image 1 (Grosse) field in *TextImage → Default → Primary*
      *
      * - **Field Type**: Image
      * - **Placeholder**: *None*
@@ -1360,7 +1361,7 @@ export interface TextImageSliceDefaultPrimary {
     image_1: prismic.ImageField<never>;
 
     /**
-     * Image 2 field in *TextImage → Default → Primary*
+     * Image 2 (Petite) field in *TextImage → Default → Primary*
      *
      * - **Field Type**: Image
      * - **Placeholder**: *None*
@@ -1368,6 +1369,17 @@ export interface TextImageSliceDefaultPrimary {
      * - **Documentation**: https://prismic.io/docs/fields/image
      */
     image_2: prismic.ImageField<never>;
+
+    /**
+     * Flip field in *TextImage → Default → Primary*
+     *
+     * - **Field Type**: Boolean
+     * - **Placeholder**: *None*
+     * - **Default Value**: false
+     * - **API ID Path**: text_image.default.primary.flip
+     * - **Documentation**: https://prismic.io/docs/fields/boolean
+     */
+    flip: prismic.BooleanField;
 }
 
 /**

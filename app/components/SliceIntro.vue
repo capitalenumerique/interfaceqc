@@ -44,17 +44,17 @@
 .intro-content {
     display: flex;
     flex-direction: column;
-    font-size: rem(16px);
-    line-height: 1.777;
     gap: 40px;
     @media (--lg) {
-        font-size: rem(18px);
         align-items: flex-start;
         max-width: 668px;
     }
     .wysiwyg {
+        font-size: rem(16px);
+        line-height: 1.777;
         margin-left: 40px;
         @media (--lg) {
+            font-size: rem(18px);
             margin-left: 0px;
         }
     }

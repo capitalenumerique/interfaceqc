@@ -100,8 +100,8 @@ const mapping = [
                                     class="volunteer-name"
                                     v-html="item.volunteer.data.name.replace(' ', '<br />')"
                                 ></h4>
-                                <div v-if="item.volunteer.data.job" class="volunteer-job">
-                                    {{ item.volunteer.data.job }}
+                                <div v-if="item.volunteer.data.committee_head" class="volunteer-job">
+                                    {{ t('Responsable {committee}', { committee: t(committee).toLowerCase() }) }}
                                 </div>
                             </div>
 
@@ -317,6 +317,7 @@ const mapping = [
 {
     "en": {
         "Voir le profil": "View profile",
+        "Responsable {committee}": "Head of {committee}",
         "Comité programmation": "Programming committee",
         "Comité web": "Web committee",
         "Comité design": "Design committee",

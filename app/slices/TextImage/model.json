@@ -40,7 +40,7 @@
         "image_1": {
           "type": "Image",
           "config": {
-            "label": "Image 1",
+            "label": "Image 1 (Grosse)",
             "constraint": {
               "width": 360,
               "height": 450
@@ -51,12 +51,21 @@
         "image_2": {
           "type": "Image",
           "config": {
-            "label": "Image 2",
+            "label": "Image 2 (Petite)",
             "constraint": {
               "width": 160,
               "height": 200
             },
             "thumbnails": []
+          }
+        },
+        "flip": {
+          "type": "Boolean",
+          "config": {
+            "label": "Flip",
+            "placeholder_false": "false",
+            "placeholder_true": "true",
+            "default_value": false
           }
         }
       },
