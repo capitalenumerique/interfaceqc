@@ -23,7 +23,7 @@ const socials = [
     },
     {
         name: 'Linkedin',
-        link: 'https://www.linkedin.com/company/interfaceqc/',
+        link: 'https://www.linkedin.com/company/interfaceqc',
         icon: IconLinkedin,
     },
 ];
@@ -235,7 +235,6 @@ const archives = [2025];
 }
 .quebec-city-text {
     font-size: rem(12px);
-    line-height: 1.3;
     text-wrap: balance;
     max-width: 275px;
     @media (--lg) {
@@ -251,18 +250,21 @@ const archives = [2025];
     justify-content: space-between;
     align-items: flex-start;
     flex-direction: column;
-    gap: 48px;
+    gap: 24px;
     max-width: var(--page-container-max-width);
     margin: 0 auto;
+    padding: 16px;
     @media (--md) {
+        gap: 48px;
         padding: 16px 32px;
         flex-direction: row;
         align-items: center;
     }
 }
 .copyright {
-    gap: 4px;
     font-size: rem(12px);
+    line-height: 1.777;
+    gap: 4px;
     margin-right: 64px;
     @media (--md) {
         margin-right: 0;
@@ -297,6 +299,7 @@ const archives = [2025];
     flex-direction: column;
     justify-content: flex-end;
     text-align: right;
+    min-width: 80px;
 }
 .support-label {
     font-size: rem(12px);

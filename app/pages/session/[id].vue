@@ -71,7 +71,7 @@ function formatDate(date: string) {
             <h1 class="session-title">{{ data.title }}</h1>
             <div v-html="data.htmlDescription"></div>
             <p class="session-place">{{ data.place }}</p>
-            <ScheduleSessionCategories :list-id="data.id" :categories="data.categories" />
+            <ScheduleSessionCategories :categories="data.categories" />
             <ul class="speakers-list">
                 <li v-for="speaker in data.speakers" :key="speaker.id">
                     <div class="speaker-wrapper">

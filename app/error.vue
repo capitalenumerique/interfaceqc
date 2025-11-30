@@ -3,7 +3,7 @@ import type { NuxtError } from '#app';
 
 import IconAsterisk from '@/assets/svg/shapes/asterisk.svg?component';
 
-const props = defineProps<{
+const { error } = defineProps<{
     error: NuxtError;
 }>();
 
@@ -11,7 +11,7 @@ const { t } = useI18n();
 
 useHead(() => ({
     titleTemplate: () => {
-        const title = props.error.statusCode === 404 ? t('Page non trouvée') : t('Une erreur est survenue');
+        const title = error.statusCode === 404 ? t('Page non trouvée') : t('Une erreur est survenue');
         return `${title} | Interface`;
     },
 }));

@@ -11,6 +11,8 @@ const { slice } = defineProps(
     getSliceComponentProps<Content.PartnersGridSlice>(['slice', 'index', 'slices', 'context']),
 );
 
+const { t } = useI18n();
+
 const categories = groupBy(slice.primary.partners_grid, (item) => {
     if (isFilled.contentRelationship(item.partner)) {
         return item.partner.data?.category ?? 'Autres';
@@ -46,7 +48,7 @@ const sortedCategories = Object.fromEntries(
         </SliceIntro>
         <ul v-if="slice.primary.partners_grid" class="partners-grid">
             <li v-for="(category, title) in sortedCategories" :key="title">
-                <h3 v-if="Object.values(sortedCategories).length > 1">{{ title }}</h3>
+                <h3 v-if="Object.values(sortedCategories).length > 1">{{ t(title) }}</h3>
                 <ul class="partners-group">
                     <li v-for="(item, index) in category" :key="index" class="partner-item">
                         <a
@@ -149,3 +151,13 @@ const sortedCategories = Object.fromEntries(
     }
 }
 </style>
+
+<i18n lang="json">
+{
+    "en": {
+        "Principaux": "Primary",
+        "Secondaires": "Secondary",
+        "Autres": "Others"
+    }
+}
+</i18n>

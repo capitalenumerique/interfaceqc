@@ -15,6 +15,7 @@ export default withNuxt({
         'vue/no-v-html': 'off',
         'vue/v-slot-style': ['error', 'shorthand'],
         'vue/no-bare-strings-in-template': 'error',
+        'vue/html-button-has-type': 'error',
         'vue/block-order': [
             'error',
             {
