@@ -112,7 +112,6 @@ const dates = computed(() => {
     background-color: transparent;
     border-radius: 6px;
     padding: 8px;
-    line-height: 1.5;
     cursor: pointer;
     border: 2px dashed transparent;
     text-wrap: balance;

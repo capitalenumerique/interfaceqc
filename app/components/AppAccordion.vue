@@ -9,19 +9,10 @@ defineProps<{
 const triggerId = useId();
 const contentId = useId();
 const isOpen = ref(false);
-const isAnimating = ref(false);
-const maxHeight = ref('0px');
-const content = useTemplateRef('content');
-
-const onEnter = () => {
-    const { height } = useElementSize(content);
-    isAnimating.value = true;
-    maxHeight.value = `${height.value}px`;
-};
 </script>
 
 <template>
-    <li class="accordion-item" :class="{ 'is-open': isOpen || isAnimating }">
+    <li class="accordion-item" :class="{ 'is-open': isOpen }">
         <button
             :id="triggerId"
             :aria-expanded="isOpen"
@@ -33,13 +24,13 @@ const onEnter = () => {
             <IconPlus v-if="!isOpen" />
             <IconMinus v-else />
         </button>
-        <Transition name="collapse" @enter="onEnter" @after-leave="isAnimating = false">
-            <div v-show="isOpen" :id="contentId" :aria-labelledby="triggerId" class="accordion-content-wrapper">
-                <div ref="content" class="accordion-content">
+        <TransitionExpand>
+            <div v-show="isOpen" :id="contentId" :aria-labelledby="triggerId">
+                <div class="accordion-content">
                     <slot />
                 </div>
             </div>
-        </Transition>
+        </TransitionExpand>
     </li>
 </template>
 
@@ -82,17 +73,13 @@ const onEnter = () => {
         }
     }
 }
-.accordion-content-wrapper {
-    overflow: hidden;
-    max-height: v-bind(maxHeight);
-    border-radius: 20px;
-}
 .accordion-trigger {
     display: flex;
     gap: 20px;
     align-items: center;
     justify-content: space-between;
     font-size: rem(18px);
+    line-height: 1.25;
     font-weight: 600;
     padding: 16px;
     border-radius: 16px;
@@ -121,9 +108,10 @@ const onEnter = () => {
     }
 }
 .accordion-content {
+    border-radius: 20px;
     padding: 16px;
     margin-top: -1px;
-    border: 1px solid var(--gray-900);
+    border: 1px solid transparent;
     transition:
         background var(--hover-transition),
         color var(--hover-transition),
@@ -134,14 +122,5 @@ const onEnter = () => {
         font-size: rem(18px);
         padding: 24px;
     }
-}
-
-.collapse-enter-active,
-.collapse-leave-active {
-    transition: max-height 300ms ease-in-out;
-}
-.collapse-enter-from,
-.collapse-leave-to {
-    max-height: 0px;
 }
 </style>

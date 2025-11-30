@@ -141,6 +141,7 @@ function changeShape() {
 }
 .header-text {
     font-size: rem(20px);
+    line-height: 1.4;
     font-weight: 500;
     text-decoration: none;
     color: var(--color-black);
@@ -229,6 +230,7 @@ function changeShape() {
     }
     .infos-text {
         font-size: rem(28px);
+        line-height: 1.25;
         font-weight: 600;
         margin: 0;
         text-wrap: pretty;
