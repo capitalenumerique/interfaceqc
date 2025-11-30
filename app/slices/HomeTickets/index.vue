@@ -6,8 +6,6 @@ import IconStar from '@/assets/svg/shapes/star.svg?component';
 // The array passed to `getSliceComponentProps` is purely optional.
 // Consider it as a visual hint for you when templating your slice.
 defineProps(getSliceComponentProps<Content.HomeTicketsSlice>(['slice', 'index', 'slices', 'context']));
-
-const { t } = useI18n();
 </script>
 
 <template>
