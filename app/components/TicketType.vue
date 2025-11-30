@@ -63,6 +63,7 @@ const { t } = useI18n();
         </TransitionExpand>
         <button
             :id="triggerId"
+            type="button"
             :aria-expanded="isOpen"
             :aria-controls="contentId"
             class="accordion-trigger"

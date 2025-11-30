@@ -15,6 +15,7 @@ const isOpen = ref(false);
     <li class="accordion-item" :class="{ 'is-open': isOpen }">
         <button
             :id="triggerId"
+            type="button"
             :aria-expanded="isOpen"
             :aria-controls="contentId"
             class="accordion-trigger"

@@ -23,7 +23,7 @@ const socials = [
     },
     {
         name: 'Linkedin',
-        link: 'https://www.linkedin.com/company/interfaceqc/',
+        link: 'https://www.linkedin.com/company/interfaceqc',
         icon: IconLinkedin,
     },
 ];
