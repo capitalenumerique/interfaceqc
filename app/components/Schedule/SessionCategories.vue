@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-const props = defineProps<{
+const { hoverColors = null } = defineProps<{
     categories: Category[];
     hoverColors?: {
         '--hover-bg': string;
@@ -11,8 +11,8 @@ const getCategoryStyle = (colors: Category['colors']) => {
     return {
         '--category-bg': colors.bg,
         '--category-text': colors.text,
-        '--hover-text': props.hoverColors?.['--hover-bg'] || colors.bg,
-        '--hover-bg': props.hoverColors?.['--hover-text'] || colors.text,
+        '--hover-text': hoverColors?.['--hover-bg'] || colors.bg,
+        '--hover-bg': hoverColors?.['--hover-text'] || colors.text,
     };
 };
 </script>

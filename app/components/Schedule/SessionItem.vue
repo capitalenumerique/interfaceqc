@@ -1,21 +1,21 @@
 <script lang="ts" setup>
-const props = defineProps<{
+const { session } = defineProps<{
     session: Session;
 }>();
 
 const { t } = useI18n();
 const { formatSessionTime } = useTimeFormatter();
-const sessionSlug = useSlug(props.session.title);
+const sessionSlug = useSlug(session.title);
 
 const hasDetails = computed(() => {
     return (
-        props.session.speakers.every((s: { id: string }) => s.id !== 'RXZlbnRQZW9wbGVfMzgyMTc4NjI=') &&
-        ['Conférence', 'Keynote'].includes(props.session.type)
+        session.speakers.every((s: { id: string }) => s.id !== 'RXZlbnRQZW9wbGVfMzgyMTc4NjI=') &&
+        ['Conférence', 'Keynote'].includes(session.type)
     );
 });
 
 const hoverColors = computed(() => {
-    const colors = props.session.categories?.[0]?.colors || {
+    const colors = session.categories?.[0]?.colors || {
         bg: 'var(--red-600)',
         text: 'var(--yellow-200)',
     };
@@ -52,7 +52,7 @@ const hoverColors = computed(() => {
                 })
             }}</span>
         </div>
-        <ScheduleSessionCategories :list-id="session.id" :categories="session.categories" :hover-colors="hoverColors" />
+        <ScheduleSessionCategories :categories="session.categories" :hover-colors="hoverColors" />
     </div>
 </template>
 
