@@ -30,49 +30,52 @@ const { t } = useI18n();
                         'is-odd': slice.primary.tickets.length % 2 === 1,
                     }"
                 >
-                    <li
-                        v-for="item in slice.primary.tickets"
-                        :key="item.ticket_type.uid"
-                        class="ticket-type"
-                        :style="{
-                            '--backgroundColor': item.ticket_type.data.background_color,
-                            '--textColor': item.ticket_type.data.text_color,
-                        }"
-                    >
-                        <div class="top-section">
-                            <h4 class="ticket-type-title">{{ item.ticket_type.data.name }}</h4>
-                            <div class="ticket-type-price">{{ $n(item.ticket_type.data.price, 'currency') }}</div>
-                            <a
-                                v-if="item.ticket_type.data.link"
-                                :href="item.ticket_type.data.link.url"
-                                target="_blank"
-                                class="ticket-type-link"
-                            >
-                                {{ t('Sélectionner') }}
-                            </a>
-                        </div>
-                        <div class="bottom-section">
-                            <h5 class="inclusion-title">{{ t('Inclusions') }}</h5>
-                            <p class="inclusion-description">{{ t('Tout ce que comprend le billet') }}</p>
-                            <ul class="inclusion-list">
-                                <li
-                                    v-for="inclusion in item.ticket_type.data.inclusions"
-                                    :key="inclusion.item"
-                                    class="inclusion-item"
+                    <template v-for="(item, i) in slice.primary.tickets" :key="i">
+                        <li
+                            v-if="$prismic.isFilled.contentRelationship(item.ticket_type)"
+                            class="ticket-type"
+                            :style="{
+                                '--backgroundColor': item.ticket_type.data?.background_color ?? '',
+                                '--textColor': item.ticket_type.data?.text_color ?? '',
+                            }"
+                        >
+                            <div class="top-section">
+                                <h4 class="ticket-type-title">{{ item.ticket_type.data?.name }}</h4>
+                                <div class="ticket-type-price">
+                                    {{ $n(item.ticket_type.data?.price || 0, 'currency') }}
+                                </div>
+                                <a
+                                    v-if="$prismic.isFilled.link(item.ticket_type.data?.link)"
+                                    :href="item.ticket_type.data?.link.url"
+                                    target="_blank"
+                                    class="ticket-type-link"
                                 >
-                                    <IconCheck />
-                                    {{ inclusion.item }}
-                                </li>
-                                <li>
-                                    {{
-                                        item.ticket_type.data.sharable
-                                            ? t('Billet non-nominatif (peut être partagé)')
-                                            : t('Billet nominatif (ne peut pas être partagé)')
-                                    }}
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
+                                    {{ t('Sélectionner') }}
+                                </a>
+                            </div>
+                            <div class="bottom-section">
+                                <h5 class="inclusion-title">{{ t('Inclusions') }}</h5>
+                                <p class="inclusion-description">{{ t('Tout ce que comprend le billet') }}</p>
+                                <ul class="inclusion-list">
+                                    <li
+                                        v-for="(inclusion, j) in item.ticket_type.data?.inclusions"
+                                        :key="j"
+                                        class="inclusion-item"
+                                    >
+                                        <IconCheck />
+                                        {{ inclusion.item }}
+                                    </li>
+                                    <li>
+                                        {{
+                                            item.ticket_type.data?.sharable
+                                                ? t('Billet non-nominatif (peut être partagé)')
+                                                : t('Billet nominatif (ne peut pas être partagé)')
+                                        }}
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </template>
                 </ul>
                 <p v-if="slice.primary.terms" class="terms">
                     {{ slice.primary.terms }}

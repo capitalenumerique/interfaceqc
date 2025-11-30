@@ -1,3 +1,36 @@
+<script lang="ts" setup>
+import { useBreakpoints } from '@vueuse/core';
+import IconAsterisk from '@/assets/svg/shapes/asterisk.svg?component';
+import IconHexagon from '@/assets/svg/shapes/hexagon.svg?component';
+import IconFacebook from '@/assets/svg/facebook.svg?component';
+import IconInstagram from '@/assets/svg/instagram.svg?component';
+import IconLinkedin from '@/assets/svg/linkedin.svg?component';
+
+const { t } = useI18n();
+const breakpoints = useBreakpoints({ lg: 1024 }, { ssrWidth: 1024 });
+const showMarquee = breakpoints.smaller('lg');
+
+const socials = [
+    {
+        name: 'Facebook',
+        link: 'https://www.facebook.com/interfaceqc',
+        icon: IconFacebook,
+    },
+    {
+        name: 'Instagram',
+        link: 'https://www.instagram.com/interfaceqc',
+        icon: IconInstagram,
+    },
+    {
+        name: 'Linkedin',
+        link: 'https://www.linkedin.com/company/interfaceqc/',
+        icon: IconLinkedin,
+    },
+];
+
+const archives = [2025];
+</script>
+
 <template>
     <footer class="footer">
         <div class="footer-content">
@@ -97,39 +130,6 @@
         </div>
     </footer>
 </template>
-
-<script lang="ts" setup>
-import { useBreakpoints } from '@vueuse/core';
-import IconAsterisk from '@/assets/svg/shapes/asterisk.svg?component';
-import IconHexagon from '@/assets/svg/shapes/hexagon.svg?component';
-import IconFacebook from '@/assets/svg/facebook.svg?component';
-import IconInstagram from '@/assets/svg/instagram.svg?component';
-import IconLinkedin from '@/assets/svg/linkedin.svg?component';
-
-const { t } = useI18n();
-const breakpoints = useBreakpoints({ lg: 1024 }, { ssrWidth: 1024 });
-const showMarquee = breakpoints.smaller('lg');
-
-const socials = [
-    {
-        name: 'Facebook',
-        link: 'https://www.facebook.com/interfaceqc',
-        icon: IconFacebook,
-    },
-    {
-        name: 'Instagram',
-        link: 'https://www.instagram.com/interfaceqc',
-        icon: IconInstagram,
-    },
-    {
-        name: 'Linkedin',
-        link: 'https://www.linkedin.com/company/interfaceqc/',
-        icon: IconLinkedin,
-    },
-];
-
-const archives = [2025];
-</script>
 
 <style lang="postcss" scoped>
 .footer {

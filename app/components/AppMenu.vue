@@ -1,51 +1,3 @@
-<template>
-    <OnClickOutside
-        ref="menu"
-        as="header"
-        class="menu"
-        :class="{ 'menu-opened': isAnimating }"
-        @keydown.esc="onEscape"
-        @trigger="isOpen = false"
-    >
-        <div class="menu-wrapper">
-            <div class="logo-wrapper">
-                <button class="btn-menu" type="button" :class="{ 'is-open': isOpen }" @click="isOpen = !isOpen">
-                    <span class="sr-only">{{ t('Menu') }}</span>
-                </button>
-                <NuxtLinkLocale to="index" class="logo-interface">
-                    <span class="sr-only">{{ t('Retour à l’accueil') }}</span>
-                    <LogoInterface />
-                </NuxtLinkLocale>
-                <PrimaryButton :to="$config.public.ticketing_url" target="_blank" class="btn-cta">
-                    <IconTickets />
-                    <span>{{ t('Acheter mon billet') }}</span>
-                    <span>{{ t('Billets') }}</span>
-                </PrimaryButton>
-            </div>
-            <NuxtLinkLocale to="index" class="logo-interface-vertical">
-                <span class="sr-only">{{ t('Retour à l’accueil') }}</span>
-                <LogoInterfaceVertical />
-            </NuxtLinkLocale>
-        </div>
-        <Transition name="collapse" @enter="onEnter" @after-leave="isAnimating = false">
-            <nav v-show="isOpen" class="menu-inner">
-                <ul ref="menuList" class="menu-list">
-                    <li v-for="item in items" :key="item.label" class="menu-item">
-                        <NuxtLinkLocale :to="item.path" class="menu-link">
-                            <Component :is="item.icon" :style="`fill: var(--${item.color})`" class="menu-icon" />
-                            {{ item.label }}
-                            <IconExternal v-if="item.path.startsWith('https://')" class="icon-external" />
-                        </NuxtLinkLocale>
-                    </li>
-                    <li class="menu-item">
-                        <LanguageSwitcher />
-                    </li>
-                </ul>
-            </nav>
-        </Transition>
-    </OnClickOutside>
-</template>
-
 <script lang="ts" setup>
 import { OnClickOutside } from '@vueuse/components';
 import { useFocusTrap } from '@vueuse/integrations/useFocusTrap';
@@ -68,7 +20,7 @@ const { t } = useI18n();
 const isOpen = ref(false);
 const isAnimating = ref(false);
 const maxHeight = ref('0px');
-const menu = useTemplateRef('menu');
+const menu = useTemplateRef<HTMLElement>('menu');
 const menuList = useTemplateRef('menuList');
 const items = computed(() => [
     {
@@ -157,6 +109,54 @@ const onEscape = () => {
     isOpen.value = false;
 };
 </script>
+
+<template>
+    <OnClickOutside
+        ref="menu"
+        as="header"
+        class="menu"
+        :class="{ 'menu-opened': isAnimating }"
+        @keydown.esc="onEscape"
+        @trigger="isOpen = false"
+    >
+        <div class="menu-wrapper">
+            <div class="logo-wrapper">
+                <button class="btn-menu" type="button" :class="{ 'is-open': isOpen }" @click="isOpen = !isOpen">
+                    <span class="sr-only">{{ t('Menu') }}</span>
+                </button>
+                <NuxtLinkLocale to="index" class="logo-interface">
+                    <span class="sr-only">{{ t('Retour à l’accueil') }}</span>
+                    <LogoInterface />
+                </NuxtLinkLocale>
+                <PrimaryButton :to="$config.public.ticketing_url" target="_blank" class="btn-cta">
+                    <IconTickets />
+                    <span>{{ t('Acheter mon billet') }}</span>
+                    <span>{{ t('Billets') }}</span>
+                </PrimaryButton>
+            </div>
+            <NuxtLinkLocale to="index" class="logo-interface-vertical">
+                <span class="sr-only">{{ t('Retour à l’accueil') }}</span>
+                <LogoInterfaceVertical />
+            </NuxtLinkLocale>
+        </div>
+        <Transition name="collapse" @enter="onEnter" @after-leave="isAnimating = false">
+            <nav v-show="isOpen" class="menu-inner">
+                <ul ref="menuList" class="menu-list">
+                    <li v-for="item in items" :key="item.label" class="menu-item">
+                        <NuxtLinkLocale :to="item.path" class="menu-link">
+                            <Component :is="item.icon" :style="`fill: var(--${item.color})`" class="menu-icon" />
+                            {{ item.label }}
+                            <IconExternal v-if="item.path.startsWith('https://')" class="icon-external" />
+                        </NuxtLinkLocale>
+                    </li>
+                    <li class="menu-item">
+                        <LanguageSwitcher />
+                    </li>
+                </ul>
+            </nav>
+        </Transition>
+    </OnClickOutside>
+</template>
 
 <style lang="postcss" scoped>
 .menu {

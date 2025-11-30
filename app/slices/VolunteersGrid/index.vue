@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Content } from '@prismicio/client';
+import { isFilled, type Content } from '@prismicio/client';
 import { useI18n } from 'vue-i18n';
 import { groupBy } from 'es-toolkit';
 
@@ -13,7 +13,12 @@ const { slice } = defineProps(getSliceComponentProps<Content.VolunteersSlice>(['
 
 const { t } = useI18n();
 
-const categories = groupBy(slice.primary.volunteers, (item) => item.volunteer.data?.comitee ?? 'Autres comités');
+const categories = groupBy(slice.primary.volunteers, (item) => {
+    if (isFilled.contentRelationship(item.volunteer)) {
+        return item.volunteer.data?.comitee ?? 'Autres comités';
+    }
+    return 'Autres comités';
+});
 
 const sortOrder = [
     'Comité programmation',
@@ -86,19 +91,23 @@ const mapping = [
                 <ul class="volunteers-group">
                     <li v-for="(item, index) in category" :key="index" class="volunteer-item">
                         <Component
-                            :is="item.volunteer.data.linkedin?.url ? 'a' : 'span'"
-                            :href="item.volunteer.data.linkedin?.url"
-                            :target="item.volunteer.data.linkedin?.url ? '_blank' : null"
+                            :is="item.volunteer.data?.linkedin?.url ? 'a' : 'span'"
+                            v-if="
+                                $prismic.isFilled.contentRelationship(item.volunteer) &&
+                                $prismic.isFilled.link(item.volunteer.data?.linkedin)
+                            "
+                            :href="item.volunteer.data?.linkedin?.url"
+                            :target="item.volunteer.data?.linkedin?.url ? '_blank' : null"
                             class="volunteer-link"
                             :style="{
-                                '--backgroundColor': `var(${mapping[index % 8].backgroundColor})`,
-                                '--textColor': `var(${mapping[index % 8].textColor})`,
+                                '--backgroundColor': `var(${mapping[index % 8]?.backgroundColor})`,
+                                '--textColor': `var(${mapping[index % 8]?.textColor})`,
                             }"
                         >
                             <div class="volunteer-header">
                                 <h4
                                     class="volunteer-name"
-                                    v-html="item.volunteer.data.name.replace(' ', '<br />')"
+                                    v-html="item.volunteer.data?.name?.replace(' ', '<br />')"
                                 ></h4>
                                 <div v-if="item.volunteer.data.committee_head" class="volunteer-job">
                                     {{ t('Responsable {committee}', { committee: t(committee).toLowerCase() }) }}
@@ -108,7 +117,7 @@ const mapping = [
                             <NuxtImg
                                 v-if="item.volunteer.data.img"
                                 class="volunteer-img"
-                                :src="item.volunteer.data.img.url.split('?')[0]"
+                                :src="item.volunteer.data.img.url?.split('?')[0]"
                                 :alt="item.volunteer.data.name"
                                 width="282"
                                 height="282"

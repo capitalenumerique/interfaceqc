@@ -1,9 +1,4 @@
-type CategoryColor = {
-    bg: string;
-    text: string;
-};
-
-export const CATEGORY_COLORS: Record<string, CategoryColor> = {
+export const CATEGORY_COLORS: Record<string, Category['colors']> = {
     'Soft skills': {
         bg: 'var(--teal-600)',
         text: 'var(--beige-100)',
@@ -38,7 +33,7 @@ export const CATEGORY_COLORS: Record<string, CategoryColor> = {
     },
 };
 
-export function getCategoryColor(category: string): CategoryColor {
+export function getCategoryColor(category: string): Category['colors'] {
     return (
         CATEGORY_COLORS[category] || {
             bg: 'var(--red-600)',

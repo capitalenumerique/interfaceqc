@@ -15,6 +15,20 @@ export default withNuxt({
         'vue/no-v-html': 'off',
         'vue/v-slot-style': ['error', 'shorthand'],
         'vue/no-bare-strings-in-template': 'error',
+        'vue/block-order': [
+            'error',
+            {
+                order: ['script', 'template', 'style'],
+            },
+        ],
+        'vue/block-lang': [
+            'error',
+            {
+                script: {
+                    lang: 'ts',
+                },
+            },
+        ],
         'vue/define-macros-order': [
             'error',
             {
