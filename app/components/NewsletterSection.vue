@@ -106,6 +106,7 @@ const { t } = useI18n();
 }
 .newsletter-text {
     font-size: rem(30px);
+    line-height: 1.25;
     font-weight: 600;
     margin: 0;
     @media (--lg) {

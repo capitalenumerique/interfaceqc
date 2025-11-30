@@ -47,7 +47,7 @@ defineProps(getSliceComponentProps<Content.Text2ColumnsSlice>(['slice', 'index',
 }
 .slice-content {
     font-size: rem(18px);
-    line-height: 1.5;
+    line-height: 1.777;
     color: var(--gray-600);
     @media (--lg) {
         font-size: rem(20px);
