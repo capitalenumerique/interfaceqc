@@ -17,8 +17,8 @@
 							[
 								"ticket_type",
 								{
+									"key": "bf51bddc-9339-4f2a-b1f5-3d4e2fed59c4",
 									"__TYPE__": "LinkContent",
-									"key": "41268717-54a2-4c33-b892-73d344673191",
 									"value": {
 										"__TYPE__": "DocumentLink",
 										"id": "mock_document_id"

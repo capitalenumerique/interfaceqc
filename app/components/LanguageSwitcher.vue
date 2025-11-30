@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script setup>
 const { locale, locales } = useI18n();
 const switchLocalePath = useSwitchLocalePath();
 const { $luxon } = useNuxtApp();

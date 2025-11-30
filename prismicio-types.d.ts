@@ -22,16 +22,16 @@ type PickContentRelationshipFieldData<
             TRelationship['fields'][number],
             prismic.CustomTypeModelFetchContentRelationshipLevel1
         > as TSubRelationship['id']]: ContentRelationshipFieldWithData<TSubRelationship['customtypes'], TLang>;
-    } & {
-        // Group
+    } & // Group
+    {
         [TGroup in Extract<
             TRelationship['fields'][number],
             prismic.CustomTypeModelFetchGroupLevel1 | prismic.CustomTypeModelFetchGroupLevel2
         > as TGroup['id']]: TData[TGroup['id']] extends prismic.GroupField<infer TGroupData>
             ? prismic.GroupField<PickContentRelationshipFieldData<TGroup, TGroupData, TLang>>
             : never;
-    } & {
-        // Other fields
+    } & // Other fields
+    {
         [TFieldKey in Extract<TRelationship['fields'][number], string>]: TFieldKey extends keyof TData
             ? TData[TFieldKey]
             : never;
@@ -982,22 +982,7 @@ export interface HomeTicketsSliceDefaultPrimaryTicketsItem {
      * - **API ID Path**: home_tickets.default.primary.tickets[].ticket_type
      * - **Documentation**: https://prismic.io/docs/fields/content-relationship
      */
-    ticket_type: ContentRelationshipFieldWithData<
-        [
-            {
-                id: 'ticket_types';
-                fields: [
-                    { id: 'inclusions'; fields: ['item'] },
-                    'name',
-                    'price',
-                    'sharable',
-                    'link',
-                    'background_color',
-                    'text_color',
-                ];
-            },
-        ]
-    >;
+    ticket_type: prismic.ContentRelationshipField<'ticket_types'>;
 }
 
 /**
@@ -1146,7 +1131,7 @@ export interface PartnersGridSliceDefaultPrimaryPartnersGridItem {
      * - **API ID Path**: partners_grid.default.primary.partners_grid[].partner
      * - **Documentation**: https://prismic.io/docs/fields/content-relationship
      */
-    partner: ContentRelationshipFieldWithData<[{ id: 'partner'; fields: ['logo', 'name', 'website', 'category'] }]>;
+    partner: prismic.ContentRelationshipField<'partner'>;
 }
 
 /**
@@ -1436,9 +1421,7 @@ export interface VolunteersSliceDefaultPrimaryVolunteersItem {
      * - **API ID Path**: volunteers.default.primary.volunteers[].volunteer
      * - **Documentation**: https://prismic.io/docs/fields/content-relationship
      */
-    volunteer: ContentRelationshipFieldWithData<
-        [{ id: 'volunteers'; fields: ['committee_head', 'comitee', 'linkedin', 'img', 'name'] }]
-    >;
+    volunteer: prismic.ContentRelationshipField<'volunteers'>;
 }
 
 /**

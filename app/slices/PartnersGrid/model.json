@@ -50,15 +50,7 @@
                   "select": "document",
                   "repeat": false,
                   "customtypes": [
-                    {
-                      "id": "partner",
-                      "fields": [
-                        "logo",
-                        "name",
-                        "website",
-                        "category"
-                      ]
-                    }
+                    "partner"
                   ]
                 }
               }

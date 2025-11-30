@@ -1,25 +1,3 @@
-<script lang="ts" setup>
-import IconPlus from '@/assets/svg/plus.svg?component';
-import IconMinus from '@/assets/svg/minus.svg?component';
-
-defineProps<{
-    title: string | null;
-}>();
-
-const triggerId = useId();
-const contentId = useId();
-const isOpen = ref(false);
-const isAnimating = ref(false);
-const maxHeight = ref('0px');
-const content = useTemplateRef('content');
-
-const onEnter = () => {
-    const { height } = useElementSize(content);
-    isAnimating.value = true;
-    maxHeight.value = `${height.value}px`;
-};
-</script>
-
 <template>
     <li class="accordion-item" :class="{ 'is-open': isOpen || isAnimating }">
         <button
@@ -42,6 +20,28 @@ const onEnter = () => {
         </Transition>
     </li>
 </template>
+
+<script lang="ts" setup>
+import IconPlus from '@/assets/svg/plus.svg?component';
+import IconMinus from '@/assets/svg/minus.svg?component';
+
+defineProps<{
+    title: string;
+}>();
+
+const triggerId = useId();
+const contentId = useId();
+const isOpen = ref(false);
+const isAnimating = ref(false);
+const maxHeight = ref('0px');
+const content = useTemplateRef('content');
+
+const onEnter = () => {
+    const { height } = useElementSize(content);
+    isAnimating.value = true;
+    maxHeight.value = `${height.value}px`;
+};
+</script>
 
 <style lang="postcss" scoped>
 .accordion-item {

@@ -83,13 +83,6 @@ export default defineNuxtConfig({
     //         deployConfig: true,
     //         nodeCompat: true,
     //     },
-    //     typescript: {
-    //         tsConfig: {
-    //             compilerOptions: {
-    //                 noUncheckedIndexedAccess: true,
-    //             },
-    //         },
-    //     },
     // },
     vite: {
         define: {
@@ -115,9 +108,6 @@ export default defineNuxtConfig({
             }),
         ],
     },
-    // typescript: {
-    //     typeCheck: true,
-    // },
     postcss: {
         plugins: {
             '@csstools/postcss-global-data': {

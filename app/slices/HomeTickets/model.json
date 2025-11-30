@@ -39,23 +39,7 @@
                   "select": "document",
                   "repeat": false,
                   "customtypes": [
-                    {
-                      "id": "ticket_types",
-                      "fields": [
-                        {
-                          "id": "inclusions",
-                          "fields": [
-                            "item"
-                          ]
-                        },
-                        "name",
-                        "price",
-                        "sharable",
-                        "link",
-                        "background_color",
-                        "text_color"
-                      ]
-                    }
+                    "ticket_types"
                   ]
                 }
               }

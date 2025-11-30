@@ -17,8 +17,8 @@
 							[
 								"partner",
 								{
+									"key": "d7896327-3c8b-46d8-bf48-04ad1c3fac0b",
 									"__TYPE__": "LinkContent",
-									"key": "7649b0de-6073-4c82-985a-020aa76aa8fa",
 									"value": {
 										"__TYPE__": "DocumentLink",
 										"id": "mock_document_id"

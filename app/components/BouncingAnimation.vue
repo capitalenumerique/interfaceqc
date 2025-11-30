@@ -1,46 +1,29 @@
-<script lang="ts" setup>
-import { useMotion, type MotionInstance } from '@vueuse/motion';
+<template>
+    <div ref="container" class="container">
+        <div ref="object" class="object"><slot /></div>
+    </div>
+</template>
+
+<script setup>
+import { useMotion } from '@vueuse/motion';
 import { useResizeObserver } from '@vueuse/core';
 
-const { duration = 3000 } = defineProps<{
-    duration?: number;
-}>();
+const props = defineProps({
+    duration: {
+        type: Number,
+        default: 3000,
+    },
+});
 
 const emit = defineEmits(['bounce']);
 
 const object = ref();
 const container = ref();
-
-type MotionConfig = {
-    x: number;
-    y: number;
-    transition: {
-        onComplete: () => void;
-        duration: number;
-        ease: string;
-    };
-};
-
-type MotionMap = {
-    enter: {
-        x: number;
-        y: number;
-        opacity: number;
-        transition: {
-            onComplete: () => void;
-        };
-    };
-    bottomBounce: MotionConfig;
-    rightBounce: MotionConfig;
-    topBounce: MotionConfig;
-    leftBounce: MotionConfig;
-};
-
-let motionInstance: MotionInstance<'enter', MotionMap> | null = null;
+let motionInstance = null;
 
 function startAnimation() {
     const transitionOptions = {
-        duration: duration,
+        duration: props.duration,
         ease: 'linear',
     };
     const halfWidth = container.value.clientWidth / 2 - object.value.offsetWidth / 2;
@@ -70,7 +53,7 @@ function startAnimation() {
             opacity: 1,
             transition: {
                 onComplete: () => {
-                    motionInstance!.variant.value = 'bottomBounce';
+                    motionInstance.variant.value = 'bottomBounce';
                 },
             },
         },
@@ -81,7 +64,7 @@ function startAnimation() {
                 ...transitionOptions,
                 onComplete: () => {
                     emit('bounce');
-                    motionInstance!.variant.value = 'rightBounce';
+                    motionInstance.variant.value = 'rightBounce';
                 },
             },
         },
@@ -92,7 +75,7 @@ function startAnimation() {
                 ...transitionOptions,
                 onComplete: () => {
                     emit('bounce');
-                    motionInstance!.variant.value = 'topBounce';
+                    motionInstance.variant.value = 'topBounce';
                 },
             },
         },
@@ -103,18 +86,19 @@ function startAnimation() {
                 ...transitionOptions,
                 onComplete: () => {
                     emit('bounce');
-                    motionInstance!.variant.value = 'leftBounce';
+                    motionInstance.variant.value = 'leftBounce';
                 },
             },
         },
         leftBounce: {
             x: leftPositions.x,
             y: leftPositions.y,
+            opacity: 1,
             transition: {
                 ...transitionOptions,
                 onComplete: () => {
                     emit('bounce');
-                    motionInstance!.variant.value = 'bottomBounce';
+                    motionInstance.variant.value = 'bottomBounce';
                 },
             },
         },
@@ -125,12 +109,6 @@ useResizeObserver(container, () => {
     startAnimation();
 });
 </script>
-
-<template>
-    <div ref="container" class="container">
-        <div ref="object" class="object"><slot /></div>
-    </div>
-</template>
 
 <style lang="postcss" scoped>
 .container {

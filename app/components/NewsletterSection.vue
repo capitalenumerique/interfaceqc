@@ -1,8 +1,3 @@
-<script lang="ts" setup>
-import IconLemon from '@/assets/svg/shapes/lemon.svg?component';
-const { t } = useI18n();
-</script>
-
 <template>
     <section class="newsletter-section">
         <div class="newsletter-text-wrapper">
@@ -33,6 +28,11 @@ const { t } = useI18n();
         </form>
     </section>
 </template>
+
+<script lang="ts" setup>
+import IconLemon from '@/assets/svg/shapes/lemon.svg?component';
+const { t } = useI18n();
+</script>
 
 <style lang="postcss" scoped>
 .newsletter-section {

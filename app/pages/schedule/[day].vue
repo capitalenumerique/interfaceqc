@@ -1,33 +1,7 @@
-<script lang="ts" setup>
-import { useBreakpoints } from '@vueuse/core';
-import { useRoute } from 'vue-router';
-
-// FIXME: https://github.com/nuxt/nuxt/issues/31638
-definePageMeta({
-    scrollToTop: false,
-    i18n: {
-        paths: {
-            fr: '/programmation/[day]',
-        },
-    },
-});
-
-const { data } = defineProps<{
-    data: ScheduleData[];
-}>();
-
-const { t } = useI18n();
-const { formatSessionTime } = useTimeFormatter();
-const route = useRoute();
-const breakpoints = useBreakpoints({ lg: 1024 }, { ssrWidth: 1024 });
-const showPlace = breakpoints.smaller('lg');
-const day = computed(() => data[parseInt(route.params.day as string) - 1]);
-</script>
-
 <template>
-    <div v-if="day">
+    <div>
         <div
-            v-for="(timeslot, i) in day.timeslots"
+            v-for="(timeslot, i) in data[day - 1].timeslots"
             :key="`timeslot-${timeslot.time}`"
             class="timeslot"
             :class="timeslot.type"
@@ -35,7 +9,7 @@ const day = computed(() => data[parseInt(route.params.day as string) - 1]);
             <span
                 class="time"
                 :class="{
-                    'has-place': timeslot.type !== 'regular' || day.timeslots[i - 1]?.type !== 'regular',
+                    'has-place': timeslot.type !== 'regular' || data[day - 1].timeslots[i - 1]?.type !== 'regular',
                 }"
             >
                 {{ formatSessionTime(timeslot.time) }}
@@ -46,7 +20,7 @@ const day = computed(() => data[parseInt(route.params.day as string) - 1]);
                         v-if="
                             i === 0 ||
                             timeslot.type === 'special' ||
-                            day.timeslots[i - 1]?.type !== 'regular' ||
+                            data[day - 1].timeslots[i - 1]?.type !== 'regular' ||
                             showPlace
                         "
                         class="place"
@@ -62,6 +36,35 @@ const day = computed(() => data[parseInt(route.params.day as string) - 1]);
         </div>
     </div>
 </template>
+
+<script setup>
+import { useBreakpoints } from '@vueuse/core';
+import { useRoute } from 'vue-router';
+
+// FIXME: https://github.com/nuxt/nuxt/issues/31638
+definePageMeta({
+    scrollToTop: false,
+    i18n: {
+        paths: {
+            fr: '/programmation/[day]',
+        },
+    },
+});
+
+defineProps({
+    data: {
+        type: Array,
+        default: () => [],
+    },
+});
+
+const { t } = useI18n();
+const { formatSessionTime } = useTimeFormatter();
+const route = useRoute();
+const breakpoints = useBreakpoints({ lg: 1024 }, { ssrWidth: 1024 });
+const showPlace = breakpoints.smaller('lg');
+const day = route.params.day;
+</script>
 
 <style lang="postcss" scoped>
 .timeslot {

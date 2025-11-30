@@ -19,7 +19,7 @@ defineProps(getSliceComponentProps<Content.TextImageSlice>(['slice', 'index', 's
                 <h2 class="content-title">{{ slice.primary.title }}</h2>
                 <p v-if="slice.primary.text" class="content-description wysiwyg">{{ slice.primary.text }}</p>
             </div>
-            <div v-if="$prismic.isFilled.link(slice.primary.cta)" class="content-cta">
+            <div v-if="slice.primary.cta.url" class="content-cta">
                 <PrimaryButton :to="slice.primary.cta.url">{{ slice.primary.cta.text }}</PrimaryButton>
                 <IconHalfCircle class="icon-half-circle" />
             </div>
@@ -27,7 +27,7 @@ defineProps(getSliceComponentProps<Content.TextImageSlice>(['slice', 'index', 's
         <div class="images-wrapper">
             <NuxtImg
                 class="image-2"
-                :src="slice.primary.image_2.url?.split('?')[0]"
+                :src="slice.primary.image_2.url.split('?')[0]"
                 :alt="slice.primary.image_2.alt || ''"
                 width="160"
                 height="200"
@@ -35,7 +35,7 @@ defineProps(getSliceComponentProps<Content.TextImageSlice>(['slice', 'index', 's
             />
             <NuxtImg
                 class="image-1"
-                :src="slice.primary.image_1.url?.split('?')[0]"
+                :src="slice.primary.image_1.url.split('?')[0]"
                 :alt="slice.primary.image_1.alt || ''"
                 width="360"
                 height="450"

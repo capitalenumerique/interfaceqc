@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script setup>
 const i18nHead = useLocaleHead();
 
 const { locale, t } = useI18n();

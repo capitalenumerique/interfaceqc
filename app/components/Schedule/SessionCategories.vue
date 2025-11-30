@@ -1,22 +1,3 @@
-<script lang="ts" setup>
-const props = defineProps<{
-    categories: Category[];
-    hoverColors?: {
-        '--hover-bg': string;
-        '--hover-text': string;
-    };
-}>();
-
-const getCategoryStyle = (colors: Category['colors']) => {
-    return {
-        '--category-bg': colors.bg,
-        '--category-text': colors.text,
-        '--hover-text': props.hoverColors?.['--hover-bg'] || colors.bg,
-        '--hover-bg': props.hoverColors?.['--hover-text'] || colors.text,
-    };
-};
-</script>
-
 <template>
     <ul class="categories-list">
         <li
@@ -29,6 +10,28 @@ const getCategoryStyle = (colors: Category['colors']) => {
         </li>
     </ul>
 </template>
+
+<script setup>
+const props = defineProps({
+    categories: {
+        type: Array,
+        required: true,
+    },
+    hoverColors: {
+        type: Object,
+        default: null,
+    },
+});
+
+const getCategoryStyle = (colors) => {
+    return {
+        '--category-bg': colors.bg,
+        '--category-text': colors.text,
+        '--hover-text': props.hoverColors?.['--hover-bg'] || colors.bg,
+        '--hover-bg': props.hoverColors?.['--hover-text'] || colors.text,
+    };
+};
+</script>
 
 <style lang="postcss" scoped>
 .categories-list {

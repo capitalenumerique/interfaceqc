@@ -1,26 +1,3 @@
-<script lang="ts" setup>
-import { NuxtLinkLocale } from '#components';
-
-const {
-    type = 'button',
-    primaryColor = 'gray-900',
-    secondaryColor = 'beige-100',
-    to = null,
-} = defineProps<{
-    type?: string;
-    to?: string;
-    outline?: boolean;
-    small?: boolean;
-    primaryColor?: string;
-    secondaryColor?: string;
-}>();
-
-const component = computed(() => {
-    if (to) return NuxtLinkLocale;
-    return 'button';
-});
-</script>
-
 <template>
     <component
         :is="component"
@@ -29,7 +6,6 @@ const component = computed(() => {
             'is-outlined': outline,
             'is-small': small,
         }"
-        :type="type"
         class="primary-button"
         :style="{
             '--primary-color': `var(--${primaryColor})`,
@@ -39,6 +15,42 @@ const component = computed(() => {
         <slot />
     </component>
 </template>
+
+<script lang="ts" setup>
+import { NuxtLinkLocale } from '#components';
+
+const props = defineProps({
+    type: {
+        type: String,
+        default: 'button',
+    },
+    to: {
+        type: String,
+        default: '',
+    },
+    outline: {
+        type: Boolean,
+        default: false,
+    },
+    small: {
+        type: Boolean,
+        default: false,
+    },
+    primaryColor: {
+        type: String,
+        default: 'gray-900',
+    },
+    secondaryColor: {
+        type: String,
+        default: 'beige-100',
+    },
+});
+
+const component = computed(() => {
+    if (props.to) return NuxtLinkLocale;
+    return 'button';
+});
+</script>
 
 <style lang="postcss" scoped>
 .primary-button {

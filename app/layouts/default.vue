@@ -1,8 +1,3 @@
-<script lang="ts" setup>
-import IconTickets from '@/assets/svg/tickets.svg?component';
-const { t } = useI18n();
-</script>
-
 <template>
     <div class="layout-wrapper">
         <div class="page-wrapper">
@@ -19,6 +14,11 @@ const { t } = useI18n();
         <AppFooter />
     </div>
 </template>
+
+<script lang="ts" setup>
+import IconTickets from '@/assets/svg/tickets.svg?component';
+const { t } = useI18n();
+</script>
 
 <style lang="postcss" scoped>
 .layout-wrapper {
