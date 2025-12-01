@@ -82,6 +82,20 @@ const { t } = useI18n();
     flex-direction: column;
     color: var(--gray-900);
     text-align: center;
+    width: 100%;
+    .is-even & {
+        @media (--lg) {
+            width: calc(50% - 24px);
+        }
+    }
+    .is-odd & {
+        @media (--lg) {
+            width: calc(50% - 24px);
+        }
+        @media (--xl) {
+            width: calc(33.3333% - 24px);
+        }
+    }
     .top-section,
     .bottom-section {
         padding: 32px;

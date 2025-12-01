@@ -125,26 +125,19 @@ defineProps(getSliceComponentProps<Content.HomeTicketsSlice>(['slice', 'index', 
     align-self: flex-end;
 }
 .ticket-types-list {
-    display: grid;
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     gap: 24px;
     padding: 0;
     max-width: 500px;
     margin: 0 auto;
     margin-bottom: 48px;
     @media (--lg) {
+        flex-direction: row;
+        flex-wrap: wrap;
         max-width: none;
         margin-bottom: 56px;
-    }
-    &.is-even {
-        @media (--lg) {
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
-    &.is-odd {
-        @media (--lg) {
-            grid-template-columns: repeat(3, 1fr);
-        }
     }
 }
 </style>
