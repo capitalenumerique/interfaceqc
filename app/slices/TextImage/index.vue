@@ -23,8 +23,9 @@ defineProps(getSliceComponentProps<Content.TextImageSlice>(['slice', 'index', 's
                 <PrimaryButton
                     :to="slice.primary.cta.url"
                     :target="slice.primary.cta.link_type === 'Web' ? slice.primary.cta.target : undefined"
-                    >{{ slice.primary.cta.text }}</PrimaryButton
                 >
+                    {{ slice.primary.cta.text }}
+                </PrimaryButton>
                 <IconHalfCircle class="icon-half-circle" />
             </div>
         </div>
