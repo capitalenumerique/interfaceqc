@@ -12,7 +12,12 @@ defineProps(getSliceComponentProps<Content.PageIntroHeaderSlice>(['slice', 'inde
         <div class="header-intro wysiwyg">
             <PrismicRichText :field="slice.primary.introduction" />
         </div>
-        <PrimaryButton v-if="$prismic.isFilled.link(slice.primary.cta)" :to="slice.primary.cta.url" class="header-cta">
+        <PrimaryButton
+            v-if="$prismic.isFilled.link(slice.primary.cta)"
+            :to="slice.primary.cta.url"
+            :target="slice.primary.cta.link_type === 'Web' ? slice.primary.cta.target : undefined"
+            class="header-cta"
+        >
             {{ slice.primary.cta.text }}
         </PrimaryButton>
     </header>

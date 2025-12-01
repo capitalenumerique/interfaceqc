@@ -41,7 +41,10 @@ const sortedCategories = Object.fromEntries(
             <template v-if="slice.primary.title" #title>{{ slice.primary.title }}</template>
             <template v-if="slice.primary.description" #wysiwyg>{{ slice.primary.description }}</template>
             <template v-if="slice.primary.cta.url" #cta>
-                <PrimaryButton :to="slice.primary.cta.url">
+                <PrimaryButton
+                    :to="slice.primary.cta.url"
+                    :target="slice.primary.cta.link_type === 'Web' ? slice.primary.cta.target : undefined"
+                >
                     {{ slice.primary.cta.text }}
                 </PrimaryButton>
             </template>

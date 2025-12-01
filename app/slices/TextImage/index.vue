@@ -20,7 +20,11 @@ defineProps(getSliceComponentProps<Content.TextImageSlice>(['slice', 'index', 's
                 <p v-if="slice.primary.text" class="content-description wysiwyg">{{ slice.primary.text }}</p>
             </div>
             <div v-if="$prismic.isFilled.link(slice.primary.cta)" class="content-cta">
-                <PrimaryButton :to="slice.primary.cta.url">{{ slice.primary.cta.text }}</PrimaryButton>
+                <PrimaryButton
+                    :to="slice.primary.cta.url"
+                    :target="slice.primary.cta.link_type === 'Web' ? slice.primary.cta.target : undefined"
+                    >{{ slice.primary.cta.text }}</PrimaryButton
+                >
                 <IconHalfCircle class="icon-half-circle" />
             </div>
         </div>
