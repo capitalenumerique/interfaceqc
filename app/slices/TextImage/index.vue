@@ -35,7 +35,7 @@ defineProps(getSliceComponentProps<Content.TextImageSlice>(['slice', 'index', 's
                 :alt="slice.primary.image_2.alt || ''"
                 width="160"
                 height="200"
-                format="webp"
+                :format="!slice.primary.image_2.url?.includes('interface-qc.cdn.prismic.io') ? 'webp' : undefined"
             />
             <NuxtImg
                 class="image-1"
@@ -43,7 +43,7 @@ defineProps(getSliceComponentProps<Content.TextImageSlice>(['slice', 'index', 's
                 :alt="slice.primary.image_1.alt || ''"
                 width="360"
                 height="450"
-                format="webp"
+                :format="!slice.primary.image_1.url?.includes('interface-qc.cdn.prismic.io') ? 'webp' : undefined"
             />
         </div>
     </section>

@@ -66,6 +66,40 @@ export default defineNuxtConfig({
             commitTag: process.env.COMMIT_TAG || process.env.NUXT_ENV_CURRENT_GIT_TAG,
             commitShortSha: process.env.COMMIT_SHORT_SHA || process.env.NUXT_ENV_CURRENT_GIT_SHA,
             swapcardGraphqlEndpoint: process.env.NUXT_PUBLIC_SWAPCARD_GRAPHQL_ENDPOINT,
+            milestones: {
+                PRE_SALE: {
+                    start_date: '2026-05-26T00:00:00',
+                    end_date: '2026-05-28T00:00:00',
+                },
+                CALL_FOR_SPEAKER: {
+                    start_date: '2026-05-26T00:00:00',
+                    end_date: '2026-05-28T00:00:00',
+                },
+                CALL_FOR_VOLUNTEERS: {
+                    start_date: '2026-05-26T00:00:00',
+                    end_date: '2026-05-28T00:00:00',
+                },
+                TICKET_SALE: {
+                    start_date: '2026-05-26T00:00:00',
+                    end_date: '2026-05-28T00:00:00',
+                },
+                EVENT: {
+                    start_date: '2026-05-26T00:00:00',
+                    end_date: '2026-05-28T00:00:00',
+                },
+                THANK_YOU: {
+                    start_date: '2026-05-26T00:00:00',
+                    end_date: '2026-05-28T00:00:00',
+                },
+                APP_AVAILABLE: {
+                    start_date: '2026-05-26T00:00:00',
+                    end_date: '2026-05-28T00:00:00',
+                },
+                REPLAY_AVAILABLE: {
+                    start_date: '2026-05-26T00:00:00',
+                    end_date: '2026-05-28T00:00:00',
+                },
+            },
         },
         swapcardToken: process.env.NUXT_SWAPCARD_AUTH_TOKEN,
         swapcardEventId: process.env.NUXT_SWAPCARD_EVENT_ID,
