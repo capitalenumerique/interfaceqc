@@ -1,34 +1,46 @@
 import { GET_EVENT_BY_ID } from '~~/queries/get-event-by-id';
 import { getCategoryColor } from '~~/app/utils/categoryColors';
 import useSwapcardClient from '../useSwapcardClient';
-import { groupBy, uniqBy } from 'es-toolkit';
+import { groupBy } from 'es-toolkit';
+
+interface CategoryColor {
+    bg: string;
+    text: string;
+}
+
+interface CategoryWithColor {
+    name: string;
+    colors: CategoryColor;
+}
 
 interface Session {
     id: string;
+    title: string;
+    titleTranslations: Array<object>;
+    date: string;
     beginsAt: string;
     endsAt: string;
-    categories: string[];
-    title: string;
     place: string;
     type: string;
+    categories: string[] | CategoryWithColor[];
+    speakers: Array<Speaker>;
 }
 
-interface EventPerson {
+interface Speaker {
     id: string;
     firstName: string;
     lastName: string;
-    email: string;
-    biography: string;
-    photoUrl: string;
     organization: string;
-    jobTitle: string;
-    speakerOnPlannings: Session[];
 }
 
 interface EventResponse {
     data: {
-        eventPerson: {
-            nodes: EventPerson[];
+        event: {
+            beginsAt: string;
+            endsAt: string;
+        };
+        planningsV2: {
+            nodes: Session[];
         };
     };
 }
@@ -36,34 +48,13 @@ interface EventResponse {
 export default defineEventHandler(async () => {
     const response = await useSwapcardClient<EventResponse>({ query: GET_EVENT_BY_ID });
 
-    const speakers = response.data.eventPerson.nodes;
-
-    // Forcer les dates vu les données erronnées de Swapcard
-    const allowedDates = ['2025-05-27', '2025-05-28', '2025-05-29'];
-
-    // Réorganiser les sessions
-    const sessions = speakers.flatMap((speaker) =>
-        speaker.speakerOnPlannings
-            .filter((session) => allowedDates.includes(session.beginsAt.split(' ')[0]!)) // Keep only sessions on allowed dates
-            .map((session) => ({
-                id: session.id,
-                date: session.beginsAt.split(' ')[0]!,
-                beginsAt: session.beginsAt.split(' ')[1]!,
-                endsAt: session.endsAt.split(' ')[1]!,
-                title: session.title,
-                categories: session.categories,
-                place: session.place,
-                type: session.type,
-                speaker: {
-                    id: speaker.id,
-                    firstName: speaker.firstName,
-                    lastName: speaker.lastName,
-                    organization: speaker.organization,
-                },
-            })),
-    );
-
     // Grouper les sessions par date
+    const sessions = response.data.planningsV2.nodes;
+    sessions.forEach((s) => {
+        s.date = s.beginsAt.split(' ')[0]!;
+        s.beginsAt = s.beginsAt.split(' ')[1]!;
+        s.endsAt = s.endsAt.split(' ')[1]!;
+    });
     const groupedSessions = groupBy(sessions, (session) => session.date);
 
     // Définir les créneaux horaire pour la journée
@@ -73,7 +64,19 @@ export default defineEventHandler(async () => {
     const earlyTimeslot = new Date(0, 0, 0, 7, 30, 0);
 
     // Extraire les catégories uniques et leur assigner des couleurs
-    const allCategories = Array.from(new Set(sessions.flatMap((session) => session.categories)));
+    const allCategories = Array.from(
+        new Set(
+            sessions.flatMap((session) => {
+                if (Array.isArray(session.categories) && session.categories.length > 0) {
+                    const firstCat = session.categories[0];
+                    if (typeof firstCat === 'string') {
+                        return session.categories as string[];
+                    }
+                }
+                return [];
+            }),
+        ),
+    );
     const colorArray = ['red', 'yellow', 'pink', 'blue', 'teal', 'gray', 'orange'];
     const categoryColorMap: Record<string, string> = {};
 
@@ -100,7 +103,7 @@ export default defineEventHandler(async () => {
     });
 
     // Ordonner les sessions par date et créneaux horaires
-    // @TODO: Rendre le code plus lisible, jtel donne Laurent :D
+    // Date -> Créneaux -> Salle -> Session
     const sortedResult = Object.entries(groupedSessions).map(([date, sessions]) => {
         const findTimeslot = (time: string, slots: Date[]): string => {
             const [hour, minute] = time.split(':').map(Number);
@@ -125,6 +128,19 @@ export default defineEventHandler(async () => {
         // Ajouter le créneau spécial uniquement si nécessaire
         const dayTimeslotRange = hasEarlySession ? [earlyTimeslot, ...baseTimeslotRange] : [...baseTimeslotRange];
 
+        // Attribuer des couleurs aux catégories des sessions
+        sessions.forEach((s) => {
+            if (Array.isArray(s.categories) && s.categories.length > 0) {
+                const firstCat = s.categories[0];
+                if (typeof firstCat === 'string') {
+                    s.categories = (s.categories as string[]).map((category) => ({
+                        name: category,
+                        colors: getCategoryColor(category),
+                    })) as CategoryWithColor[];
+                }
+            }
+        });
+
         return {
             date,
             timeslots: dayTimeslotRange.flatMap((slot) => {
@@ -148,21 +164,7 @@ export default defineEventHandler(async () => {
                     places = [
                         {
                             name: specialSession.place,
-                            session: {
-                                id: specialSession.id,
-                                title: specialSession.title,
-                                beginsAt: specialSession.beginsAt,
-                                endsAt: specialSession.endsAt,
-                                categories: specialSession.categories.map((category) => ({
-                                    name: category,
-                                    colors: getCategoryColor(category),
-                                })),
-                                type: specialSession.type,
-                                speakers: uniqBy(
-                                    sessions.filter((s) => s.title === specialSession.title).map((s) => s.speaker),
-                                    (speaker) => speaker.id,
-                                ),
-                            },
+                            session: specialSession,
                         },
                     ];
                     type = 'special';
@@ -173,25 +175,7 @@ export default defineEventHandler(async () => {
                         if (sessionInPlace) {
                             return {
                                 name: place,
-                                session: sessionInPlace
-                                    ? {
-                                          id: sessionInPlace.id,
-                                          title: sessionInPlace.title,
-                                          beginsAt: sessionInPlace.beginsAt,
-                                          endsAt: sessionInPlace.endsAt,
-                                          categories: sessionInPlace.categories.map((category) => ({
-                                              name: category,
-                                              colors: getCategoryColor(category),
-                                          })),
-                                          type: sessionInPlace.type,
-                                          speakers: uniqBy(
-                                              sessions
-                                                  .filter((s) => s.title === sessionInPlace.title)
-                                                  .map((s) => s.speaker),
-                                              (speaker) => speaker.id,
-                                          ),
-                                      }
-                                    : null,
+                                session: sessionInPlace ? sessionInPlace : null,
                             };
                         } else {
                             // Affichage différent pour le créneau de 13h

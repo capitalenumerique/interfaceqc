@@ -18,7 +18,7 @@ export default async function useSwapcardClient<T>({
         },
         body: {
             query,
-            variables: { eventId: config.swapcardEventId, ...variables },
+            variables: { communityId: config.swapcardCommunityId, eventId: config.swapcardEventId, ...variables },
         },
     });
 

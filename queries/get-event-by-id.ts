@@ -1,25 +1,34 @@
 import { gql } from 'graphql-request';
 
 export const GET_EVENT_BY_ID = gql`
-    query EventById($eventId: ID!) {
-        eventPerson(eventId: $eventId, cursor: { first: 850 }) {
+    query EventById($communityId: ID!, $eventId: ID!) {
+        event(id: $eventId) {
+            beginsAt
+            endsAt
+        }
+        planningsV2(
+            communityId: $communityId
+            filter: {eventIds: [$eventId]}
+            cursor: {first: 100}
+        ) {
+            totalCount
             nodes {
                 id
-                firstName
-                lastName
-                organization
-                speakerOnPlannings {
+                title
+                titleTranslations {
+                    language
+                    value
+                }
+                beginsAt
+                endsAt
+                place
+                type
+                categories
+                speakers {
                     id
-                    beginsAt
-                    endsAt
-                    categories
-                    place
-                    title
-                    titleTranslations {
-                        language
-                        value
-                    }
-                    type
+                    firstName
+                    lastName
+                    organization
                 }
             }
         }
