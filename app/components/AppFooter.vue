@@ -93,11 +93,13 @@ const archives = [2025];
         <div class="credits">
             <div class="credits-wrapper">
                 <div class="copyright">
+                    <a href="https://capitalenumerique.com/politique-de-confidentialite/" target="_blank">
+                        {{ t('Politique de confidentialité') }}
+                        &nbsp;
+                    </a>
                     <span>
-                        <a href="https://capitalenumerique.com/politique-de-confidentialite/" target="_blank">
-                            {{ t('Politique de confidentialité') }}
-                        </a>
-                        | {{ t('© Interface - Québec {n}. Tous droits réservés.', new Date().getFullYear()) }}&nbsp;
+                        {{ t('© Interface - Québec {n}. Tous droits réservés.', new Date().getFullYear()) }}
+                        &nbsp;
                     </span>
                     <span>
                         <template v-if="$config.public.commitTag || $config.public.commitShortSha">
@@ -120,7 +122,7 @@ const archives = [2025];
                             <img
                                 src="@/assets/img/capitale-numerique.svg"
                                 :alt="t('Capitale Numérique')"
-                                width="112"
+                                width="100"
                                 height="36"
                             />
                         </a>
@@ -262,11 +264,14 @@ const archives = [2025];
     }
 }
 .copyright {
+    display: flex;
+    flex-direction: column;
     font-size: rem(12px);
-    line-height: 1.777;
-    gap: 4px;
+    line-height: 1.5;
+    gap: 8px 4px;
     margin-right: 64px;
     @media (--md) {
+        flex-direction: row;
         margin-right: 0;
     }
     a {
@@ -285,7 +290,6 @@ const archives = [2025];
     margin-right: 48px;
     @media (--md-down) {
         order: -1;
-        margin-left: auto;
         margin-right: 0;
     }
     img {
@@ -298,7 +302,6 @@ const archives = [2025];
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    text-align: right;
     min-width: 80px;
 }
 .support-label {
