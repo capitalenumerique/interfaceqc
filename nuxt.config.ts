@@ -102,6 +102,7 @@ export default defineNuxtConfig({
             },
         },
         swapcardToken: process.env.NUXT_SWAPCARD_AUTH_TOKEN,
+        swapcardCommunityId: process.env.NUXT_SWAPCARD_COMMUNITY_ID,
         swapcardEventId: process.env.NUXT_SWAPCARD_EVENT_ID,
     },
     routeRules: {
