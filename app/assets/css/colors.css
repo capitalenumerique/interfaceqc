@@ -142,3 +142,15 @@
     --purple-950: #570352;
     --purple-DEFAULT: var(--purple-400);
 }
+
+.theme-day {
+    --color-primary: var(--orange-900);
+    --color-secondary: var(--blue-200);
+    --color-accent: var(--orange-600);
+}
+
+.theme-night {
+    --color-primary: var(--purple-950);
+    --color-secondary: var(--purple-200);
+    --color-accent: var(--yellow-500);
+}

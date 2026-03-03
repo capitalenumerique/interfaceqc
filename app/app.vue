@@ -13,6 +13,10 @@ useHead(() => ({
     },
     htmlAttrs: {
         lang: i18nHead.value.htmlAttrs.lang,
+        class: () => {
+            const hour = new Date().getHours();
+            return hour >= 9 && hour < 17 ? 'theme-day' : 'theme-night';
+        },
     },
     link: [...(i18nHead.value.link || [])],
     meta: [
@@ -28,30 +32,6 @@ useSeoMeta({
     description: () =>
         t("Découvre Interface, l'événement incontournable du numérique, créé par et pour la communauté!"),
 });
-
-const palettes = {
-    day: {
-        '--color-primary': 'var(--orange-900)', // #871c00
-        '--color-secondary': 'var(--blue-200)', // #ccdeff
-        '--color-accent': 'var(--orange-600)', // #ff4000
-    },
-    night: {
-        '--color-primary': 'var(--purple-950)', // #570352
-        '--color-secondary': 'var(--purple-200)', // #eecfff
-        '--color-accent': 'var(--yellow-500)', // #e3d50d
-    },
-};
-
-function applyPalette() {
-    const hour = new Date().getHours();
-    const palette = hour >= 9 && hour < 17 ? palettes.day : palettes.night;
-    const root = document.documentElement;
-    for (const [key, value] of Object.entries(palette)) {
-        root.style.setProperty(key, value);
-    }
-}
-
-onMounted(() => applyPalette());
 </script>
 
 <template>
