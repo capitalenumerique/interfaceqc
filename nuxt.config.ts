@@ -157,7 +157,7 @@ export default defineNuxtConfig({
             '@csstools/postcss-global-data': {
                 files: ['./app/assets/css/variables.css'],
             },
-            'postcss-preset-env': {},
+            'postcss-preset-env': { browsers: 'baseline 2021' },
             'postcss-nested': {},
             'postcss-functions': {
                 functions: {

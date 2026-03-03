@@ -54,6 +54,7 @@ const component = computed(() => {
     line-height: 1.5;
     border-radius: 12px;
     cursor: pointer;
+    text-align: center;
     transition:
         background-color var(--hover-transition),
         color var(--hover-transition);

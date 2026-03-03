@@ -4,7 +4,6 @@ import { useFocusTrap } from '@vueuse/integrations/useFocusTrap';
 import LogoInterface from '@/assets/svg/logo-with-glyph.svg?component';
 
 import IconExternal from '@/assets/svg/external.svg?component';
-import IconTickets from '@/assets/svg/tickets.svg?component';
 
 const { t } = useI18n();
 const isOpen = ref(false);
@@ -91,8 +90,8 @@ const onEscape = () => {
 </script>
 
 <template>
-    <header ref="menu" class="header" :class="{ 'is-open': isAnimating }">
-        <OnClickOutside class="menu-wrapper" @keydown.esc="onEscape" @trigger="isOpen = false">
+    <header class="header" :class="{ 'is-open': isAnimating }">
+        <OnClickOutside ref="menu" class="menu-wrapper" @keydown.esc="onEscape" @trigger="isOpen = false">
             <div class="logo-wrapper">
                 <button class="btn-menu" type="button" :class="{ 'is-open': isOpen }" @click="isOpen = !isOpen">
                     <span class="sr-only">{{ t('Menu') }}</span>
@@ -114,14 +113,17 @@ const onEscape = () => {
                         <li class="menu-item">
                             <LanguageSwitcher />
                         </li>
+                        <li class="menu-item">
+                            <PrimaryButton :to="$config.public.ticketing_url" target="_blank" class="btn-cta">
+                                {{ t('Acheter mon billet') }}
+                            </PrimaryButton>
+                        </li>
                     </ul>
                 </nav>
             </Transition>
         </OnClickOutside>
         <PrimaryButton :to="$config.public.ticketing_url" target="_blank" class="btn-cta">
-            <IconTickets />
-            <span>{{ t('Acheter mon billet') }}</span>
-            <span>{{ t('Billets') }}</span>
+            {{ t('Acheter mon billet') }}
         </PrimaryButton>
     </header>
 </template>
@@ -130,30 +132,44 @@ const onEscape = () => {
 .header {
     position: sticky;
     top: 0;
+    height: calc(64px + 16px);
     z-index: 10;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 40px 32px 0;
+    padding: 16px 16px 0;
     gap: 40px;
-    /* max-width: var(--page-container-max-width); */
-    /* margin: 0 auto; */
+    @media (--md) {
+        padding: 40px 32px 0;
+        height: calc(64px + 40px);
+    }
+    @media (--lg) {
+        padding: 40px 48px 0;
+        height: calc(64px + 40px);
+    }
 }
 .menu-wrapper {
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 40px;
-    padding: 12px 0;
+    top: 16px;
+    padding: 12px;
     border-radius: 12px;
     background-color: var(--color-white);
+    left: 16px;
+    right: 16px;
+    @media (--md) {
+        top: 40px;
+        left: auto;
+        right: auto;
+    }
 }
 .logo-wrapper {
     display: flex;
     align-items: center;
 }
 .logo-interface {
-    padding: 0 32px;
+    margin: 0 24px;
     text-decoration: none;
     color: var(--gray-900);
     svg {
@@ -166,13 +182,11 @@ const onEscape = () => {
     width: 22px;
     height: 24px;
     box-sizing: content-box;
-    padding: 20px;
-    margin: 0;
+    padding: 12px;
+    margin: -4px 0;
     color: var(--gray-900);
     border: 0;
     appearance: none;
-    margin: -12px 0;
-    margin-right: -20px;
     &::before,
     &::after {
         content: '';
@@ -213,24 +227,14 @@ const onEscape = () => {
     }
 }
 .primary-button.btn-cta {
+    display: none;
     margin-left: auto;
+    @media (--md) {
+        display: block;
+    }
     svg {
         margin: -2px 0;
         width: 22px;
-    }
-    span {
-        &:first-of-type {
-            display: none;
-            @media (min-width: 390px) {
-                display: inline;
-            }
-        }
-        &:last-of-type {
-            display: inline;
-            @media (min-width: 390px) {
-                display: none;
-            }
-        }
     }
 }
 .menu-inner {
@@ -242,8 +246,14 @@ const onEscape = () => {
     flex-direction: column;
     gap: 4px;
     margin: 0;
-    padding: 16px 20px 0;
+    padding: 16px 8px 0;
     list-style: none;
+    .primary-button.btn-cta {
+        display: block;
+        @media (--md) {
+            display: none;
+        }
+    }
 }
 .menu-item {
     opacity: 0;
