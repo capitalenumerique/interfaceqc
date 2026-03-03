@@ -180,7 +180,18 @@ export default defineNuxtConfig({
             },
         },
     },
-    fonts: { defaults: { weights: [400, 500, 600, 700] } },
+    fonts: {
+        defaults: {
+            weights: [400, 500, 600, 700],
+        },
+        families: [
+            {
+                preload: true,
+                name: 'phosphene',
+                provider: 'local',
+            },
+        ],
+    },
     i18n: {
         baseUrl: 'https://interfaceqc.com',
         strategy: 'prefix_except_default',

@@ -1,6 +1,6 @@
 html,
 body {
-    font-family: Inter, system-ui, sans-serif;
+    font-family: var(--font-primary), system-ui, sans-serif;
     overflow-x: clip;
     background-color: var(--beige-100);
     color: var(--gray-900);
