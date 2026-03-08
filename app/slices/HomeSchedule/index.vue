@@ -31,7 +31,7 @@ const icons = [IconBow, IconCandle, IconCherries, IconCocktail, IconDisco, IconS
     >
         <SliceIntro>
             <template #title>
-                <span v-html="t('La programmation<br /> <em>{0}</em>', [new Date().getFullYear()])"></span>
+                <span v-html="t('La programmation<br /> <em>2026</em>')"></span>
             </template>
             <template #wysiwyg>{{ slice.primary.description }}</template>
             <template #cta>
@@ -224,7 +224,7 @@ const icons = [IconBow, IconCandle, IconCherries, IconCocktail, IconDisco, IconS
 <i18n lang="json">
 {
     "en": {
-        "La programmation<br /> <em>{0}</em>": "The <em>{0}</em><br /> schedule",
+        "La programmation<br /> <em>2026</em>": "The <em>2026</em><br /> schedule",
         "Voir la programmation complète": "See the complete schedule",
         "Voir <br>la programmation <br>complète": "See <br>the complete <br>schedule",
         "Précédent": "Previous",

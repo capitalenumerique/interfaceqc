@@ -13,11 +13,6 @@ const menu = useTemplateRef<HTMLElement>('menu');
 const menuList = useTemplateRef('menuList');
 const items = computed(() => [
     {
-        label: t('Accueil'),
-        path: 'index',
-        color: 'yellow-DEFAULT',
-    },
-    {
         label: t('Billetterie'),
         path: 'tickets',
         color: 'pink-DEFAULT',
@@ -158,6 +153,7 @@ const onEscape = () => {
     background-color: var(--color-white);
     left: 16px;
     right: 16px;
+    box-shadow: 0 4px 32px 0 rgba(51, 50, 48, 0.05);
     @media (--md) {
         top: 40px;
         left: auto;
@@ -229,8 +225,9 @@ const onEscape = () => {
 .primary-button.btn-cta {
     display: none;
     margin-left: auto;
+    box-shadow: 0 4px 32px 0 rgba(51, 50, 48, 0.05);
     @media (--md) {
-        display: block;
+        display: inline-flex;
     }
     svg {
         margin: -2px 0;
