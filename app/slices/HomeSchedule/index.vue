@@ -124,6 +124,7 @@ const icons = [IconBow, IconCandle, IconCherries, IconCocktail, IconDisco, IconS
             color: var(--color-primary);
             .overlay {
                 transform: scale(1.8);
+                fill: var(--color-accent);
             }
         }
     }
@@ -138,10 +139,10 @@ const icons = [IconBow, IconCandle, IconCherries, IconCocktail, IconDisco, IconS
         width: 100%;
         height: 100%;
         pointer-events: none;
-        fill: var(--color-accent);
+        fill: var(--color-primary);
         transition:
-            opacity 0.4s ease,
-            transform 0.4s ease;
+            fill var(--hover-transition),
+            transform var(--hover-transition);
         transform: scale(4);
     }
     img {
@@ -155,7 +156,7 @@ const icons = [IconBow, IconCandle, IconCherries, IconCocktail, IconDisco, IconS
     flex-direction: column;
     justify-content: space-between;
     text-decoration: none;
-    transition: background-color 300ms ease-in-out;
+    transition: background-color var(--hover-transition);
     color: var(--color-secondary-light);
 }
 .speaker-title-wrapper {
@@ -213,7 +214,7 @@ const icons = [IconBow, IconCandle, IconCherries, IconCocktail, IconDisco, IconS
     height: 64px;
     border-radius: 12px;
     background-color: var(--color-secondary-light);
-    transition: transform 300ms ease-in-out;
+    transition: transform var(--hover-transition);
     margin-left: auto;
 }
 .icon-arrow {

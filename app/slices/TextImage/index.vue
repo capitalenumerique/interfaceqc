@@ -84,7 +84,6 @@ const titleParts = computed(() => {
 }
 .image-wrapper {
     position: relative;
-    overflow: hidden;
     flex-shrink: 0;
     .overlay {
         position: absolute;
