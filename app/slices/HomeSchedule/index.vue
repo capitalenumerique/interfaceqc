@@ -26,7 +26,7 @@ const next = () => {
     <section :data-slice-type="slice.slice_type" :data-slice-variation="slice.variation" class="home-schedule">
         <SliceIntro>
             <template #title>
-                <span v-html="t('La programmation<br /> {0}', [new Date().getFullYear()])"></span>
+                <span v-html="t('La programmation<br /> 2025')"></span>
             </template>
             <template #wysiwyg>{{ slice.primary.description }}</template>
             <template #cta>
@@ -262,7 +262,7 @@ const next = () => {
 <i18n lang="json">
 {
     "en": {
-        "La programmation<br /> {0}": "The {0}<br /> schedule",
+        "La programmation<br /> 2025": "The 2025<br /> schedule",
         "Voir la programmation complète": "See the complete schedule",
         "Voir <br>la programmation <br>complète": "See <br>the complete <br>schedule",
         "Précédent": "Previous",
