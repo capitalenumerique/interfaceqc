@@ -2,7 +2,7 @@
 import { NuxtLinkLocale } from '#components';
 import type { Content } from '@prismicio/client';
 
-import PixelWave from '@/components/PixelWave.vue';
+import PixelWaveSection from '@/components/PixelWaveSection.vue';
 
 import IconArrow from '@/assets/svg/arrow.svg?component';
 import IconBow from '@/assets/svg/symbols/bow.svg?component';
@@ -10,7 +10,7 @@ import IconCandle from '@/assets/svg/symbols/candle.svg?component';
 import IconCherries from '@/assets/svg/symbols/cherries.svg?component';
 import IconCocktail from '@/assets/svg/symbols/cocktail.svg?component';
 import IconDisco from '@/assets/svg/symbols/disco.svg?component';
-import IconSpeakerTileHover from '@/assets/svg/speaker-tile-hover.svg?component';
+import IconHexagonOverlay from '@/assets/svg/hexagon-overlay.svg?component';
 import IconSwirl from '@/assets/svg/symbols/swirl.svg?component';
 import IconVase from '@/assets/svg/symbols/vase.svg?component';
 
@@ -23,8 +23,12 @@ const icons = [IconBow, IconCandle, IconCherries, IconCocktail, IconDisco, IconS
 </script>
 
 <template>
-    <section :data-slice-type="slice.slice_type" :data-slice-variation="slice.variation" class="home-schedule">
-        <PixelWave orientation="top" fill="var(--color-secondary)" />
+    <PixelWaveSection
+        :data-slice-type="slice.slice_type"
+        :data-slice-variation="slice.variation"
+        wave-placements="top"
+        class="home-schedule"
+    >
         <SliceIntro>
             <template #title>
                 <span v-html="t('La programmation<br /> <em>{0}</em>', [new Date().getFullYear()])"></span>
@@ -46,7 +50,7 @@ const icons = [IconBow, IconCandle, IconCherries, IconCocktail, IconDisco, IconS
                     class="tile-link"
                 >
                     <div class="speaker-image-wrapper">
-                        <IconSpeakerTileHover />
+                        <IconHexagonOverlay class="overlay" />
                         <NuxtImg
                             :src="speaker.img.url?.split('?')[0]"
                             :alt="`${speaker.first_name} ${speaker.last_name}`"
@@ -76,10 +80,19 @@ const icons = [IconBow, IconCandle, IconCherries, IconCocktail, IconDisco, IconS
                 </NuxtLinkLocale>
             </li>
         </ul>
-        <PixelWave orientation="bottom" fill="var(--color-secondary)" />
-    </section>
+    </PixelWaveSection>
 </template>
 
+<style lang="postcss">
+.theme-day {
+    .speaker-tile .tile-link {
+        &:hover,
+        &:focus-visible {
+            color: var(--color-secondary-light) !important;
+        }
+    }
+}
+</style>
 <style lang="postcss" scoped>
 .home-schedule {
     margin: 64px 0;
@@ -108,8 +121,8 @@ const icons = [IconBow, IconCandle, IconCherries, IconCocktail, IconDisco, IconS
         &:hover,
         &:focus-visible {
             background-color: var(--color-accent);
-            .speaker-tile-hover_svg__overlay {
-                opacity: 1;
+            color: var(--color-primary);
+            .overlay {
                 transform: scale(1.8);
             }
         }
@@ -119,20 +132,20 @@ const icons = [IconBow, IconCandle, IconCherries, IconCocktail, IconDisco, IconS
     position: relative;
     width: 100%;
     overflow: hidden;
-    .speaker-tile-hover_svg__overlay {
+    .overlay {
         position: absolute;
         inset: 0;
         width: 100%;
         height: 100%;
-        opacity: 0;
         pointer-events: none;
         fill: var(--color-accent);
         transition:
             opacity 0.4s ease,
             transform 0.4s ease;
-        transform: scale(2);
+        transform: scale(4);
     }
     img {
+        display: block;
         width: 100%;
     }
 }
