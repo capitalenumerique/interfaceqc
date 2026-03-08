@@ -13,11 +13,6 @@ const menu = useTemplateRef<HTMLElement>('menu');
 const menuList = useTemplateRef('menuList');
 const items = computed(() => [
     {
-        label: t('Accueil'),
-        path: 'index',
-        color: 'yellow-DEFAULT',
-    },
-    {
         label: t('Billetterie'),
         path: 'tickets',
         color: 'pink-DEFAULT',
