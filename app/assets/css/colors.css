@@ -146,11 +146,13 @@
 .theme-day {
     --color-primary: var(--orange-900);
     --color-secondary: var(--blue-200);
+    --color-secondary-light: var(--blue-50);
     --color-accent: var(--orange-600);
 }
 
 .theme-night {
     --color-primary: var(--purple-950);
     --color-secondary: var(--purple-200);
+    --color-secondary-light: var(--purple-50);
     --color-accent: var(--yellow-500);
 }
