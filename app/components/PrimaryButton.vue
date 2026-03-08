@@ -67,6 +67,7 @@ const component = computed(() => {
     }
     @media (--lg) {
         font-size: rem(18px);
+        line-height: 1.33335;
     }
 }
 .is-outlined {
