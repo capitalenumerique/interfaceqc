@@ -1,6 +1,10 @@
 <script lang="ts" setup>
 import { components } from '~/slices';
 
+definePageMeta({
+    layout: 'home',
+});
+
 const { locale } = useI18n();
 const prismic = usePrismic();
 
