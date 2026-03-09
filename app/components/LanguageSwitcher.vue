@@ -20,10 +20,20 @@ const availableLocales = computed(() => {
 
 <style lang="postcss" scoped>
 .switcher {
-    display: inline-block;
-    color: var(--gray-900);
+    display: block;
+    font-size: rem(16px);
+    line-height: 1.5;
     text-decoration: none;
+    color: var(--gray-900);
     font-weight: 500;
-    padding: 12px 0;
+    text-transform: lowercase;
+    transition: all 300ms ease;
+    padding: 8px 12px;
+    border-radius: 6px;
+    &:hover,
+    &:focus-visible {
+        font-family: var(--font-secondary);
+        background-color: var(--color-secondary);
+    }
 }
 </style>

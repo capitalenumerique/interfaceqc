@@ -13,6 +13,10 @@ useHead(() => ({
     },
     htmlAttrs: {
         lang: i18nHead.value.htmlAttrs.lang,
+        class: () => {
+            const hour = new Date().getHours();
+            return hour >= 9 && hour < 17 ? 'theme-day' : 'theme-night';
+        },
     },
     link: [...(i18nHead.value.link || [])],
     meta: [
@@ -42,6 +46,7 @@ useSeoMeta({
 .page-leave-active {
     transition: opacity 500ms ease-in-out;
 }
+
 .page-enter-from,
 .page-leave-to {
     opacity: 0;
