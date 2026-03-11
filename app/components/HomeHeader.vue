@@ -8,8 +8,8 @@ import Piece2 from '@/assets/svg/puzzle/piece-2.svg?component';
 import Piece3 from '@/assets/svg/puzzle/piece-3.svg?component';
 import Piece4 from '@/assets/svg/puzzle/piece-4.svg?component';
 import Piece5 from '@/assets/svg/puzzle/piece-5.svg?component';
-import Piece6 from '@/assets/svg/puzzle/piece-6.svg';
-import Piece7 from '@/assets/svg/puzzle/piece-7.svg';
+import Piece6 from '@/assets/svg/puzzle/piece-6.svg?skipsvgo';
+import Piece7 from '@/assets/svg/puzzle/piece-7.svg?skipsvgo';
 import Piece8 from '@/assets/svg/puzzle/piece-8.svg?component';
 import Piece9 from '@/assets/svg/puzzle/piece-9.svg?component';
 import Piece10 from '@/assets/svg/puzzle/piece-10.svg?component';
@@ -52,12 +52,12 @@ const list = shallowRef([
     },
     {
         id: 6,
-        img: Piece6,
+        component: Piece6,
         text: eventDates.value.replace(/(.[^,]*)([,]?\s)/, '$1<br>'),
     },
     {
         id: 7,
-        img: Piece7,
+        component: Piece7,
         text: t('Terminal de croisière <br>Port de Québec'),
     },
     {
@@ -109,7 +109,7 @@ onBeforeMount(() => {
 
 onMounted(() => {
     setTimeout(() => {
-        // list.value = shuffle(list.value);
+        list.value = shuffle(list.value);
         initialized.value = true;
     }, 2000);
 });
@@ -124,8 +124,8 @@ const finished = computed(() => {
     return initialized.value && list.value.map((l) => l.id).every((id, index) => id === solution[index]);
 });
 
-watchEffect(() => {
-    if (finished.value) {
+watch(finished, (newValue) => {
+    if (newValue) {
         const shape1 = confetti.shapeFromPath({
             path: 'M99 66H132V82.5H148.5V66H165V49.5H214.5V66H231V82.5H247.5V132H231V148.5H181.5V181.5H198V231H214.5V247.5H165V198H148.5V165H132V181.5H115.5V214.5H99V231H82.5V247.5H49.5V214.5H66V198H82.5V165H33V148.5H16.5V82.5H33V66H49.5V49.5H99V66ZM49.5 132H99V115.5H115.5V99H82.5V82.5H49.5V132ZM181.5 99H165V115.5H214.5V82.5H181.5V99Z',
         });
@@ -148,49 +148,73 @@ watchEffect(() => {
             path: 'M198 49.5H165V66H148.5V82.5H181.5V99H198V148.5H214.5V165H198V181.5H181.5V198H165V214.5H148.5V231H198V247.5H66V231H115.5V214.5H99V198H82.5V181.5H66V165H49.5V148.5H66V99H82.5V82.5H115.5V66H99V49.5H66V33H198V49.5ZM49.5 148.5H33V99H49.5V148.5ZM231 148.5H214.5V99H231V148.5ZM66 99H49.5V82.5H66V99ZM214.5 99H198V82.5H214.5V99Z',
         });
 
-        const defaults = {
-            scalar: 2,
-            spread: 1000,
-            particleCount: 100,
-            origin: { y: -0.1 },
-            startVelocity: -60,
+        const randomInRange = (min, max) => Math.random() * (max - min) + min;
+        const between = (val, low, high) => val > low && val < high;
+        const colors = (function* () {
+            // const values = ['#26ccff', '#a25afd', '#ff5e7e', '#88ff5a', '#fcff42', '#ffa62d', '#ff36ff'];
+
+            const hour = new Date().getHours();
+            const values =
+                hour >= 9 && hour < 17 ? ['#CCDEFF', '#871C00', '#FF4000'] : ['#EECFFF', '#570352', '#DFD300'];
+
+            for (let i = values.length; true; i = i - 1 || values.length) {
+                yield values[i - 1];
+            }
+        })();
+
+        const randomConfetti = (color, x) =>
+            confetti({
+                particleCount: 1,
+                startVelocity: 0,
+                origin: { x: x, y: 0 },
+                shapes: [shape1, shape2, shape3, shape4, shape5, shape6, shape7],
+                colors: [color],
+                gravity: randomInRange(1, 2.5),
+                scalar: randomInRange(2, 4),
+                drift: randomInRange(-0.7, 0.7),
+            });
+
+        const drop = () => {
+            const duration = 6 * 1000;
+            const animationEnd = Date.now() + duration;
+
+            const dropConfetti = ({ count, minX, maxX }) => {
+                while (count--) {
+                    randomConfetti(colors.next().value, randomInRange(minX, maxX));
+                }
+            };
+
+            const frame = () => {
+                const timeLeft = animationEnd - Date.now();
+                const progress = 1 - timeLeft / duration;
+
+                switch (true) {
+                    case between(progress, 0, 0.2):
+                        dropConfetti({ count: 4, minX: 0.1, maxX: 0.9 });
+                        break;
+                    case between(progress, 0.2, 0.5):
+                        dropConfetti({ count: 10, minX: 0, maxX: 1 });
+                        break;
+                    case between(progress, 0.5, 0.7):
+                        dropConfetti({ count: 8, minX: 0.1, maxX: 0.9 });
+                        break;
+                    case between(progress, 0.7, 0.85):
+                        dropConfetti({ count: 2, minX: 0.25, maxX: 0.75 });
+                        break;
+                    case between(progress, 0.85, 2):
+                        dropConfetti({ count: 1, minX: 0.4, maxX: 0.6 });
+                        break;
+                }
+
+                if (timeLeft > 0) {
+                    setTimeout(() => frame(), 100);
+                }
+            };
+
+            frame();
         };
 
-        confetti({
-            ...defaults,
-            shapes: [shape1],
-            colors: ['#ff9a00', '#ff7400', '#ff4d00'],
-        });
-        confetti({
-            ...defaults,
-            shapes: [shape2],
-            colors: ['#8d960f', '#be0f10', '#445404'],
-        });
-        confetti({
-            ...defaults,
-            shapes: [shape3],
-            colors: ['#f93963', '#a10864', '#ee0b93'],
-        });
-        confetti({
-            ...defaults,
-            shapes: [shape4],
-            colors: ['#f93963', '#a10864', '#ee0b93'],
-        });
-        confetti({
-            ...defaults,
-            shapes: [shape5],
-            colors: ['#f93963', '#a10864', '#ee0b93'],
-        });
-        confetti({
-            ...defaults,
-            shapes: [shape6],
-            colors: ['#f93963', '#a10864', '#ee0b93'],
-        });
-        confetti({
-            ...defaults,
-            shapes: [shape7],
-            colors: ['#f93963', '#a10864', '#ee0b93'],
-        });
+        drop();
     }
 });
 
@@ -250,6 +274,9 @@ function onEnd() {
         background-color: var(--beige-100);
         transition: opacity 100ms ease-in-out;
         cursor: move;
+        color: var(--color-primary);
+        scale: 1;
+        rotate: 0;
         &:hover,
         &:focus-visible {
             opacity: 0.9;
@@ -268,10 +295,18 @@ function onEnd() {
             opacity: 1 !important;
         }
     }
+    .piece-2,
+    .piece-12 {
+        color: var(--gray-900);
+    }
+    .piece-6,
+    .piece-7 {
+        /* background: var(--gray-900); */
+        color: var(--color-secondary);
+    }
     &.finished {
         .piece {
-            transition: rotate 2s ease-in-out;
-            rotate: 1turn;
+            animation: finished 2s cubic-bezier(0.37, 0, 0.63, 1);
         }
     }
 }
@@ -289,5 +324,25 @@ function onEnd() {
 
 .fade-leave-active {
     position: absolute;
+}
+
+@keyframes finished {
+    0% {
+        scale: 1;
+        rotate: 0turn;
+    }
+    25% {
+        rotate: 0turn;
+    }
+    50% {
+        scale: 0.8;
+    }
+    75% {
+        rotate: 1turn;
+    }
+    100% {
+        scale: 1;
+        rotate: 1turn;
+    }
 }
 </style>
