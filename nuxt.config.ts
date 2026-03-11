@@ -157,7 +157,7 @@ export default defineNuxtConfig({
             '@csstools/postcss-global-data': {
                 files: ['./app/assets/css/variables.css'],
             },
-            'postcss-preset-env': {},
+            'postcss-preset-env': { browsers: 'baseline 2021' },
             'postcss-nested': {},
             'postcss-functions': {
                 functions: {
@@ -180,7 +180,18 @@ export default defineNuxtConfig({
             },
         },
     },
-    fonts: { defaults: { weights: [400, 500, 600, 700] } },
+    fonts: {
+        defaults: {
+            weights: [400, 500, 600, 700],
+        },
+        families: [
+            {
+                preload: true,
+                name: 'phosphene',
+                provider: 'local',
+            },
+        ],
+    },
     i18n: {
         baseUrl: 'https://interfaceqc.com',
         strategy: 'prefix_except_default',
