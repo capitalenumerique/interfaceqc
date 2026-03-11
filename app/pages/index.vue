@@ -15,7 +15,9 @@ const { data: page } = await useAsyncData(`home-${locale.value}`, () => {
 
 <template>
     <div>
-        <HomeHeader />
+        <ClientOnly>
+            <HomeHeader />
+        </ClientOnly>
         <SliceZone :slices="page?.data?.slices ?? []" :components="components" />
         <NewsletterSection />
     </div>
