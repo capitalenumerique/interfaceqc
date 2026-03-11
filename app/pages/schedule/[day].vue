@@ -82,6 +82,9 @@ const day = computed(() => data[parseInt(route.params.day as string) - 1]);
                     border-bottom-left-radius: 8px;
                     border-bottom-right-radius: 8px;
                 }
+                .session {
+                    border-bottom: 0;
+                }
             }
         }
     }
@@ -95,6 +98,9 @@ const day = computed(() => data[parseInt(route.params.day as string) - 1]);
                 border-top-left-radius: 8px;
                 border-top-right-radius: 8px;
             }
+        }
+        .session {
+            border-bottom: 0;
         }
     }
     &:first-child {
@@ -127,7 +133,6 @@ const day = computed(() => data[parseInt(route.params.day as string) - 1]);
     }
 }
 .timeslot-sessions {
-    border: 1px solid var(--gray-500);
     margin-bottom: 24px;
     overflow: hidden;
     @media (--lg-down) {
@@ -145,19 +150,24 @@ const day = computed(() => data[parseInt(route.params.day as string) - 1]);
 .place {
     padding: 24px;
     font-weight: 600;
-    border-bottom: 1px solid var(--gray-500);
+    border-bottom: 2px solid var(--beige-100);
 }
 .session {
     display: flex;
     flex-direction: column;
-    border-bottom: 1px solid var(--gray-500);
-    @media (--lg) {
-        border-right: 1px solid var(--gray-500);
-        border-bottom: 0;
+    background-color: var(--color-white);
+    border: 2px solid var(--beige-100);
+    border-width: 0 0 2px;
+    @media (--md-down) {
+        &:last-child {
+            border-bottom: 0;
+        }
     }
-    &:last-child {
-        border-right: 0;
-        border-bottom: 0;
+    @media (--lg) {
+        border-width: 0 2px 2px 0;
+        &:last-child {
+            border-right: 0;
+        }
     }
 }
 .session-cell {
