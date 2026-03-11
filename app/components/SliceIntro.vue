@@ -40,6 +40,9 @@
     @media (--lg) {
         font-size: rem(48px);
     }
+    :deep(em) {
+        font-family: var(--font-secondary);
+    }
 }
 .intro-content {
     display: flex;
@@ -50,11 +53,12 @@
         max-width: 668px;
     }
     .wysiwyg {
-        font-size: rem(16px);
+        font-size: rem(18px);
+        font-weight: 500;
         line-height: 1.777;
         margin-left: 40px;
         @media (--lg) {
-            font-size: rem(18px);
+            font-size: rem(24px);
             margin-left: 0px;
         }
     }

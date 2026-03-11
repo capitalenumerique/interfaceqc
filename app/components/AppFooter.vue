@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import { useBreakpoints } from '@vueuse/core';
-import IconAsterisk from '@/assets/svg/shapes/asterisk.svg?component';
-import IconHexagon from '@/assets/svg/shapes/hexagon.svg?component';
 import IconFacebook from '@/assets/svg/facebook.svg?component';
 import IconInstagram from '@/assets/svg/instagram.svg?component';
 import IconLinkedin from '@/assets/svg/linkedin.svg?component';
+import IconLogo from '@/assets/svg/logo-with-glyph.svg?component';
+import IconSwirl from '@/assets/svg/symbols/swirl.svg?component';
+import IconVase from '@/assets/svg/symbols/vase.svg?component';
 
 const { t } = useI18n();
 const breakpoints = useBreakpoints({ lg: 1024 }, { ssrWidth: 1024 });
@@ -35,7 +36,7 @@ const archives = [2025];
     <footer class="footer">
         <div class="footer-content">
             <div class="column">
-                <span class="column-icon"><IconAsterisk width="24" /></span>
+                <span class="column-icon"><IconVase width="40" /></span>
                 <ul class="column-list">
                     <li>
                         <a href="mailto:info@interfaceqc.com">{{ t("info{'@'}interfaceqc.com") }}</a>
@@ -49,7 +50,7 @@ const archives = [2025];
                 </ul>
             </div>
             <div class="column">
-                <span class="column-icon"><IconHexagon width="18" /></span>
+                <span class="column-icon"><IconSwirl width="40" /></span>
                 <ul class="column-list">
                     <li v-for="(year, i) in archives" :key="`archive-${i}`">
                         <a :href="`https://${year}.interfaceqc.com`" target="_blank">
@@ -86,18 +87,20 @@ const archives = [2025];
         </div>
         <ClientOnly v-if="showMarquee">
             <Vue3Marquee>
-                <img class="logo" src="@/assets/svg/logo-with-glyph.svg" :alt="t('Interface')" />
+                <IconLogo class="logo" />
             </Vue3Marquee>
         </ClientOnly>
-        <img v-else class="logo" src="@/assets/svg/logo-with-glyph.svg" :alt="t('Interface')" />
+        <IconLogo v-else class="logo" />
         <div class="credits">
             <div class="credits-wrapper">
                 <div class="copyright">
+                    <a href="https://capitalenumerique.com/politique-de-confidentialite/" target="_blank">
+                        {{ t('Politique de confidentialité') }}
+                        &nbsp;
+                    </a>
                     <span>
-                        <a href="https://capitalenumerique.com/politique-de-confidentialite/" target="_blank">
-                            {{ t('Politique de confidentialité') }}
-                        </a>
-                        | {{ t('© Interface - Québec {n}. Tous droits réservés.', new Date().getFullYear()) }}&nbsp;
+                        {{ t('© Interface - Québec {n}. Tous droits réservés.', new Date().getFullYear()) }}
+                        &nbsp;
                     </span>
                     <span>
                         <template v-if="$config.public.commitTag || $config.public.commitShortSha">
@@ -120,7 +123,7 @@ const archives = [2025];
                             <img
                                 src="@/assets/img/capitale-numerique.svg"
                                 :alt="t('Capitale Numérique')"
-                                width="112"
+                                width="100"
                                 height="36"
                             />
                         </a>
@@ -133,7 +136,7 @@ const archives = [2025];
 
 <style lang="postcss" scoped>
 .footer {
-    background-color: var(--gray-900);
+    background-color: var(--color-primary);
     border-radius: 24px 24px 0 0;
     color: var(--beige-100);
     @media (--lg) {
@@ -179,7 +182,7 @@ const archives = [2025];
     transition: color var(--hover-transition);
     &:hover,
     &:focus-visible {
-        color: var(--yellow-200);
+        color: var(--color-secondary);
     }
 }
 .column-icon {
@@ -187,7 +190,7 @@ const archives = [2025];
     align-items: center;
     height: rem(36px);
     svg {
-        fill: var(--yellow-200);
+        fill: var(--color-secondary);
     }
 }
 .column-list {
@@ -222,6 +225,7 @@ const archives = [2025];
     max-width: var(--page-container-max-width);
     margin: 0 auto;
     display: block;
+    fill: var(--color-secondary);
     @media (--md) {
         padding: 0 0 24px;
         height: auto;
@@ -243,7 +247,7 @@ const archives = [2025];
     }
 }
 .credits {
-    border-top: 1px solid var(--yellow-200);
+    border-top: 1px solid var(--color-secondary);
 }
 .credits-wrapper {
     display: flex;
@@ -262,11 +266,14 @@ const archives = [2025];
     }
 }
 .copyright {
+    display: flex;
+    flex-direction: column;
     font-size: rem(12px);
-    line-height: 1.777;
-    gap: 4px;
+    line-height: 1.5;
+    gap: 8px 4px;
     margin-right: 64px;
     @media (--md) {
+        flex-direction: row;
         margin-right: 0;
     }
     a {
@@ -285,7 +292,6 @@ const archives = [2025];
     margin-right: 48px;
     @media (--md-down) {
         order: -1;
-        margin-left: auto;
         margin-right: 0;
     }
     img {
@@ -298,7 +304,6 @@ const archives = [2025];
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    text-align: right;
     min-width: 80px;
 }
 .support-label {

@@ -46,14 +46,15 @@ const component = computed(() => {
     justify-content: center;
     align-items: center;
     gap: 8px;
-    padding: 16px 32px;
+    padding: 18px 32px;
     background-color: var(--primary-color);
     color: var(--secondary-color);
     font-weight: 500;
     font-size: rem(16px);
-    line-height: 1.25;
+    line-height: 1.5;
     border-radius: 12px;
     cursor: pointer;
+    text-align: center;
     transition:
         background-color var(--hover-transition),
         color var(--hover-transition);
@@ -63,6 +64,10 @@ const component = computed(() => {
     &:focus-visible {
         background-color: var(--secondary-color);
         color: var(--primary-color);
+    }
+    @media (--lg) {
+        font-size: rem(18px);
+        line-height: 1.33335;
     }
 }
 .is-outlined {
