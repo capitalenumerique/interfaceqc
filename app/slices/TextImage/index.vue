@@ -7,10 +7,10 @@ import IconStarOverlay from '@/assets/svg/star-overlay.svg?component';
 
 // The array passed to `getSliceComponentProps` is purely optional.
 // Consider it as a visual hint for you when templating your slice.
-const props = defineProps(getSliceComponentProps<Content.TextImageSlice>(['slice', 'index', 'slices', 'context']));
+const { slice } = defineProps(getSliceComponentProps<Content.TextImageSlice>(['slice', 'index', 'slices', 'context']));
 
 const titleParts = computed(() => {
-    const words = props.slice.primary.title?.split(' ') ?? [];
+    const words = slice.primary.title?.split(' ') ?? [];
     if (words.length <= 1) return { start: '', last: words[0] ?? '' };
     return {
         start: words.slice(0, -1).join(' ') + ' ',

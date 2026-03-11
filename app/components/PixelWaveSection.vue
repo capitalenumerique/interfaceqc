@@ -4,22 +4,19 @@ import IconWaveBottom from '@/assets/svg/wave-bottom.svg?component';
 
 type WavePlacements = 'top' | 'bottom' | 'both';
 
-const props = withDefaults(
-    defineProps<{
-        tag?: string;
-        fill?: string;
-        wavePlacements?: WavePlacements;
-    }>(),
-    {
-        tag: 'section',
-        fill: 'var(--color-secondary)',
-        wavePlacements: 'both',
-    },
-);
+const {
+    tag = 'section',
+    fill = 'var(--color-secondary)',
+    wavePlacements = 'both',
+} = defineProps<{
+    tag?: string;
+    fill?: string;
+    wavePlacements?: WavePlacements;
+}>();
 
 const classes = computed(() => ({
-    'has-top-wave': props.wavePlacements === 'top' || props.wavePlacements === 'both',
-    'has-bottom-wave': props.wavePlacements === 'bottom' || props.wavePlacements === 'both',
+    'has-top-wave': wavePlacements === 'top' || wavePlacements === 'both',
+    'has-bottom-wave': wavePlacements === 'bottom' || wavePlacements === 'both',
 }));
 </script>
 
