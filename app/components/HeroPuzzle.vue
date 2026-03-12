@@ -280,6 +280,7 @@ function onEnd() {
         color: var(--color-primary);
         scale: 1;
         rotate: 0;
+        margin: -0.5px;
         &:hover,
         &:focus-visible {
             opacity: 0.9;
