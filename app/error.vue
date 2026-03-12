@@ -1,8 +1,6 @@
 <script lang="ts" setup>
 import type { NuxtError } from '#app';
 
-import IconAsterisk from '@/assets/svg/shapes/asterisk.svg?component';
-
 const { error } = defineProps<{
     error: NuxtError;
 }>();
@@ -31,12 +29,7 @@ const handleError = () => clearError({ redirect: '/' });
 <template>
     <NuxtLayout>
         <div class="error-wrapper">
-            <BouncingAnimation class="animation-container" :duration="9000">
-                <div class="shape-container">
-                    <IconAsterisk class="asterisk" width="180" />
-                </div>
-            </BouncingAnimation>
-            <template v-if="error.statusCode === 404">
+            <template v-if="error.status === 404">
                 <h1 class="error-title">{{ t('Page non trouvée') }}</h1>
                 <p class="error-content">
                     {{
