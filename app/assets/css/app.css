@@ -4,6 +4,7 @@ body {
     overflow-x: clip;
     background-color: var(--beige-100);
     color: var(--gray-900);
+    font-synthesis: none;
 }
 
 html {
