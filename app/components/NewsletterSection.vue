@@ -97,7 +97,6 @@ const { t } = useI18n();
     font-size: rem(14px);
     margin-bottom: 8px;
     font-weight: 500;
-    text-transform: lowercase;
     background-color: var(--color-white);
     border-radius: 8px;
     padding: 8px 16px;

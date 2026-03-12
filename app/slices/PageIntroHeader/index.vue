@@ -53,7 +53,6 @@ defineProps(getSliceComponentProps<Content.PageIntroHeaderSlice>(['slice', 'inde
     }
 }
 .header-cta {
-    text-transform: lowercase;
     margin-top: 24px;
 }
 </style>

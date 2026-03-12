@@ -119,9 +119,6 @@ const sortedCategories = Object.fromEntries(
         font-size: rem(18px);
         font-weight: 600;
         margin-bottom: 24px;
-        &::first-letter {
-            text-transform: lowercase;
-        }
     }
 }
 .partners-group {

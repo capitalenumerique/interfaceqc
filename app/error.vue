@@ -101,7 +101,6 @@ const handleError = () => clearError({ redirect: '/' });
     max-width: 430px;
     flex-shrink: 0;
     margin: 0;
-    text-transform: lowercase;
     @media (--lg) {
         font-size: rem(48px);
     }
@@ -117,9 +116,6 @@ const handleError = () => clearError({ redirect: '/' });
         align-items: flex-start;
         max-width: 668px;
     }
-}
-.error-cta {
-    text-transform: lowercase;
 }
 </style>
 
