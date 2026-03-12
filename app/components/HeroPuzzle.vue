@@ -94,8 +94,8 @@ const list = shallowRef([
     },
 ]);
 const solutions = {
-    desktop: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-    mobile: [3, 4, 5, 8, 9, 10, 13, 14, 15, 6, 7, 2, 11, 12, 1],
+    desktop: [null, null, 3, 4, 5, null, null, 8, 9, 10, null, null, 13, 14, 15],
+    mobile: [3, 4, 5, 8, 9, 10, 13, 14, 15, null, null, null, null, null, null],
 };
 
 onBeforeMount(() => {
@@ -119,9 +119,12 @@ const finished = computed(() => {
     console.log(
         list.value.map((l) => l.id),
         solution,
-        list.value.map((l) => l.id).every((id, index) => id === solution[index]),
+        list.value.map((l) => l.id).every((id, index) => solution[index] === null || id === solution[index]),
     );
-    return initialized.value && list.value.map((l) => l.id).every((id, index) => id === solution[index]);
+    return (
+        initialized.value &&
+        list.value.map((l) => l.id).every((id, index) => solution[index] === null || id === solution[index])
+    );
 });
 
 watch(finished, (newValue) => {
