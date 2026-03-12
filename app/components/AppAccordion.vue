@@ -81,7 +81,7 @@ const isOpen = ref(false);
     justify-content: space-between;
     font-size: rem(18px);
     line-height: 1.25;
-    font-weight: 600;
+    font-weight: 500;
     padding: 16px;
     border-radius: 16px;
     width: 100%;

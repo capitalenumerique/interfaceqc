@@ -37,7 +37,7 @@ defineProps(getSliceComponentProps<Content.PageIntroHeaderSlice>(['slice', 'inde
 }
 .header-title {
     font-size: rem(36px);
-    font-weight: 600;
+    font-weight: 500;
     margin-bottom: 16px;
     @media (--lg) {
         font-size: rem(72px);

@@ -78,7 +78,7 @@ defineProps(getSliceComponentProps<Content.HomeTicketsSlice>(['slice', 'index', 
         text-align: center;
         max-width: 888px;
         margin: 0 auto;
-        font-weight: 600;
+        font-weight: 500;
         @media (--lg) {
             font-size: rem(16px);
         }
@@ -99,7 +99,7 @@ defineProps(getSliceComponentProps<Content.HomeTicketsSlice>(['slice', 'index', 
 }
 .ticket-types-title {
     font-size: rem(32px);
-    font-weight: 600;
+    font-weight: 500;
     margin: 0 auto;
     text-align: center;
     @media (--lg) {

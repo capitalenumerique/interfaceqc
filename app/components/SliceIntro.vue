@@ -32,7 +32,7 @@
 }
 .intro-title {
     font-size: rem(32px);
-    font-weight: 600;
+    font-weight: 500;
     max-width: 430px;
     flex-shrink: 0;
     margin: 0;

@@ -121,7 +121,7 @@ function formatDate(date: string) {
     align-items: center;
     gap: 8px;
     text-transform: lowercase;
-    font-weight: 600;
+    font-weight: 500;
     font-size: rem(14px);
     margin-bottom: 40px;
     color: var(--gray-900);
@@ -151,18 +151,18 @@ function formatDate(date: string) {
 .session-header {
     display: flex;
     gap: 24px;
-    font-weight: 600;
+    font-weight: 500;
     margin-bottom: 24px;
 }
 .session-title {
     font-size: rem(24px);
-    font-weight: 600;
+    font-weight: 500;
     @media (--lg) {
         font-size: rem(30px);
     }
 }
 .session-place {
-    font-weight: 600;
+    font-weight: 500;
     margin: 24px 0;
 }
 .speakers-list {
@@ -191,11 +191,11 @@ function formatDate(date: string) {
 }
 .speaker-name {
     font-size: rem(18px);
-    font-weight: 600;
+    font-weight: 500;
     margin: 0;
 }
 .speaker-infos {
-    font-weight: 600;
+    font-weight: 500;
 }
 </style>
 

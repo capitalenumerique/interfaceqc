@@ -117,7 +117,7 @@ const sortedCategories = Object.fromEntries(
     }
     h3 {
         font-size: rem(18px);
-        font-weight: 600;
+        font-weight: 500;
         margin-bottom: 24px;
     }
 }

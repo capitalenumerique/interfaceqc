@@ -121,7 +121,7 @@ const { t } = useI18n();
     }
     .ticket-type-title {
         margin-bottom: 16px;
-        font-weight: 600;
+        font-weight: 500;
     }
     .ticket-type-price {
         font-size: rem(48px);
@@ -133,7 +133,7 @@ const { t } = useI18n();
     .inclusion-title {
         font-size: rem(16px);
         margin: 0;
-        font-weight: 600;
+        font-weight: 500;
         margin-bottom: 4px;
     }
     .inclusion-description {
@@ -209,7 +209,7 @@ const { t } = useI18n();
     justify-content: space-between;
     font-size: rem(18px);
     line-height: 1.25;
-    font-weight: 600;
+    font-weight: 500;
     padding: 16px;
     border-radius: 0 0 16px 16px;
     width: 100%;
