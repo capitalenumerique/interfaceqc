@@ -65,6 +65,10 @@ const component = computed(() => {
         background-color: var(--secondary-color);
         color: var(--primary-color);
     }
+    @media (--lg) {
+        font-size: rem(18px);
+        line-height: 1.33335;
+    }
 }
 .is-outlined {
     color: var(--primary-color);
