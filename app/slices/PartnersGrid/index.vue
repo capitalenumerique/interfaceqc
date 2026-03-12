@@ -38,7 +38,7 @@ const sortedCategories = Object.fromEntries(
         <SliceIntro
             v-if="slice.primary.title && slice.primary.description && $prismic.isFilled.link(slice.primary.cta)"
         >
-            <template v-if="slice.primary.title" #title>{{ slice.primary.title }}</template>
+            <template v-if="slice.primary.title" #title><span v-html="slice.primary.title"></span></template>
             <template v-if="slice.primary.description" #wysiwyg>{{ slice.primary.description }}</template>
             <template v-if="slice.primary.cta.url" #cta>
                 <PrimaryButton

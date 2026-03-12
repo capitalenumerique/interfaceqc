@@ -22,8 +22,8 @@ const { t } = useI18n();
         class="ticket-type"
         :class="{ 'is-open': isOpen }"
         :style="{
-            '--backgroundColor': item.ticket_type.data?.background_color ?? '',
-            '--textColor': item.ticket_type.data?.text_color ?? '',
+            '--backgroundColor': 'var(--color-accent)',
+            '--textColor': 'var(--color-primary)',
         }"
     >
         <div class="top-section">
@@ -80,7 +80,7 @@ const { t } = useI18n();
 .ticket-type {
     display: flex;
     flex-direction: column;
-    color: var(--gray-900);
+    color: var(--beige-100);
     text-align: center;
     width: 100%;
     .is-even & {
@@ -100,7 +100,7 @@ const { t } = useI18n();
     .bottom-section {
         padding: 32px;
         border-radius: 20px 20px 0 0;
-        background-color: var(--beige-100);
+        background-color: var(--color-primary);
         transition:
             color var(--hover-transition),
             background-color var(--hover-transition),
@@ -164,21 +164,24 @@ const { t } = useI18n();
             color: var(--textColor);
             background-color: var(--backgroundColor);
         }
+        .ticket-type-price {
+            font-family: var(--font-secondary);
+            font-weight: 400;
+        }
     }
 }
 .ticket-type-link {
     display: block;
     font-size: rem(14px);
     line-height: 1.25;
-    color: var(--gray-900);
     background-color: transparent;
     border-radius: 6px;
     padding: 8px;
     cursor: pointer;
     border: 2px solid transparent;
     text-decoration: none;
-    background-color: var(--gray-900);
-    color: var(--beige-100);
+    color: var(--gray-900);
+    background-color: var(--beige-100);
     text-transform: lowercase;
     width: 100%;
     margin-top: 32px;
