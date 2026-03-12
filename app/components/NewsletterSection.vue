@@ -28,7 +28,7 @@ const { t } = useI18n();
                     type="email"
                     :placeholder="t('adresse{\'@\'}exemple.com')"
                 />
-                <PrimaryButton class="form-submit" type="submit" small>{{ t('m’inscrire') }}</PrimaryButton>
+                <PrimaryButton class="form-submit" type="submit" small>{{ t('M’inscrire') }}</PrimaryButton>
             </form>
         </div>
     </section>
@@ -130,7 +130,7 @@ const { t } = useI18n();
         "Pour des nouveautés, des promotions, du contenu exclusif et une bonne dose d’Interface, abonne-toi à notre infolettre!": "For news, promotions, exclusive content and a healthy dose of Interface, subscribe to our newsletter!",
         "Adresse courriel": "Email address",
         "adresse{'@'}exemple.com": "email{'@'}example.com",
-        "m’inscrire": "register"
+        "M’inscrire": "Register"
     }
 }
 </i18n>

@@ -215,11 +215,11 @@ const { t } = useI18n();
     width: 100%;
     text-align: left;
     appearance: none;
-    color: var(--gray-900);
-    background-color: var(--beige-100);
+    color: var(--beige-100);
+    background-color: var(--color-primary);
     cursor: pointer;
     border: 0;
-    border-top: 1px solid var(--gray-900);
+    border-top: 1px solid var(--beige-100);
     transition:
         background-color var(--hover-transition),
         color var(--hover-transition),
