@@ -37,34 +37,8 @@ const isOpen = ref(false);
 
 <style lang="postcss" scoped>
 .accordion-item {
-    &:nth-child(7n + 1) {
-        --backgroundColor: var(--yellow-DEFAULT);
-        --textColor: var(--gray-900);
-    }
-    &:nth-child(7n + 2) {
-        --backgroundColor: var(--teal-DEFAULT);
-        --textColor: var(--gray-900);
-    }
-    &:nth-child(7n + 3) {
-        --backgroundColor: var(--pink-DEFAULT);
-        --textColor: var(--gray-900);
-    }
-    &:nth-child(7n + 4) {
-        --backgroundColor: var(--red-DEFAULT);
-        --textColor: var(--gray-900);
-    }
-    &:nth-child(7n + 5) {
-        --backgroundColor: var(--orange-DEFAULT);
-        --textColor: var(--gray-900);
-    }
-    &:nth-child(7n + 6) {
-        --backgroundColor: var(--green-DEFAULT);
-        --textColor: var(--beige-DEFAULT);
-    }
-    &:nth-child(7n + 7) {
-        --backgroundColor: var(--blue-DEFAULT);
-        --textColor: var(--beige-DEFAULT);
-    }
+    --backgroundColor: var(--color-secondary);
+    --textColor: var(--color-primary);
     &.is-open {
         .accordion-trigger,
         .accordion-content {
