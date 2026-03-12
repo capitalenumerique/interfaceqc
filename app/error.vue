@@ -7,12 +7,21 @@ const { error } = defineProps<{
     error: NuxtError;
 }>();
 
+const i18nHead = useLocaleHead();
+
 const { t } = useI18n();
 
 useHead(() => ({
     titleTemplate: () => {
         const title = error.statusCode === 404 ? t('Page non trouvée') : t('Une erreur est survenue');
         return `${title} | Interface`;
+    },
+    htmlAttrs: {
+        lang: i18nHead.value.htmlAttrs.lang,
+        class: () => {
+            const hour = new Date().getHours();
+            return hour >= 9 && hour < 17 ? 'theme-day' : 'theme-night';
+        },
     },
 }));
 
