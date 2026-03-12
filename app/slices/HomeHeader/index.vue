@@ -1,118 +1,68 @@
 <script setup lang="ts">
 import type { Content } from '@prismicio/client';
-import { useBreakpoints } from '@vueuse/core';
-import IconAsterisk from '@/assets/svg/shapes/asterisk.svg?component';
-import IconHexagon from '@/assets/svg/shapes/hexagon.svg?component';
-import IconLemon from '@/assets/svg/shapes/lemon.svg?component';
-import IconStar from '@/assets/svg/shapes/star.svg?component';
-import IconLogo from '@/assets/svg/logo.svg?component';
 
 // The array passed to `getSliceComponentProps` is purely optional.
 // Consider it as a visual hint for you when templating your slice.
 defineProps(getSliceComponentProps<Content.HomeHeaderSlice>(['slice', 'index', 'slices', 'context']));
 
-const { t } = useI18n();
-const activeIndex = ref(0);
-const shapes = [IconAsterisk, IconLemon, IconStar, IconHexagon];
-const shapesColors = ['--orange-400', '--red-500', '--green-700', '--red-500'];
-const backgroundColors = ['--blue-700', '--pink-300', '--teal-500', '--yellow-200'];
-
-const breakpoints = useBreakpoints({ lg: 1024 }, { ssrWidth: 1024 });
-const showMarquee = breakpoints.smaller('lg');
-const { eventDates } = useEventDates();
-
-function changeShape() {
-    if (activeIndex.value < shapes.length - 1) {
-        activeIndex.value++;
-    } else {
-        activeIndex.value = 0;
-    }
-}
+const { t, locale, localeProperties } = useI18n();
+const afterEvent = ref(false);
 </script>
 
 <template>
     <section class="home-header">
-        <div class="header-top">
-            <span class="header-text" v-html="eventDates.replace(/(.[^,]*)([,]?\s)/, '$1<br>')"> </span>
-            <a
-                href="https://maps.app.goo.gl/J7VqhaiBDvHEzNwC9"
-                target="_blank"
-                class="header-text"
-                v-html="t('Terminal de croisière <br>Port de Québec')"
-            >
-            </a>
-        </div>
-        <BouncingAnimation class="bouncing-animation-zone" @bounce="changeShape">
-            <div class="bouncing-object" :style="{ backgroundColor: `var(${backgroundColors[activeIndex]})` }">
-                <component
-                    :is="shapes[activeIndex]"
-                    class="shape"
-                    :style="{ fill: `var(${shapesColors[activeIndex]})` }"
-                />
-            </div>
-        </BouncingAnimation>
-        <ClientOnly v-if="showMarquee">
-            <Vue3Marquee>
-                <IconLogo class="logo" />
-            </Vue3Marquee>
+        <ClientOnly>
+            <HeroPuzzle />
+            <template #placeholder>
+                <div class="placeholder"></div>
+            </template>
         </ClientOnly>
-        <IconLogo v-else class="logo" />
         <div class="event-infos-wrapper">
-            <div class="event-infos infos-top">
+            <div v-if="!afterEvent" class="event-infos infos-top">
                 <h2 class="infos-title">{{ slice.primary.title }}</h2>
                 <p class="infos-text">{{ slice.primary.description }}</p>
-            </div>
-            <div class="event-infos infos-bottom">
-                <PrimaryButton
-                    :to="$config.public.ticketing_url"
-                    target="_blank"
-                    primary-color="green-800"
-                    secondary-color="yellow-200"
-                >
+                <PrimaryButton :to="$config.public.ticketing_url" target="_blank">
                     {{ t('Participer') }}
                 </PrimaryButton>
-                <IconAsterisk width="40" />
             </div>
-            <!-- <div class="event-infos infos-bottom infos-download">
-                <div>
-                    <h2 class="infos-title">{{ t('Télécharge l’application SwapCard') }}</h2>
-                    <p class="infos-text">
-                        {{ t('Si tu as manqué des conférences à l’édition 2025, les rediffusions sont en cours.') }}
-                    </p>
-                    <div class="infos-links">
-                        <a
-                            :href="`https://apps.apple.com/ca/app/swapcard-smart-event-app/id879488719?l=${localeProperties.language}`"
-                            target="_blank"
-                        >
-                            <img
-                                :src="`/app-store-${locale}.svg`"
-                                :alt="t('Télécharger Swapcard sur l’App Store')"
-                                width="168"
-                                height="56"
-                            />
-                        </a>
-                        <a
-                            :href="`https://play.google.com/store/apps/details?id=com.swapcard.apps.android&pcampaignid=web_share&hl=${localeProperties.language}`"
-                            target="_blank"
-                        >
-                            <img
-                                :src="`/google-play-${locale}.svg`"
-                                :alt="t('Télécharger Swapcard sur Google Play')"
-                                width="186"
-                                height="56"
-                            />
-                        </a>
-                        <a href="https://app.swapcard.com/login" target="_blank">
-                            <img
-                                :src="`/swapcard-${locale}.svg`"
-                                :alt="t('Accéder à l’application Web de Swapcard')"
-                                width="186"
-                                height="56"
-                            />
-                        </a>
-                    </div>
+            <div v-else class="event-infos infos-bottom">
+                <h2 class="infos-title">{{ t('Télécharge l’application SwapCard') }}</h2>
+                <p class="infos-text">
+                    {{ t('Si tu as manqué des conférences à l’édition 2026, les rediffusions sont en cours.') }}
+                </p>
+                <div class="infos-links">
+                    <a
+                        :href="`https://apps.apple.com/ca/app/swapcard-smart-event-app/id879488719?l=${localeProperties.language}`"
+                        target="_blank"
+                    >
+                        <img
+                            :src="`/app-store-${locale}.svg`"
+                            :alt="t('Télécharger Swapcard sur l’App Store')"
+                            width="168"
+                            height="56"
+                        />
+                    </a>
+                    <a
+                        :href="`https://play.google.com/store/apps/details?id=com.swapcard.apps.android&pcampaignid=web_share&hl=${localeProperties.language}`"
+                        target="_blank"
+                    >
+                        <img
+                            :src="`/google-play-${locale}.svg`"
+                            :alt="t('Télécharger Swapcard sur Google Play')"
+                            width="186"
+                            height="56"
+                        />
+                    </a>
+                    <a href="https://app.swapcard.com/login" target="_blank">
+                        <img
+                            :src="`/swapcard-${locale}.svg`"
+                            :alt="t('Accéder à l’application Web de Swapcard')"
+                            width="186"
+                            height="56"
+                        />
+                    </a>
                 </div>
-            </div> -->
+            </div>
         </div>
     </section>
 </template>
@@ -125,75 +75,14 @@ function changeShape() {
         margin: 0 auto 64px;
     }
 }
-.header-top {
-    display: flex;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 32px 16px;
-    @media (--md) {
-        max-width: 1150px;
-        width: 64%;
-        padding: 32px;
-    }
+.placeholder {
+    aspect-ratio: 3 / 5;
     @media (--lg) {
-        padding: 64px 48px;
-    }
-}
-.header-text {
-    font-size: rem(20px);
-    line-height: 1.4;
-    font-weight: 500;
-    text-decoration: none;
-    color: var(--color-black);
-    transition: opacity 300ms ease;
-    &:is(a) {
-        &:hover,
-        &:focus-visible {
-            opacity: 0.7;
-            text-decoration: underline;
-        }
-    }
-    @media (--lg) {
-        font-size: rem(24px);
-    }
-}
-.bouncing-animation-zone {
-    height: 38vh;
-    @media (--lg) {
-        height: 50vh;
-    }
-}
-.bouncing-object {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 150px;
-    height: 150px;
-    border-radius: 20px;
-    @media (--lg) {
-        width: 250px;
-        height: 250px;
-    }
-}
-.shape {
-    width: 75%;
-}
-.logo {
-    position: relative;
-    display: block;
-    margin-left: 50px;
-    fill: var(--gray-900);
-    height: 150px;
-    max-width: 100%;
-    z-index: 1;
-    @media (--lg) {
-        margin: auto;
-        width: var(--page-container-max-width);
-        height: auto;
-        padding: 0 32px;
+        aspect-ratio: 5 / 3;
     }
 }
 .event-infos-wrapper {
+    text-align: center;
     margin: 40px auto 0;
     width: 100%;
     max-width: var(--page-container-max-width);
@@ -205,83 +94,32 @@ function changeShape() {
         margin: 64px auto 0;
     }
 }
-.event-infos {
-    background-color: var(--yellow-200);
-    color: var(--green-800);
-    border-radius: 20px;
-    padding: 24px 16px;
-    @media (--lg) {
-        border-radius: 40px;
-        padding: 32px;
-    }
+.infos-title {
+    display: inline-flex;
+    padding: 8px 16px;
+    background: var(--color-white);
+    color: var(--gray-900);
+    border-radius: 8px;
+    font-size: rem(20px);
+    line-height: 1.5;
+    font-weight: 500;
+    margin: 0;
 }
-
-.infos-top {
-    .infos-title {
-        font-size: rem(18px);
-        font-weight: 600;
-        margin-bottom: 24px;
-        text-transform: lowercase;
-        text-wrap: pretty;
-        @media (--lg) {
-            font-size: rem(20px);
-            margin-bottom: 32px;
-        }
-    }
-    .infos-text {
-        font-size: rem(28px);
-        line-height: 1.25;
-        font-weight: 600;
-        margin: 0;
-        text-wrap: pretty;
-        @media (--lg) {
-            font-size: rem(48px);
-        }
-    }
+.infos-text {
+    font-size: rem(48px);
+    line-height: 1.2;
+    font-weight: 500;
+    color: var(--gray-900);
+    text-align: center;
+    letter-spacing: -0.96px;
 }
-.infos-bottom {
+.infos-links {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    .infos-title {
-        font-size: rem(18px);
-        font-weight: 600;
-        margin-bottom: 16px;
-        text-transform: lowercase;
-        text-wrap: pretty;
-        @media (--lg) {
-            font-size: rem(20px);
-            margin-bottom: 16px;
-        }
-    }
-    .infos-text {
-        font-size: rem(28px);
-        font-weight: 600;
-        margin: 16px 0;
-        text-wrap: balance;
-        @media (--lg) {
-            font-size: rem(36px);
-        }
-    }
-    .primary-button {
-        text-transform: lowercase;
-    }
-    .infos-links {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 3px;
-        margin-top: 24px;
-        @media (--lg) {
-            gap: 8px;
-            margin-top: 32px;
-        }
-    }
-    img {
-        width: auto;
-        height: 44px;
-        @media (--lg) {
-            height: 56px;
-        }
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 3px;
+    @media (--lg) {
+        gap: 8px;
     }
 }
 </style>
@@ -289,10 +127,9 @@ function changeShape() {
 <i18n lang="json">
 {
     "en": {
-        "Terminal de croisière <br>Port de Québec": "Cruise Terminal <br>Port of Québec",
         "Participer": "Participate",
         "Télécharge l’application SwapCard": "Download the SwapCard app",
-        "Si tu as manqué des conférences à l’édition 2025, les rediffusions sont en cours.": "If you missed some talks at the 2025 edition, the replays are now available.",
+        "Si tu as manqué des conférences à l’édition 2026, les rediffusions sont en cours.": "If you missed some talks at the 2026 edition, the replays are now available.",
         "Télécharger Swapcard sur l’App Store": "Download Swapcard on the App Store",
         "Télécharger Swapcard sur Google Play": "Download Swapcard on Google Play",
         "Accéder à l’application Web de Swapcard": "Go to the Swapcard Web application"

@@ -148,8 +148,8 @@ watch(finished, (newValue) => {
             path: 'M198 49.5H165V66H148.5V82.5H181.5V99H198V148.5H214.5V165H198V181.5H181.5V198H165V214.5H148.5V231H198V247.5H66V231H115.5V214.5H99V198H82.5V181.5H66V165H49.5V148.5H66V99H82.5V82.5H115.5V66H99V49.5H66V33H198V49.5ZM49.5 148.5H33V99H49.5V148.5ZM231 148.5H214.5V99H231V148.5ZM66 99H49.5V82.5H66V99ZM214.5 99H198V82.5H214.5V99Z',
         });
 
-        const randomInRange = (min, max) => Math.random() * (max - min) + min;
-        const between = (val, low, high) => val > low && val < high;
+        const randomInRange = (min: number, max: number) => Math.random() * (max - min) + min;
+        const between = (val: number, low: number, high: number) => val > low && val < high;
         const colors = (function* () {
             // const values = ['#26ccff', '#a25afd', '#ff5e7e', '#88ff5a', '#fcff42', '#ffa62d', '#ff36ff'];
 
@@ -158,11 +158,11 @@ watch(finished, (newValue) => {
                 hour >= 9 && hour < 17 ? ['#CCDEFF', '#871C00', '#FF4000'] : ['#EECFFF', '#570352', '#DFD300'];
 
             for (let i = values.length; true; i = i - 1 || values.length) {
-                yield values[i - 1];
+                yield values[i - 1]!;
             }
         })();
 
-        const randomConfetti = (color, x) =>
+        const randomConfetti = (color: string, x: number) =>
             confetti({
                 particleCount: 1,
                 startVelocity: 0,
@@ -178,7 +178,7 @@ watch(finished, (newValue) => {
             const duration = 6 * 1000;
             const animationEnd = Date.now() + duration;
 
-            const dropConfetti = ({ count, minX, maxX }) => {
+            const dropConfetti = ({ count, minX, maxX }: { count: number; minX: number; maxX: number }) => {
                 while (count--) {
                     randomConfetti(colors.next().value, randomInRange(minX, maxX));
                 }
@@ -301,7 +301,6 @@ function onEnd() {
     }
     .piece-6,
     .piece-7 {
-        /* background: var(--gray-900); */
         color: var(--color-secondary);
     }
     &.finished {
@@ -346,3 +345,11 @@ function onEnd() {
     }
 }
 </style>
+
+<i18n lang="json">
+{
+    "en": {
+        "Terminal de croisière <br>Port de Québec": "Cruise Terminal <br>Port of Québec"
+    }
+}
+</i18n>

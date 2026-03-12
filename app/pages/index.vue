@@ -15,22 +15,7 @@ const { data: page } = await useAsyncData(`home-${locale.value}`, () => {
 
 <template>
     <div>
-        <ClientOnly>
-            <HomeHeader />
-            <template #placeholder>
-                <div class="placeholder"></div>
-            </template>
-        </ClientOnly>
         <SliceZone :slices="page?.data?.slices ?? []" :components="components" />
         <NewsletterSection />
     </div>
 </template>
-
-<style lang="postcss" scoped>
-.placeholder {
-    aspect-ratio: 3 / 5;
-    @media (--lg) {
-        aspect-ratio: 5 / 3;
-    }
-}
-</style>
