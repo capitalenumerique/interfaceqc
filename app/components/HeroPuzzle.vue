@@ -93,7 +93,6 @@ const list = shallowRef([
         component: Piece15,
     },
 ]);
-<<<<<<< HEAD
 const initial_layouts = {
     desktop: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
     mobile: [3, 4, 5, 8, 9, 10, 13, 14, 15, 6, 7, 2, 11, 12, 1],
@@ -105,15 +104,6 @@ const puzzle_solutions = {
 
 onBeforeMount(() => {
     const solution = initial_layouts[activeBreakpoint.value as keyof typeof puzzle_solutions];
-=======
-const solutions = {
-    desktop: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-    mobile: [3, 4, 5, 8, 9, 10, 13, 14, 15, 6, 7, 2, 11, 12, 1],
-};
-
-onBeforeMount(() => {
-    const solution = solutions[activeBreakpoint.value as keyof typeof solutions];
->>>>>>> @{-1}
     list.value = list.value.sort((a, b) => {
         const aIndex = solution.indexOf(a.id);
         const bIndex = solution.indexOf(b.id);
@@ -129,16 +119,11 @@ onMounted(() => {
 });
 
 const finished = computed(() => {
-<<<<<<< HEAD
     const solution = puzzle_solutions[activeBreakpoint.value as keyof typeof puzzle_solutions];
     return (
         initialized.value &&
         list.value.map((l) => l.id).every((id, index) => solution[index] === null || id === solution[index])
     );
-=======
-    const solution = solutions[activeBreakpoint.value as keyof typeof solutions];
-    return initialized.value && list.value.map((l) => l.id).every((id, index) => id === solution[index]);
->>>>>>> @{-1}
 });
 
 watch(finished, (newValue) => {
