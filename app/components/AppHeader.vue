@@ -316,7 +316,7 @@ const onEscape = () => {
     line-height: 1.5;
     text-decoration: none;
     color: var(--gray-900);
-    font-weight: 500;
+    font-weight: 600;
     text-transform: lowercase;
     transition: all 300ms ease;
     padding: 8px 12px;

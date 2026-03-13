@@ -33,13 +33,13 @@ defineProps(getSliceComponentProps<Content.Text2ColumnsSlice>(['slice', 'index',
     }
 }
 .slice-surtitle {
-    font-weight: 600;
+    font-weight: 500;
     margin: 0;
     margin-bottom: 12px;
 }
 .slice-title {
     font-size: rem(32px);
-    font-weight: 600;
+    font-weight: 500;
     margin: 0;
     @media (--lg) {
         font-size: rem(48px);

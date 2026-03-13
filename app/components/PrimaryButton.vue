@@ -49,7 +49,7 @@ const component = computed(() => {
     padding: 18px 32px;
     background-color: var(--primary-color);
     color: var(--secondary-color);
-    font-weight: 500;
+    font-weight: 600;
     font-size: rem(16px);
     line-height: 1.5;
     border-radius: 12px;

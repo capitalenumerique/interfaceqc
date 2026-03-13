@@ -57,9 +57,13 @@ const classes = computed(() => ({
     }
 }
 .top-wave {
+    position: relative;
+    z-index: -1;
     transform: translateY(calc(-100% + 1px));
 }
 .bottom-wave {
+    position: relative;
+    z-index: -1;
     transform: translateY(calc(100% + 1px));
 }
 </style>

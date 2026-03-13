@@ -107,7 +107,7 @@ const dates = computed(() => {
     text-decoration: none;
     font-size: rem(12px);
     line-height: 1.25;
-    font-weight: 600;
+    font-weight: 500;
     color: var(--gray-900);
     background-color: transparent;
     border-radius: 6px;

@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import type { NuxtError } from '#app';
 
-import IconAsterisk from '@/assets/svg/shapes/asterisk.svg?component';
-
 const { error } = defineProps<{
     error: NuxtError;
 }>();
+
+const i18nHead = useLocaleHead();
 
 const { t } = useI18n();
 
@@ -13,6 +13,13 @@ useHead(() => ({
     titleTemplate: () => {
         const title = error.statusCode === 404 ? t('Page non trouvée') : t('Une erreur est survenue');
         return `${title} | Interface`;
+    },
+    htmlAttrs: {
+        lang: i18nHead.value.htmlAttrs.lang,
+        class: () => {
+            const hour = new Date().getHours();
+            return hour >= 9 && hour < 17 ? 'theme-day' : 'theme-night';
+        },
     },
 }));
 
@@ -22,12 +29,7 @@ const handleError = () => clearError({ redirect: '/' });
 <template>
     <NuxtLayout>
         <div class="error-wrapper">
-            <BouncingAnimation class="animation-container" :duration="9000">
-                <div class="shape-container">
-                    <IconAsterisk class="asterisk" width="180" />
-                </div>
-            </BouncingAnimation>
-            <template v-if="error.statusCode === 404">
+            <template v-if="error.status === 404">
                 <h1 class="error-title">{{ t('Page non trouvée') }}</h1>
                 <p class="error-content">
                     {{
@@ -97,11 +99,10 @@ const handleError = () => clearError({ redirect: '/' });
 }
 .error-title {
     font-size: rem(32px);
-    font-weight: 600;
+    font-weight: 500;
     max-width: 430px;
     flex-shrink: 0;
     margin: 0;
-    text-transform: lowercase;
     @media (--lg) {
         font-size: rem(48px);
     }
@@ -117,9 +118,6 @@ const handleError = () => clearError({ redirect: '/' });
         align-items: flex-start;
         max-width: 668px;
     }
-}
-.error-cta {
-    text-transform: lowercase;
 }
 </style>
 

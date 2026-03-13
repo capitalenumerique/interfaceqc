@@ -106,12 +106,15 @@ const afterEvent = ref(false);
     margin: 0;
 }
 .infos-text {
-    font-size: rem(48px);
+    font-size: rem(32px);
     line-height: 1.2;
     font-weight: 500;
     color: var(--gray-900);
     text-align: center;
     letter-spacing: -0.96px;
+    @media (--lg) {
+        font-size: rem(48px);
+    }
 }
 .infos-links {
     display: flex;
