@@ -32,7 +32,7 @@ defineProps(getSliceComponentProps<Content.TextImageSlice>(['slice', 'index', 's
         <div class="images-wrapper">
             <NuxtImg
                 class="image-2"
-                :src="slice.primary.image_2.url?.split('?')[0]"
+                :src="slice.primary.image_2.url"
                 :alt="slice.primary.image_2.alt || ''"
                 width="160"
                 height="200"
@@ -40,7 +40,7 @@ defineProps(getSliceComponentProps<Content.TextImageSlice>(['slice', 'index', 's
             />
             <NuxtImg
                 class="image-1"
-                :src="slice.primary.image_1.url?.split('?')[0]"
+                :src="slice.primary.image_1.url"
                 :alt="slice.primary.image_1.alt || ''"
                 width="360"
                 height="450"

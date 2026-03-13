@@ -64,7 +64,7 @@ const sortedCategories = Object.fromEntries(
                         >
                             <NuxtImg
                                 class="partner-logo"
-                                :src="item.partner.data.logo.url?.split('?')[0]"
+                                :src="item.partner.data.logo.url"
                                 :alt="item.partner.data.name"
                                 width="200"
                                 :format="
