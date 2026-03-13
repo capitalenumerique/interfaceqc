@@ -148,14 +148,12 @@ const sortedCategories = Object.fromEntries(
 .volunteers-group {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 16px;
     padding: 0;
     list-style: none;
     @media (min-width: 375px) {
         grid-template-columns: repeat(2, 1fr);
     }
     @media (--md) {
-        gap: 24px;
         grid-template-columns: repeat(3, 1fr);
     }
     @media (--lg) {
@@ -169,7 +167,7 @@ const sortedCategories = Object.fromEntries(
     text-decoration: none;
     display: flex;
     flex-direction: column;
-    border-radius: 8px;
+    border: 1px solid var(--color-secondary-light);
     overflow: hidden;
     width: 100%;
     height: 100%;
@@ -234,6 +232,7 @@ const sortedCategories = Object.fromEntries(
     line-height: 1;
     margin-bottom: 8px;
     text-transform: lowercase;
+    font-weight: 500;
     @media (--md) {
         font-size: rem(24px);
         margin: 0 0 8px;
@@ -258,8 +257,8 @@ const sortedCategories = Object.fromEntries(
     align-items: center;
     justify-content: center;
     aspect-ratio: 1 / 1;
-    background-color: var(--textColor);
-    border-radius: 20px;
+    background-color: var(--color-secondary-light);
+    color: var(--color-primary);
     overflow: hidden;
     transform-origin: 20px 0;
     transition:
