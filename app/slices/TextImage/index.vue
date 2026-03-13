@@ -58,10 +58,6 @@ const titleParts = computed(() => {
 <style lang="postcss" scoped>
 .text-image-slice-wrapper {
     background-color: var(--color-secondary);
-    margin: 64px auto;
-    @media (--lg) {
-        margin: 100px auto;
-    }
 }
 .text-image-slice {
     display: flex;

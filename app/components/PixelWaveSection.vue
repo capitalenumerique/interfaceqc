@@ -38,12 +38,10 @@ const classes = computed(() => ({
 
 <style scoped>
 .wave-section-wrapper {
+    margin: 8% 0;
     + .wave-section-wrapper {
         position: relative;
-        margin-top: -64px;
-        @media (--lg) {
-            margin-top: -100px;
-        }
+        margin-top: -8%;
         .top-wave {
             display: none;
         }
@@ -51,10 +49,7 @@ const classes = computed(() => ({
 }
 .top-wave,
 .bottom-wave {
-    max-height: 45px;
-    @media (--lg) {
-        max-height: 80px;
-    }
+    width: 100%;
 }
 .top-wave {
     position: relative;
