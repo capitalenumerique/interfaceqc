@@ -16,7 +16,7 @@ onMounted(() => {
     window.scrollTo(0, 0);
 });
 
-const scheduleEnabled = ref(false);
+const scheduleEnabled = ref(true);
 const prismic = usePrismic();
 const route = useRoute();
 const localePath = useLocalePath();
@@ -89,7 +89,6 @@ const dates = computed(() => {
 .date-tabs {
     display: inline-flex;
     gap: 8px;
-    border: 1px solid var(--gray-900);
     border-radius: 8px;
     padding: 8px;
     margin: 0 0 64px;
@@ -97,6 +96,7 @@ const dates = computed(() => {
     width: 100%;
     max-width: 400px;
     justify-content: space-between;
+    background-color: var(--color-white);
     @media (--md) {
         width: auto;
         max-width: none;
@@ -113,13 +113,10 @@ const dates = computed(() => {
     border-radius: 6px;
     padding: 8px;
     cursor: pointer;
-    border: 2px dashed transparent;
     text-wrap: balance;
     transition:
         background-color var(--hover-transition),
-        color var(--hover-transition),
-        border-style var(--hover-transition),
-        border-color var(--hover-transition);
+        color var(--hover-transition);
     @media (--md) {
         font-size: rem(14px);
     }
@@ -131,13 +128,10 @@ const dates = computed(() => {
     &:focus-visible {
         background-color: var(--beige-100);
         color: var(--gray-900);
-        border-color: var(--gray-900);
-        border-style: dashed;
     }
     &.router-link-exact-active {
         background-color: var(--gray-900);
         color: var(--beige-100);
-        border-color: var(--gray-900);
     }
 }
 .schedule-grid {
