@@ -105,6 +105,7 @@ const titleParts = computed(() => {
 }
 .image {
     display: block;
+    margin: auto;
 }
 .content {
     display: flex;
