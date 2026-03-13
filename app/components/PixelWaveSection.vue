@@ -49,6 +49,13 @@ const classes = computed(() => ({
         }
     }
 }
+.top-wave,
+.bottom-wave {
+    max-height: 45px;
+    @media (--lg) {
+        max-height: 80px;
+    }
+}
 .top-wave {
     transform: translateY(calc(-100% + 1px));
 }
