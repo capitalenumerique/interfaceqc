@@ -116,11 +116,6 @@ onMounted(() => {
 
 const finished = computed(() => {
     const solution = solutions[activeBreakpoint.value as keyof typeof solutions];
-    console.log(
-        list.value.map((l) => l.id),
-        solution,
-        list.value.map((l) => l.id).every((id, index) => id === solution[index]),
-    );
     return initialized.value && list.value.map((l) => l.id).every((id, index) => id === solution[index]);
 });
 
@@ -151,11 +146,9 @@ watch(finished, (newValue) => {
         const randomInRange = (min: number, max: number) => Math.random() * (max - min) + min;
         const between = (val: number, low: number, high: number) => val > low && val < high;
         const colors = (function* () {
-            // const values = ['#26ccff', '#a25afd', '#ff5e7e', '#88ff5a', '#fcff42', '#ffa62d', '#ff36ff'];
-
             const hour = new Date().getHours();
             const values =
-                hour >= 9 && hour < 17 ? ['#CCDEFF', '#871C00', '#FF4000'] : ['#EECFFF', '#570352', '#DFD300'];
+                hour >= 9 && hour < 17 ? ['#ccdeff', '#871c00', '#ff4000'] : ['#eecfff', '#570352', '#dfd300'];
 
             for (let i = values.length; true; i = i - 1 || values.length) {
                 yield values[i - 1]!;
@@ -269,7 +262,7 @@ function onEnd() {
     .piece {
         display: flex;
         font-weight: 900;
-        font-size: 32px;
+        font-size: rem(32px);
         aspect-ratio: 1 / 1;
         background-color: var(--beige-100);
         transition: opacity 100ms ease-in-out;
@@ -277,6 +270,7 @@ function onEnd() {
         color: var(--color-primary);
         scale: 1;
         rotate: 0;
+        user-select: none;
         &:hover,
         &:focus-visible {
             opacity: 0.9;
