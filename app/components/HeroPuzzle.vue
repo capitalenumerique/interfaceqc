@@ -93,6 +93,7 @@ const list = shallowRef([
         component: Piece15,
     },
 ]);
+<<<<<<< HEAD
 const initial_layouts = {
     desktop: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
     mobile: [3, 4, 5, 8, 9, 10, 13, 14, 15, 6, 7, 2, 11, 12, 1],
@@ -104,6 +105,15 @@ const puzzle_solutions = {
 
 onBeforeMount(() => {
     const solution = initial_layouts[activeBreakpoint.value as keyof typeof puzzle_solutions];
+=======
+const solutions = {
+    desktop: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+    mobile: [3, 4, 5, 8, 9, 10, 13, 14, 15, 6, 7, 2, 11, 12, 1],
+};
+
+onBeforeMount(() => {
+    const solution = solutions[activeBreakpoint.value as keyof typeof solutions];
+>>>>>>> @{-1}
     list.value = list.value.sort((a, b) => {
         const aIndex = solution.indexOf(a.id);
         const bIndex = solution.indexOf(b.id);
@@ -119,11 +129,16 @@ onMounted(() => {
 });
 
 const finished = computed(() => {
+<<<<<<< HEAD
     const solution = puzzle_solutions[activeBreakpoint.value as keyof typeof puzzle_solutions];
     return (
         initialized.value &&
         list.value.map((l) => l.id).every((id, index) => solution[index] === null || id === solution[index])
     );
+=======
+    const solution = solutions[activeBreakpoint.value as keyof typeof solutions];
+    return initialized.value && list.value.map((l) => l.id).every((id, index) => id === solution[index]);
+>>>>>>> @{-1}
 });
 
 watch(finished, (newValue) => {
@@ -153,11 +168,9 @@ watch(finished, (newValue) => {
         const randomInRange = (min: number, max: number) => Math.random() * (max - min) + min;
         const between = (val: number, low: number, high: number) => val > low && val < high;
         const colors = (function* () {
-            // const values = ['#26ccff', '#a25afd', '#ff5e7e', '#88ff5a', '#fcff42', '#ffa62d', '#ff36ff'];
-
             const hour = new Date().getHours();
             const values =
-                hour >= 9 && hour < 17 ? ['#CCDEFF', '#871C00', '#FF4000'] : ['#EECFFF', '#570352', '#DFD300'];
+                hour >= 9 && hour < 17 ? ['#ccdeff', '#871c00', '#ff4000'] : ['#eecfff', '#570352', '#dfd300'];
 
             for (let i = values.length; true; i = i - 1 || values.length) {
                 yield values[i - 1]!;
@@ -271,7 +284,7 @@ function onEnd() {
     .piece {
         display: flex;
         font-weight: 900;
-        font-size: 32px;
+        font-size: rem(32px);
         aspect-ratio: 1 / 1;
         background-color: var(--beige-100);
         transition: opacity 100ms ease-in-out;
@@ -280,6 +293,7 @@ function onEnd() {
         scale: 1;
         rotate: 0;
         margin: -0.5px;
+        user-select: none;
         &:hover,
         &:focus-visible {
             opacity: 0.9;
