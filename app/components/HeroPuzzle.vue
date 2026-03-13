@@ -4,20 +4,21 @@ import { useBreakpoints } from '@vueuse/core';
 import { shuffle } from 'es-toolkit/array';
 import { VueDraggable } from 'vue-draggable-plus';
 
-import Piece2 from '@/assets/svg/puzzle/piece-2.svg?component';
-import Piece3 from '@/assets/svg/puzzle/piece-3.svg?component';
-import Piece4 from '@/assets/svg/puzzle/piece-4.svg?component';
-import Piece5 from '@/assets/svg/puzzle/piece-5.svg?component';
+import Piece1 from '@/assets/svg/puzzle/piece-1.svg';
+import Piece2 from '@/assets/svg/puzzle/piece-2.svg?skipsvgo';
+import Piece3 from '@/assets/svg/puzzle/piece-3.svg?skipsvgo';
+import Piece4 from '@/assets/svg/puzzle/piece-4.svg?skipsvgo';
+import Piece5 from '@/assets/svg/puzzle/piece-5.svg?skipsvgo';
 import Piece6 from '@/assets/svg/puzzle/piece-6.svg?skipsvgo';
 import Piece7 from '@/assets/svg/puzzle/piece-7.svg?skipsvgo';
-import Piece8 from '@/assets/svg/puzzle/piece-8.svg?component';
-import Piece9 from '@/assets/svg/puzzle/piece-9.svg?component';
-import Piece10 from '@/assets/svg/puzzle/piece-10.svg?component';
+import Piece8 from '@/assets/svg/puzzle/piece-8.svg?skipsvgo';
+import Piece9 from '@/assets/svg/puzzle/piece-9.svg?skipsvgo';
+import Piece10 from '@/assets/svg/puzzle/piece-10.svg?skipsvgo';
 import Piece11 from '@/assets/svg/puzzle/piece-11.jpg';
-import Piece12 from '@/assets/svg/puzzle/piece-12.svg?component';
-import Piece13 from '@/assets/svg/puzzle/piece-13.svg?component';
-import Piece14 from '@/assets/svg/puzzle/piece-14.svg?component';
-import Piece15 from '@/assets/svg/puzzle/piece-15.svg?component';
+import Piece12 from '@/assets/svg/puzzle/piece-12.svg?skipsvgo';
+import Piece13 from '@/assets/svg/puzzle/piece-13.svg?skipsvgo';
+import Piece14 from '@/assets/svg/puzzle/piece-14.svg?skipsvgo';
+import Piece15 from '@/assets/svg/puzzle/piece-15.svg?skipsvgo';
 
 const { t } = useI18n();
 const { eventDates } = useEventDates();
@@ -33,6 +34,7 @@ const drag = ref(false);
 const list = shallowRef([
     {
         id: 1,
+        img: Piece1,
     },
     {
         id: 2,
@@ -115,7 +117,7 @@ onMounted(() => {
     setTimeout(() => {
         list.value = shuffle(list.value);
         initialized.value = true;
-    }, 2000);
+    }, 3000);
 });
 
 const finished = computed(() => {
@@ -271,13 +273,11 @@ function onEnd() {
         font-weight: 900;
         font-size: rem(32px);
         aspect-ratio: 1 / 1;
-        background-color: var(--beige-100);
         transition: opacity 100ms ease-in-out;
         cursor: move;
         color: var(--color-primary);
         scale: 1;
         rotate: 0;
-        margin: -0.5px;
         user-select: none;
         &:hover,
         &:focus-visible {
@@ -314,7 +314,7 @@ function onEnd() {
 .fade-move,
 .fade-enter-active,
 .fade-leave-active {
-    transition: all 1s cubic-bezier(0.55, 0, 0.1, 1);
+    transition: all 2s cubic-bezier(0.55, 0, 0.1, 1);
 }
 
 .fade-enter-from,
