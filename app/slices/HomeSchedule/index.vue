@@ -78,7 +78,7 @@ const next = () => {
                         class="slide-link"
                     >
                         <NuxtImg
-                            :src="speaker.img.url"
+                            :src="encodeURI(speaker.img.url)"
                             :alt="`${speaker.first_name} ${speaker.last_name}`"
                             width="322"
                             height="375"

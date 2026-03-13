@@ -117,7 +117,7 @@ const mapping = [
                             <NuxtImg
                                 v-if="item.volunteer.data.img"
                                 class="volunteer-img"
-                                :src="item.volunteer.data.img.url"
+                                :src="encodeURI(item.volunteer.data.img.url)"
                                 :alt="item.volunteer.data.name"
                                 width="282"
                                 height="282"
