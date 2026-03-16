@@ -95,11 +95,8 @@ const icons = [IconBow, IconCandle, IconCherries, IconCocktail, IconDisco, IconS
 </style>
 <style lang="postcss" scoped>
 .home-schedule {
-    margin: 64px 0;
+    margin: 8% 0;
     background-color: var(--color-secondary);
-    @media (--lg) {
-        margin: 100px 0;
-    }
 }
 .speaker-list {
     display: grid;
@@ -170,7 +167,6 @@ const icons = [IconBow, IconCandle, IconCherries, IconCocktail, IconDisco, IconS
 .tile-title {
     font-size: rem(16px);
     margin: 0;
-    text-transform: lowercase;
     font-weight: 400;
     @media (--md) {
         font-size: rem(24px);

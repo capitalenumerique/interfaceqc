@@ -38,21 +38,27 @@ const classes = computed(() => ({
 
 <style scoped>
 .wave-section-wrapper {
+    margin: 8% 0;
     + .wave-section-wrapper {
         position: relative;
-        margin-top: -64px;
-        @media (--lg) {
-            margin-top: -100px;
-        }
+        margin-top: -8%;
         .top-wave {
             display: none;
         }
     }
 }
+.top-wave,
+.bottom-wave {
+    width: 100%;
+}
 .top-wave {
+    position: relative;
+    z-index: -1;
     transform: translateY(calc(-100% + 1px));
 }
 .bottom-wave {
+    position: relative;
+    z-index: -1;
     transform: translateY(calc(100% + 1px));
 }
 </style>

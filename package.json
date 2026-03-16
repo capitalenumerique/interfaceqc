@@ -22,7 +22,8 @@
     "@peterbud/nuxt-query": "^1.6.0",
     "@prismicio/client": "^7.21.6",
     "@tanstack/vue-query": "^5.92.9",
-    "@unhead/vue": "^2.1.10",
+    "@unhead/vue": "^2.1.12",
+    "canvas-confetti": "^1.9.4",
     "es-toolkit": "^1.45.1",
     "focus-trap": "^8.0.0",
     "graphql": "^16.13.1",
@@ -31,7 +32,8 @@
     "normalize.css": "^8.0.1",
     "nuxt": "^4.3.1",
     "swiper": "^12.1.2",
-    "vue": "^3.5.29",
+    "vue": "^3.5.30",
+    "vue-draggable-plus": "^0.6.1",
     "vue3-marquee": "^4.2.2"
   },
   "devDependencies": {
@@ -42,6 +44,7 @@
     "@nuxtjs/prismic": "^5.2.0",
     "@prismicio/vue": "^6.1.1",
     "@slicemachine/adapter-nuxt": "^0.3.95",
+    "@types/canvas-confetti": "^1.9.0",
     "@types/eslint-config-prettier": "^6.11.3",
     "@types/luxon": "^3.7.1",
     "@vueuse/components": "^14.2.1",

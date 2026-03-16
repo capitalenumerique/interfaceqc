@@ -66,7 +66,7 @@ const categories = computed(() =>
 }
 .session-title {
     font-size: rem(24px);
-    font-weight: 600;
+    font-weight: 500;
     margin-bottom: 80px;
     max-width: 250px;
 }

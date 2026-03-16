@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import type { Content } from '@prismicio/client';
 
-import IconStar from '@/assets/svg/shapes/star.svg?component';
-
 // The array passed to `getSliceComponentProps` is purely optional.
 // Consider it as a visual hint for you when templating your slice.
 defineProps(getSliceComponentProps<Content.HomeTicketsSlice>(['slice', 'index', 'slices', 'context']));
@@ -17,9 +15,8 @@ defineProps(getSliceComponentProps<Content.HomeTicketsSlice>(['slice', 'index', 
             <div class="ticket-types">
                 <div v-if="slice.primary.title" class="ticket-types-title-wrapper">
                     <h3 class="ticket-types-title">
-                        {{ slice.primary.title }}
+                        <span v-html="slice.primary.title"></span>
                     </h3>
-                    <IconStar v-if="slice.primary.title" class="icon-star" />
                 </div>
                 <ul
                     class="ticket-types-list"
@@ -46,7 +43,8 @@ defineProps(getSliceComponentProps<Content.HomeTicketsSlice>(['slice', 'index', 
     }
 }
 .slice-title {
-    font-size: rem(18px);
+    font-size: rem(20px);
+    font-family: var(--font-secondary);
     font-weight: 700;
     padding: 24px 0;
     border-top: 1px solid var(--gray-900);
@@ -76,22 +74,12 @@ defineProps(getSliceComponentProps<Content.HomeTicketsSlice>(['slice', 'index', 
     }
 }
 .ticket-types {
-    background-color: var(--gray-900);
-    color: var(--beige-100);
-    padding: 48px 16px;
-    border-radius: 40px;
-    @media (--md) {
-        padding: 48px 32px;
-    }
-    @media (--lg) {
-        padding: 64px 48px;
-    }
     .terms {
         font-size: rem(14px);
         text-align: center;
         max-width: 888px;
         margin: 0 auto;
-        font-weight: 600;
+        font-weight: 500;
         @media (--lg) {
             font-size: rem(16px);
         }
@@ -112,12 +100,15 @@ defineProps(getSliceComponentProps<Content.HomeTicketsSlice>(['slice', 'index', 
 }
 .ticket-types-title {
     font-size: rem(32px);
-    font-weight: 600;
-    max-width: 756px;
-    margin: 0;
+    font-weight: 500;
+    margin: 0 auto;
+    text-align: center;
     @media (--lg) {
         font-size: rem(48px);
         padding-right: 56px;
+    }
+    :deep(em) {
+        font-family: var(--font-secondary);
     }
 }
 .icon-star {

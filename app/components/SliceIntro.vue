@@ -32,11 +32,10 @@
 }
 .intro-title {
     font-size: rem(32px);
-    font-weight: 600;
+    font-weight: 500;
     max-width: 430px;
     flex-shrink: 0;
     margin: 0;
-    text-transform: lowercase;
     @media (--lg) {
         font-size: rem(48px);
     }
@@ -61,9 +60,6 @@
             font-size: rem(24px);
             margin-left: 0px;
         }
-    }
-    :deep(.primary-button) {
-        text-transform: lowercase;
     }
 }
 </style>

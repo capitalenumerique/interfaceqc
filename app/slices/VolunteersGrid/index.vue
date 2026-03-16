@@ -35,49 +35,6 @@ const sortOrder = [
 const sortedCategories = Object.fromEntries(
     Object.entries(categories).sort((a, b) => sortOrder.indexOf(a[0]) - sortOrder.indexOf(b[0])),
 );
-
-const mapping = [
-    {
-        backgroundColor: '--red-DEFAULT',
-        textColor: '--yellow-DEFAULT',
-        icon: '',
-    },
-    {
-        backgroundColor: '--gray-DEFAULT',
-        textColor: '--pink-DEFAULT',
-        icon: '',
-    },
-    {
-        backgroundColor: '--yellow-DEFAULT',
-        textColor: '--red-DEFAULT',
-        icon: '',
-    },
-    {
-        backgroundColor: '--teal-DEFAULT',
-        textColor: '--gray-900',
-        icon: '',
-    },
-    {
-        backgroundColor: '--green-DEFAULT',
-        textColor: '--teal-DEFAULT',
-        icon: '',
-    },
-    {
-        backgroundColor: '--orange-DEFAULT',
-        textColor: '--yellow-DEFAULT',
-        icon: '',
-    },
-    {
-        backgroundColor: '--pink-DEFAULT',
-        textColor: '--green-DEFAULT',
-        icon: '',
-    },
-    {
-        backgroundColor: '--blue-DEFAULT',
-        textColor: '--orange-DEFAULT',
-        icon: '',
-    },
-];
 </script>
 
 <template>
@@ -99,10 +56,6 @@ const mapping = [
                             :href="item.volunteer.data?.linkedin?.url"
                             :target="item.volunteer.data?.linkedin?.url ? '_blank' : null"
                             class="volunteer-link"
-                            :style="{
-                                '--backgroundColor': `var(${mapping[index % 8]?.backgroundColor})`,
-                                '--textColor': `var(${mapping[index % 8]?.textColor})`,
-                            }"
                         >
                             <div class="volunteer-header">
                                 <h4
@@ -113,7 +66,6 @@ const mapping = [
                                     {{ t('Responsable {committee}', { committee: t(committee).toLowerCase() }) }}
                                 </div>
                             </div>
-
                             <NuxtImg
                                 v-if="item.volunteer.data.img"
                                 class="volunteer-img"
@@ -126,7 +78,15 @@ const mapping = [
                             <div v-else class="shape-container">
                                 <IconGlyph class="shape" />
                             </div>
-
+                            <div class="volunteer-footer">
+                                <p
+                                    class="volunteer-name"
+                                    v-html="item.volunteer.data?.name?.replace(' ', '<br />')"
+                                ></p>
+                                <div v-if="item.volunteer.data.committee_head" class="volunteer-job">
+                                    {{ t('Responsable {committee}', { committee: t(committee).toLowerCase() }) }}
+                                </div>
+                            </div>
                             <div class="profile-link">
                                 <IconLinkedin class="icon-linkedin" />
                                 <span>{{ t('Voir le profil') }}</span>
@@ -148,7 +108,8 @@ const mapping = [
     }
 }
 .slice-title {
-    font-size: rem(18px);
+    font-size: rem(20px);
+    font-family: var(--font-secondary);
     font-weight: 700;
     padding: 24px 0;
     border-top: 1px solid var(--gray-900);
@@ -178,22 +139,19 @@ const mapping = [
     }
     h3 {
         font-size: rem(18px);
-        font-weight: 600;
+        font-weight: 500;
         margin-bottom: 24px;
-        text-transform: lowercase;
     }
 }
 .volunteers-group {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 16px;
     padding: 0;
     list-style: none;
     @media (min-width: 375px) {
         grid-template-columns: repeat(2, 1fr);
     }
     @media (--md) {
-        gap: 24px;
         grid-template-columns: repeat(3, 1fr);
     }
     @media (--lg) {
@@ -203,15 +161,15 @@ const mapping = [
 .volunteer-link {
     position: relative;
     z-index: 0;
-    color: var(--gray-900);
+    color: var(--color-secondary-light);
     text-decoration: none;
     display: flex;
     flex-direction: column;
-    border: 1px solid var(--gray-900);
-    border-radius: 20px;
+    border: 1px solid var(--color-secondary-light);
     overflow: hidden;
     width: 100%;
     height: 100%;
+    background-color: var(--color-primary);
     transition:
         color 300ms ease,
         background-color 300ms ease,
@@ -219,25 +177,36 @@ const mapping = [
     &:is(a) {
         & {
             @media (--md-down) {
-                background-color: var(--backgroundColor);
-                color: var(--textColor);
-                border-color: transparent;
+                background-color: var(--color-accent);
+                color: var(--color-primary);
                 .shape-container,
                 .volunteer-img {
                     transform: scale(0.5);
                     border-radius: 40px;
                 }
+                .volunteer-footer {
+                    display: none;
+                }
             }
         }
         &:hover,
         &:focus-visible {
-            background-color: var(--backgroundColor);
-            color: var(--textColor);
-            border-color: transparent;
+            background-color: var(--color-accent);
+            color: var(--color-primary);
             .shape-container,
             .volunteer-img {
                 transform: scale(0.5);
                 border-radius: 40px;
+            }
+            .volunteer-header {
+                transform: none;
+            }
+            .profile-link {
+                transform: none;
+                bottom: 16px;
+            }
+            .volunteer-footer {
+                opacity: 0;
             }
         }
     }
@@ -247,26 +216,37 @@ const mapping = [
     line-height: 1.25;
     flex-grow: 1;
     @media (--md) {
+        position: absolute;
+        transform: translateY(-100%);
         padding: 16px;
+        transition: transform var(--hover-transition);
     }
 }
+.volunteer-footer {
+    padding: 16px;
+    transition: opacity var(--hover-transition);
+}
 .volunteer-name {
+    line-height: 1;
     margin-bottom: 8px;
-    text-transform: lowercase;
+    font-weight: 500;
+    @media (--md) {
+        font-size: rem(24px);
+        margin: 0 0 8px;
+    }
 }
 .volunteer-job {
     font-size: rem(12px);
 }
 .volunteer-img {
     width: 100%;
-    border-radius: 20px;
     overflow: hidden;
     transform-origin: 20px 0;
     transition:
         transform 300ms ease,
         border-radius 300ms ease;
     @media (--md) {
-        transform-origin: 32px 0;
+        transform-origin: 32px 75%;
     }
 }
 .shape-container {
@@ -274,15 +254,15 @@ const mapping = [
     align-items: center;
     justify-content: center;
     aspect-ratio: 1 / 1;
-    background-color: var(--textColor);
-    border-radius: 20px;
+    background-color: var(--color-secondary-light);
+    color: var(--color-primary);
     overflow: hidden;
     transform-origin: 20px 0;
     transition:
         transform 300ms ease,
         border-radius 300ms ease;
     @media (--md) {
-        transform-origin: 32px 0;
+        transform-origin: 32px 75%;
     }
 }
 .shape {
@@ -299,9 +279,12 @@ const mapping = [
     align-items: center;
     font-weight: 500;
     font-size: rem(14px);
+    transition:
+        transform var(--hover-transition),
+        bottom var(--hover-transition);
     @media (--md) {
-        bottom: 16px;
-        left: 16px;
+        bottom: 0;
+        transform: translateY(100%);
     }
     .icon-linkedin {
         width: 24px;

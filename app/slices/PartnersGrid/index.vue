@@ -29,16 +29,10 @@ const sortedCategories = Object.fromEntries(
 
 <template>
     <section class="partners-section" :data-slice-type="slice.slice_type" :data-slice-variation="slice.variation">
-        <BouncingAnimation class="animation-container" :duration="9000">
-            <IconAsterisk class="asterisk" width="180" />
-        </BouncingAnimation>
-        <BouncingAnimation class="animation-container is-reversed" :duration="9000">
-            <IconLemon class="lemon" width="180" />
-        </BouncingAnimation>
         <SliceIntro
             v-if="slice.primary.title && slice.primary.description && $prismic.isFilled.link(slice.primary.cta)"
         >
-            <template v-if="slice.primary.title" #title>{{ slice.primary.title }}</template>
+            <template v-if="slice.primary.title" #title><span v-html="slice.primary.title"></span></template>
             <template v-if="slice.primary.description" #wysiwyg>{{ slice.primary.description }}</template>
             <template v-if="slice.primary.cta.url" #cta>
                 <PrimaryButton
@@ -117,11 +111,8 @@ const sortedCategories = Object.fromEntries(
     }
     h3 {
         font-size: rem(18px);
-        font-weight: 600;
+        font-weight: 500;
         margin-bottom: 24px;
-        &::first-letter {
-            text-transform: lowercase;
-        }
     }
 }
 .partners-group {

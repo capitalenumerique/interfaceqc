@@ -27,7 +27,9 @@ const titleParts = computed(() => {
     >
         <div class="text-image-slice" :class="{ 'text-image-slice--flip': slice.primary.flip }">
             <div class="content">
-                <h2 class="content-title">{{ titleParts.start }}<span class="last-word">{{ titleParts.last }}</span></h2>
+                <h2 class="content-title">
+                    {{ titleParts.start }}<span class="last-word">{{ titleParts.last }}</span>
+                </h2>
                 <p v-if="slice.primary.text" class="content-description wysiwyg">{{ slice.primary.text }}</p>
                 <div v-if="$prismic.isFilled.link(slice.primary.cta)" class="content-cta">
                     <PrimaryButton
@@ -56,10 +58,6 @@ const titleParts = computed(() => {
 <style lang="postcss" scoped>
 .text-image-slice-wrapper {
     background-color: var(--color-secondary);
-    margin: 64px auto;
-    @media (--lg) {
-        margin: 100px auto;
-    }
 }
 .text-image-slice {
     display: flex;
@@ -96,15 +94,16 @@ const titleParts = computed(() => {
     }
 }
 @keyframes rotating {
-    from{
+    from {
         transform: rotate(0);
     }
-    to{
+    to {
         transform: rotate(360deg);
     }
 }
 .image {
     display: block;
+    margin: auto;
 }
 .content {
     display: flex;
@@ -145,9 +144,6 @@ const titleParts = computed(() => {
     @media (--lg) {
         font-size: rem(18px);
         align-items: flex-start;
-    }
-    .primary-button {
-        text-transform: lowercase;
     }
 }
 </style>

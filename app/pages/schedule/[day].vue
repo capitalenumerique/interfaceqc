@@ -118,7 +118,7 @@ const day = computed(() => data[parseInt(route.params.day as string) - 1]);
 }
 .time {
     display: block;
-    font-weight: 600;
+    font-weight: 500;
     @media (--md-down) {
         margin-bottom: 16px;
     }
@@ -149,7 +149,7 @@ const day = computed(() => data[parseInt(route.params.day as string) - 1]);
 }
 .place {
     padding: 24px;
-    font-weight: 600;
+    font-weight: 500;
     border-bottom: 2px solid var(--beige-100);
 }
 .session {

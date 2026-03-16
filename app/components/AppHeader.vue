@@ -5,6 +5,10 @@ import LogoInterface from '@/assets/svg/logo-with-glyph.svg?component';
 
 import IconExternal from '@/assets/svg/external.svg?component';
 
+defineProps<{
+    home: boolean;
+}>();
+
 const { t } = useI18n();
 const isOpen = ref(false);
 const isAnimating = ref(false);
@@ -85,7 +89,7 @@ const onEscape = () => {
 </script>
 
 <template>
-    <header class="header" :class="{ 'is-open': isAnimating }">
+    <header class="header" :class="{ 'is-open': isAnimating, 'home': home }">
         <OnClickOutside ref="menu" class="menu-wrapper" @keydown.esc="onEscape" @trigger="isOpen = false">
             <div class="logo-wrapper">
                 <button class="btn-menu" type="button" :class="{ 'is-open': isOpen }" @click="isOpen = !isOpen">
@@ -128,12 +132,16 @@ const onEscape = () => {
     position: sticky;
     top: 0;
     height: calc(64px + 16px);
+    width: 100%;
     z-index: 10;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 16px 16px 0;
     gap: 40px;
+    &.home {
+        position: absolute;
+    }
     @media (--md) {
         padding: 40px 32px 0;
         height: calc(64px + 40px);
@@ -308,8 +316,7 @@ const onEscape = () => {
     line-height: 1.5;
     text-decoration: none;
     color: var(--gray-900);
-    font-weight: 500;
-    text-transform: lowercase;
+    font-weight: 600;
     transition: all 300ms ease;
     padding: 8px 12px;
     border-radius: 6px;
