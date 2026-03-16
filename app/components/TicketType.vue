@@ -182,7 +182,6 @@ const { t } = useI18n();
     text-decoration: none;
     color: var(--gray-900);
     background-color: var(--beige-100);
-    text-transform: lowercase;
     width: 100%;
     margin-top: 32px;
     @media (--lg) {

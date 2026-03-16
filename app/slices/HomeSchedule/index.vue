@@ -167,7 +167,6 @@ const icons = [IconBow, IconCandle, IconCherries, IconCocktail, IconDisco, IconS
 .tile-title {
     font-size: rem(16px);
     margin: 0;
-    text-transform: lowercase;
     font-weight: 400;
     @media (--md) {
         font-size: rem(24px);

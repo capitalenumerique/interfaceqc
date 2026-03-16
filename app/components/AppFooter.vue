@@ -207,7 +207,6 @@ const archives = [2025];
         font-size: rem(16px);
     }
     a {
-        text-transform: lowercase;
         color: var(--beige-100);
         text-decoration: none;
         font-weight: 500;

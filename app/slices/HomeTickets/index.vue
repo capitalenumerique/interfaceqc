@@ -43,7 +43,8 @@ defineProps(getSliceComponentProps<Content.HomeTicketsSlice>(['slice', 'index', 
     }
 }
 .slice-title {
-    font-size: rem(18px);
+    font-size: rem(20px);
+    font-family: var(--font-secondary);
     font-weight: 700;
     padding: 24px 0;
     border-top: 1px solid var(--gray-900);

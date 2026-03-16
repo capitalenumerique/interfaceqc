@@ -115,7 +115,6 @@ const sortedCategories = Object.fromEntries(
     border-top: 1px solid var(--gray-900);
     border-bottom: 1px solid var(--gray-900);
     margin: 0;
-    text-transform: lowercase;
     span {
         display: block;
         max-width: var(--page-container-max-width);
@@ -142,7 +141,6 @@ const sortedCategories = Object.fromEntries(
         font-size: rem(18px);
         font-weight: 500;
         margin-bottom: 24px;
-        text-transform: lowercase;
     }
 }
 .volunteers-group {
@@ -231,7 +229,6 @@ const sortedCategories = Object.fromEntries(
 .volunteer-name {
     line-height: 1;
     margin-bottom: 8px;
-    text-transform: lowercase;
     font-weight: 500;
     @media (--md) {
         font-size: rem(24px);
