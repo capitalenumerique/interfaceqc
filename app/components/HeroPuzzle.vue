@@ -279,6 +279,7 @@ function onEnd() {
         rotate: 0;
         margin: -0.5px;
         user-select: none;
+        -webkit-touch-callout: none;
         &:hover,
         &:focus-visible {
             opacity: 0.9;
