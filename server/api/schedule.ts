@@ -61,7 +61,7 @@ export default defineEventHandler(async () => {
     const baseTimeslotRange = Array.from({ length: 9 }, (_, i) => new Date(0, 0, 0, 9 + i, 0, 0));
 
     // Créneau spécial avant 9h
-    const earlyTimeslot = new Date(0, 0, 0, 7, 30, 0);
+    const earlyTimeslot = new Date(0, 0, 0, 8, 0, 0);
 
     // Extraire les catégories uniques et leur assigner des couleurs
     const allCategories = Array.from(
@@ -86,7 +86,7 @@ export default defineEventHandler(async () => {
     });
 
     // Extraire les salles uniques
-    const orderedPlaces = ['Grande salle', 'Salle PLG numérique', 'Salle Axeptio', 'Espace Offside'];
+    const orderedPlaces = ['Salle Dialog Insight', 'Salle Agora', 'Salle Synapse', 'Salle Réseau', 'Salle Rhizome'];
     const uniquePlaces = Array.from(
         new Set(
             sessions

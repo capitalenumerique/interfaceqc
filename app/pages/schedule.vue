@@ -58,7 +58,9 @@ const dates = computed(() => {
 
 <template>
     <div>
-        <SliceZone :slices="page?.data?.slices ?? []" :components="components" />
+        <div class="schedule-slice-zone">
+            <SliceZone :slices="page?.data?.slices ?? []" :components="components" />
+        </div>
         <div class="page-container">
             <div class="schedule-grid">
                 <UpcomingSchedule v-if="!scheduleEnabled" />
@@ -78,12 +80,22 @@ const dates = computed(() => {
 </template>
 
 <style lang="postcss" scoped>
+.schedule-slice-zone {
+    :deep(.page-header) {
+        max-width: none;
+        @media (--xxl) {
+            padding: 0 48px;
+        }
+    }
+}
 .page-container {
-    max-width: var(--page-container-max-width);
     margin: 64px auto;
     padding: 0 16px;
     @media (--md) {
         padding: 0 32px;
+    }
+    @media (--xxl) {
+        padding: 0 48px;
     }
 }
 .date-tabs {

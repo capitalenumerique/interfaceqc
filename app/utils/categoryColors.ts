@@ -1,21 +1,21 @@
 export const CATEGORY_COLORS: Record<string, Category['colors']> = {
-    'Communication et marketing': { // @TODO: À changer pour Communication
+    'Communication': {
         bg: 'var(--orange-300)',
         text: 'var(--purple-900)',
     },
-    'Créativité numérique': { // @TODO: À changer pour Marketing
+    'Marketing': {
         bg: 'var(--blue-900)',
         text: 'var(--purple-300)',
     },
-    'Design': { // @TODO: À changer pour Design créatif
+    'Design créatif': {
         bg: 'var(--orange-900)',
         text: 'var(--yellow-200)',
     },
-    'Intelligence artificielle': { // @TODO: À changer pour Design d'expérience
+    'Design d\'expérience': {
         bg: 'var(--purple-200)',
         text: 'var(--purple-900)',
     },
-    'Développement': {
+    'Développement technologique': {
         bg: 'var(--blue-600)',
         text: 'var(--yellow-200)',
     },
@@ -23,7 +23,7 @@ export const CATEGORY_COLORS: Record<string, Category['colors']> = {
         bg: 'var(--purple-100)',
         text: 'var(--orange-600)',
     },
-    'Soft skills': { // @TODO: À changer pour Softskills
+    'Soft skills': {
         bg: 'var(--blue-100)',
         text: 'var(--orange-900)',
     },
