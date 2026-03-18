@@ -23,7 +23,7 @@
     background: var(--beige-100);
     @media (--md) {
         margin-top: 0;
-        transform: translate3d(0, 0, 0);
+        /* transform: translate3d(0, 0, 0); */
     }
     &::before,
     &::after {
