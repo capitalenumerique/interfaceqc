@@ -8,15 +8,6 @@ import IconStarOverlay from '@/assets/svg/star-overlay.svg?component';
 // The array passed to `getSliceComponentProps` is purely optional.
 // Consider it as a visual hint for you when templating your slice.
 const { slice } = defineProps(getSliceComponentProps<Content.TextImageSlice>(['slice', 'index', 'slices', 'context']));
-
-const titleParts = computed(() => {
-    const words = slice.primary.title?.split(' ') ?? [];
-    if (words.length <= 1) return { start: '', last: words[0] ?? '' };
-    return {
-        start: words.slice(0, -1).join(' ') + ' ',
-        last: words[words.length - 1],
-    };
-});
 </script>
 
 <template>
@@ -27,9 +18,7 @@ const titleParts = computed(() => {
     >
         <div class="text-image-slice" :class="{ 'text-image-slice--flip': slice.primary.flip }">
             <div class="content">
-                <h2 class="content-title">
-                    {{ titleParts.start }}<span class="last-word">{{ titleParts.last }}</span>
-                </h2>
+                <h2 class="content-title" v-html="slice.primary.title"></h2>
                 <p v-if="slice.primary.text" class="content-description wysiwyg">{{ slice.primary.text }}</p>
                 <div v-if="$prismic.isFilled.link(slice.primary.cta)" class="content-cta">
                     <PrimaryButton
@@ -123,7 +112,7 @@ const titleParts = computed(() => {
         font-size: rem(48px);
         margin-bottom: 40px;
     }
-    .last-word {
+    :deep(em) {
         font-family: var(--font-secondary);
     }
 }
