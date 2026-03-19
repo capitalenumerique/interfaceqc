@@ -9,7 +9,7 @@ const sessionSlug = useSlug(session.title);
 
 const hasDetails = computed(() => {
     return (
-        session.speakers.every((s: { id: string }) => s.id !== 'RXZlbnRQZW9wbGVfMzgyMTc4NjI=') &&
+        session.speakers.every((s: { id: string }) => s.id !== 'U3BlYWtlcihFdmVudF8zOTQwNTQwLEV2ZW50UGVvcGxlXzQzNDAzNzQ2LFVzZXJfMjA1ODQ0MDAp') &&
         ['Conférence', 'Keynote'].includes(session.type)
     );
 });

@@ -86,7 +86,7 @@ export default defineEventHandler(async () => {
     });
 
     // Extraire les salles uniques
-    const orderedPlaces = ['Salle Dialog Insight', 'Salle Agora', 'Salle Synapse', 'Salle Réseau', 'Salle Rhizome'];
+    const orderedPlaces = ['Salle Dialog Insight', 'Salle Réverbère', 'Salle 3', 'Salle 4', 'Bistro'];
     const uniquePlaces = Array.from(
         new Set(
             sessions

@@ -25,41 +25,39 @@ const breakpoints = useBreakpoints({ lg: 1024 }, { ssrWidth: 1024 });
 const showPlace = breakpoints.smaller('lg');
 const day = computed(() => data[parseInt(route.params.day as string) - 1]);
 
-const scrollContainers = ref<HTMLElement[]>([]);
-
-const arrivedStates = ref<{ left: boolean; right: boolean }[]>([]);
-
-onMounted(() => {
-    scrollContainers.value.forEach((el, i) => {
-        const { arrivedState: state } = useScroll(ref(el));
-
-        arrivedStates.value[i] = { left: state.left, right: state.right };
-
-        watch(state, (val) => {
-            arrivedStates.value[i] = { left: val.left, right: val.right };
-        });
-    });
-});
-
+const scrollContainer = ref<HTMLElement | null>(null);
 const timeslotsWrapper = ref<HTMLElement | null>(null);
 
-useResizeObserver(timeslotsWrapper, () => {
-    scrollContainers.value.forEach((el, i) => {
-        if (!arrivedStates.value[i]) return;
-        const isFullyVisible = el.scrollWidth <= el.clientWidth;
-        arrivedStates.value[i].right = isFullyVisible || el.scrollLeft + el.clientWidth >= el.scrollWidth;
-        arrivedStates.value[i].left = el.scrollLeft <= 0;
-    });
+const arrivedState = reactive({ left: true, right: false });
+
+onMounted(() => {
+    if (!scrollContainer.value) return;
+    const { arrivedState: state } = useScroll(scrollContainer);
+
+    watch(state, (val) => {
+        arrivedState.left = val.left;
+        arrivedState.right = val.right;
+    }, { immediate: true });
 });
+
+useResizeObserver(timeslotsWrapper, () => {
+    const el = scrollContainer.value;
+    if (!el) return;
+    const isFullyVisible = el.scrollWidth <= el.clientWidth;
+    arrivedState.right = isFullyVisible || el.scrollLeft + el.clientWidth >= el.scrollWidth;
+    arrivedState.left = el.scrollLeft <= 0;
+});
+
+const showLeftGradient = computed(() => !arrivedState.left);
+const showRightGradient = computed(() => !arrivedState.right);
 
 const scrollInterval = ref<ReturnType<typeof setInterval> | null>(null);
 
-function startScroll(direction: 'left' | 'right', index: number) {
+function startScroll(direction: 'left' | 'right') {
     stopScroll();
     scrollInterval.value = setInterval(() => {
-        const el = scrollContainers.value[index];
-        if (el) {
-            el.scrollLeft += direction === 'right' ? 8 : -8;
+        if (scrollContainer.value) {
+            scrollContainer.value.scrollLeft += direction === 'right' ? 8 : -8;
         }
     }, 16);
 }
@@ -73,62 +71,62 @@ function stopScroll() {
 </script>
 
 <template>
-    <div v-if="day" ref="timeslotsWrapper">
+    <div v-if="day" ref="timeslotsWrapper" class="schedule-wrapper">
         <div
-            v-for="(timeslot, i) in day.timeslots"
-            :key="`timeslot-${timeslot.time}`"
-            class="timeslot"
-            :class="timeslot.type"
+            class="gradient gradient-left"
+            :class="{ 'is-visible': showLeftGradient }"
+            @mouseenter="startScroll('left')"
+            @mouseleave="stopScroll"
         >
-            <span
-                class="time"
-                :class="{
-                    'has-place': timeslot.type !== 'regular' || day.timeslots[i - 1]?.type !== 'regular',
-                }"
-            >
-                {{ formatSessionTime(timeslot.time) }}
+            <span class="icon-wrapper">
+                <IconArrow width="20" height="20" />
             </span>
-            <div class="timeslot-sessions-wrapper">
+        </div>
+        <div
+            class="gradient gradient-right"
+            :class="{ 'is-visible': showRightGradient }"
+            @mouseenter="startScroll('right')"
+            @mouseleave="stopScroll"
+        >
+            <span class="icon-wrapper">
+                <IconArrow width="20" height="20" />
+            </span>
+        </div>
+        <div ref="scrollContainer" class="timeslots-scroll">
+            <div class="timeslots-inner">
                 <div
-                    v-if="timeslot.type === 'regular'"
-                    class="gradient gradient-left"
-                    :class="{ 'is-visible': arrivedStates[i] && !arrivedStates[i].left }"
-                    @mouseenter="startScroll('left', i)"
-                    @mouseleave="stopScroll"
+                    v-for="(timeslot, i) in day.timeslots"
+                    :key="`timeslot-${timeslot.time}`"
+                    class="timeslot"
+                    :class="timeslot.type"
                 >
-                    <span class="icon-wrapper">
-                        <IconArrow width="20" height="20"/>
+                    <span
+                        class="time"
+                        :class="{
+                            'has-place': timeslot.type !== 'regular' || day.timeslots[i - 1]?.type !== 'regular',
+                        }"
+                    >
+                        {{ formatSessionTime(timeslot.time) }}
                     </span>
-                </div>
-                <div :ref="(el) => { if (el) scrollContainers[i] = el as HTMLElement }" class="timeslot-sessions">
-                    <div v-for="place in timeslot.places" :key="`session-${timeslot.time}-${place.name}`" class="session">
-                        <div
-                            v-if="
-                                i === 0 ||
-                                timeslot.type === 'special' ||
-                                day.timeslots[i - 1]?.type !== 'regular' ||
-                                showPlace
-                            "
-                            class="place"
-                        >
-                            {{ place.name }}
-                        </div>
-                        <div class="session-cell">
-                            <ScheduleSessionItem v-if="place.session" :session="place.session" />
-                            <div v-else class="to-be-anounced">{{ t('À venir') }}</div>
+                    <div class="timeslot-sessions">
+                        <div v-for="place in timeslot.places" :key="`session-${timeslot.time}-${place.name}`" class="session">
+                            <div
+                                v-if="
+                                    i === 0 ||
+                                    timeslot.type === 'special' ||
+                                    day.timeslots[i - 1]?.type !== 'regular' ||
+                                    showPlace
+                                "
+                                class="place"
+                            >
+                                {{ place.name }}
+                            </div>
+                            <div class="session-cell">
+                                <ScheduleSessionItem v-if="place.session" :session="place.session" />
+                                <div v-else class="to-be-anounced">{{ t('À venir') }}</div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div
-                    v-if="timeslot.type === 'regular'"
-                    class="gradient gradient-right"
-                    :class="{ 'is-visible': arrivedStates[i] && !arrivedStates[i].right }"
-                    @mouseenter="startScroll('right', i)"
-                    @mouseleave="stopScroll"
-                >
-                    <span class="icon-wrapper"">
-                        <IconArrow width="20" height="20"/>
-                    </span>
                 </div>
             </div>
         </div>
@@ -136,6 +134,64 @@ function stopScroll() {
 </template>
 
 <style lang="postcss" scoped>
+.schedule-wrapper {
+    position: relative;
+}
+.timeslots-scroll {
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+.timeslots-inner {
+    width: max-content;
+    min-width: 100%;
+}
+.gradient {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 64px;
+    z-index: 1;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--hover-transition);
+    &.is-visible {
+        opacity: 1;
+        pointer-events: all;
+    }
+}
+.gradient-left {
+    left: 80px;
+    background: linear-gradient(to right, var(--beige-100), transparent);
+    .icon-wrapper {
+        left: 130px;
+        transform: translate(32px, 24px);
+        svg {
+            transform: rotate(180deg);
+        }
+    }
+}
+.gradient-right {
+    right: 0;
+    background: linear-gradient(to left, var(--beige-100), transparent);
+    .icon-wrapper {
+        transform: translate(-32px, 24px);
+    }
+}
+.icon-wrapper {
+    position: sticky;
+    width: 64px;
+    height: 64px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--beige-100);
+    top: 50vh;
+}
 .timeslot {
     @media (--md) {
         display: grid;
@@ -195,19 +251,18 @@ function stopScroll() {
         margin-bottom: 16px;
     }
     @media (--md) {
-        margin-top: 68px;
+        padding-top: 68px;
     }
     @media (--lg) {
-        margin-top: 0;
+        position: sticky;
+        background-color: var(--beige-100);
+        left: 0;
+        padding-top: 0;
+        z-index: 1;
         &.has-place {
-            margin-top: 68px;
+            padding-top: 68px;
         }
     }
-}
-.timeslot-sessions-wrapper {
-    position: relative;
-    overflow: hidden;
-    border-radius: 8px;
 }
 .timeslot-sessions {
     margin-bottom: 24px;
@@ -229,50 +284,6 @@ function stopScroll() {
     .special & {
         border-radius: 8px;
     }
-}
-.gradient {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 64px;
-    z-index: 10;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity var(--hover-transition);
-    &.is-visible {
-        opacity: 1;
-        pointer-events: all;
-    }
-}
-.gradient-left {
-    left: 0;
-    background: linear-gradient(to right, var(--color-white), transparent);
-    .icon-wrapper {
-        left: 16px;
-        svg {
-            transform: rotate(180deg);
-        }
-    }
-}
-.gradient-right {
-    right: 0;
-    background: linear-gradient(to left, var(--color-white), transparent);
-    .icon-wrapper {
-        right: 16px;
-    }
-}
-.icon-wrapper {
-    position: absolute;
-    width: 64px;
-    height: 64px;
-    border-radius: 12px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--beige-100);
-    top: 50%;
-    transform: translateY(-50%);
-    
 }
 .place {
     padding: 24px;
