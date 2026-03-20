@@ -181,7 +181,6 @@ const sortedCategories = Object.fromEntries(
                 color: var(--color-primary);
                 .shape-container,
                 .volunteer-img {
-                    transform: scale(0.5);
                     border-radius: 40px;
                 }
                 .volunteer-footer {
@@ -195,8 +194,9 @@ const sortedCategories = Object.fromEntries(
             color: var(--color-primary);
             .shape-container,
             .volunteer-img {
-                transform: scale(0.5);
+                transform: scale(0.75);
                 border-radius: 40px;
+                mask-size: 88%;
             }
             .volunteer-header {
                 transform: none;
@@ -245,8 +245,15 @@ const sortedCategories = Object.fromEntries(
     transition:
         transform 300ms ease,
         border-radius 300ms ease;
+    mask-image: url('@/assets/svg/hexagon-overlay.svg');
+    mask-position: center;
+    mask-repeat: no-repeat;
+    mask-size: 140%;
+    transition:
+        mask-size var(--hover-transition),
+        transform var(--hover-transition);
     @media (--md) {
-        transform-origin: 32px 75%;
+        transform-origin: 50% 120%;
     }
 }
 .shape-container {
@@ -261,8 +268,15 @@ const sortedCategories = Object.fromEntries(
     transition:
         transform 300ms ease,
         border-radius 300ms ease;
+    mask-image: url('@/assets/svg/hexagon-overlay.svg');
+    mask-position: center;
+    mask-repeat: no-repeat;
+    mask-size: 140%;
+    transition:
+        mask-size var(--hover-transition),
+        transform var(--hover-transition);
     @media (--md) {
-        transform-origin: 32px 75%;
+        transform-origin: 50% 120%;
     }
 }
 .shape {
