@@ -15,7 +15,7 @@ export const CATEGORY_COLORS: Record<string, Category['colors']> = {
         bg: 'var(--purple-200)',
         text: 'var(--purple-900)',
     },
-    'Développement technologique': {
+    'Développement': {
         bg: 'var(--blue-600)',
         text: 'var(--yellow-200)',
     },
