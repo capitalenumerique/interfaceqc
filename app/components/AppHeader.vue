@@ -321,6 +321,7 @@ const onEscape = () => {
     transition: all 300ms ease;
     padding: 8px 12px;
     border-radius: 6px;
+    text-transform: lowercase;
     &.router-link-active {
         font-family: var(--font-secondary);
     }
