@@ -76,6 +76,26 @@ const { t } = useI18n();
     </li>
 </template>
 
+<style lang="postcss">
+.theme-day {
+    .ticket-type-link {
+        &:hover,
+        &:focus-visible {
+            color: var(--color-white) !important;
+            border-color: var(--color-white) !important;
+        }
+    }
+    .ticket-type {
+        &:has(.ticket-type-link:hover, .ticket-type-link:focus-visible) {
+            .top-section,
+            .bottom-section,
+            .accordion-trigger {
+                color: var(--color-white) !important;
+            }
+        }
+    }
+}
+</style>
 <style lang="postcss" scoped>
 .ticket-type {
     display: flex;

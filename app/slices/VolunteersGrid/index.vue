@@ -100,6 +100,16 @@ const sortedCategories = Object.fromEntries(
     </section>
 </template>
 
+<style lang="postcss">
+.theme-day {
+    .volunteer-link {
+        &:hover,
+        &:focus-visible {
+            color: var(--color-secondary-light) !important;
+        }
+    }
+}
+</style>
 <style lang="postcss" scoped>
 .block {
     margin: 64px 0;
