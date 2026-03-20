@@ -1,6 +1,8 @@
 <script lang="ts" setup>
-import { useBreakpoints } from '@vueuse/core';
+import { useBreakpoints, useScroll, useResizeObserver } from '@vueuse/core';
 import { useRoute } from 'vue-router';
+
+import IconArrow from '@/assets/svg/arrow.svg?component';
 
 // FIXME: https://github.com/nuxt/nuxt/issues/31638
 definePageMeta({
@@ -22,40 +24,116 @@ const route = useRoute();
 const breakpoints = useBreakpoints({ lg: 1024 }, { ssrWidth: 1024 });
 const showPlace = breakpoints.smaller('lg');
 const day = computed(() => data[parseInt(route.params.day as string) - 1]);
+
+const scrollContainer = ref<HTMLElement | null>(null);
+const timeslotsWrapper = ref<HTMLElement | null>(null);
+
+const arrivedState = reactive({ left: true, right: false });
+
+onMounted(() => {
+    if (!scrollContainer.value) return;
+    const { arrivedState: state } = useScroll(scrollContainer);
+
+    watch(
+        state,
+        (val) => {
+            arrivedState.left = val.left;
+            arrivedState.right = val.right;
+        },
+        { immediate: true },
+    );
+});
+
+useResizeObserver(timeslotsWrapper, () => {
+    const el = scrollContainer.value;
+    if (!el) return;
+    const isFullyVisible = el.scrollWidth <= el.clientWidth;
+    arrivedState.right = isFullyVisible || el.scrollLeft + el.clientWidth >= el.scrollWidth;
+    arrivedState.left = el.scrollLeft <= 0;
+});
+
+const showLeftGradient = computed(() => !arrivedState.left);
+const showRightGradient = computed(() => !arrivedState.right);
+
+const scrollInterval = ref<ReturnType<typeof setInterval> | null>(null);
+
+function startScroll(direction: 'left' | 'right') {
+    stopScroll();
+    scrollInterval.value = setInterval(() => {
+        if (scrollContainer.value) {
+            scrollContainer.value.scrollLeft += direction === 'right' ? 8 : -8;
+        }
+    }, 16);
+}
+
+function stopScroll() {
+    if (scrollInterval.value !== null) {
+        clearInterval(scrollInterval.value);
+        scrollInterval.value = null;
+    }
+}
 </script>
 
 <template>
-    <div v-if="day">
+    <div v-if="day" ref="timeslotsWrapper" class="schedule-wrapper">
         <div
-            v-for="(timeslot, i) in day.timeslots"
-            :key="`timeslot-${timeslot.time}`"
-            class="timeslot"
-            :class="timeslot.type"
+            class="gradient gradient-left"
+            :class="{ 'is-visible': showLeftGradient }"
+            @mouseenter="startScroll('left')"
+            @mouseleave="stopScroll"
         >
-            <span
-                class="time"
-                :class="{
-                    'has-place': timeslot.type !== 'regular' || day.timeslots[i - 1]?.type !== 'regular',
-                }"
-            >
-                {{ formatSessionTime(timeslot.time) }}
+            <span class="icon-wrapper">
+                <IconArrow width="20" height="20" />
             </span>
-            <div class="timeslot-sessions">
-                <div v-for="place in timeslot.places" :key="`session-${timeslot.time}-${place.name}`" class="session">
-                    <div
-                        v-if="
-                            i === 0 ||
-                            timeslot.type === 'special' ||
-                            day.timeslots[i - 1]?.type !== 'regular' ||
-                            showPlace
-                        "
-                        class="place"
+        </div>
+        <div
+            class="gradient gradient-right"
+            :class="{ 'is-visible': showRightGradient }"
+            @mouseenter="startScroll('right')"
+            @mouseleave="stopScroll"
+        >
+            <span class="icon-wrapper">
+                <IconArrow width="20" height="20" />
+            </span>
+        </div>
+        <div ref="scrollContainer" class="timeslots-scroll">
+            <div class="timeslots-inner">
+                <div
+                    v-for="(timeslot, i) in day.timeslots"
+                    :key="`timeslot-${timeslot.time}`"
+                    class="timeslot"
+                    :class="timeslot.type"
+                >
+                    <span
+                        class="time"
+                        :class="{
+                            'has-place': timeslot.type !== 'regular' || day.timeslots[i - 1]?.type !== 'regular',
+                        }"
                     >
-                        {{ place.name }}
-                    </div>
-                    <div class="session-cell">
-                        <ScheduleSessionItem v-if="place.session" :session="place.session" />
-                        <div v-else class="to-be-anounced">{{ t('À venir') }}</div>
+                        {{ formatSessionTime(timeslot.time) }}
+                    </span>
+                    <div class="timeslot-sessions">
+                        <div
+                            v-for="place in timeslot.places"
+                            :key="`session-${timeslot.time}-${place.name}`"
+                            class="session"
+                        >
+                            <div
+                                v-if="
+                                    i === 0 ||
+                                    timeslot.type === 'special' ||
+                                    day.timeslots[i - 1]?.type !== 'regular' ||
+                                    showPlace
+                                "
+                                class="place"
+                            >
+                                {{ place.name }}
+                            </div>
+                            <div class="session-cell">
+                                <ScheduleSessionItem v-if="place.session" :session="place.session" />
+                                <div v-else class="to-be-anounced">{{ t('À venir') }}</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -64,6 +142,68 @@ const day = computed(() => data[parseInt(route.params.day as string) - 1]);
 </template>
 
 <style lang="postcss" scoped>
+.schedule-wrapper {
+    position: relative;
+}
+.timeslots-scroll {
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    overscroll-behavior-x: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+.timeslots-inner {
+    @media (--lg) {
+        min-width: 100%;
+    }
+}
+.gradient {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 64px;
+    z-index: 1;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--hover-transition);
+    padding: 50% 0;
+    &.is-visible {
+        opacity: 1;
+        pointer-events: all;
+    }
+}
+.gradient-left {
+    left: 80px;
+    background: linear-gradient(to right, var(--beige-100), transparent);
+    .icon-wrapper {
+        left: 130px;
+        transform: translate(32px, 0);
+        svg {
+            transform: rotate(180deg);
+        }
+    }
+}
+.gradient-right {
+    right: 0;
+    background: linear-gradient(to left, var(--beige-100), transparent);
+    .icon-wrapper {
+        transform: translate(-32px, 0);
+    }
+}
+.icon-wrapper {
+    position: sticky;
+    width: 64px;
+    height: 64px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--beige-100);
+    box-shadow: 0 4px 32px 0 rgba(51, 50, 48, 0.05);
+    top: 50vh;
+}
 .timeslot {
     @media (--md) {
         display: grid;
@@ -82,6 +222,9 @@ const day = computed(() => data[parseInt(route.params.day as string) - 1]);
                     border-bottom-left-radius: 8px;
                     border-bottom-right-radius: 8px;
                 }
+                .session {
+                    border-bottom: 0;
+                }
             }
         }
     }
@@ -96,6 +239,9 @@ const day = computed(() => data[parseInt(route.params.day as string) - 1]);
                 border-top-right-radius: 8px;
             }
         }
+        .session {
+            border-bottom: 0;
+        }
     }
     &:first-child {
         .timeslot-sessions {
@@ -104,6 +250,7 @@ const day = computed(() => data[parseInt(route.params.day as string) - 1]);
         }
     }
     &:last-child {
+        margin-bottom: 0;
         .timeslot-sessions {
             border-bottom-left-radius: 8px;
             border-bottom-right-radius: 8px;
@@ -112,22 +259,25 @@ const day = computed(() => data[parseInt(route.params.day as string) - 1]);
 }
 .time {
     display: block;
-    font-weight: 600;
+    font-weight: 500;
     @media (--md-down) {
         margin-bottom: 16px;
     }
     @media (--md) {
-        margin-top: 68px;
+        padding-top: 68px;
     }
     @media (--lg) {
-        margin-top: 0;
+        position: sticky;
+        background-color: var(--beige-100);
+        left: 0;
+        padding-top: 0;
+        z-index: 1;
         &.has-place {
-            margin-top: 68px;
+            padding-top: 68px;
         }
     }
 }
 .timeslot-sessions {
-    border: 1px solid var(--gray-500);
     margin-bottom: 24px;
     overflow: hidden;
     @media (--lg-down) {
@@ -135,7 +285,8 @@ const day = computed(() => data[parseInt(route.params.day as string) - 1]);
     }
     @media (--lg) {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        min-width: calc(5 * 250px);
         margin-bottom: 0;
     }
     .special & {
@@ -144,20 +295,25 @@ const day = computed(() => data[parseInt(route.params.day as string) - 1]);
 }
 .place {
     padding: 24px;
-    font-weight: 600;
-    border-bottom: 1px solid var(--gray-500);
+    font-weight: 500;
+    border-bottom: 2px solid var(--beige-100);
 }
 .session {
     display: flex;
     flex-direction: column;
-    border-bottom: 1px solid var(--gray-500);
-    @media (--lg) {
-        border-right: 1px solid var(--gray-500);
-        border-bottom: 0;
+    background-color: var(--color-white);
+    border: 2px solid var(--beige-100);
+    border-width: 0 0 2px;
+    @media (--md-down) {
+        &:last-child {
+            border-bottom: 0;
+        }
     }
-    &:last-child {
-        border-right: 0;
-        border-bottom: 0;
+    @media (--lg) {
+        border-width: 0 2px 2px 0;
+        &:last-child {
+            border-right: 0;
+        }
     }
 }
 .session-cell {

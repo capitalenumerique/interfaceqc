@@ -43,8 +43,8 @@
                 "config": {
                     "label": "Category",
                     "placeholder": "Catégorie du partenaire",
-                    "options": ["Principaux", "Secondaires"],
-                    "default_value": "Principaux"
+                    "options": ["Partenaire présentateur", "Partenaires"],
+                    "default_value": "Partenaires"
                 }
             }
         }

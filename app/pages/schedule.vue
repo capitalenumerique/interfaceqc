@@ -16,7 +16,7 @@ onMounted(() => {
     window.scrollTo(0, 0);
 });
 
-const scheduleEnabled = ref(false);
+const scheduleEnabled = ref(true);
 const prismic = usePrismic();
 const route = useRoute();
 const localePath = useLocalePath();
@@ -33,19 +33,19 @@ if (scheduleEnabled.value && getRouteBaseName(route.name!) !== 'schedule-day') {
 const { data: response } = await useAsyncData(`schedule-${locale.value}`, async () => {
     const { data, suspense } = useSchedule();
     const [page] = await Promise.all([prismic.client.getSingle('program', { lang: `${locale.value}-ca` }), suspense()]);
-    return { page: ref(page), data: ref(data.value) };
+    return { page: page, data: data.value };
 });
 
 const { page, data } = response.value ?? {};
 
 useSeoMeta({
-    title: page?.value?.data.meta_title,
-    description: page?.value?.data.meta_description,
+    title: page?.data.meta_title,
+    description: page?.data.meta_description,
 });
 
 const dates = computed(() => {
-    if (!data?.value) return [];
-    return data.value.map((entry) => {
+    if (!data) return [];
+    return data.map((entry) => {
         const formattedDate = $luxon.DateTime.fromISO(entry.date).toLocaleString({
             weekday: 'long',
             day: 'numeric',
@@ -58,7 +58,9 @@ const dates = computed(() => {
 
 <template>
     <div>
-        <SliceZone :slices="page?.data?.slices ?? []" :components="components" />
+        <div class="schedule-slice-zone">
+            <SliceZone :slices="page?.data?.slices ?? []" :components="components" />
+        </div>
         <div class="page-container">
             <div class="schedule-grid">
                 <UpcomingSchedule v-if="!scheduleEnabled" />
@@ -78,18 +80,27 @@ const dates = computed(() => {
 </template>
 
 <style lang="postcss" scoped>
+.schedule-slice-zone {
+    :deep(.page-header) {
+        max-width: none;
+        @media (--xxl) {
+            padding: 0 48px;
+        }
+    }
+}
 .page-container {
-    max-width: var(--page-container-max-width);
     margin: 64px auto;
     padding: 0 16px;
     @media (--md) {
         padding: 0 32px;
     }
+    @media (--xxl) {
+        padding: 0 48px;
+    }
 }
 .date-tabs {
     display: inline-flex;
     gap: 8px;
-    border: 1px solid var(--gray-900);
     border-radius: 8px;
     padding: 8px;
     margin: 0 0 64px;
@@ -97,6 +108,7 @@ const dates = computed(() => {
     width: 100%;
     max-width: 400px;
     justify-content: space-between;
+    background-color: var(--color-white);
     @media (--md) {
         width: auto;
         max-width: none;
@@ -107,19 +119,16 @@ const dates = computed(() => {
     text-decoration: none;
     font-size: rem(12px);
     line-height: 1.25;
-    font-weight: 600;
+    font-weight: 500;
     color: var(--gray-900);
     background-color: transparent;
     border-radius: 6px;
     padding: 8px;
     cursor: pointer;
-    border: 2px dashed transparent;
     text-wrap: balance;
     transition:
         background-color var(--hover-transition),
-        color var(--hover-transition),
-        border-style var(--hover-transition),
-        border-color var(--hover-transition);
+        color var(--hover-transition);
     @media (--md) {
         font-size: rem(14px);
     }
@@ -131,13 +140,10 @@ const dates = computed(() => {
     &:focus-visible {
         background-color: var(--beige-100);
         color: var(--gray-900);
-        border-color: var(--gray-900);
-        border-style: dashed;
     }
     &.router-link-exact-active {
         background-color: var(--gray-900);
         color: var(--beige-100);
-        border-color: var(--gray-900);
     }
 }
 .schedule-grid {

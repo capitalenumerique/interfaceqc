@@ -295,12 +295,12 @@ interface PartnerDocumentData {
      *
      * - **Field Type**: Select
      * - **Placeholder**: Catégorie du partenaire
-     * - **Default Value**: Principaux
+     * - **Default Value**: Partenaires
      * - **API ID Path**: partner.category
      * - **Tab**: Main
      * - **Documentation**: https://prismic.io/docs/fields/select
      */
-    category: prismic.SelectField<'Principaux' | 'Secondaires', 'filled'>;
+    category: prismic.SelectField<'Partenaire présentateur' | 'Partenaires', 'filled'>;
 }
 
 /**

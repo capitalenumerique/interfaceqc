@@ -1,18 +1,8 @@
-<script lang="ts" setup>
-import IconTickets from '@/assets/svg/tickets.svg?component';
-const { t } = useI18n();
-</script>
-
 <template>
     <div class="layout-wrapper">
         <div class="page-wrapper">
-            <AppMenu />
+            <AppHeader />
             <main class="content-wrapper">
-                <PrimaryButton :to="$config.public.ticketing_url" target="_blank" class="btn-cta">
-                    <IconTickets />
-                    <span>{{ t('Acheter mon billet') }}</span>
-                    <span>{{ t('Billets') }}</span>
-                </PrimaryButton>
                 <slot />
             </main>
         </div>
@@ -32,10 +22,8 @@ const { t } = useI18n();
     z-index: 10;
     background: var(--beige-100);
     @media (--md) {
-        display: grid;
-        grid-template-columns: 68px 1fr;
         margin-top: 0;
-        transform: translate3d(0, 0, 0);
+        /* transform: translate3d(0, 0, 0); */
     }
     &::before,
     &::after {
@@ -60,45 +48,6 @@ const { t } = useI18n();
 .content-wrapper {
     position: relative;
     min-width: 0;
-}
-.primary-button.btn-cta {
-    display: flex;
-    gap: 8px;
-    position: absolute;
-    right: 32px;
-    top: 32px;
-    z-index: 50;
-    padding: 8px 12px;
-    border-radius: 8px;
-    text-transform: lowercase;
-    @media (--md-down) {
-        display: none;
-    }
-    @media (--lg) {
-        padding: 16px 18px;
-        top: 64px;
-    }
-    @media (--xl) {
-        right: 64px;
-    }
-    svg {
-        margin: -3px 0;
-        width: 22px;
-    }
-    span {
-        &:first-of-type {
-            display: none;
-            @media (min-width: 390px) {
-                display: inline;
-            }
-        }
-        &:last-of-type {
-            display: inline;
-            @media (min-width: 390px) {
-                display: none;
-            }
-        }
-    }
 }
 </style>
 

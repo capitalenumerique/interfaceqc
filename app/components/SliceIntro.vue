@@ -32,13 +32,15 @@
 }
 .intro-title {
     font-size: rem(32px);
-    font-weight: 600;
+    font-weight: 500;
     max-width: 430px;
     flex-shrink: 0;
     margin: 0;
-    text-transform: lowercase;
     @media (--lg) {
         font-size: rem(48px);
+    }
+    :deep(em) {
+        font-family: var(--font-secondary);
     }
 }
 .intro-content {
@@ -50,16 +52,14 @@
         max-width: 668px;
     }
     .wysiwyg {
-        font-size: rem(16px);
+        font-size: rem(18px);
+        font-weight: 500;
         line-height: 1.777;
         margin-left: 40px;
         @media (--lg) {
-            font-size: rem(18px);
+            font-size: rem(24px);
             margin-left: 0px;
         }
-    }
-    :deep(.primary-button) {
-        text-transform: lowercase;
     }
 }
 </style>
