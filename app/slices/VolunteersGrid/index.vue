@@ -62,9 +62,6 @@ const sortedCategories = Object.fromEntries(
                                     class="volunteer-name"
                                     v-html="item.volunteer.data?.name?.replace(' ', '<br />')"
                                 ></h4>
-                                <div v-if="item.volunteer.data.committee_head" class="volunteer-job">
-                                    {{ t('Responsable {committee}', { committee: t(committee).toLowerCase() }) }}
-                                </div>
                             </div>
                             <NuxtImg
                                 v-if="item.volunteer.data.img"
@@ -181,7 +178,8 @@ const sortedCategories = Object.fromEntries(
                 color: var(--color-primary);
                 .shape-container,
                 .volunteer-img {
-                    border-radius: 40px;
+                    transform: scale(0.75);
+                    mask-size: 88%;
                 }
                 .volunteer-footer {
                     display: none;
@@ -195,7 +193,6 @@ const sortedCategories = Object.fromEntries(
             .shape-container,
             .volunteer-img {
                 transform: scale(0.75);
-                border-radius: 40px;
                 mask-size: 88%;
             }
             .volunteer-header {
@@ -241,10 +238,8 @@ const sortedCategories = Object.fromEntries(
 .volunteer-img {
     width: 100%;
     overflow: hidden;
-    transform-origin: 20px 0;
-    transition:
-        transform 300ms ease,
-        border-radius 300ms ease;
+    transform-origin: 50% 0%;
+    transition: transform 300ms ease;
     mask-image: url('@/assets/svg/hexagon-overlay.svg');
     mask-position: center;
     mask-repeat: no-repeat;
@@ -265,9 +260,7 @@ const sortedCategories = Object.fromEntries(
     color: var(--color-primary);
     overflow: hidden;
     transform-origin: 20px 0;
-    transition:
-        transform 300ms ease,
-        border-radius 300ms ease;
+    transition: transform 300ms ease;
     mask-image: url('@/assets/svg/hexagon-overlay.svg');
     mask-position: center;
     mask-repeat: no-repeat;
