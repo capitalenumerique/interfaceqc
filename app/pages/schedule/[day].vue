@@ -34,10 +34,14 @@ onMounted(() => {
     if (!scrollContainer.value) return;
     const { arrivedState: state } = useScroll(scrollContainer);
 
-    watch(state, (val) => {
-        arrivedState.left = val.left;
-        arrivedState.right = val.right;
-    }, { immediate: true });
+    watch(
+        state,
+        (val) => {
+            arrivedState.left = val.left;
+            arrivedState.right = val.right;
+        },
+        { immediate: true },
+    );
 });
 
 useResizeObserver(timeslotsWrapper, () => {
@@ -109,7 +113,11 @@ function stopScroll() {
                         {{ formatSessionTime(timeslot.time) }}
                     </span>
                     <div class="timeslot-sessions">
-                        <div v-for="place in timeslot.places" :key="`session-${timeslot.time}-${place.name}`" class="session">
+                        <div
+                            v-for="place in timeslot.places"
+                            :key="`session-${timeslot.time}-${place.name}`"
+                            class="session"
+                        >
                             <div
                                 v-if="
                                     i === 0 ||
