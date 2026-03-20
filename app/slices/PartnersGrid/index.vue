@@ -20,7 +20,7 @@ const categories = groupBy(slice.primary.partners_grid, (item) => {
     return 'Autres';
 });
 
-const sortOrder = ['Principaux', 'Secondaires'];
+const sortOrder = ['Partenaire présentateur', 'Partenaires'];
 
 const sortedCategories = Object.fromEntries(
     Object.entries(categories).sort((a, b) => sortOrder.indexOf(a[0]) - sortOrder.indexOf(b[0])),
@@ -60,7 +60,7 @@ const sortedCategories = Object.fromEntries(
                                 class="partner-logo"
                                 :src="item.partner.data.logo.url?.split('?')[0]"
                                 :alt="item.partner.data.name"
-                                width="200"
+                                :width="item.partner.data.category === 'Partenaire présentateur' ? 300 : 200"
                                 :format="
                                     !item.partner.data.logo.url?.includes('interface-qc.cdn.prismic.io')
                                         ? 'webp'
@@ -101,7 +101,7 @@ const sortedCategories = Object.fromEntries(
 .partners-grid {
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    /* gap: 40px; */
     list-style: none;
     padding: 0;
     margin: 0;
@@ -110,47 +110,47 @@ const sortedCategories = Object.fromEntries(
         padding: 0 32px;
     }
     h3 {
-        font-size: rem(18px);
+        font-size: rem(24px);
         font-weight: 500;
-        margin-bottom: 24px;
+        margin-bottom: 0;
+        text-align: center;
     }
 }
 .partners-group {
     list-style: none;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
     padding: 0;
     margin: 0;
     gap: 24px;
     justify-content: space-around;
-    @media (--md) {
-        grid-template-columns: repeat(3, 1fr);
-    }
-    @media (--lg) {
-        grid-template-columns: repeat(4, 1fr);
-    }
 }
 .partner-item {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-basis: calc(50% - 24px);
+    flex-grow: 1;
+    @media (--md) {
+        flex-basis: calc(33% - 24px);
+    }
+    @media (--lg) {
+        flex-basis: calc(25% - 24px);
+    }
 }
 .partner-logo {
-    width: 160px;
-    height: 160px;
     object-fit: contain;
-    @media (--lg) {
-        width: 200px;
-        height: 200px;
-    }
+    aspect-ratio: 1 / 1;
 }
 </style>
 
 <i18n lang="json">
 {
     "en": {
-        "Principaux": "Primary",
-        "Secondaires": "Secondary",
+        "Partenaire présentateur": "Presenting partner",
+        "Partenaires": "Partners",
         "Autres": "Others"
     }
 }
