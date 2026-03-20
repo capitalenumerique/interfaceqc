@@ -198,12 +198,13 @@ const { t } = useI18n();
     border-radius: 6px;
     padding: 8px;
     cursor: pointer;
-    border: 2px solid transparent;
+    border: 3px solid transparent;
     text-decoration: none;
     color: var(--gray-900);
     background-color: var(--beige-100);
     width: 100%;
     margin-top: 32px;
+    font-weight: 500;
     @media (--lg) {
         font-size: rem(16px);
         padding: 10px 12px;

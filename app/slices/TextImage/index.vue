@@ -3,8 +3,6 @@ import type { Content } from '@prismicio/client';
 
 import PixelWaveSection from '@/components/PixelWaveSection.vue';
 
-import IconStarOverlay from '@/assets/svg/star-overlay.svg?component';
-
 // The array passed to `getSliceComponentProps` is purely optional.
 // Consider it as a visual hint for you when templating your slice.
 const { slice } = defineProps(getSliceComponentProps<Content.TextImageSlice>(['slice', 'index', 'slices', 'context']));
@@ -30,13 +28,12 @@ const { slice } = defineProps(getSliceComponentProps<Content.TextImageSlice>(['s
                 </div>
             </div>
             <div class="image-wrapper">
-                <IconStarOverlay class="overlay" />
                 <NuxtImg
                     class="image"
                     :src="slice.primary.image_1.url?.split('?')[0]"
                     :alt="slice.primary.image_1.alt || ''"
                     width="520"
-                    height="650"
+                    height="520"
                     :format="!slice.primary.image_1.url?.includes('interface-qc.cdn.prismic.io') ? 'webp' : undefined"
                 />
             </div>
@@ -50,7 +47,7 @@ const { slice } = defineProps(getSliceComponentProps<Content.TextImageSlice>(['s
 }
 .text-image-slice {
     display: flex;
-    align-items: stretch;
+    align-items: center;
     justify-content: space-between;
     max-width: var(--page-container-max-width);
     margin: auto;
@@ -58,7 +55,7 @@ const { slice } = defineProps(getSliceComponentProps<Content.TextImageSlice>(['s
     flex-direction: column;
     gap: 40px;
     @media (--md) {
-        padding: 40px 32px 0;
+        padding: 70px 32px 0;
     }
     @media (--lg) {
         flex-direction: row;
@@ -72,15 +69,10 @@ const { slice } = defineProps(getSliceComponentProps<Content.TextImageSlice>(['s
 .image-wrapper {
     position: relative;
     flex-shrink: 0;
-    .overlay {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        fill: var(--color-secondary);
-        transform: scale(1.1);
-    }
+    mask-image: url('@/assets/svg/star-overlay.svg');
+    mask-position: center;
+    mask-repeat: no-repeat;
+    mask-size: contain;
 }
 @keyframes rotating {
     from {
