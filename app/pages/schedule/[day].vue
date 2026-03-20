@@ -156,7 +156,6 @@ function stopScroll() {
 }
 .timeslots-inner {
     @media (--lg) {
-        width: max-content;
         min-width: 100%;
     }
 }
@@ -286,7 +285,8 @@ function stopScroll() {
     }
     @media (--lg) {
         display: grid;
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        min-width: calc(5 * 250px);
         margin-bottom: 0;
     }
     .special & {
@@ -304,7 +304,6 @@ function stopScroll() {
     background-color: var(--color-white);
     border: 2px solid var(--beige-100);
     border-width: 0 0 2px;
-    min-width: 218px;
     @media (--md-down) {
         &:last-child {
             border-bottom: 0;
