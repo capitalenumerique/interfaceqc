@@ -155,8 +155,10 @@ function stopScroll() {
     }
 }
 .timeslots-inner {
-    width: max-content;
     min-width: 100%;
+    @media (--lg) {
+        width: max-content;
+    }
 }
 .gradient {
     position: absolute;
