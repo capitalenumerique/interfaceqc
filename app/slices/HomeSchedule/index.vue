@@ -10,7 +10,6 @@ import IconCandle from '@/assets/svg/symbols/candle.svg?component';
 import IconCherries from '@/assets/svg/symbols/cherries.svg?component';
 import IconCocktail from '@/assets/svg/symbols/cocktail.svg?component';
 import IconDisco from '@/assets/svg/symbols/disco.svg?component';
-import IconHexagonOverlay from '@/assets/svg/hexagon-overlay.svg?component';
 import IconSwirl from '@/assets/svg/symbols/swirl.svg?component';
 import IconVase from '@/assets/svg/symbols/vase.svg?component';
 
@@ -50,7 +49,6 @@ const icons = [IconBow, IconCandle, IconCherries, IconCocktail, IconDisco, IconS
                     class="tile-link"
                 >
                     <div class="speaker-image-wrapper">
-                        <IconHexagonOverlay class="overlay" />
                         <NuxtImg
                             :src="speaker.img.url?.split('?')[0]"
                             :alt="`${speaker.first_name} ${speaker.last_name}`"
@@ -119,9 +117,8 @@ const icons = [IconBow, IconCandle, IconCherries, IconCocktail, IconDisco, IconS
         &:focus-visible {
             background-color: var(--color-accent);
             color: var(--color-primary);
-            .overlay {
-                transform: scale(1.8);
-                fill: var(--color-accent);
+            .speaker-image-wrapper {
+                mask-size: 85%;
             }
         }
     }
@@ -130,18 +127,13 @@ const icons = [IconBow, IconCandle, IconCherries, IconCocktail, IconDisco, IconS
     position: relative;
     width: 100%;
     overflow: hidden;
-    .overlay {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        fill: var(--color-primary);
-        transition:
-            fill var(--hover-transition),
-            transform var(--hover-transition);
-        transform: scale(4);
-    }
+    mask-image: url('@/assets/svg/hexagon-overlay.svg');
+    mask-position: center;
+    mask-repeat: no-repeat;
+    mask-size: 155%;
+    transition:
+        mask-size var(--hover-transition),
+        transform var(--hover-transition);
     img {
         display: block;
         width: 100%;
