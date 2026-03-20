@@ -62,7 +62,7 @@ const component = computed(() => {
     text-decoration: none;
     &:hover,
     &:focus-visible {
-        background-color: var(--secondary-color);
+        background-color: transparent;
         color: var(--primary-color);
     }
     @media (--lg) {

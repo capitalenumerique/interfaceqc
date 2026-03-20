@@ -8,7 +8,7 @@ defineProps(getSliceComponentProps<Content.PageIntroHeaderSlice>(['slice', 'inde
 
 <template>
     <header class="page-header" :data-slice-type="slice.slice_type" :data-slice-variation="slice.variation">
-        <h1 class="header-title">{{ slice.primary.title }}</h1>
+        <h1 class="header-title" v-html="slice.primary.title"></h1>
         <div class="header-intro wysiwyg">
             <PrismicRichText :field="slice.primary.introduction" />
         </div>
@@ -42,6 +42,9 @@ defineProps(getSliceComponentProps<Content.PageIntroHeaderSlice>(['slice', 'inde
     @media (--lg) {
         font-size: rem(72px);
         margin-bottom: 24px;
+    }
+    :deep(em) {
+        font-family: var(--font-secondary);
     }
 }
 .header-intro {
