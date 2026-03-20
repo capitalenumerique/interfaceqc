@@ -162,7 +162,7 @@ const sortedCategories = Object.fromEntries(
     text-decoration: none;
     display: flex;
     flex-direction: column;
-    border: 1px solid var(--color-secondary-light);
+    border: 1px solid var(--beige-100);
     overflow: hidden;
     width: 100%;
     height: 100%;

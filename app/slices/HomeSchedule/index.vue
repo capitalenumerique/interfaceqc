@@ -69,7 +69,7 @@ const icons = [IconBow, IconCandle, IconCherries, IconCocktail, IconDisco, IconS
                     </div>
                 </Component>
             </li>
-            <li class="tile-view-all">
+            <li class="speaker-tile tile-view-all">
                 <NuxtLinkLocale to="schedule" class="tile-link">
                     <h3 class="tile-title" v-html="t('Voir <br>la programmation <br>complète')"></h3>
                     <div class="arrow-wrapper">
@@ -110,7 +110,7 @@ const icons = [IconBow, IconCandle, IconCherries, IconCocktail, IconDisco, IconS
 }
 .speaker-tile {
     width: 100%;
-    border: 1px solid var(--color-secondary-light);
+    border: 1px solid var(--color-secondary);
     .tile-link {
         background-color: var(--color-primary);
         &:hover,
@@ -179,7 +179,6 @@ const icons = [IconBow, IconCandle, IconCherries, IconCocktail, IconDisco, IconS
     }
 }
 .tile-view-all {
-    border: 1px solid var(--color-secondary-light);
     .tile-link {
         padding: 16px;
         background-color: var(--gray-900);
