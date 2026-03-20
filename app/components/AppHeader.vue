@@ -90,17 +90,7 @@ const onEscape = () => {
 
 <template>
     <header class="header" :class="{ 'is-open': isAnimating, 'home': home }">
-        <OnClickOutside
-            ref="menu"
-            class="menu-wrapper"
-            @keydown.esc="onEscape"
-            @trigger="
-                () => {
-                    console.log('click');
-                    isOpen = false;
-                }
-            "
-        >
+        <OnClickOutside ref="menu" class="menu-wrapper" @keydown.esc="onEscape" @trigger="isOpen = false">
             <div class="logo-wrapper">
                 <button class="btn-menu" type="button" :class="{ 'is-open': isOpen }" @click="isOpen = !isOpen">
                     <span class="sr-only">{{ t('Menu') }}</span>

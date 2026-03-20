@@ -13,10 +13,6 @@ useHead(() => ({
     },
     htmlAttrs: {
         lang: i18nHead.value.htmlAttrs.lang,
-        class: () => {
-            const hour = new Date().getHours();
-            return hour >= 9 && hour < 17 ? 'theme-day' : 'theme-night';
-        },
     },
     link: [...(i18nHead.value.link || [])],
     meta: [
@@ -27,6 +23,17 @@ useHead(() => ({
         },
     ],
 }));
+
+onBeforeMount(() => {
+    useHead(() => ({
+        htmlAttrs: {
+            class: () => {
+                const hour = new Date().getHours();
+                return hour >= 9 && hour < 17 ? 'theme-day' : 'theme-night';
+            },
+        },
+    }));
+});
 
 useSeoMeta({
     description: () =>

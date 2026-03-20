@@ -155,9 +155,9 @@ watch(finished, (newValue) => {
         const randomInRange = (min: number, max: number) => Math.random() * (max - min) + min;
         const between = (val: number, low: number, high: number) => val > low && val < high;
         const colors = (function* () {
-            const hour = new Date().getHours();
-            const values =
-                hour >= 9 && hour < 17 ? ['#ccdeff', '#871c00', '#ff4000'] : ['#eecfff', '#570352', '#dfd300'];
+            const values = document.documentElement.classList.contains('theme-day')
+                ? ['#ccdeff', '#871c00', '#ff4000']
+                : ['#eecfff', '#570352', '#dfd300'];
 
             for (let i = values.length; true; i = i - 1 || values.length) {
                 yield values[i - 1]!;

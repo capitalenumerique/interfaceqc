@@ -16,12 +16,19 @@ useHead(() => ({
     },
     htmlAttrs: {
         lang: i18nHead.value.htmlAttrs.lang,
-        class: () => {
-            const hour = new Date().getHours();
-            return hour >= 9 && hour < 17 ? 'theme-day' : 'theme-night';
-        },
     },
 }));
+
+onBeforeMount(() => {
+    useHead(() => ({
+        htmlAttrs: {
+            class: () => {
+                const hour = new Date().getHours();
+                return hour >= 9 && hour < 17 ? 'theme-day' : 'theme-night';
+            },
+        },
+    }));
+});
 
 const handleError = () => clearError({ redirect: '/' });
 </script>
