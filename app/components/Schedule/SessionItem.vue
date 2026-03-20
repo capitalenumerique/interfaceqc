@@ -18,8 +18,8 @@ const hasDetails = computed(() => {
 
 const hoverColors = computed(() => {
     const colors = session.categories?.[0]?.colors || {
-        bg: 'var(--red-600)',
-        text: 'var(--yellow-200)',
+        bg: 'var(--orange-800)',
+        text: 'var(--purple-100)',
     };
     return {
         '--hover-text': colors.text,
