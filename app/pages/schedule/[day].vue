@@ -141,6 +141,7 @@ function stopScroll() {
     overflow-x: auto;
     -ms-overflow-style: none;
     scrollbar-width: none;
+    overscroll-behavior-x: none;
     &::-webkit-scrollbar {
         display: none;
     }
@@ -158,6 +159,7 @@ function stopScroll() {
     opacity: 0;
     pointer-events: none;
     transition: opacity var(--hover-transition);
+    padding: 50% 0;
     &.is-visible {
         opacity: 1;
         pointer-events: all;
@@ -168,7 +170,7 @@ function stopScroll() {
     background: linear-gradient(to right, var(--beige-100), transparent);
     .icon-wrapper {
         left: 130px;
-        transform: translate(32px, 24px);
+        transform: translate(32px, 0);
         svg {
             transform: rotate(180deg);
         }
@@ -178,7 +180,7 @@ function stopScroll() {
     right: 0;
     background: linear-gradient(to left, var(--beige-100), transparent);
     .icon-wrapper {
-        transform: translate(-32px, 24px);
+        transform: translate(-32px, 0);
     }
 }
 .icon-wrapper {
@@ -190,6 +192,7 @@ function stopScroll() {
     justify-content: center;
     align-items: center;
     background-color: var(--beige-100);
+    box-shadow: 0 4px 32px 0 rgba(51, 50, 48, 0.05);
     top: 50vh;
 }
 .timeslot {
@@ -238,6 +241,7 @@ function stopScroll() {
         }
     }
     &:last-child {
+        margin-bottom: 0;
         .timeslot-sessions {
             border-bottom-left-radius: 8px;
             border-bottom-right-radius: 8px;
@@ -267,12 +271,6 @@ function stopScroll() {
 .timeslot-sessions {
     margin-bottom: 24px;
     overflow: hidden;
-    overflow-x: auto;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-    &::-webkit-scrollbar {
-        display: none;
-    }
     @media (--lg-down) {
         border-radius: 8px;
     }

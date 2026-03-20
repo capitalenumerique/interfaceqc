@@ -82,7 +82,6 @@ const hoverColors = computed(() => {
     font-size: rem(20px);
     font-weight: 500;
     margin-bottom: 16px;
-    max-width: 250px;
 }
 .session-link {
     font-size: rem(20px);
