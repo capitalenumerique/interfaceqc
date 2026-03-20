@@ -33,19 +33,19 @@ if (scheduleEnabled.value && getRouteBaseName(route.name!) !== 'schedule-day') {
 const { data: response } = await useAsyncData(`schedule-${locale.value}`, async () => {
     const { data, suspense } = useSchedule();
     const [page] = await Promise.all([prismic.client.getSingle('program', { lang: `${locale.value}-ca` }), suspense()]);
-    return { page: ref(page), data: ref(data.value) };
+    return { page: page, data: data.value };
 });
 
 const { page, data } = response.value ?? {};
 
 useSeoMeta({
-    title: page?.value?.data.meta_title,
-    description: page?.value?.data.meta_description,
+    title: page?.data.meta_title,
+    description: page?.data.meta_description,
 });
 
 const dates = computed(() => {
-    if (!data?.value) return [];
-    return data.value.map((entry) => {
+    if (!data) return [];
+    return data.map((entry) => {
         const formattedDate = $luxon.DateTime.fromISO(entry.date).toLocaleString({
             weekday: 'long',
             day: 'numeric',
