@@ -115,7 +115,7 @@ onBeforeMount(() => {
 
 onMounted(() => {
     setTimeout(() => {
-        list.value = shuffle(list.value);
+        // list.value = shuffle(list.value);
         initialized.value = true;
     }, 3000);
 });
