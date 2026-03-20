@@ -63,7 +63,7 @@ const items = computed(() => [
     },
 ]);
 
-const { activate, deactivate } = useFocusTrap(menu);
+const { activate, deactivate } = useFocusTrap(menu, { clickOutsideDeactivates: true });
 watch(isOpen, (value) => {
     if (value) {
         activate();
@@ -90,7 +90,17 @@ const onEscape = () => {
 
 <template>
     <header class="header" :class="{ 'is-open': isAnimating, 'home': home }">
-        <OnClickOutside ref="menu" class="menu-wrapper" @keydown.esc="onEscape" @trigger="isOpen = false">
+        <OnClickOutside
+            ref="menu"
+            class="menu-wrapper"
+            @keydown.esc="onEscape"
+            @trigger="
+                () => {
+                    console.log('click');
+                    isOpen = false;
+                }
+            "
+        >
             <div class="logo-wrapper">
                 <button class="btn-menu" type="button" :class="{ 'is-open': isOpen }" @click="isOpen = !isOpen">
                     <span class="sr-only">{{ t('Menu') }}</span>
@@ -162,7 +172,7 @@ const onEscape = () => {
     background-color: var(--color-white);
     left: 16px;
     right: 16px;
-    box-shadow: 0 4px 32px 0 rgba(51, 50, 48, 0.05);
+    box-shadow: 0 4px 32px 0 rgba(51, 50, 48, 0.1);
     @media (--md) {
         top: 40px;
         left: auto;
@@ -234,7 +244,6 @@ const onEscape = () => {
 .primary-button.btn-cta {
     display: none;
     margin-left: auto;
-    box-shadow: 0 4px 32px 0 rgba(51, 50, 48, 0.05);
     @media (--md) {
         display: inline-flex;
     }
@@ -321,6 +330,7 @@ const onEscape = () => {
     transition: all 300ms ease;
     padding: 8px 12px;
     border-radius: 6px;
+    text-transform: lowercase;
     &.router-link-active {
         font-family: var(--font-secondary);
     }

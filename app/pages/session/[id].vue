@@ -121,6 +121,7 @@ function formatDate(date: string) {
     align-items: center;
     gap: 8px;
     font-weight: 500;
+    text-transform: lowercase;
     font-size: rem(14px);
     margin-bottom: 40px;
     color: var(--gray-900);

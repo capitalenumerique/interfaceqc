@@ -62,9 +62,6 @@ const sortedCategories = Object.fromEntries(
                                     class="volunteer-name"
                                     v-html="item.volunteer.data?.name?.replace(' ', '<br />')"
                                 ></h4>
-                                <div v-if="item.volunteer.data.committee_head" class="volunteer-job">
-                                    {{ t('Responsable {committee}', { committee: t(committee).toLowerCase() }) }}
-                                </div>
                             </div>
                             <NuxtImg
                                 v-if="item.volunteer.data.img"
@@ -165,7 +162,7 @@ const sortedCategories = Object.fromEntries(
     text-decoration: none;
     display: flex;
     flex-direction: column;
-    border: 1px solid var(--color-secondary-light);
+    border: 1px solid var(--beige-100);
     overflow: hidden;
     width: 100%;
     height: 100%;
@@ -181,8 +178,8 @@ const sortedCategories = Object.fromEntries(
                 color: var(--color-primary);
                 .shape-container,
                 .volunteer-img {
-                    transform: scale(0.5);
-                    border-radius: 40px;
+                    transform: scale(0.75);
+                    mask-size: 88%;
                 }
                 .volunteer-footer {
                     display: none;
@@ -195,8 +192,8 @@ const sortedCategories = Object.fromEntries(
             color: var(--color-primary);
             .shape-container,
             .volunteer-img {
-                transform: scale(0.5);
-                border-radius: 40px;
+                transform: scale(0.75);
+                mask-size: 88%;
             }
             .volunteer-header {
                 transform: none;
@@ -241,12 +238,17 @@ const sortedCategories = Object.fromEntries(
 .volunteer-img {
     width: 100%;
     overflow: hidden;
-    transform-origin: 20px 0;
+    transform-origin: 50% 0%;
+    transition: transform 300ms ease;
+    mask-image: url('@/assets/svg/hexagon-overlay.svg');
+    mask-position: center;
+    mask-repeat: no-repeat;
+    mask-size: 140%;
     transition:
-        transform 300ms ease,
-        border-radius 300ms ease;
+        mask-size var(--hover-transition),
+        transform var(--hover-transition);
     @media (--md) {
-        transform-origin: 32px 75%;
+        transform-origin: 50% 120%;
     }
 }
 .shape-container {
@@ -258,11 +260,16 @@ const sortedCategories = Object.fromEntries(
     color: var(--color-primary);
     overflow: hidden;
     transform-origin: 20px 0;
+    transition: transform 300ms ease;
+    mask-image: url('@/assets/svg/hexagon-overlay.svg');
+    mask-position: center;
+    mask-repeat: no-repeat;
+    mask-size: 140%;
     transition:
-        transform 300ms ease,
-        border-radius 300ms ease;
+        mask-size var(--hover-transition),
+        transform var(--hover-transition);
     @media (--md) {
-        transform-origin: 32px 75%;
+        transform-origin: 50% 120%;
     }
 }
 .shape {

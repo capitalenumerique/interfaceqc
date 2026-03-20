@@ -57,13 +57,15 @@ const component = computed(() => {
     text-align: center;
     transition:
         background-color var(--hover-transition),
+        border-color var(--hover-transition),
         color var(--hover-transition);
     border: 2px solid var(--primary-color);
     text-decoration: none;
     &:hover,
     &:focus-visible {
-        background-color: var(--secondary-color);
         color: var(--primary-color);
+        background-color: var(--color-white);
+        border-color: transparent;
     }
     @media (--lg) {
         font-size: rem(18px);

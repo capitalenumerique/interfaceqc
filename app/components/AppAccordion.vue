@@ -64,7 +64,8 @@ const isOpen = ref(false);
     background-color: transparent;
     color: var(--gray-900);
     cursor: pointer;
-    border: 1px solid var(--gray-900);
+    border: 0;
+    background-color: var(--color-white);
     transition:
         background var(--hover-transition),
         color var(--hover-transition),
