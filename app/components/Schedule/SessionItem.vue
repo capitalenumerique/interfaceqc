@@ -9,8 +9,10 @@ const sessionSlug = useSlug(session.title);
 
 const hasDetails = computed(() => {
     return (
-        session.speakers.every((s: { id: string }) => s.id !== 'RXZlbnRQZW9wbGVfMzgyMTc4NjI=') &&
-        ['Conférence', 'Keynote'].includes(session.type)
+        session.speakers.every(
+            (s: { id: string }) =>
+                s.id !== 'U3BlYWtlcihFdmVudF8zOTQwNTQwLEV2ZW50UGVvcGxlXzQzNDAzNzQ2LFVzZXJfMjA1ODQ0MDAp',
+        ) && ['Conférence', 'Keynote'].includes(session.type)
     );
 });
 
@@ -82,7 +84,6 @@ const hoverColors = computed(() => {
     font-size: rem(20px);
     font-weight: 500;
     margin-bottom: 16px;
-    max-width: 250px;
 }
 .session-link {
     font-size: rem(20px);

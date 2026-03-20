@@ -1,35 +1,35 @@
 export const CATEGORY_COLORS: Record<string, Category['colors']> = {
-    'Soft skills': {
-        bg: 'var(--teal-600)',
-        text: 'var(--beige-100)',
-    },
-    'Communication et marketing': {
-        bg: 'var(--blue-700)',
-        text: 'var(--orange-300)',
-    },
-    'Développement': {
+    'Communication': {
         bg: 'var(--orange-300)',
-        text: 'var(--blue-700)',
+        text: 'var(--purple-900)',
+    },
+    'Marketing': {
+        bg: 'var(--blue-900)',
+        text: 'var(--purple-300)',
+    },
+    'Design créatif': {
+        bg: 'var(--orange-900)',
+        text: 'var(--yellow-200)',
+    },
+    'Design d\'expérience': {
+        bg: 'var(--purple-200)',
+        text: 'var(--purple-900)',
+    },
+    'Développement technologique': {
+        bg: 'var(--blue-600)',
+        text: 'var(--yellow-200)',
     },
     'Innovation': {
-        bg: 'var(--gray-900)',
-        text: 'var(--pink-300)',
+        bg: 'var(--purple-100)',
+        text: 'var(--orange-600)',
     },
-    'Design': {
-        bg: 'var(--pink-300)',
-        text: 'var(--green-800)',
-    },
-    'Intelligence artificielle': {
-        bg: 'var(--green-800)',
-        text: 'var(--yellow-200)',
+    'Soft skills': {
+        bg: 'var(--blue-100)',
+        text: 'var(--orange-900)',
     },
     'Keynote': {
-        bg: 'var(--red-600)',
-        text: 'var(--yellow-200)',
-    },
-    'Créativité numérique': {
-        bg: 'var(--yellow-200)',
-        text: 'var(--red-600)',
+        bg: 'var(--orange-800)',
+        text: 'var(--purple-100)',
     },
 };
 

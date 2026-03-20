@@ -136,10 +136,11 @@ function formatDate(date: string) {
     }
 }
 .session-wrapper {
-    border: 1px solid var(--gray-500);
     border-radius: 8px;
     max-width: 875px;
     padding: 32px 16px;
+    margin: auto;
+    background-color: var(--color-white);
     @media (--md) {
         padding: 40px;
     }

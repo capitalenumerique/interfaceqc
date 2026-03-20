@@ -5,8 +5,8 @@ import LogoInterface from '@/assets/svg/logo-with-glyph.svg?component';
 
 import IconExternal from '@/assets/svg/external.svg?component';
 
-defineProps<{
-    home: boolean;
+const { home = false } = defineProps<{
+    home?: boolean;
 }>();
 
 const { t } = useI18n();
@@ -140,7 +140,8 @@ const onEscape = () => {
     padding: 16px 16px 0;
     gap: 40px;
     &.home {
-        position: absolute;
+        position: fixed;
+        top: 0;
     }
     @media (--md) {
         padding: 40px 32px 0;
