@@ -286,7 +286,7 @@ function stopScroll() {
     @media (--lg) {
         display: grid;
         grid-template-columns: repeat(5, minmax(0, 1fr));
-        min-width: calc(5 * 250px);
+        min-width: calc(5 * 290px);
         margin-bottom: 0;
     }
     .special & {

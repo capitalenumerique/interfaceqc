@@ -86,11 +86,11 @@ export default defineEventHandler(async () => {
     });
 
     // Extraire les salles uniques
-    const orderedPlaces = ['Salle Dialog Insight', 'Salle Réverbère', 'Salle 3', 'Salle 4', 'Bistro'];
+    const orderedPlaces = ['Salle Dialog Insight', 'Salle Réverbère', 'Salle 3', 'Salle 4', 'Barista Destination Québec cité'];
     const uniquePlaces = Array.from(
         new Set(
             sessions
-                .filter((session) => session.place && session.type === 'Conférence')
+                .filter((session) => session.place && session.type === 'Conférence' || session.place && session.type === 'Podcast')
                 .map((session) => session.place),
         ),
     ).sort((a, b) => {
@@ -154,7 +154,7 @@ export default defineEventHandler(async () => {
                 }
 
                 // Valider s'il s'agit d'une conférence
-                const specialSession = [...sessionsInTimeslot].find((session) => session.type !== 'Conférence');
+                const specialSession = [...sessionsInTimeslot].find((session) => session.type !== 'Conférence' && session.type !== 'Podcast');
 
                 let places;
                 let type;
