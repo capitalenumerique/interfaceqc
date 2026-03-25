@@ -11,23 +11,42 @@ definePageMeta({
     },
 });
 
-// FIXME: https://github.com/nuxt/nuxt/issues/31638
-onMounted(() => {
-    window.scrollTo(0, 0);
-});
+const { $luxon } = useNuxtApp();
+let scheduleInterval: ReturnType<typeof setInterval>;
 
-const scheduleEnabled = ref(true);
+const releaseDate = $luxon.DateTime.fromObject(
+    { year: 2026, month: 3, day: 25, hour: 17, minute: 0o0 },
+    { zone: 'America/Toronto' }
+);
+const scheduleEnabled = ref($luxon.DateTime.now() >= releaseDate);
+    
+onMounted(() => {
+    // FIXME: https://github.com/nuxt/nuxt/issues/31638
+    window.scrollTo(0, 0);
+    scheduleInterval = setInterval(() => {
+        if ($luxon.DateTime.now() >= releaseDate) {
+            scheduleEnabled.value = true;
+            clearInterval(scheduleInterval);
+        }
+    }, 1000);
+});
+onUnmounted(() => clearInterval(scheduleInterval));
+
 const prismic = usePrismic();
 const route = useRoute();
 const localePath = useLocalePath();
 const getRouteBaseName = useRouteBaseName();
 
 const { locale } = useI18n();
-const { $luxon } = useNuxtApp();
 
 // redirect to day 1 when schedule is enabled
 if (scheduleEnabled.value && getRouteBaseName(route.name!) !== 'schedule-day') {
     await navigateTo(localePath({ name: 'schedule-day', params: { day: 1 } }));
+}
+
+function onCountdownDone() {
+    scheduleEnabled.value = true;
+    navigateTo(localePath({ name: 'schedule-day', params: { day: 1 } }));
 }
 
 const { data: response } = await useAsyncData(`schedule-${locale.value}`, async () => {
@@ -63,7 +82,10 @@ const dates = computed(() => {
         </div>
         <div class="page-container">
             <div class="schedule-grid">
-                <UpcomingSchedule v-if="!scheduleEnabled" />
+                <!-- <UpcomingSchedule v-if="!scheduleEnabled" /> -->
+                <ClientOnly v-if="!scheduleEnabled">
+                    <ScheduleCountdown :release-date="releaseDate" @done="onCountdownDone" />
+                </ClientOnly>
                 <template v-else-if="dates.length">
                     <ul class="date-tabs">
                         <li v-for="(date, i) in dates" :key="`date-${i}`">
