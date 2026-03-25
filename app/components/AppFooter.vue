@@ -69,17 +69,26 @@ const archives = [2025];
                 </ul>
             </div>
             <div class="column">
-                <img
-                    class="quebec-city-logo"
-                    src="@/assets/img/ville-quebec.svg"
-                    :alt="t('Ville de Québec, l’accent d’Amérique')"
-                    width="276"
-                    height="81"
-                />
+                <div class="quebec-logos">
+                    <img
+                        class="quebec-logo"
+                        src="@/assets/img/quebec.svg"
+                        :alt="t('Québec')"
+                        width="160"
+                        height="35"
+                    />
+                    <img
+                        class="quebec-city-logo"
+                        src="@/assets/img/ville-quebec.svg"
+                        :alt="t('Ville de Québec, l’accent d’Amérique')"
+                        width="124"
+                        height="80"
+                    />
+                </div>
                 <p class="quebec-city-text">
                     {{
                         t(
-                            'Ce projet est réalisé grâce au soutien financier de la Vision Entrepreneuriale Québec 2026 de la Ville de Québec',
+                            'Ce projet est réalisé grâce au soutien financier de la Vision Entrepreneuriale Québec 2030 de la Ville de Québec propulsée par le Fond de la région de la Capitale-Nationale.',
                         )
                     }}
                 </p>
@@ -231,6 +240,16 @@ const archives = [2025];
         height: auto;
     }
 }
+.quebec-logos {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    gap: 16px;
+    @media (--lg) {
+        display: grid;
+        grid-template-columns: 4fr 3fr;
+    }
+}
 .quebec-city-logo {
     display: block;
     @media (--lg) {
@@ -322,7 +341,7 @@ const archives = [2025];
         "Faq": "Faq",
         "Politique de confidentialité": "Privacy policy",
         "Édition {year}": "{year} edition",
-        "Ce projet est réalisé grâce au soutien financier de la Vision Entrepreneuriale Québec 2026 de la Ville de Québec": "This project is made possible thanks to the financial support of Québec City’s Vision Entrepreneuriale Québec 2026.",
+        "Ce projet est réalisé grâce au soutien financier de la Vision Entrepreneuriale Québec 2030 de la Ville de Québec propulsée par le Fond de la région de la Capitale-Nationale.": "This project is made possible through the financial support of the Entrepreneuriale Québec 2030 from Quebec City, powered by the Fond de la région de la Capitale-Nationale.",
         "supporté par": "supported by",
         "© Interface - Québec {n}. Tous droits réservés.": "© Interface - Québec {n}. All rights reserved."
     }
