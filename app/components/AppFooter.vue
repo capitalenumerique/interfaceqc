@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import { useBreakpoints } from '@vueuse/core';
-import IconAsterisk from '@/assets/svg/shapes/asterisk.svg?component';
-import IconHexagon from '@/assets/svg/shapes/hexagon.svg?component';
 import IconFacebook from '@/assets/svg/facebook.svg?component';
 import IconInstagram from '@/assets/svg/instagram.svg?component';
 import IconLinkedin from '@/assets/svg/linkedin.svg?component';
+import IconLogo from '@/assets/svg/logo-with-glyph.svg?component';
+import IconSwirl from '@/assets/svg/symbols/swirl.svg?component';
+import IconVase from '@/assets/svg/symbols/vase.svg?component';
 
 const { t } = useI18n();
 const breakpoints = useBreakpoints({ lg: 1024 }, { ssrWidth: 1024 });
@@ -35,7 +36,7 @@ const archives = [2025];
     <footer class="footer">
         <div class="footer-content">
             <div class="column">
-                <span class="column-icon"><IconAsterisk width="24" /></span>
+                <span class="column-icon"><IconVase width="40" /></span>
                 <ul class="column-list">
                     <li>
                         <a href="mailto:info@interfaceqc.com">{{ t("info{'@'}interfaceqc.com") }}</a>
@@ -49,7 +50,7 @@ const archives = [2025];
                 </ul>
             </div>
             <div class="column">
-                <span class="column-icon"><IconHexagon width="18" /></span>
+                <span class="column-icon"><IconSwirl width="40" /></span>
                 <ul class="column-list">
                     <li v-for="(year, i) in archives" :key="`archive-${i}`">
                         <a :href="`https://${year}.interfaceqc.com`" target="_blank">
@@ -68,17 +69,26 @@ const archives = [2025];
                 </ul>
             </div>
             <div class="column">
-                <img
-                    class="quebec-city-logo"
-                    src="@/assets/img/ville-quebec.svg"
-                    :alt="t('Ville de Québec, l’accent d’Amérique')"
-                    width="276"
-                    height="81"
-                />
+                <div class="quebec-logos">
+                    <img
+                        class="quebec-logo"
+                        src="@/assets/img/quebec.svg"
+                        :alt="t('Québec')"
+                        width="160"
+                        height="35"
+                    />
+                    <img
+                        class="quebec-city-logo"
+                        src="@/assets/img/ville-quebec.svg"
+                        :alt="t('Ville de Québec, l’accent d’Amérique')"
+                        width="124"
+                        height="80"
+                    />
+                </div>
                 <p class="quebec-city-text">
                     {{
                         t(
-                            'Ce projet est réalisé grâce au soutien financier de la Vision Entrepreneuriale Québec 2026 de la Ville de Québec',
+                            'Ce projet est réalisé grâce au soutien financier de la Vision Entrepreneuriale Québec 2030 de la Ville de Québec propulsée par le Fond de la région de la Capitale-Nationale.',
                         )
                     }}
                 </p>
@@ -86,10 +96,10 @@ const archives = [2025];
         </div>
         <ClientOnly v-if="showMarquee">
             <Vue3Marquee>
-                <img class="logo" src="@/assets/svg/logo-with-glyph.svg" :alt="t('Interface')" />
+                <IconLogo class="logo" />
             </Vue3Marquee>
         </ClientOnly>
-        <img v-else class="logo" src="@/assets/svg/logo-with-glyph.svg" :alt="t('Interface')" />
+        <IconLogo v-else class="logo" />
         <div class="credits">
             <div class="credits-wrapper">
                 <div class="copyright">
@@ -135,7 +145,7 @@ const archives = [2025];
 
 <style lang="postcss" scoped>
 .footer {
-    background-color: var(--gray-900);
+    background-color: var(--color-primary);
     border-radius: 24px 24px 0 0;
     color: var(--beige-100);
     @media (--lg) {
@@ -181,7 +191,7 @@ const archives = [2025];
     transition: color var(--hover-transition);
     &:hover,
     &:focus-visible {
-        color: var(--yellow-200);
+        color: var(--color-secondary);
     }
 }
 .column-icon {
@@ -189,7 +199,7 @@ const archives = [2025];
     align-items: center;
     height: rem(36px);
     svg {
-        fill: var(--yellow-200);
+        fill: var(--color-secondary);
     }
 }
 .column-list {
@@ -224,9 +234,20 @@ const archives = [2025];
     max-width: var(--page-container-max-width);
     margin: 0 auto;
     display: block;
+    fill: var(--color-secondary);
     @media (--md) {
         padding: 0 0 24px;
         height: auto;
+    }
+}
+.quebec-logos {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    gap: 16px;
+    @media (--lg) {
+        display: grid;
+        grid-template-columns: 4fr 3fr;
     }
 }
 .quebec-city-logo {
@@ -245,7 +266,7 @@ const archives = [2025];
     }
 }
 .credits {
-    border-top: 1px solid var(--yellow-200);
+    border-top: 1px solid var(--color-secondary);
 }
 .credits-wrapper {
     display: flex;
@@ -320,7 +341,7 @@ const archives = [2025];
         "Faq": "Faq",
         "Politique de confidentialité": "Privacy policy",
         "Édition {year}": "{year} edition",
-        "Ce projet est réalisé grâce au soutien financier de la Vision Entrepreneuriale Québec 2026 de la Ville de Québec": "This project is made possible thanks to the financial support of Québec City’s Vision Entrepreneuriale Québec 2026.",
+        "Ce projet est réalisé grâce au soutien financier de la Vision Entrepreneuriale Québec 2030 de la Ville de Québec propulsée par le Fond de la région de la Capitale-Nationale.": "This project is made possible through the financial support of the Entrepreneuriale Québec 2030 from Quebec City, powered by the Fond de la région de la Capitale-Nationale.",
         "supporté par": "supported by",
         "© Interface - Québec {n}. Tous droits réservés.": "© Interface - Québec {n}. All rights reserved."
     }

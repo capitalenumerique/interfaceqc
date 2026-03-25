@@ -9,15 +9,17 @@ const sessionSlug = useSlug(session.title);
 
 const hasDetails = computed(() => {
     return (
-        session.speakers.every((s: { id: string }) => s.id !== 'RXZlbnRQZW9wbGVfMzgyMTc4NjI=') &&
-        ['Conférence', 'Keynote'].includes(session.type)
+        session.speakers.every(
+            (s: { id: string }) =>
+                s.id !== 'U3BlYWtlcihFdmVudF8zOTQwNTQwLEV2ZW50UGVvcGxlXzQzNDAzNzQ2LFVzZXJfMjA1ODQ0MDAp',
+        ) && ['Conférence', 'Keynote', 'Podcast'].includes(session.type)
     );
 });
 
 const hoverColors = computed(() => {
     const colors = session.categories?.[0]?.colors || {
-        bg: 'var(--red-600)',
-        text: 'var(--yellow-200)',
+        bg: 'var(--orange-800)',
+        text: 'var(--purple-100)',
     };
     return {
         '--hover-text': colors.text,
@@ -80,13 +82,12 @@ const hoverColors = computed(() => {
 }
 .session-title {
     font-size: rem(20px);
-    font-weight: 600;
+    font-weight: 500;
     margin-bottom: 16px;
-    max-width: 250px;
 }
 .session-link {
     font-size: rem(20px);
-    font-weight: 600;
+    font-weight: 500;
     text-decoration: none;
     color: currentColor;
     &::after {

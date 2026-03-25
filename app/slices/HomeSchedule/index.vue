@@ -1,82 +1,54 @@
 <script setup lang="ts">
 import { NuxtLinkLocale } from '#components';
 import type { Content } from '@prismicio/client';
-import { Swiper, SwiperSlide } from 'swiper/vue';
-import { Navigation, Autoplay } from 'swiper/modules';
+
+import PixelWaveSection from '@/components/PixelWaveSection.vue';
 
 import IconArrow from '@/assets/svg/arrow.svg?component';
-import IconStar from '@/assets/svg/shapes/star.svg?component';
+import IconBow from '@/assets/svg/symbols/bow.svg?component';
+import IconCandle from '@/assets/svg/symbols/candle.svg?component';
+import IconCherries from '@/assets/svg/symbols/cherries.svg?component';
+import IconCocktail from '@/assets/svg/symbols/cocktail.svg?component';
+import IconDisco from '@/assets/svg/symbols/disco.svg?component';
+import IconSwirl from '@/assets/svg/symbols/swirl.svg?component';
+import IconVase from '@/assets/svg/symbols/vase.svg?component';
 
 // The array passed to `getSliceComponentProps` is purely optional.
 // Consider it as a visual hint for you when templating your slice.
 defineProps(getSliceComponentProps<Content.HomeProgrammingSlice>(['slice', 'index', 'slices', 'context']));
 
 const { t } = useI18n();
-const swiperRef = ref();
-
-const prev = () => {
-    swiperRef.value.slidePrev(300);
-};
-const next = () => {
-    swiperRef.value.slideNext(300);
-};
+const icons = [IconBow, IconCandle, IconCherries, IconCocktail, IconDisco, IconSwirl, IconVase];
 </script>
 
 <template>
-    <section :data-slice-type="slice.slice_type" :data-slice-variation="slice.variation" class="home-schedule">
+    <PixelWaveSection
+        :data-slice-type="slice.slice_type"
+        :data-slice-variation="slice.variation"
+        wave-placements="top"
+        class="home-schedule"
+    >
         <SliceIntro>
             <template #title>
-                <span v-html="t('La programmation<br /> 2025')"></span>
+                <span v-html="t('La programmation<br /> <em>2026</em>')"></span>
             </template>
             <template #wysiwyg>{{ slice.primary.description }}</template>
             <template #cta>
                 <PrimaryButton to="schedule">{{ t('Voir la programmation complète') }}</PrimaryButton>
             </template>
         </SliceIntro>
-        <Swiper
-            slides-per-view="auto"
-            :modules="[Navigation, Autoplay]"
-            :loop="true"
-            :loop-prevents-sliding="false"
-            :centered-slides="true"
-            :center-insufficient-slides="true"
-            :speed="2000"
-            :simulate-touch="false"
-            :autoplay="{
-                delay: 4000,
-                pauseOnMouseEnter: true,
-            }"
-            @swiper="(s) => (swiperRef = s)"
-        >
-            <template v-for="i in 2" :key="`group-${i}`">
-                <SwiperSlide class="slide-view-all">
-                    <NuxtLinkLocale to="schedule" class="slide-link">
-                        <div class="icon-wrapper">
-                            <IconStar />
-                        </div>
-                        <div class="slide-content">
-                            <h3 class="speaker-title" v-html="t('Voir <br>la programmation <br>complète')"></h3>
-                            <IconArrow class="icon-arrow" />
-                        </div>
-                    </NuxtLinkLocale>
-                </SwiperSlide>
-                <SwiperSlide
-                    v-for="(speaker, index) in slice.primary.speakers"
-                    :key="`${speaker.first_name} ${speaker.last_name}`"
-                    class="slide-speaker"
-                    :class="{
-                        'is-reversed': index % 2 === 0,
-                    }"
-                    :style="{
-                        '--backgroundColor': speaker.background_color,
-                        '--textColor': speaker.text_color,
-                    }"
+        <ul class="speaker-list">
+            <li
+                v-for="(speaker, index) in slice.primary.speakers.slice(0, 7)"
+                :key="`${speaker.first_name} ${speaker.last_name}`"
+                class="speaker-tile"
+            >
+                <Component
+                    :is="speaker.session_url ? NuxtLinkLocale : 'div'"
+                    :to="speaker.session_url"
+                    class="tile-link"
                 >
-                    <Component
-                        :is="speaker.session_url ? NuxtLinkLocale : 'div'"
-                        :to="speaker.session_url"
-                        class="slide-link"
-                    >
+                    <div class="speaker-image-wrapper">
                         <NuxtImg
                             :src="speaker.img.url?.split('?')[0]"
                             :alt="`${speaker.first_name} ${speaker.last_name}`"
@@ -84,185 +56,163 @@ const next = () => {
                             height="375"
                             format="webp"
                         />
-                        <div class="slide-content">
-                            <h3 class="speaker-title">
+                    </div>
+                    <div class="tile-content">
+                        <div class="speaker-title-wrapper">
+                            <h3 class="tile-title">
                                 {{ speaker.first_name }}<br />
                                 {{ speaker.last_name }}
                             </h3>
-                            <div class="speaker-subtitle">{{ speaker.job }}</div>
+                            <component :is="icons[index]" width="36" height="36" />
                         </div>
-                    </Component>
-                </SwiperSlide>
-            </template>
-            <div class="swiper-actions">
-                <button type="button" class="swiper-button-prev" @click="prev">
-                    <span class="sr-only">{{ $t('Précédent') }}</span>
-                    <IconArrow />
-                </button>
-                <button type="button" class="swiper-button-next" @click="next">
-                    <span class="sr-only">{{ $t('Suivant') }}</span>
-                    <IconArrow />
-                </button>
-            </div>
-        </Swiper>
-    </section>
+                        <div class="speaker-subtitle">{{ speaker.job }}</div>
+                    </div>
+                </Component>
+            </li>
+            <li class="speaker-tile tile-view-all">
+                <NuxtLinkLocale to="schedule" class="tile-link">
+                    <h3 class="tile-title" v-html="t('Voir <br>la programmation <br>complète')"></h3>
+                    <div class="arrow-wrapper">
+                        <IconArrow class="icon-arrow" width="20" height="20" />
+                    </div>
+                </NuxtLinkLocale>
+            </li>
+        </ul>
+    </PixelWaveSection>
 </template>
 
-<style lang="postcss" scoped>
-.home-schedule {
-    margin: 64px 0;
-    @media (--lg) {
-        margin: 100px 0;
-    }
-}
-.swiper {
-    padding: 30px 0;
-    margin: -30px 0;
-}
-.swiper-actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 auto;
-    margin-top: 32px;
-    max-width: var(--page-container-max-width);
-    padding: 0 16px;
-    @media (--md) {
-        padding: 0 32px;
-    }
-}
-.swiper-button-prev,
-.swiper-button-next {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: none;
-    border: 1px solid var(--gray-900);
-    border-radius: 12px;
-    width: 48px;
-    height: 48px;
-    color: var(--gray-900);
-    cursor: pointer;
-    transition: scale 300ms ease-in-out;
-    &:hover,
-    &:focus-visible {
-        scale: 1.1;
-    }
-    svg {
-        width: 16px;
-    }
-}
-.swiper-button-prev {
-    svg {
-        rotate: 180deg;
-    }
-}
-.slide-speaker,
-.slide-view-all {
-    width: 240px;
-    height: auto;
-    margin: 0 8px;
-    @media (--md) {
-        width: 322px;
-        margin: 0 12px;
-    }
-    .slide-link {
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        text-decoration: none;
-        color: var(--gray-900);
-        transition: scale 300ms ease-in-out;
+<style lang="postcss">
+.theme-day {
+    .speaker-tile .tile-link {
         &:hover,
         &:focus-visible {
-            scale: 1.1;
+            color: var(--color-secondary-light) !important;
         }
-    }
-    .speaker-title {
-        font-size: rem(16px);
-        margin: 0;
-    }
-    .speaker-subtitle {
-        font-size: rem(12px);
     }
 }
-.slide-speaker {
-    .slide-link {
-        border-radius: 20px;
-        background-color: var(--backgroundColor, var(--beige-100));
-        color: var(--textColor, var(--gray-900));
-        border-radius: 8px;
-        @media (--md) {
-            border-radius: 20px;
+</style>
+<style lang="postcss" scoped>
+.home-schedule {
+    margin: 8% 0;
+    background-color: var(--color-secondary);
+}
+.speaker-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    list-style: none;
+    width: 1440px;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    @media (--lg) {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+.speaker-tile {
+    width: 100%;
+    border: 1px solid var(--color-secondary);
+    .tile-link {
+        background-color: var(--color-primary);
+        &:hover,
+        &:focus-visible {
+            background-color: var(--color-accent);
+            color: var(--color-primary);
+            .speaker-image-wrapper {
+                mask-size: 85%;
+            }
         }
     }
-    &.is-reversed {
-        .slide-link {
-            flex-direction: column-reverse;
-        }
-    }
+}
+.speaker-image-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    mask-image: url('@/assets/svg/hexagon-overlay.svg');
+    mask-position: center;
+    mask-repeat: no-repeat;
+    mask-size: 155%;
+    transition:
+        mask-size var(--hover-transition),
+        transform var(--hover-transition);
     img {
+        display: block;
         width: 100%;
-        border-radius: 8px;
-        @media (--md) {
-            border-radius: 20px;
-        }
-    }
-    .slide-content {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        padding: 16px;
-        @media (--md) {
-            gap: 16px;
-        }
-        .speaker-title {
-            text-transform: lowercase;
-        }
     }
 }
-.slide-view-all {
-    .slide-link {
+.tile-link {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-decoration: none;
+    transition: background-color var(--hover-transition);
+    color: var(--color-secondary-light);
+}
+.speaker-title-wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    svg {
+        flex-shrink: 0;
+    }
+}
+.tile-title {
+    font-size: rem(16px);
+    margin: 0;
+    font-weight: 400;
+    @media (--md) {
+        font-size: rem(24px);
+    }
+}
+.speaker-subtitle {
+    font-size: rem(12px);
+}
+.tile-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+    gap: 8px;
+    padding: 16px;
+    @media (--md) {
         gap: 16px;
     }
-    .icon-wrapper {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        aspect-ratio: 1 / 1;
-        background-color: var(--pink-300);
-        border-radius: 8px;
-        @media (--md) {
-            border-radius: 20px;
-        }
-        svg {
-            width: 69%;
-            fill: var(--green-800);
-        }
-    }
-    .slide-content {
-        display: flex;
-        flex-grow: 1;
-        flex-direction: column;
-        justify-content: space-between;
+}
+.tile-view-all {
+    .tile-link {
         padding: 16px;
-        border: 1px solid var(--color-black);
-        border-radius: 8px;
-        @media (--md) {
-            border-radius: 20px;
+        background-color: var(--gray-900);
+        @media (--lg) {
+            padding: 32px;
+        }
+        &:hover,
+        &:focus-visible {
+            .arrow-wrapper {
+                transform: scale(1.1);
+            }
         }
     }
-    .icon-arrow {
-        width: 16px;
-        align-self: flex-end;
-    }
+}
+.arrow-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 12px;
+    background-color: var(--color-secondary-light);
+    transition: transform var(--hover-transition);
+    margin-left: auto;
+}
+.icon-arrow {
+    fill: var(--gray-900);
 }
 </style>
 
 <i18n lang="json">
 {
     "en": {
-        "La programmation<br /> 2025": "The 2025<br /> schedule",
+        "La programmation<br /> <em>2026</em>": "The <em>2026</em><br /> schedule",
         "Voir la programmation complète": "See the complete schedule",
         "Voir <br>la programmation <br>complète": "See <br>the complete <br>schedule",
         "Précédent": "Previous",

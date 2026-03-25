@@ -12,7 +12,7 @@
     background-color: var(--gray-900);
     color: var(--beige-100);
     padding: 6px 12px;
-    font-size: 14px;
+    font-size: rem(14px);
     text-align: center;
     border-bottom: 1px solid var(--gray-900);
     grid-column: 1 / span 2;

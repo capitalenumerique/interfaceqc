@@ -120,8 +120,8 @@ function formatDate(date: string) {
     display: flex;
     align-items: center;
     gap: 8px;
+    font-weight: 500;
     text-transform: lowercase;
-    font-weight: 600;
     font-size: rem(14px);
     margin-bottom: 40px;
     color: var(--gray-900);
@@ -137,10 +137,11 @@ function formatDate(date: string) {
     }
 }
 .session-wrapper {
-    border: 1px solid var(--gray-500);
     border-radius: 8px;
     max-width: 875px;
     padding: 32px 16px;
+    margin: auto;
+    background-color: var(--color-white);
     @media (--md) {
         padding: 40px;
     }
@@ -151,18 +152,18 @@ function formatDate(date: string) {
 .session-header {
     display: flex;
     gap: 24px;
-    font-weight: 600;
+    font-weight: 500;
     margin-bottom: 24px;
 }
 .session-title {
     font-size: rem(24px);
-    font-weight: 600;
+    font-weight: 500;
     @media (--lg) {
         font-size: rem(30px);
     }
 }
 .session-place {
-    font-weight: 600;
+    font-weight: 500;
     margin: 24px 0;
 }
 .speakers-list {
@@ -191,11 +192,11 @@ function formatDate(date: string) {
 }
 .speaker-name {
     font-size: rem(18px);
-    font-weight: 600;
+    font-weight: 500;
     margin: 0;
 }
 .speaker-infos {
-    font-weight: 600;
+    font-weight: 500;
 }
 </style>
 

@@ -24,6 +24,17 @@ useHead(() => ({
     ],
 }));
 
+onBeforeMount(() => {
+    useHead(() => ({
+        htmlAttrs: {
+            class: () => {
+                const hour = new Date().getHours();
+                return hour >= 9 && hour < 17 ? 'theme-day' : 'theme-night';
+            },
+        },
+    }));
+});
+
 useSeoMeta({
     description: () =>
         t("Découvre Interface, l'événement incontournable du numérique, créé par et pour la communauté!"),
@@ -42,6 +53,7 @@ useSeoMeta({
 .page-leave-active {
     transition: opacity 500ms ease-in-out;
 }
+
 .page-enter-from,
 .page-leave-to {
     opacity: 0;

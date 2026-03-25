@@ -102,6 +102,7 @@ export default defineNuxtConfig({
             },
         },
         swapcardToken: process.env.NUXT_SWAPCARD_AUTH_TOKEN,
+        swapcardCommunityId: process.env.NUXT_SWAPCARD_COMMUNITY_ID,
         swapcardEventId: process.env.NUXT_SWAPCARD_EVENT_ID,
     },
     routeRules: {
@@ -126,9 +127,9 @@ export default defineNuxtConfig({
     //     },
     // },
     vite: {
-        define: {
-            __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: true,
-        },
+        // define: {
+        //     __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: true,
+        // },
         plugins: [
             ViteSvgLoader({
                 svgoConfig: {
@@ -157,7 +158,7 @@ export default defineNuxtConfig({
             '@csstools/postcss-global-data': {
                 files: ['./app/assets/css/variables.css'],
             },
-            'postcss-preset-env': {},
+            'postcss-preset-env': { browsers: 'baseline 2021' },
             'postcss-nested': {},
             'postcss-functions': {
                 functions: {
@@ -180,7 +181,18 @@ export default defineNuxtConfig({
             },
         },
     },
-    fonts: { defaults: { weights: [400, 500, 600, 700] } },
+    fonts: {
+        defaults: {
+            weights: [400, 500, 600, 700],
+        },
+        families: [
+            {
+                preload: true,
+                name: 'phosphene',
+                provider: 'local',
+            },
+        ],
+    },
     i18n: {
         baseUrl: 'https://interfaceqc.com',
         strategy: 'prefix_except_default',
