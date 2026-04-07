@@ -139,6 +139,16 @@ const sortedCategories = Object.fromEntries(
     @media (--lg) {
         flex-basis: calc(25% - 24px);
     }
+    a {
+        opacity: 1;
+        transition: all var(--hover-transition);
+        &:focus-visible,
+        &:hover {
+            opacity: 0.65;
+            scale: 1.05;
+            rotate: 3deg;
+        }
+    }
 }
 .partner-logo {
     object-fit: contain;
