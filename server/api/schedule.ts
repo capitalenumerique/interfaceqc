@@ -86,7 +86,7 @@ export default defineEventHandler(async () => {
     });
 
     // Extraire les salles uniques
-    const orderedPlaces = ['Salle Dialog Insight', 'Salle Réverbère', 'Salle 3', 'Salle 4', 'Barista Destination Québec cité'];
+    const orderedPlaces = ['Salle Dialog Insight', 'Salle C.NUM', 'Salle Réverbère', 'Salle 4', 'Barista Destination Québec cité'];
     const uniquePlaces = Array.from(
         new Set(
             sessions
