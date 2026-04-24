@@ -10,6 +10,10 @@ definePageMeta({
     },
 });
 
+onMounted(() => {
+    window.scrollTo(0, 0);
+});
+
 const { formatSessionTime } = useTimeFormatter();
 const { t, locale } = useI18n();
 const { $luxon } = useNuxtApp();
