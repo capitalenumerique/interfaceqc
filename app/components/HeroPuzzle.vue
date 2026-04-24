@@ -301,6 +301,9 @@ body:has(.sortable-chosen) * {
         &.sortable-chosen {
             cursor: grabbing;
         }
+        &.sortable-ghost {
+            opacity: 0;
+        }
         &.sortable-drag {
             opacity: 1 !important;
         }
