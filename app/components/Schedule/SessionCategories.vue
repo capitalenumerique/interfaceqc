@@ -41,7 +41,7 @@ const getCategoryStyle = (colors: Category['colors']) => {
     margin: 0;
 }
 .category-item {
-    font-size: rem(14px);
+    font-size: rem(12px);
     padding: 8px;
     border-radius: 6px;
     font-weight: 700;
