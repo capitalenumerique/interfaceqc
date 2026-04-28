@@ -102,7 +102,10 @@ function stopScroll() {
                     v-for="(timeslot, i) in day.timeslots"
                     :key="`timeslot-${timeslot.time}`"
                     class="timeslot"
-                    :class="timeslot.type"
+                    :class="[
+                        timeslot.type,
+                        { 'has-podcast': timeslot.type === 'special' && timeslot.places.length > 1 },
+                    ]"
                 >
                     <span
                         class="time"
@@ -146,17 +149,13 @@ function stopScroll() {
     position: relative;
 }
 .timeslots-scroll {
+    display: flex;
     overflow-x: auto;
     -ms-overflow-style: none;
     scrollbar-width: none;
     overscroll-behavior-x: none;
     &::-webkit-scrollbar {
         display: none;
-    }
-}
-.timeslots-inner {
-    @media (--lg) {
-        min-width: 100%;
     }
 }
 .gradient {
@@ -210,6 +209,7 @@ function stopScroll() {
         grid-template-columns: 80px 1fr;
     }
     @media (--lg) {
+        grid-template-columns: 80px repeat(5, 1fr);
         &.regular {
             + .regular {
                 .timeslot-sessions {
@@ -231,7 +231,10 @@ function stopScroll() {
     &.special {
         margin-bottom: 24px;
         .timeslot-sessions {
-            display: block;
+            @media (--lg) {
+                display: grid;
+                grid-template-columns: subgrid;
+            }
         }
         + .regular {
             .timeslot-sessions {
@@ -241,6 +244,14 @@ function stopScroll() {
         }
         .session {
             border-bottom: 0;
+            &:first-child {
+                grid-column: 1 / span 5;
+            }
+        }
+        &.has-podcast {
+            .session:first-child {
+                grid-column: 1 / span 4;
+            }
         }
     }
     &:first-child {
@@ -278,6 +289,7 @@ function stopScroll() {
     }
 }
 .timeslot-sessions {
+    grid-column: 2 / span 5;
     margin-bottom: 24px;
     overflow: hidden;
     @media (--lg-down) {

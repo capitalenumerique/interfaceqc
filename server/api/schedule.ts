@@ -86,11 +86,21 @@ export default defineEventHandler(async () => {
     });
 
     // Extraire les salles uniques
-    const orderedPlaces = ['Salle Dialog Insight', 'Salle C.NUM', 'Salle Réverbère', 'Salle 4', 'Barista Destination Québec cité'];
+    const orderedPlaces = [
+        'Salle Dialog Insight',
+        'Salle C.NUM',
+        'Salle Réverbère',
+        'Salle 4',
+        'Barista Destination Québec cité',
+    ];
     const uniquePlaces = Array.from(
         new Set(
             sessions
-                .filter((session) => session.place && session.type === 'Conférence' || session.place && session.type === 'Podcast')
+                .filter(
+                    (session) =>
+                        (session.place && session.type === 'Conférence') ||
+                        (session.place && session.type === 'Podcast'),
+                )
                 .map((session) => session.place),
         ),
     ).sort((a, b) => {
@@ -154,7 +164,9 @@ export default defineEventHandler(async () => {
                 }
 
                 // Valider s'il s'agit d'une conférence
-                const specialSession = [...sessionsInTimeslot].find((session) => session.type !== 'Conférence' && session.type !== 'Podcast');
+                const specialSession = [...sessionsInTimeslot].find(
+                    (session) => session.type !== 'Conférence' && session.type !== 'Podcast',
+                );
 
                 let places;
                 let type;
@@ -167,6 +179,18 @@ export default defineEventHandler(async () => {
                             session: specialSession,
                         },
                     ];
+
+                    // Ajouter les podcasts au places si le créneau est entre 12h et 14h
+                    if (timeString >= '12:00:00' && timeString < '14:00:00') {
+                        const podcastSessions = sessionsInTimeslot.filter((session) => session.type === 'Podcast');
+                        podcastSessions.forEach((podcast) => {
+                            places.push({
+                                name: podcast.place,
+                                session: podcast,
+                            });
+                        });
+                    }
+
                     type = 'special';
                 } else {
                     // Conférences par défaut
