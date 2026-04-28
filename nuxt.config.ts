@@ -130,6 +130,19 @@ export default defineNuxtConfig({
         // define: {
         //     __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: true,
         // },
+        optimizeDeps: {
+            include: [
+                '@limonische/vue3-transition-expand',
+                'vue3-marquee',
+                'luxon',
+                '@vueuse/integrations/useFocusTrap',
+                'canvas-confetti',
+                'es-toolkit/array',
+                'vue-draggable-plus',
+                '@prismicio/client',
+                'es-toolkit',
+            ],
+        },
         plugins: [
             ViteSvgLoader({
                 svgoConfig: {

@@ -10,6 +10,10 @@ definePageMeta({
     },
 });
 
+onMounted(() => {
+    window.scrollTo(0, 0);
+});
+
 const { formatSessionTime } = useTimeFormatter();
 const { t, locale } = useI18n();
 const { $luxon } = useNuxtApp();
@@ -54,11 +58,11 @@ function formatDate(date: string) {
 
 <template>
     <div v-if="data" class="page-wrapper">
-        <NuxtLinkLocale :to="{ name: 'schedule-day', params: { day: $route.params.day } }" class="back-button">
-            <IconBackArrow width="16" height="10" />
-            {{ t('Retour à la programmation') }}
-        </NuxtLinkLocale>
         <div class="session-wrapper">
+            <NuxtLinkLocale :to="{ name: 'schedule-day', params: { day: $route.params.day } }" class="back-button">
+                <IconBackArrow width="16" height="10" />
+                {{ t('Retour à la programmation') }}
+            </NuxtLinkLocale>
             <div class="session-header">
                 <span class="session-date">{{ formatDate(data.date) }}</span>
                 <span class="session-time">{{
@@ -114,7 +118,13 @@ function formatDate(date: string) {
     margin: 0 auto;
     flex-direction: column;
     max-width: var(--page-container-max-width);
-    padding: 40px 16px 80px;
+    padding: 16px 16px 32px;
+    @media (--md) {
+        padding: 40px 32px 80px;
+    }
+    @media (--lg) {
+        padding: 40px 48px 80px;
+    }
 }
 .back-button {
     display: flex;
@@ -123,7 +133,10 @@ function formatDate(date: string) {
     font-weight: 500;
     text-transform: lowercase;
     font-size: rem(14px);
-    margin-bottom: 40px;
+    margin-bottom: 32px;
+    @media (--md) {
+        margin-bottom: 50px;
+    }
     color: var(--gray-900);
     text-decoration: none;
     &:hover,
@@ -139,14 +152,11 @@ function formatDate(date: string) {
 .session-wrapper {
     border-radius: 8px;
     max-width: 875px;
-    padding: 32px 16px;
+    padding: 32px 24px 24px;
     margin: auto;
     background-color: var(--color-white);
     @media (--md) {
-        padding: 40px;
-    }
-    @media (--lg) {
-        padding: 10%;
+        padding: 7% 9%;
     }
 }
 .session-header {

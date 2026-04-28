@@ -238,6 +238,7 @@ function onEnd() {
         :delay="100"
         :delay-on-touch-only="true"
         :animation="250"
+        :force-fallback="true"
         easing="ease-in-out"
         @start="onStart"
         @end="onEnd"
@@ -258,6 +259,12 @@ function onEnd() {
     </VueDraggable>
 </template>
 
+<style lang="postcss">
+body:has(.sortable-chosen) * {
+    cursor: grabbing !important;
+}
+</style>
+
 <style lang="postcss" scoped>
 .puzzle {
     display: grid;
@@ -274,7 +281,7 @@ function onEnd() {
         font-size: rem(32px);
         aspect-ratio: 1 / 1;
         transition: opacity 100ms ease-in-out;
-        cursor: move;
+        cursor: grab;
         color: var(--color-primary);
         scale: 1;
         rotate: 0;
@@ -290,6 +297,9 @@ function onEnd() {
         img,
         svg {
             width: 100%;
+        }
+        &.sortable-chosen {
+            cursor: grabbing;
         }
         &.sortable-ghost {
             opacity: 0;
