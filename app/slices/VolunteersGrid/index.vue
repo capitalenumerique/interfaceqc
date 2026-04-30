@@ -46,7 +46,12 @@ const sortedCategories = Object.fromEntries(
             <li v-for="(category, committee) in sortedCategories" :key="committee">
                 <h3 v-if="Object.values(sortedCategories).length > 1">{{ t(committee) }}</h3>
                 <ul class="volunteers-group">
-                    <li v-for="(item, index) in category" :key="index" v-reveal="{ delay: Math.min(index, 5) * 60 }" class="volunteer-item">
+                    <li
+                        v-for="(item, index) in category"
+                        :key="index"
+                        v-reveal="{ delay: Math.min(index, 5) * 60 }"
+                        class="volunteer-item"
+                    >
                         <Component
                             :is="item.volunteer.data?.linkedin?.url ? 'a' : 'span'"
                             v-if="

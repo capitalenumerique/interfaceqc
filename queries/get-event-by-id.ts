@@ -6,11 +6,7 @@ export const GET_EVENT_BY_ID = gql`
             beginsAt
             endsAt
         }
-        planningsV2(
-            communityId: $communityId
-            filter: {eventIds: [$eventId]}
-            cursor: {first: 100}
-        ) {
+        planningsV2(communityId: $communityId, filter: { eventIds: [$eventId] }, cursor: { first: 100 }) {
             totalCount
             nodes {
                 id

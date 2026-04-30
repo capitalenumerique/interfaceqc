@@ -25,7 +25,12 @@ defineProps(getSliceComponentProps<Content.HomeTicketsSlice>(['slice', 'index', 
                         'is-odd': slice.primary.tickets.length % 2 === 1,
                     }"
                 >
-                    <TicketType v-for="(item, i) in slice.primary.tickets" :key="i" v-reveal="{ delay: i * 80 }" :item="item" />
+                    <TicketType
+                        v-for="(item, i) in slice.primary.tickets"
+                        :key="i"
+                        v-reveal="{ delay: i * 80 }"
+                        :item="item"
+                    />
                 </ul>
                 <p v-if="slice.primary.terms" class="terms">
                     {{ slice.primary.terms }}

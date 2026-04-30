@@ -11,7 +11,7 @@ export const CATEGORY_COLORS: Record<string, Category['colors']> = {
         bg: 'var(--orange-900)',
         text: 'var(--yellow-200)',
     },
-    'Design d\'expérience': {
+    "Design d'expérience": {
         bg: 'var(--purple-200)',
         text: 'var(--purple-900)',
     },
