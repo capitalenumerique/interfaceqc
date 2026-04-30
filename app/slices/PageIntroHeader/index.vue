@@ -8,12 +8,13 @@ defineProps(getSliceComponentProps<Content.PageIntroHeaderSlice>(['slice', 'inde
 
 <template>
     <header class="page-header" :data-slice-type="slice.slice_type" :data-slice-variation="slice.variation">
-        <h1 class="header-title" v-html="slice.primary.title"></h1>
-        <div class="header-intro wysiwyg">
+        <h1 v-reveal class="header-title" v-html="slice.primary.title"></h1>
+        <div v-reveal="{ delay: 100 }" class="header-intro wysiwyg">
             <PrismicRichText :field="slice.primary.introduction" />
         </div>
         <PrimaryButton
             v-if="$prismic.isFilled.link(slice.primary.cta)"
+            v-reveal="{ delay: 200 }"
             :to="slice.primary.cta.url"
             :target="slice.primary.cta.link_type === 'Web' ? slice.primary.cta.target : undefined"
             class="header-cta"

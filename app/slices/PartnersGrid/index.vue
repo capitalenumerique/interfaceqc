@@ -47,7 +47,7 @@ const sortedCategories = Object.fromEntries(
             <li v-for="(category, title) in sortedCategories" :key="title">
                 <h3 v-if="Object.values(sortedCategories).length > 1">{{ t(title) }}</h3>
                 <ul class="partners-group">
-                    <li v-for="(item, index) in category" :key="index" class="partner-item">
+                    <li v-for="(item, index) in category" :key="index" v-reveal="{ delay: Math.min(index, 5) * 60 }" class="partner-item">
                         <a
                             v-if="
                                 $prismic.isFilled.contentRelationship(item.partner) &&

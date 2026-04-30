@@ -8,11 +8,11 @@ defineProps(getSliceComponentProps<Content.TextSlice>(['slice', 'index', 'slices
 
 <template>
     <section :data-slice-type="slice.slice_type" :data-slice-variation="slice.variation" class="text-slice">
-        <h2 class="text-title">
+        <h2 v-reveal class="text-title">
             <span class="container">{{ slice.primary.title }}</span>
         </h2>
         <div class="container">
-            <div class="content wysiwyg">
+            <div v-reveal="{ delay: 100 }" class="content wysiwyg">
                 <PrismicRichText :field="slice.primary.content" />
             </div>
         </div>
