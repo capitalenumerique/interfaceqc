@@ -16,10 +16,10 @@ let scheduleInterval: ReturnType<typeof setInterval>;
 
 const releaseDate = $luxon.DateTime.fromObject(
     { year: 2026, month: 3, day: 25, hour: 17, minute: 0o0 },
-    { zone: 'America/Toronto' }
+    { zone: 'America/Toronto' },
 );
 const scheduleEnabled = ref($luxon.DateTime.now() >= releaseDate);
-    
+
 onMounted(() => {
     // FIXME: https://github.com/nuxt/nuxt/issues/31638
     window.scrollTo(0, 0);

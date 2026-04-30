@@ -101,6 +101,7 @@ function stopScroll() {
                 <div
                     v-for="(timeslot, i) in day.timeslots"
                     :key="`timeslot-${timeslot.time}`"
+                    v-reveal="{ delay: i * 60 }"
                     class="timeslot"
                     :class="[
                         timeslot.type,
@@ -150,6 +151,7 @@ function stopScroll() {
 }
 .timeslots-scroll {
     display: flex;
+    overflow-y: clip;
     overflow-x: auto;
     -ms-overflow-style: none;
     scrollbar-width: none;

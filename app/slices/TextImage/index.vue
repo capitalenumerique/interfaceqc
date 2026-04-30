@@ -15,7 +15,7 @@ const { slice } = defineProps(getSliceComponentProps<Content.TextImageSlice>(['s
         class="text-image-slice-wrapper"
     >
         <div class="text-image-slice" :class="{ 'text-image-slice--flip': slice.primary.flip }">
-            <div class="content">
+            <div v-reveal class="content">
                 <h2 class="content-title" v-html="slice.primary.title"></h2>
                 <p v-if="slice.primary.text" class="content-description wysiwyg">{{ slice.primary.text }}</p>
                 <div v-if="$prismic.isFilled.link(slice.primary.cta)" class="content-cta">
@@ -27,7 +27,7 @@ const { slice } = defineProps(getSliceComponentProps<Content.TextImageSlice>(['s
                     </PrimaryButton>
                 </div>
             </div>
-            <div class="image-wrapper">
+            <div v-reveal="{ delay: 150 }" class="image-wrapper">
                 <NuxtImg
                     class="image"
                     :src="slice.primary.image_1.url?.split('?')[0]"

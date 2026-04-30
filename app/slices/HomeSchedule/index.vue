@@ -41,6 +41,7 @@ const icons = [IconBow, IconCandle, IconCherries, IconCocktail, IconDisco, IconS
             <li
                 v-for="(speaker, index) in slice.primary.speakers.slice(0, 7)"
                 :key="`${speaker.first_name} ${speaker.last_name}`"
+                v-reveal="{ delay: index * 80 }"
                 class="speaker-tile"
             >
                 <Component
@@ -69,7 +70,7 @@ const icons = [IconBow, IconCandle, IconCherries, IconCocktail, IconDisco, IconS
                     </div>
                 </Component>
             </li>
-            <li class="speaker-tile tile-view-all">
+            <li v-reveal="{ delay: 320 }" class="speaker-tile tile-view-all">
                 <NuxtLinkLocale to="schedule" class="tile-link">
                     <h3 class="tile-title" v-html="t('Voir <br>la programmation <br>complète')"></h3>
                     <div class="arrow-wrapper">

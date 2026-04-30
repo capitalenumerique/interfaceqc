@@ -1,9 +1,9 @@
 <template>
     <div class="intro">
-        <h2 class="intro-title">
+        <h2 v-reveal class="intro-title">
             <slot name="title" />
         </h2>
-        <div class="intro-content">
+        <div v-reveal="{ delay: 150 }" class="intro-content">
             <div class="wysiwyg">
                 <slot name="wysiwyg" />
             </div>

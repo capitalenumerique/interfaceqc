@@ -19,15 +19,15 @@ const afterEvent = ref(false);
         </ClientOnly>
         <div class="event-infos-wrapper">
             <div v-if="!afterEvent" class="event-infos infos-top">
-                <h2 class="infos-title">{{ slice.primary.title }}</h2>
-                <p class="infos-text">{{ slice.primary.description }}</p>
-                <PrimaryButton :to="$config.public.ticketing_url" target="_blank">
+                <h2 v-reveal class="infos-title">{{ slice.primary.title }}</h2>
+                <p v-reveal="{ delay: 100 }" class="infos-text">{{ slice.primary.description }}</p>
+                <PrimaryButton v-reveal="{ delay: 200 }" :to="$config.public.ticketing_url" target="_blank">
                     {{ t('Participer') }}
                 </PrimaryButton>
             </div>
             <div v-else class="event-infos infos-bottom">
-                <h2 class="infos-title">{{ t('Télécharge l’application SwapCard') }}</h2>
-                <p class="infos-text">
+                <h2 v-reveal class="infos-title">{{ t('Télécharge l’application SwapCard') }}</h2>
+                <p v-reveal="{ delay: 100 }" class="infos-text">
                     {{ t('Si tu as manqué des conférences à l’édition 2026, les rediffusions sont en cours.') }}
                 </p>
                 <div class="infos-links">

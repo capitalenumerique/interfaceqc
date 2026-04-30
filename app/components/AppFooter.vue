@@ -70,13 +70,7 @@ const archives = [2025];
             </div>
             <div class="column">
                 <div class="quebec-logos">
-                    <img
-                        class="quebec-logo"
-                        src="@/assets/img/quebec.svg"
-                        :alt="t('Québec')"
-                        width="160"
-                        height="35"
-                    />
+                    <img class="quebec-logo" src="@/assets/img/quebec.svg" :alt="t('Québec')" width="160" height="35" />
                     <img
                         class="quebec-city-logo"
                         src="@/assets/img/ville-quebec.svg"

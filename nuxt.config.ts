@@ -24,6 +24,7 @@ export default defineNuxtConfig({
         enabled: true,
     },
     app: {
+        layoutTransition: { name: 'page', mode: 'out-in' },
         pageTransition: { name: 'page', mode: 'out-in' },
         head: {
             link: [
@@ -187,7 +188,9 @@ export default defineNuxtConfig({
         },
     },
     eslint: {
-        checker: true,
+        checker: {
+            eslintPath: 'eslint',
+        },
         config: {
             nuxt: {
                 sortConfigKeys: true,
