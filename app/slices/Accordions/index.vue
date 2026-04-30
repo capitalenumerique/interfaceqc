@@ -12,7 +12,7 @@ defineProps(getSliceComponentProps<Content.AccordionsSlice>(['slice', 'index', '
             <AppAccordion
                 v-for="(accordion, index) in slice.primary.accordions"
                 :key="index"
-                v-reveal="{ delay: Math.min(index, 5) * 60 }"
+                v-reveal="{ delay: index * 60 }"
                 :title="accordion.title"
                 class="wysiwyg"
             >

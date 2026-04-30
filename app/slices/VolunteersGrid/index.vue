@@ -49,7 +49,7 @@ const sortedCategories = Object.fromEntries(
                     <li
                         v-for="(item, index) in category"
                         :key="index"
-                        v-reveal="{ delay: Math.min(index, 5) * 60 }"
+                        v-reveal="{ delay: index * 60 }"
                         class="volunteer-item"
                     >
                         <Component

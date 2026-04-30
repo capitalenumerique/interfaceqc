@@ -41,7 +41,7 @@ const icons = [IconBow, IconCandle, IconCherries, IconCocktail, IconDisco, IconS
             <li
                 v-for="(speaker, index) in slice.primary.speakers.slice(0, 7)"
                 :key="`${speaker.first_name} ${speaker.last_name}`"
-                v-reveal="{ delay: Math.min(index, 4) * 80 }"
+                v-reveal="{ delay: index * 80 }"
                 class="speaker-tile"
             >
                 <Component
