@@ -90,7 +90,7 @@ export default defineEventHandler(async () => {
         'Salle Dialog Insight',
         'Salle C.NUM',
         'Salle Réverbère',
-        'Salle 4',
+        'Salle Pixel',
         'Barista Destination Québec cité',
     ];
     const uniquePlaces = Array.from(

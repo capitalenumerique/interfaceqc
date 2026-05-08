@@ -142,6 +142,7 @@ export default defineNuxtConfig({
                 'vue-draggable-plus',
                 '@prismicio/client',
                 'es-toolkit',
+                '@tanstack/vue-query',
             ],
         },
         plugins: [
