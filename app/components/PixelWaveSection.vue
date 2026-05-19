@@ -38,10 +38,16 @@ const classes = computed(() => ({
 
 <style scoped>
 .wave-section-wrapper {
-    margin: 8% 0;
+    margin: calc(7% + 40px) 0;
+    @media (--lg) {
+        margin: calc(7% + 64px) 0;
+    }
     + .wave-section-wrapper {
         position: relative;
-        margin-top: -8%;
+        margin-top: calc((7% + 40px) * -1);
+        @media (--lg) {
+            margin-top: calc((7% + 64px) * -1);
+        }
         .top-wave {
             display: none;
         }

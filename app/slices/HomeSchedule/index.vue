@@ -94,7 +94,6 @@ const icons = [IconBow, IconCandle, IconCherries, IconCocktail, IconDisco, IconS
 </style>
 <style lang="postcss" scoped>
 .home-schedule {
-    margin: 8% 0;
     background-color: var(--color-secondary);
 }
 .speaker-list {
