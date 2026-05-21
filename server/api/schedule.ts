@@ -165,7 +165,7 @@ export default defineEventHandler(async () => {
 
                 // Valider s'il s'agit d'une conférence
                 const specialSession = [...sessionsInTimeslot].find(
-                    (session) => session.type !== 'Conférence' && session.type !== 'Podcast',
+                    (session) => session.type !== 'Conférence' && session.type !== 'Podcast' && session.type !== 'Atelier',
                 );
 
                 let places;
@@ -180,7 +180,7 @@ export default defineEventHandler(async () => {
                         },
                     ];
 
-                    // Ajouter les podcasts au places si le créneau est entre 12h et 14h
+                    // Ajouter les podcasts aux places si le créneau est entre 12h et 14h
                     if (timeString >= '12:00:00' && timeString < '14:00:00') {
                         const podcastSessions = sessionsInTimeslot.filter((session) => session.type === 'Podcast');
                         podcastSessions.forEach((podcast) => {
