@@ -105,7 +105,10 @@ function stopScroll() {
                     class="timeslot"
                     :class="[
                         timeslot.type,
-                        { 'has-podcast': timeslot.type === 'special' && timeslot.places.length > 1 },
+                        {
+                            'has-podcast': timeslot.type === 'special' && timeslot.places.length > 1,
+                            'special': timeslot.type === 'workshop',
+                        },
                     ]"
                 >
                     <span
@@ -126,6 +129,7 @@ function stopScroll() {
                                 v-if="
                                     i === 0 ||
                                     timeslot.type === 'special' ||
+                                    timeslot.type === 'workshop' ||
                                     day.timeslots[i - 1]?.type !== 'regular' ||
                                     showPlace
                                 "
