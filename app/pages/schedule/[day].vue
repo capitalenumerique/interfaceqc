@@ -18,7 +18,6 @@ const { data } = defineProps<{
     data: ScheduleData[];
 }>();
 
-const { t } = useI18n();
 const { formatSessionTime } = useTimeFormatter();
 const route = useRoute();
 const breakpoints = useBreakpoints({ lg: 1024 }, { ssrWidth: 1024 });
@@ -144,7 +143,7 @@ function slugify(str: string = ''): string {
                             </div>
                             <div class="session-cell">
                                 <ScheduleSessionItem v-if="place.session" :session="place.session" />
-                                <div v-else class="to-be-anounced">{{ t('À venir') }}</div>
+                                <!-- <div v-else class="to-be-anounced">{{ t('À venir') }}</div> -->
                             </div>
                         </div>
                     </div>
