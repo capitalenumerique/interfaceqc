@@ -166,7 +166,7 @@ const hoverColors = computed(() => {
 {
     "en": {
         "{start} à {end}": "{start} to {end}",
-        "Découvre les invités au podcast": "Meet the podcast guests"
+        "Découvre les invités": "Meet the guests"
     }
 }
 </i18n>
