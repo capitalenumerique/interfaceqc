@@ -52,6 +52,7 @@ const hoverColors = computed(() => {
                         class="speaker-item"
                     >
                         <p class="speaker-name">{{ speaker.firstName }} {{ speaker.lastName }}</p>
+                        <p class="speaker-organization">{{ speaker.organization }}</p>
                     </li>
                     <li v-if="session.speakers.length > 2" class="speaker-item">
                         <p class="speaker-name">
