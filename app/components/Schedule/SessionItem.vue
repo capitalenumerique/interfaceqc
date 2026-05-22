@@ -1,4 +1,7 @@
 <script lang="ts" setup>
+import IconArrow from '@/assets/svg/external.svg?component';
+import IconPeople from '@/assets/svg/people.svg?component';
+
 const { session } = defineProps<{
     session: Session;
 }>();
@@ -41,12 +44,35 @@ const hoverColors = computed(() => {
                 </NuxtLinkLocale>
                 <template v-else>{{ session.title }}</template>
             </h2>
-            <ul v-if="hasDetails" class="speakers-list">
-                <li v-for="(speaker, i) in session.speakers" :key="`speaker-${session.id}-${i}`" class="speaker-item">
-                    <p class="speaker-name">{{ speaker.firstName }} {{ speaker.lastName }}</p>
-                    <p class="speaker-organization">{{ speaker.organization }}</p>
-                </li>
-            </ul>
+            <template v-if="hasDetails">
+                <ul v-if="session.type === 'Podcast'" class="speakers-list">
+                    <li
+                        v-for="(speaker, i) in session.speakers.slice(0, 2)"
+                        :key="`speaker-${session.id}-${i}`"
+                        class="speaker-item"
+                    >
+                        <p class="speaker-name">{{ speaker.firstName }} {{ speaker.lastName }}</p>
+                    </li>
+                    <li v-if="session.speakers.length > 2" class="speaker-item">
+                        <p class="speaker-name">
+                            <IconPeople width="20" height="20" />
+                            {{ t('Découvre les invités') }}
+                            <IconArrow width="12" height="12" />
+                        </p>
+                    </li>
+                </ul>
+                <ul v-else class="speakers-list">
+                    <li
+                        v-for="(speaker, i) in session.speakers"
+                        :key="`speaker-${session.id}-${i}`"
+                        class="speaker-item"
+                    >
+                        <p class="speaker-name">{{ speaker.firstName }} {{ speaker.lastName }}</p>
+                        <p class="speaker-organization">{{ speaker.organization }}</p>
+                    </li>
+                </ul>
+            </template>
+
             <span class="session-time">{{
                 t('{start} à {end}', {
                     start: formatSessionTime(session.beginsAt),
@@ -126,6 +152,9 @@ const hoverColors = computed(() => {
     font-size: rem(14px);
     font-weight: 700;
     margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 .speaker-organization {
     font-size: rem(14px);
@@ -136,7 +165,8 @@ const hoverColors = computed(() => {
 <i18n lang="json">
 {
     "en": {
-        "{start} à {end}": "{start} to {end}"
+        "{start} à {end}": "{start} to {end}",
+        "Découvre les invités au podcast": "Meet the podcast guests"
     }
 }
 </i18n>
