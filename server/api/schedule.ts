@@ -158,7 +158,7 @@ export default defineEventHandler(async () => {
                 const sessionsInTimeslot = sessions.filter(
                     (session) => findTimeslot(session.beginsAt, dayTimeslotRange) === timeString,
                 );
-                
+
                 // Ne pas ajouter le créneau s'il n'y a aucune session
                 if (sessionsInTimeslot.length === 0) {
                     return [];
@@ -169,10 +169,8 @@ export default defineEventHandler(async () => {
                 const podcastSessions = sessionsInTimeslot.filter((session) => session.type === 'Podcast');
                 const conferenceSessions = sessionsInTimeslot.filter((session) => session.type === 'Conférence');
                 const specialSessions = sessionsInTimeslot.filter(
-                    (session) => 
-                        session.type !== 'Conférence' && 
-                        session.type !== 'Podcast' && 
-                        session.type !== 'Atelier'
+                    (session) =>
+                        session.type !== 'Conférence' && session.type !== 'Podcast' && session.type !== 'Atelier',
                 );
 
                 const result = [];
@@ -191,7 +189,7 @@ export default defineEventHandler(async () => {
                                         name: specialSession.place,
                                         session: specialSession,
                                     },
-                                    ...podcastSessions.map(podcast => ({
+                                    ...podcastSessions.map((podcast) => ({
                                         name: podcast.place,
                                         session: podcast,
                                     })),
@@ -213,49 +211,31 @@ export default defineEventHandler(async () => {
                     });
                 }
 
-                // 2. Ateliers (chacun dans son propre timeslot)
-                if (workshopSessions.length > 0) {
-                    workshopSessions.forEach((workshop) => {
-                        result.push({
-                            time: timeString,
-                            places: [
-                                {
-                                    name: workshop.place,
-                                    session: workshop,
-                                },
-                            ],
-                            type: 'workshop',
-                        });
-                    });
-                }
+                // 2. Conférences régulières + Ateliers (JAMAIS pendant l'heure du dîner)
+                if (
+                    !isLunchTime &&
+                    (conferenceSessions.length > 0 || podcastSessions.length > 0 || workshopSessions.length > 0)
+                ) {
+                    const places = [
+                        // Ateliers en premier
+                        ...workshopSessions.map((workshop) => ({
+                            name: workshop.place,
+                            session: workshop,
+                        })),
+                        // Ensuite les conférences/podcasts par salle
+                        ...uniquePlaces.map((place) => {
+                            const conferenceInPlace = conferenceSessions.find((session) => session.place === place);
+                            const podcastInPlace = podcastSessions.find((session) => session.place === place);
 
-                // 3. Conférences régulières (JAMAIS pendant l'heure du dîner)
-                if (!isLunchTime && (conferenceSessions.length > 0 || podcastSessions.length > 0)) {
-                    const places = uniquePlaces.map((place) => {
-                        // Chercher une conférence dans cette salle
-                        const conferenceInPlace = conferenceSessions.find((session) => session.place === place);
-                        
-                        // Chercher un podcast dans cette salle
-                        const podcastInPlace = podcastSessions.find((session) => session.place === place);
-                        
-                        // Priorité: conférence > podcast > null
-                        if (conferenceInPlace) {
-                            return {
-                                name: place,
-                                session: conferenceInPlace,
-                            };
-                        } else if (podcastInPlace) {
-                            return {
-                                name: place,
-                                session: podcastInPlace,
-                            };
-                        } else {
-                            return {
-                                name: place,
-                                session: null,
-                            };
-                        }
-                    });
+                            if (conferenceInPlace) {
+                                return { name: place, session: conferenceInPlace };
+                            } else if (podcastInPlace) {
+                                return { name: place, session: podcastInPlace };
+                            } else {
+                                return { name: place, session: null };
+                            }
+                        }),
+                    ];
 
                     result.push({
                         time: timeString,
@@ -263,7 +243,7 @@ export default defineEventHandler(async () => {
                         type: 'regular',
                     });
                 }
-                
+
                 // 4. Si c'est l'heure du dîner SANS session spéciale, forcer "Dîner" au Bistro
                 if (isLunchTime && specialSessions.length === 0) {
                     result.push({
@@ -283,7 +263,7 @@ export default defineEventHandler(async () => {
                                 },
                             },
                             // Ajouter les podcasts s'il y en a
-                            ...podcastSessions.map(podcast => ({
+                            ...podcastSessions.map((podcast) => ({
                                 name: podcast.place,
                                 session: podcast,
                             })),

@@ -72,6 +72,10 @@ function stopScroll() {
         scrollInterval.value = null;
     }
 }
+
+function slugify(str: string = ''): string {
+    return str.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/\s+/g, '-');
+}
 </script>
 
 <template>
@@ -124,6 +128,7 @@ function stopScroll() {
                             v-for="place in timeslot.places"
                             :key="`session-${timeslot.time}-${place.name}`"
                             class="session"
+                            :class="[slugify(place.session?.type)]"
                         >
                             <div
                                 v-if="
@@ -332,6 +337,9 @@ function stopScroll() {
         &:last-child {
             border-right: 0;
         }
+    }
+    &.atelier {
+        grid-column: 1 / span 5;
     }
 }
 .session-cell {
