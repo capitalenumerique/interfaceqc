@@ -109,7 +109,9 @@ function slugify(str: string = ''): string {
                     :class="[
                         timeslot.type,
                         {
-                            'has-podcast': timeslot.type === 'special' && timeslot.places.length > 1,
+                            'has-podcast':
+                                timeslot.type === 'special' &&
+                                timeslot.places.some((p) => p.session?.type === 'Podcast'),
                             'special': timeslot.type === 'workshop',
                         },
                     ]"
@@ -124,8 +126,8 @@ function slugify(str: string = ''): string {
                     </span>
                     <div class="timeslot-sessions">
                         <div
-                            v-for="place in timeslot.places"
-                            :key="`session-${timeslot.time}-${place.name}`"
+                            v-for="(place, placeIndex) in timeslot.places"
+                            :key="`session-${timeslot.time}-${placeIndex}`"
                             class="session"
                             :class="[slugify(place.session?.type)]"
                         >
@@ -337,6 +339,10 @@ function slugify(str: string = ''): string {
             border-right: 0;
         }
     }
+    /* &.podcast {
+        grid-column: 5 / span 1;
+        grid-row: 1 / span 10;
+    } */
     &.atelier {
         grid-column: 1 / span 5;
     }

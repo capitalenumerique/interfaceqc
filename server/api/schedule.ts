@@ -154,13 +154,23 @@ export default defineEventHandler(async () => {
         return {
             date,
             timeslots: dayTimeslotRange.flatMap((slot) => {
-                const timeString = slot.toTimeString().split(' ')[0];
+                const timeString = slot.toTimeString().split(' ')[0]!;
+
+                // 13h est fusionné dans le créneau 12h
+                if (timeString === '13:00:00') return [];
+
                 const sessionsInTimeslot = sessions.filter(
                     (session) => findTimeslot(session.beginsAt, dayTimeslotRange) === timeString,
                 );
 
+                // Pour le créneau 12h, on récupère aussi les sessions de 13h
+                const mergedSessions =
+                    timeString === '12:00:00'
+                        ? sessions.filter((session) => findTimeslot(session.beginsAt, dayTimeslotRange) === '13:00:00')
+                        : [];
+
                 // Ne pas ajouter le créneau s'il n'y a aucune session
-                if (sessionsInTimeslot.length === 0) {
+                if (sessionsInTimeslot.length === 0 && mergedSessions.length === 0) {
                     return [];
                 }
 
@@ -173,32 +183,37 @@ export default defineEventHandler(async () => {
                         session.type !== 'Conférence' && session.type !== 'Podcast' && session.type !== 'Atelier',
                 );
 
+                // Séparer les sessions fusionnées (13h) par type
+                const workshopSessions13h = mergedSessions.filter((session) => session.type === 'Atelier');
+                // const podcastSessions13h = mergedSessions.filter((session) => session.type === 'Podcast');
+                const conferenceSessions13h = mergedSessions.filter((session) => session.type === 'Conférence');
+
                 const result = [];
                 const [hour] = timeString.split(':').map(Number);
-                const isLunchTime = hour >= 12 && hour < 14;
+                const isLunchTime = hour === 12;
+
+                const buildPlaces = (conferences: Session[], podcasts: Session[], workshops: Session[]) => [
+                    ...workshops.map((workshop) => ({ name: workshop.place, session: workshop })),
+                    ...uniquePlaces.map((place) => {
+                        const conferenceInPlace = conferences.find((session) => session.place === place);
+                        const podcastInPlace = podcasts.find((session) => session.place === place);
+                        if (conferenceInPlace) return { name: place, session: conferenceInPlace };
+                        if (podcastInPlace) return { name: place, session: podcastInPlace };
+                        return { name: place, session: null };
+                    }),
+                ];
 
                 // 1. Sessions spéciales (Pause, 5 à 7, Keynote, Réseautage, etc.)
-                if (specialSessions.length > 0) {
-                    const places = [
-                        // Ateliers en premier
-                        ...workshopSessions.map((workshop) => ({
-                            name: workshop.place,
-                            session: workshop,
-                        })),
-                        // Ensuite les conférences/podcasts par salle
-                        ...uniquePlaces.map((place) => {
-                            const conferenceInPlace = conferenceSessions.find((session) => session.place === place);
-                            const podcastInPlace = podcastSessions.find((session) => session.place === place);
+                if (isLunchTime || specialSessions.length > 0) {
+                    const places = buildPlaces(conferenceSessions, [], workshopSessions);
 
-                            if (conferenceInPlace) {
-                                return { name: place, session: conferenceInPlace };
-                            } else if (podcastInPlace) {
-                                return { name: place, session: podcastInPlace };
-                            } else {
-                                return { name: place, session: null };
-                            }
-                        }),
+                    // Places du créneau fusionné (13h) — dupliquées si des sessions existent
+                    const places13h = buildPlaces(conferenceSessions13h, [], workshopSessions13h);
+                    const extraPlaces = [
+                        ...(places.some((p) => p.session) ? places : []),
+                        ...(places13h.some((p) => p.session) ? places13h : []),
                     ];
+
                     specialSessions.forEach((specialSession) => {
                         // Si c'est l'heure du dîner ET qu'il y a des podcasts, on les ajoute ensemble
                         if (isLunchTime && podcastSessions.length > 0) {
@@ -213,7 +228,7 @@ export default defineEventHandler(async () => {
                                         name: podcast.place,
                                         session: podcast,
                                     })),
-                                    ...(places.some((p) => p.session) ? places : []),
+                                    ...extraPlaces,
                                 ],
                                 type: 'special',
                             });
@@ -225,7 +240,7 @@ export default defineEventHandler(async () => {
                                         name: specialSession.place,
                                         session: specialSession,
                                     },
-                                    ...(places.some((p) => p.session) ? places : []),
+                                    ...extraPlaces,
                                 ],
                                 type: 'special',
                             });
@@ -238,26 +253,7 @@ export default defineEventHandler(async () => {
                     !isLunchTime &&
                     (conferenceSessions.length > 0 || podcastSessions.length > 0 || workshopSessions.length > 0)
                 ) {
-                    const places = [
-                        // Ateliers en premier
-                        ...workshopSessions.map((workshop) => ({
-                            name: workshop.place,
-                            session: workshop,
-                        })),
-                        // Ensuite les conférences/podcasts par salle
-                        ...uniquePlaces.map((place) => {
-                            const conferenceInPlace = conferenceSessions.find((session) => session.place === place);
-                            const podcastInPlace = podcastSessions.find((session) => session.place === place);
-
-                            if (conferenceInPlace) {
-                                return { name: place, session: conferenceInPlace };
-                            } else if (podcastInPlace) {
-                                return { name: place, session: podcastInPlace };
-                            } else {
-                                return { name: place, session: null };
-                            }
-                        }),
-                    ];
+                    const places = buildPlaces(conferenceSessions, podcastSessions, workshopSessions);
 
                     result.push({
                         time: timeString,
