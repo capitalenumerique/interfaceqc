@@ -130,6 +130,11 @@ function slugify(str: string = ''): string {
                             :key="`session-${timeslot.time}-${placeIndex}`"
                             class="session"
                             :class="[slugify(place.session?.type)]"
+                            :style="
+                                place.rowSpan && place.rowSpan > 1
+                                    ? { gridColumn: '5', gridRow: `1 / span ${place.rowSpan}` }
+                                    : undefined
+                            "
                         >
                             <div
                                 v-if="
@@ -339,10 +344,12 @@ function slugify(str: string = ''): string {
             border-right: 0;
         }
     }
-    /* &.podcast {
-        grid-column: 5 / span 1;
-        grid-row: 1 / span 10;
-    } */
+    &.podcast {
+        position: relative;
+        border-left: 2px solid var(--beige-100);
+        margin-left: -2px;
+        z-index: 1;
+    }
     &.atelier {
         grid-column: 1 / span 5;
     }

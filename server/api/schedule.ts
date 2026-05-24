@@ -203,48 +203,43 @@ export default defineEventHandler(async () => {
                     }),
                 ];
 
+                const BARISTA = 'Barista Destination Québec cité';
+
                 // 1. Sessions spéciales (Pause, 5 à 7, Keynote, Réseautage, etc.)
                 if (isLunchTime || specialSessions.length > 0) {
-                    const places = buildPlaces(conferenceSessions, [], workshopSessions);
-
-                    // Places du créneau fusionné (13h) — dupliquées si des sessions existent
-                    const places13h = buildPlaces(conferenceSessions13h, [], workshopSessions13h);
+                    // Exclure le Barista des rangées de conférences pendant le dîner — il est réservé au podcast
+                    const places = buildPlaces(conferenceSessions, [], workshopSessions).filter(
+                        (p) => !isLunchTime || p.name !== BARISTA,
+                    );
+                    const places13h = buildPlaces(conferenceSessions13h, [], workshopSessions13h).filter(
+                        (p) => !isLunchTime || p.name !== BARISTA,
+                    );
                     const extraPlaces = [
                         ...(places.some((p) => p.session) ? places : []),
                         ...(places13h.some((p) => p.session) ? places13h : []),
                     ];
 
+                    // Le podcast s'étend sur toutes les rangées : la rangée spéciale + chaque rangée de conférences
+                    const conferenceRowCount =
+                        (places.some((p) => p.session) ? 1 : 0) + (places13h.some((p) => p.session) ? 1 : 0);
+                    const podcastRowSpan = 1 + conferenceRowCount;
+
                     specialSessions.forEach((specialSession) => {
-                        // Si c'est l'heure du dîner ET qu'il y a des podcasts, on les ajoute ensemble
-                        if (isLunchTime && podcastSessions.length > 0) {
-                            result.push({
-                                time: timeString,
-                                places: [
-                                    {
-                                        name: specialSession.place,
-                                        session: specialSession,
-                                    },
-                                    ...podcastSessions.map((podcast) => ({
-                                        name: podcast.place,
-                                        session: podcast,
-                                    })),
-                                    ...extraPlaces,
-                                ],
-                                type: 'special',
-                            });
-                        } else {
-                            result.push({
-                                time: timeString,
-                                places: [
-                                    {
-                                        name: specialSession.place,
-                                        session: specialSession,
-                                    },
-                                    ...extraPlaces,
-                                ],
-                                type: 'special',
-                            });
-                        }
+                        result.push({
+                            time: timeString,
+                            places: [
+                                { name: specialSession.place, session: specialSession },
+                                ...(isLunchTime
+                                    ? podcastSessions.map((podcast) => ({
+                                          name: podcast.place,
+                                          session: podcast,
+                                          rowSpan: podcastRowSpan > 1 ? podcastRowSpan : undefined,
+                                      }))
+                                    : []),
+                                ...extraPlaces,
+                            ],
+                            type: 'special',
+                        });
                     });
                 }
 
