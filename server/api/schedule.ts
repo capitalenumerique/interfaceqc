@@ -179,6 +179,26 @@ export default defineEventHandler(async () => {
 
                 // 1. Sessions spéciales (Pause, 5 à 7, Keynote, Réseautage, etc.)
                 if (specialSessions.length > 0) {
+                    const places = [
+                        // Ateliers en premier
+                        ...workshopSessions.map((workshop) => ({
+                            name: workshop.place,
+                            session: workshop,
+                        })),
+                        // Ensuite les conférences/podcasts par salle
+                        ...uniquePlaces.map((place) => {
+                            const conferenceInPlace = conferenceSessions.find((session) => session.place === place);
+                            const podcastInPlace = podcastSessions.find((session) => session.place === place);
+
+                            if (conferenceInPlace) {
+                                return { name: place, session: conferenceInPlace };
+                            } else if (podcastInPlace) {
+                                return { name: place, session: podcastInPlace };
+                            } else {
+                                return { name: place, session: null };
+                            }
+                        }),
+                    ];
                     specialSessions.forEach((specialSession) => {
                         // Si c'est l'heure du dîner ET qu'il y a des podcasts, on les ajoute ensemble
                         if (isLunchTime && podcastSessions.length > 0) {
@@ -193,6 +213,7 @@ export default defineEventHandler(async () => {
                                         name: podcast.place,
                                         session: podcast,
                                     })),
+                                    ...(places.some((p) => p.session) ? places : []),
                                 ],
                                 type: 'special',
                             });
@@ -204,6 +225,7 @@ export default defineEventHandler(async () => {
                                         name: specialSession.place,
                                         session: specialSession,
                                     },
+                                    ...(places.some((p) => p.session) ? places : []),
                                 ],
                                 type: 'special',
                             });
@@ -245,32 +267,32 @@ export default defineEventHandler(async () => {
                 }
 
                 // 4. Si c'est l'heure du dîner SANS session spéciale, forcer "Dîner" au Bistro
-                if (isLunchTime && specialSessions.length === 0) {
-                    result.push({
-                        time: timeString,
-                        places: [
-                            {
-                                name: 'Bistro',
-                                session: {
-                                    id: `lunch-bistro-${timeString}`,
-                                    title: 'Dîner',
-                                    beginsAt: timeString,
-                                    endsAt: '14:00:00',
-                                    place: 'Bistro',
-                                    categories: [],
-                                    type: 'Pause',
-                                    speakers: [],
-                                },
-                            },
-                            // Ajouter les podcasts s'il y en a
-                            ...podcastSessions.map((podcast) => ({
-                                name: podcast.place,
-                                session: podcast,
-                            })),
-                        ],
-                        type: 'special',
-                    });
-                }
+                // if (isLunchTime && specialSessions.length === 0) {
+                //     result.push({
+                //         time: timeString,
+                //         places: [
+                //             {
+                //                 name: 'Bistro',
+                //                 session: {
+                //                     id: `lunch-bistro-${timeString}`,
+                //                     title: 'Dîner',
+                //                     beginsAt: timeString,
+                //                     endsAt: '14:00:00',
+                //                     place: 'Bistro',
+                //                     categories: [],
+                //                     type: 'Pause',
+                //                     speakers: [],
+                //                 },
+                //             },
+                //             // Ajouter les podcasts s'il y en a
+                //             ...podcastSessions.map((podcast) => ({
+                //                 name: podcast.place,
+                //                 session: podcast,
+                //             })),
+                //         ],
+                //         type: 'special',
+                //     });
+                // }
 
                 return result;
             }),

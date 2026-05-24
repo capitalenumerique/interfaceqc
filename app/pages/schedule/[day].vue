@@ -318,7 +318,7 @@ function slugify(str: string = ''): string {
 .place {
     padding: 24px;
     font-weight: 500;
-    border-bottom: 2px solid var(--beige-100);
+    border-block: 2px solid var(--beige-100);
 }
 .session {
     display: flex;
