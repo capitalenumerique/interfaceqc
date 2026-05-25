@@ -23,11 +23,14 @@ const hasDetails = computed(() => {
 
 const config = useRuntimeConfig();
 const year = new Date(config.public.start_date).getFullYear();
+const bookmarks = ref({});
 
-const bookmarks = useCookie<Record<number, string[]>>('bookmarked-sessions', {
-    default: () => ({}),
-    maxAge: 60 * 60 * 24 * 400,
-    path: '/',
+onMounted(() => {
+    bookmarks.value = useCookie<Record<number, string[]>>('bookmarked-sessions', {
+        default: () => ({}),
+        maxAge: 60 * 60 * 24 * 400,
+        path: '/',
+    }).value;
 });
 
 const isBookmarked = computed(() => bookmarks.value[year]?.includes(session.id) ?? false);
