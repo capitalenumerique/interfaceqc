@@ -68,7 +68,7 @@ function formatDate(date: string) {
                     })
                 }}</span>
             </div>
-            <h1 class="session-title">{{ data.title }}</h1>
+            <h1 class="session-title">{{ data.title.replace(' :', ' :') }}</h1>
             <div v-html="data.htmlDescription"></div>
             <p class="session-place">{{ data.place }}</p>
             <ScheduleSessionCategories :categories="data.categories" />

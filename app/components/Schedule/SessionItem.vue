@@ -63,9 +63,9 @@ const hoverColors = computed(() => {
                     :to="{ name: 'session-id', params: { id: `${sessionSlug}-${session.id}` } }"
                     class="session-link"
                 >
-                    {{ session.title }}
+                    {{ session.title.replace(' :', ' :') }}
                 </NuxtLinkLocale>
-                <template v-else>{{ session.title }}</template>
+                <template v-else>{{ session.title.replace(' :', ' :') }}</template>
                 <span class="nowrap"
                     >&nbsp;<button type="button" class="btn-bookmark" @click="bookmark(session.id)">
                         <IconBookmark width="24" height="24" /></button
