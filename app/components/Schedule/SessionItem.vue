@@ -23,14 +23,17 @@ const hasDetails = computed(() => {
 
 const config = useRuntimeConfig();
 const year = new Date(config.public.start_date).getFullYear();
-const bookmarks = ref({});
+
+const cookieBookmarks = useCookie<Record<number, string[]>>('bookmarked-sessions', {
+    default: () => ({}),
+    maxAge: 60 * 60 * 24 * 400,
+    path: '/',
+});
+
+const bookmarks = ref<Record<number, string[]>>({});
 
 onMounted(() => {
-    bookmarks.value = useCookie<Record<number, string[]>>('bookmarked-sessions', {
-        default: () => ({}),
-        maxAge: 60 * 60 * 24 * 400,
-        path: '/',
-    }).value;
+    bookmarks.value = cookieBookmarks.value;
 });
 
 const isBookmarked = computed(() => bookmarks.value[year]?.includes(session.id) ?? false);
@@ -42,6 +45,7 @@ const bookmark = (id: string) => {
     } else {
         bookmarks.value = { ...bookmarks.value, [year]: [...current, id] };
     }
+    cookieBookmarks.value = bookmarks.value;
 };
 
 const hoverColors = computed(() => {
