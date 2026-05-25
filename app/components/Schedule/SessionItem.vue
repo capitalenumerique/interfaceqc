@@ -30,22 +30,23 @@ const cookieBookmarks = useCookie<Record<number, string[]>>('bookmarked-sessions
     path: '/',
 });
 
-const bookmarks = ref<Record<number, string[]>>({});
-
+const mounted = ref(false);
 onMounted(() => {
-    bookmarks.value = cookieBookmarks.value;
+    mounted.value = true;
 });
 
-const isBookmarked = computed(() => bookmarks.value[year]?.includes(session.id) ?? false);
+const isBookmarked = computed(() => {
+    if (!mounted.value) return false;
+    return cookieBookmarks.value[year]?.includes(session.id) ?? false;
+});
 
 const bookmark = (id: string) => {
-    const current = bookmarks.value[year] ?? [];
+    const current = cookieBookmarks.value[year] ?? [];
     if (current.includes(id)) {
-        bookmarks.value = { ...bookmarks.value, [year]: current.filter((b) => b !== id) };
+        cookieBookmarks.value = { ...cookieBookmarks.value, [year]: current.filter((b) => b !== id) };
     } else {
-        bookmarks.value = { ...bookmarks.value, [year]: [...current, id] };
+        cookieBookmarks.value = { ...cookieBookmarks.value, [year]: [...current, id] };
     }
-    cookieBookmarks.value = bookmarks.value;
 };
 
 const hoverColors = computed(() => {
