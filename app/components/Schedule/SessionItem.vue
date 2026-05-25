@@ -52,8 +52,28 @@ const hoverColors = computed(() => {
                         :key="`speaker-${session.id}-${i}`"
                         class="speaker-item"
                     >
-                        <p class="speaker-name">{{ speaker.firstName }} {{ speaker.lastName }}</p>
-                        <p class="speaker-organization">{{ speaker.organization }}</p>
+                        <div class="speaker-photo">
+                            <NuxtImg
+                                v-if="speaker.photoUrl"
+                                :src="speaker.photoUrl"
+                                :alt="`${speaker.firstName} ${speaker.lastName}`"
+                                width="40"
+                                height="40"
+                                format="webp"
+                            />
+                            <NuxtImg
+                                v-else
+                                :src="`https://ui-avatars.com/api/?name=${speaker.firstName}+${speaker.lastName}&background=e2d5c6&color=593e35&bold=true&format=svg`"
+                                :alt="`${speaker.firstName} ${speaker.lastName}`"
+                                width="40"
+                                height="40"
+                                format="webp"
+                            />
+                        </div>
+                        <div>
+                            <p class="speaker-name">{{ speaker.firstName }} {{ speaker.lastName }}</p>
+                            <p class="speaker-organization">{{ speaker.organization }}</p>
+                        </div>
                     </li>
                     <li v-if="session.speakers.length > 2" class="speaker-item">
                         <p class="speaker-name">
@@ -69,8 +89,28 @@ const hoverColors = computed(() => {
                         :key="`speaker-${session.id}-${i}`"
                         class="speaker-item"
                     >
-                        <p class="speaker-name">{{ speaker.firstName }} {{ speaker.lastName }}</p>
-                        <p class="speaker-organization">{{ speaker.organization }}</p>
+                        <div class="speaker-photo">
+                            <NuxtImg
+                                v-if="speaker.photoUrl"
+                                :src="speaker.photoUrl"
+                                :alt="`${speaker.firstName} ${speaker.lastName}`"
+                                width="40"
+                                height="40"
+                                format="webp"
+                            />
+                            <NuxtImg
+                                v-else
+                                :src="`https://ui-avatars.com/api/?name=${speaker.firstName}+${speaker.lastName}&background=e2d5c6&color=593e35&bold=true&format=svg`"
+                                :alt="`${speaker.firstName} ${speaker.lastName}`"
+                                width="40"
+                                height="40"
+                                format="webp"
+                            />
+                        </div>
+                        <div>
+                            <p class="speaker-name">{{ speaker.firstName }} {{ speaker.lastName }}</p>
+                            <p class="speaker-organization">{{ speaker.organization }}</p>
+                        </div>
                     </li>
                 </ul>
             </template>
@@ -147,8 +187,12 @@ const hoverColors = computed(() => {
 }
 .speaker-item {
     display: flex;
-    flex-direction: column;
-    gap: 4px;
+    gap: 8px;
+    .speaker-photo {
+        display: flex;
+        overflow: hidden;
+        border-radius: 8px;
+    }
 }
 .speaker-name {
     font-size: rem(14px);

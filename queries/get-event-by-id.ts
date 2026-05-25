@@ -25,6 +25,7 @@ export const GET_EVENT_BY_ID = gql`
                     firstName
                     lastName
                     organization
+                    photoUrl
                 }
             }
         }
