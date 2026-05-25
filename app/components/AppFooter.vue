@@ -99,11 +99,9 @@ const archives = [2025];
                 <div class="copyright">
                     <a href="https://capitalenumerique.com/politique-de-confidentialite/" target="_blank">
                         {{ t('Politique de confidentialité') }}
-                        &nbsp;
                     </a>
                     <span>
                         {{ t('© Interface - Québec {n}. Tous droits réservés.', new Date().getFullYear()) }}
-                        &nbsp;
                     </span>
                     <span>
                         <template v-if="$config.public.commitTag || $config.public.commitShortSha">
@@ -279,15 +277,15 @@ const archives = [2025];
     }
 }
 .copyright {
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
     font-size: rem(12px);
     line-height: 1.5;
-    gap: 8px 4px;
+    gap: 8px 12px;
     margin-right: 64px;
     @media (--md) {
         flex-direction: row;
-        margin-right: 0;
+        flex-wrap: wrap;
     }
     a {
         color: var(--beige-100);

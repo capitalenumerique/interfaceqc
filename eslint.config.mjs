@@ -37,5 +37,6 @@ export default withNuxt({
                 defineExposeLast: true,
             },
         ],
+        'no-irregular-whitespace': 'off',
     },
 });

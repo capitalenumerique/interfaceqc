@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import IconArrow from '@/assets/svg/external.svg?component';
 import IconPeople from '@/assets/svg/people.svg?component';
+import IconBookmark from '@/assets/svg/bookmark.svg?component';
 
 const { session } = defineProps<{
     session: Session;
@@ -20,6 +21,34 @@ const hasDetails = computed(() => {
     );
 });
 
+const config = useRuntimeConfig();
+const year = new Date(config.public.start_date).getFullYear();
+
+const cookieBookmarks = useCookie<Record<number, string[]>>('bookmarked-sessions', {
+    default: () => ({}),
+    maxAge: 60 * 60 * 24 * 400,
+    path: '/',
+});
+
+const mounted = ref(false);
+onMounted(() => {
+    mounted.value = true;
+});
+
+const isBookmarked = computed(() => {
+    if (!mounted.value) return false;
+    return cookieBookmarks.value[year]?.includes(session.id) ?? false;
+});
+
+const bookmark = (id: string) => {
+    const current = cookieBookmarks.value[year] ?? [];
+    if (current.includes(id)) {
+        cookieBookmarks.value = { ...cookieBookmarks.value, [year]: current.filter((b) => b !== id) };
+    } else {
+        cookieBookmarks.value = { ...cookieBookmarks.value, [year]: [...current, id] };
+    }
+};
+
 const hoverColors = computed(() => {
     const colors = session.categories?.[0]?.colors || {
         bg: 'var(--orange-800)',
@@ -33,7 +62,11 @@ const hoverColors = computed(() => {
 </script>
 
 <template>
-    <div class="session-wrapper" :class="{ 'has-details': hasDetails }" :style="hoverColors">
+    <div
+        class="session-wrapper"
+        :class="{ 'has-details': hasDetails, 'is-bookmarked': isBookmarked }"
+        :style="hoverColors"
+    >
         <div>
             <h2 class="session-title">
                 <NuxtLinkLocale
@@ -41,9 +74,13 @@ const hoverColors = computed(() => {
                     :to="{ name: 'session-id', params: { id: `${sessionSlug}-${session.id}` } }"
                     class="session-link"
                 >
-                    {{ session.title }}
+                    {{ session.title.replace(' :', ' :') }}
                 </NuxtLinkLocale>
-                <template v-else>{{ session.title }}</template>
+                <template v-else>{{ session.title.replace(' :', ' :') }}</template>
+                <span class="nowrap"
+                    >&nbsp;<button type="button" class="btn-bookmark" @click="bookmark(session.id)">
+                        <IconBookmark width="24" height="24" /></button
+                ></span>
             </h2>
             <template v-if="hasDetails">
                 <ul v-if="session.type === 'Podcast'" class="speakers-list">
@@ -138,13 +175,29 @@ const hoverColors = computed(() => {
     transition:
         background-color var(--hover-transition),
         color var(--hover-transition);
-    &.has-details:hover,
-    &.has-details:focus-visible {
+    &.is-bookmarked,
+    &.has-details:focus-visible,
+    &.has-details:hover {
         background-color: var(--hover-bg);
         color: var(--hover-text);
         :deep(.category-item) {
             background-color: var(--hover-bg);
             color: var(--hover-text);
+        }
+    }
+    &.is-bookmarked {
+        .btn-bookmark {
+            svg {
+                fill: currentColor;
+            }
+            &:focus-visible,
+            &:hover {
+                svg {
+                    stroke: currentColor;
+                    fill: transparent;
+                    transition: all var(--hover-transition);
+                }
+            }
         }
     }
 }
@@ -166,6 +219,27 @@ const hoverColors = computed(() => {
         position: absolute;
         top: 0;
         left: 0;
+        z-index: 1;
+    }
+}
+.btn-bookmark {
+    all: unset;
+    position: relative;
+    z-index: 2;
+    vertical-align: middle;
+    cursor: pointer;
+    padding: 8px;
+    margin: -8px;
+    svg {
+        stroke: currentColor;
+        fill: transparent;
+        transition: all var(--hover-transition);
+    }
+    &:focus-visible,
+    &:hover {
+        svg {
+            fill: currentColor;
+        }
     }
 }
 .session-time {
@@ -207,6 +281,9 @@ const hoverColors = computed(() => {
 .speaker-organization {
     font-size: rem(14px);
     margin: 0;
+}
+.nowrap {
+    white-space: nowrap;
 }
 </style>
 
