@@ -22,19 +22,22 @@ const hasDetails = computed(() => {
 });
 
 const config = useRuntimeConfig();
-const bookmarks = useCookie<string[]>(`bookmarked-sessions-${new Date(config.public.start_date).getFullYear()}`, {
-    default: () => [],
-    maxAge: 60 * 60 * 24 * 365,
+const year = new Date(config.public.start_date).getFullYear();
+
+const bookmarks = useCookie<Record<number, string[]>>('bookmarked-sessions', {
+    default: () => ({}),
+    maxAge: 60 * 60 * 24 * 400,
     path: '/',
 });
 
-const isBookmarked = computed(() => bookmarks.value.includes(session.id));
+const isBookmarked = computed(() => bookmarks.value[year]?.includes(session.id) ?? false);
 
 const bookmark = (id: string) => {
-    if (bookmarks.value.includes(id)) {
-        bookmarks.value = bookmarks.value.filter((b) => b !== id);
+    const current = bookmarks.value[year] ?? [];
+    if (current.includes(id)) {
+        bookmarks.value = { ...bookmarks.value, [year]: current.filter((b) => b !== id) };
     } else {
-        bookmarks.value = [...bookmarks.value, id];
+        bookmarks.value = { ...bookmarks.value, [year]: [...current, id] };
     }
 };
 
