@@ -187,11 +187,13 @@ const hoverColors = computed(() => {
 }
 .speaker-item {
     display: flex;
+    align-items: flex-start;
     gap: 8px;
     .speaker-photo {
         display: flex;
         overflow: hidden;
         border-radius: 8px;
+        flex-shrink: 0;
     }
 }
 .speaker-name {
