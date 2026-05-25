@@ -59,6 +59,7 @@ type ScheduleData = {
         places: {
             name: string;
             session: Session;
+            rowSpan?: number;
         }[];
     }[];
 };

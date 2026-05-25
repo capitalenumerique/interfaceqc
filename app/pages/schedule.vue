@@ -127,14 +127,8 @@ const dates = computed(() => {
     padding: 8px;
     margin: 0 0 64px;
     list-style: none;
-    width: 100%;
-    max-width: 400px;
     justify-content: space-between;
     background-color: var(--color-white);
-    @media (--md) {
-        width: auto;
-        max-width: none;
-    }
 }
 .date-tab {
     display: block;

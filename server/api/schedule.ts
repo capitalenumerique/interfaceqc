@@ -58,7 +58,7 @@ export default defineEventHandler(async () => {
     const groupedSessions = groupBy(sessions, (session) => session.date);
 
     // Définir les créneaux horaire pour la journée
-    const baseTimeslotRange = Array.from({ length: 9 }, (_, i) => new Date(0, 0, 0, 9 + i, 0, 0));
+    const baseTimeslotRange = Array.from({ length: 11 }, (_, i) => new Date(0, 0, 0, 9 + i, 0, 0));
 
     // Créneau spécial avant 9h
     const earlyTimeslot = new Date(0, 0, 0, 8, 0, 0);
@@ -154,84 +154,138 @@ export default defineEventHandler(async () => {
         return {
             date,
             timeslots: dayTimeslotRange.flatMap((slot) => {
-                const timeString = slot.toTimeString().split(' ')[0];
+                const timeString = slot.toTimeString().split(' ')[0]!;
+
+                // 13h est fusionné dans le créneau 12h
+                if (timeString === '13:00:00') return [];
+
                 const sessionsInTimeslot = sessions.filter(
                     (session) => findTimeslot(session.beginsAt, dayTimeslotRange) === timeString,
                 );
+
+                // Pour le créneau 12h, on récupère aussi les sessions de 13h
+                const mergedSessions =
+                    timeString === '12:00:00'
+                        ? sessions.filter((session) => findTimeslot(session.beginsAt, dayTimeslotRange) === '13:00:00')
+                        : [];
+
                 // Ne pas ajouter le créneau s'il n'y a aucune session
-                if (sessionsInTimeslot.length === 0) {
+                if (sessionsInTimeslot.length === 0 && mergedSessions.length === 0) {
                     return [];
                 }
 
-                // Valider s'il s'agit d'une conférence
-                const specialSession = [...sessionsInTimeslot].find(
-                    (session) => session.type !== 'Conférence' && session.type !== 'Podcast' && session.type !== 'Atelier',
+                // Séparer les sessions par type
+                const workshopSessions = sessionsInTimeslot.filter((session) => session.type === 'Atelier');
+                const podcastSessions = sessionsInTimeslot.filter((session) => session.type === 'Podcast');
+                const conferenceSessions = sessionsInTimeslot.filter((session) => session.type === 'Conférence');
+                const specialSessions = sessionsInTimeslot.filter(
+                    (session) =>
+                        session.type !== 'Conférence' && session.type !== 'Podcast' && session.type !== 'Atelier',
                 );
 
-                let places;
-                let type;
-                if (specialSession) {
-                    // S'il s'agit d'un autre type que "Conférence", par exemple: un keynote, un atelier au dîner
-                    // ou un 5 à 7, elle sera la seule session du créneau horaire
-                    places = [
-                        {
-                            name: specialSession.place,
-                            session: specialSession,
-                        },
+                // Séparer les sessions fusionnées (13h) par type
+                const workshopSessions13h = mergedSessions.filter((session) => session.type === 'Atelier');
+                // const podcastSessions13h = mergedSessions.filter((session) => session.type === 'Podcast');
+                const conferenceSessions13h = mergedSessions.filter((session) => session.type === 'Conférence');
+
+                const result = [];
+                const [hour] = timeString.split(':').map(Number);
+                const isLunchTime = hour === 12;
+
+                const buildPlaces = (conferences: Session[], podcasts: Session[], workshops: Session[]) => [
+                    ...workshops.map((workshop) => ({ name: workshop.place, session: workshop })),
+                    ...uniquePlaces.map((place) => {
+                        const conferenceInPlace = conferences.find((session) => session.place === place);
+                        const podcastInPlace = podcasts.find((session) => session.place === place);
+                        if (conferenceInPlace) return { name: place, session: conferenceInPlace };
+                        if (podcastInPlace) return { name: place, session: podcastInPlace };
+                        return { name: place, session: null };
+                    }),
+                ];
+
+                const BARISTA = 'Barista Destination Québec cité';
+
+                // 1. Sessions spéciales (Pause, 5 à 7, Keynote, Réseautage, etc.)
+                if (isLunchTime || specialSessions.length > 0) {
+                    // Exclure le Barista des rangées de conférences pendant le dîner — il est réservé au podcast
+                    const places = buildPlaces(conferenceSessions, [], workshopSessions).filter(
+                        (p) => !isLunchTime || p.name !== BARISTA,
+                    );
+                    const places13h = buildPlaces(conferenceSessions13h, [], workshopSessions13h).filter(
+                        (p) => !isLunchTime || p.name !== BARISTA,
+                    );
+                    const extraPlaces = [
+                        ...(places.some((p) => p.session) ? places : []),
+                        ...(places13h.some((p) => p.session) ? places13h : []),
                     ];
 
-                    // Ajouter les podcasts aux places si le créneau est entre 12h et 14h
-                    if (timeString >= '12:00:00' && timeString < '14:00:00') {
-                        const podcastSessions = sessionsInTimeslot.filter((session) => session.type === 'Podcast');
-                        podcastSessions.forEach((podcast) => {
-                            places.push({
-                                name: podcast.place,
-                                session: podcast,
-                            });
-                        });
-                    }
+                    // Le podcast s'étend sur toutes les rangées : la rangée spéciale + chaque rangée de conférences
+                    const conferenceRowCount =
+                        (places.some((p) => p.session) ? 1 : 0) + (places13h.some((p) => p.session) ? 1 : 0);
+                    const podcastRowSpan = 1 + conferenceRowCount;
 
-                    type = 'special';
-                } else {
-                    // Conférences par défaut
-                    places = uniquePlaces.map((place) => {
-                        const sessionInPlace = sessionsInTimeslot.find((session) => session.place === place);
-                        if (sessionInPlace) {
-                            return {
-                                name: place,
-                                session: sessionInPlace ? sessionInPlace : null,
-                            };
-                        } else {
-                            // Affichage différent pour le créneau de 13h
-                            if (timeString === '13:00:00') {
-                                return {
-                                    name: place,
-                                    session: {
-                                        id: `lunch-${place}`,
-                                        title: 'Heure de dîner',
-                                        beginsAt: '13:00:00',
-                                        endsAt: '14:00:00',
-                                        categories: [],
-                                        type: 'Lunch',
-                                        speakers: [],
-                                    },
-                                };
-                            } else {
-                                return {
-                                    name: place,
-                                    session: null,
-                                };
-                            }
-                        }
+                    specialSessions.forEach((specialSession) => {
+                        result.push({
+                            time: timeString,
+                            places: [
+                                { name: specialSession.place, session: specialSession },
+                                ...(isLunchTime
+                                    ? podcastSessions.map((podcast) => ({
+                                          name: podcast.place,
+                                          session: podcast,
+                                          rowSpan: podcastRowSpan > 1 ? podcastRowSpan : undefined,
+                                      }))
+                                    : []),
+                                ...extraPlaces,
+                            ],
+                            type: 'special',
+                        });
                     });
-                    type = 'regular';
                 }
 
-                return {
-                    time: timeString,
-                    places,
-                    type,
-                };
+                // 2. Conférences régulières + Ateliers (JAMAIS pendant l'heure du dîner)
+                if (
+                    !isLunchTime &&
+                    (conferenceSessions.length > 0 || podcastSessions.length > 0 || workshopSessions.length > 0)
+                ) {
+                    const places = buildPlaces(conferenceSessions, podcastSessions, workshopSessions);
+
+                    result.push({
+                        time: timeString,
+                        places,
+                        type: 'regular',
+                    });
+                }
+
+                // 4. Si c'est l'heure du dîner SANS session spéciale, forcer "Dîner" au Bistro
+                // if (isLunchTime && specialSessions.length === 0) {
+                //     result.push({
+                //         time: timeString,
+                //         places: [
+                //             {
+                //                 name: 'Bistro',
+                //                 session: {
+                //                     id: `lunch-bistro-${timeString}`,
+                //                     title: 'Dîner',
+                //                     beginsAt: timeString,
+                //                     endsAt: '14:00:00',
+                //                     place: 'Bistro',
+                //                     categories: [],
+                //                     type: 'Pause',
+                //                     speakers: [],
+                //                 },
+                //             },
+                //             // Ajouter les podcasts s'il y en a
+                //             ...podcastSessions.map((podcast) => ({
+                //                 name: podcast.place,
+                //                 session: podcast,
+                //             })),
+                //         ],
+                //         type: 'special',
+                //     });
+                // }
+
+                return result;
             }),
         };
     });
