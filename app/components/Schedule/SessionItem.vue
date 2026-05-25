@@ -172,6 +172,7 @@ const hoverColors = computed(() => {
     width: 100%;
     height: 100%;
     padding: 24px;
+    z-index: 0;
     transition:
         background-color var(--hover-transition),
         color var(--hover-transition);
