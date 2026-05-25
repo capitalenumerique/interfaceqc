@@ -180,7 +180,7 @@ function slugify(str: string = ''): string {
     top: 0;
     bottom: 0;
     width: 64px;
-    z-index: 2;
+    z-index: 3;
     opacity: 0;
     pointer-events: none;
     transition: opacity var(--hover-transition);
