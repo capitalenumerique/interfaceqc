@@ -129,7 +129,7 @@ function slugify(str: string = ''): string {
                             v-for="(place, placeIndex) in timeslot.places"
                             :key="`session-${timeslot.time}-${placeIndex}`"
                             class="session"
-                            :class="[slugify(place.session?.type)]"
+                            :class="[slugify(place.session?.type), { empty: !place.session }]"
                             :style="
                                 place.rowSpan && place.rowSpan > 1
                                     ? { gridColumn: '5', gridRow: `1 / span ${place.rowSpan}` }
@@ -180,7 +180,7 @@ function slugify(str: string = ''): string {
     top: 0;
     bottom: 0;
     width: 64px;
-    z-index: 1;
+    z-index: 2;
     opacity: 0;
     pointer-events: none;
     transition: opacity var(--hover-transition);
@@ -260,7 +260,7 @@ function slugify(str: string = ''): string {
             }
         }
         .session {
-            border-bottom: 0;
+            margin-bottom: -2px;
             &:first-child {
                 grid-column: 1 / span 5;
             }
@@ -315,7 +315,7 @@ function slugify(str: string = ''): string {
     @media (--lg) {
         display: grid;
         grid-template-columns: repeat(5, minmax(0, 1fr));
-        min-width: calc(5 * 290px);
+        min-width: calc(5 * 300px);
         margin-bottom: 0;
     }
     .special & {
@@ -326,6 +326,7 @@ function slugify(str: string = ''): string {
     padding: 24px;
     font-weight: 500;
     border-block: 2px solid var(--beige-100);
+    margin-top: -2px;
 }
 .session {
     display: flex;
@@ -347,11 +348,18 @@ function slugify(str: string = ''): string {
     &.podcast {
         position: relative;
         border-left: 2px solid var(--beige-100);
+        border-right: 0;
         margin-left: -2px;
         z-index: 1;
     }
     &.atelier {
+        border-right: 0;
         grid-column: 1 / span 5;
+    }
+    &.empty {
+        @media (--lg-down) {
+            display: none;
+        }
     }
 }
 .session-cell {
