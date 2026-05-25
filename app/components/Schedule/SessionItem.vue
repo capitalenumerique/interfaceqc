@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import IconArrow from '@/assets/svg/external.svg?component';
 import IconPeople from '@/assets/svg/people.svg?component';
+import IconBookmark from '@/assets/svg/bookmark.svg?component';
 
 const { session } = defineProps<{
     session: Session;
@@ -20,6 +21,18 @@ const hasDetails = computed(() => {
     );
 });
 
+const bookmarks = useCookie<string[]>('bookmarked-sessions', { default: () => [] });
+
+const isBookmarked = computed(() => bookmarks.value.includes(session.id));
+
+const bookmark = (id: string) => {
+    if (bookmarks.value.includes(id)) {
+        bookmarks.value = bookmarks.value.filter((b) => b !== id);
+    } else {
+        bookmarks.value = [...bookmarks.value, id];
+    }
+};
+
 const hoverColors = computed(() => {
     const colors = session.categories?.[0]?.colors || {
         bg: 'var(--orange-800)',
@@ -33,7 +46,11 @@ const hoverColors = computed(() => {
 </script>
 
 <template>
-    <div class="session-wrapper" :class="{ 'has-details': hasDetails }" :style="hoverColors">
+    <div
+        class="session-wrapper"
+        :class="{ 'has-details': hasDetails, 'is-bookmarked': isBookmarked }"
+        :style="hoverColors"
+    >
         <div>
             <h2 class="session-title">
                 <NuxtLinkLocale
@@ -44,6 +61,10 @@ const hoverColors = computed(() => {
                     {{ session.title }}
                 </NuxtLinkLocale>
                 <template v-else>{{ session.title }}</template>
+                <span class="nowrap"
+                    >&nbsp;<button type="button" class="btn-bookmark" @click="bookmark(session.id)">
+                        <IconBookmark width="24" height="24" /></button
+                ></span>
             </h2>
             <template v-if="hasDetails">
                 <ul v-if="session.type === 'Podcast'" class="speakers-list">
@@ -98,13 +119,29 @@ const hoverColors = computed(() => {
     transition:
         background-color var(--hover-transition),
         color var(--hover-transition);
-    &.has-details:hover,
-    &.has-details:focus-visible {
+    &.is-bookmarked,
+    &.has-details:focus-visible,
+    &.has-details:hover {
         background-color: var(--hover-bg);
         color: var(--hover-text);
         :deep(.category-item) {
             background-color: var(--hover-bg);
             color: var(--hover-text);
+        }
+    }
+    &.is-bookmarked {
+        .btn-bookmark {
+            svg {
+                fill: currentColor;
+            }
+            &:focus-visible,
+            &:hover {
+                svg {
+                    stroke: currentColor;
+                    fill: transparent;
+                    transition: all var(--hover-transition);
+                }
+            }
         }
     }
 }
@@ -126,6 +163,27 @@ const hoverColors = computed(() => {
         position: absolute;
         top: 0;
         left: 0;
+        z-index: 1;
+    }
+}
+.btn-bookmark {
+    all: unset;
+    position: relative;
+    z-index: 2;
+    vertical-align: middle;
+    cursor: pointer;
+    padding: 8px;
+    margin: -8px;
+    svg {
+        stroke: currentColor;
+        fill: transparent;
+        transition: all var(--hover-transition);
+    }
+    &:focus-visible,
+    &:hover {
+        svg {
+            fill: currentColor;
+        }
     }
 }
 .session-time {
@@ -161,6 +219,9 @@ const hoverColors = computed(() => {
 .speaker-organization {
     font-size: rem(14px);
     margin: 0;
+}
+.nowrap {
+    white-space: nowrap;
 }
 </style>
 
