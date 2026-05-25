@@ -21,7 +21,12 @@ const hasDetails = computed(() => {
     );
 });
 
-const bookmarks = useCookie<string[]>('bookmarked-sessions', { default: () => [] });
+const config = useRuntimeConfig();
+const bookmarks = useCookie<string[]>(`bookmarked-sessions-${new Date(config.public.start_date).getFullYear()}`, {
+    default: () => [],
+    maxAge: 60 * 60 * 24 * 365,
+    path: '/',
+});
 
 const isBookmarked = computed(() => bookmarks.value.includes(session.id));
 
