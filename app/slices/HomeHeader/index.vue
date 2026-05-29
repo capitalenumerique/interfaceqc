@@ -6,8 +6,8 @@ import type { Content } from '@prismicio/client';
 defineProps(getSliceComponentProps<Content.HomeHeaderSlice>(['slice', 'index', 'slices', 'context']));
 
 const { t, locale, localeProperties } = useI18n();
-const duringOrAfterEvent = ref(true);
-const afterEvent = ref(false);
+const duringOrAfterEvent = ref(false);
+const afterEvent = ref(true);
 </script>
 
 <template>

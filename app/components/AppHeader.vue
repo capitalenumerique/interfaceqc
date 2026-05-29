@@ -16,11 +16,11 @@ const maxHeight = ref('0px');
 const menu = useTemplateRef<HTMLElement>('menu');
 const menuList = useTemplateRef('menuList');
 const items = computed(() => [
-    {
-        label: t('Billetterie'),
-        path: 'tickets',
-        color: 'pink-DEFAULT',
-    },
+    // {
+    //     label: t('Billetterie'),
+    //     path: 'tickets',
+    //     color: 'pink-DEFAULT',
+    // },
     {
         label: t('Programmation'),
         path: 'schedule',
