@@ -29,7 +29,7 @@ const socials = [
     },
 ];
 
-const archives = [2025];
+const archives = [2026, 2025];
 </script>
 
 <template>
