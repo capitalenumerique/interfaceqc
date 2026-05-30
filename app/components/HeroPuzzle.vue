@@ -4,13 +4,16 @@ import { useBreakpoints } from '@vueuse/core';
 import { shuffle } from 'es-toolkit/array';
 import { VueDraggable } from 'vue-draggable-plus';
 
-import Piece1 from '@/assets/svg/puzzle/piece-1.svg';
+import Piece1Fr from '@/assets/svg/puzzle/piece-1-fr.svg';
+import Piece1En from '@/assets/svg/puzzle/piece-1-en.svg';
 import Piece2 from '@/assets/svg/puzzle/piece-2.svg?skipsvgo';
 import Piece3 from '@/assets/svg/puzzle/piece-3.svg?skipsvgo';
 import Piece4 from '@/assets/svg/puzzle/piece-4.svg?skipsvgo';
 import Piece5 from '@/assets/svg/puzzle/piece-5.svg?skipsvgo';
-import Piece6 from '@/assets/svg/puzzle/piece-6.svg?skipsvgo';
-import Piece7 from '@/assets/svg/puzzle/piece-7.svg?skipsvgo';
+import Piece6Fr from '@/assets/svg/puzzle/piece-6-fr.svg?skipsvgo';
+import Piece6En from '@/assets/svg/puzzle/piece-6-en.svg?skipsvgo';
+import Piece7Fr from '@/assets/svg/puzzle/piece-7-fr.svg?skipsvgo';
+import Piece7En from '@/assets/svg/puzzle/piece-7-en.svg?skipsvgo';
 import Piece8 from '@/assets/svg/puzzle/piece-8.svg?skipsvgo';
 import Piece9 from '@/assets/svg/puzzle/piece-9.svg?skipsvgo';
 import Piece10 from '@/assets/svg/puzzle/piece-10.svg?skipsvgo';
@@ -20,7 +23,7 @@ import Piece13 from '@/assets/svg/puzzle/piece-13.svg?skipsvgo';
 import Piece14 from '@/assets/svg/puzzle/piece-14.svg?skipsvgo';
 import Piece15 from '@/assets/svg/puzzle/piece-15.svg?skipsvgo';
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
 const { eventDates } = useEventDates();
 
 const breakpoints = useBreakpoints({
@@ -34,7 +37,7 @@ const drag = ref(false);
 const list = shallowRef([
     {
         id: 1,
-        img: Piece1,
+        img: locale.value === 'fr' ? Piece1Fr : Piece1En,
     },
     {
         id: 2,
@@ -54,12 +57,12 @@ const list = shallowRef([
     },
     {
         id: 6,
-        component: Piece6,
+        component: locale.value === 'fr' ? Piece6Fr : Piece6En,
         text: eventDates.value.replace(/(.[^,]*)([,]?\s)/, '$1<br>'),
     },
     {
         id: 7,
-        component: Piece7,
+        component: locale.value === 'fr' ? Piece7Fr : Piece7En,
         text: t('Terminal de croisière <br>Port de Québec'),
     },
     {
