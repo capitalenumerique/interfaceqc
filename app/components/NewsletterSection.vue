@@ -74,23 +74,6 @@ const { t } = useI18n();
         min-width: 375px;
         margin: 0 0 0 -1px;
     }
-    &::after {
-        content: '';
-        position: absolute;
-        left: 50%;
-        top: -2px;
-        width: calc(100% - 35px);
-        height: 3px;
-        transform: translateX(-50%);
-        background-color: var(--beige-100);
-        @media (--lg) {
-            top: 50%;
-            left: -2px;
-            width: 3px;
-            height: calc(100% - 65px);
-            transform: translateY(-50%);
-        }
-    }
 }
 .newsletter-title {
     display: inline-block;
