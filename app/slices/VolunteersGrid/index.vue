@@ -72,7 +72,7 @@ const sortedCategories = Object.fromEntries(
                                 v-if="item.volunteer.data.img"
                                 class="volunteer-img"
                                 :src="item.volunteer.data.img.url?.split('?')[0]"
-                                :alt="item.volunteer.data.name"
+                                alt=""
                                 width="282"
                                 height="282"
                                 format="webp"
@@ -82,6 +82,7 @@ const sortedCategories = Object.fromEntries(
                             </div>
                             <div class="volunteer-footer">
                                 <p
+                                    aria-hidden="true"
                                     class="volunteer-name"
                                     v-html="item.volunteer.data?.name?.replace(' ', '<br />')"
                                 ></p>

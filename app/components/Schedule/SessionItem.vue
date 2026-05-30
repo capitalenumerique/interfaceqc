@@ -68,7 +68,7 @@ const hoverColors = computed(() => {
         :style="hoverColors"
     >
         <div>
-            <h2 class="session-title">
+            <h3 class="session-title">
                 <NuxtLinkLocale
                     v-if="hasDetails"
                     :to="{ name: 'session-id', params: { id: `${sessionSlug}-${session.id}` } }"
@@ -78,10 +78,18 @@ const hoverColors = computed(() => {
                 </NuxtLinkLocale>
                 <template v-else>{{ session.title.replace(' :', ' :') }}</template>
                 <span class="nowrap"
-                    >&nbsp;<button type="button" class="btn-bookmark" @click="bookmark(session.id)">
+                    >&nbsp;<button
+                        type="button"
+                        class="btn-bookmark"
+                        :aria-pressed="isBookmarked"
+                        @click="bookmark(session.id)"
+                    >
+                        <span class="sr-only">{{
+                            !isBookmarked ? t('Ajouter aux favoris') : t('Retirer des favoris')
+                        }}</span>
                         <IconBookmark width="24" height="24" /></button
                 ></span>
-            </h2>
+            </h3>
             <template v-if="hasDetails">
                 <ul v-if="session.type === 'Podcast'" class="speakers-list">
                     <li
@@ -93,7 +101,7 @@ const hoverColors = computed(() => {
                             <NuxtImg
                                 v-if="speaker.photoUrl"
                                 :src="speaker.photoUrl"
-                                :alt="`${speaker.firstName} ${speaker.lastName}`"
+                                alt=""
                                 width="40"
                                 height="40"
                                 format="webp"
@@ -101,7 +109,7 @@ const hoverColors = computed(() => {
                             <NuxtImg
                                 v-else
                                 :src="`https://ui-avatars.com/api/?name=${speaker.firstName}+${speaker.lastName}&background=e2d5c6&color=593e35&bold=true&format=svg`"
-                                :alt="`${speaker.firstName} ${speaker.lastName}`"
+                                alt=""
                                 width="40"
                                 height="40"
                                 format="webp"
@@ -130,7 +138,7 @@ const hoverColors = computed(() => {
                             <NuxtImg
                                 v-if="speaker.photoUrl"
                                 :src="speaker.photoUrl"
-                                :alt="`${speaker.firstName} ${speaker.lastName}`"
+                                alt=""
                                 width="40"
                                 height="40"
                                 format="webp"
@@ -138,7 +146,7 @@ const hoverColors = computed(() => {
                             <NuxtImg
                                 v-else
                                 :src="`https://ui-avatars.com/api/?name=${speaker.firstName}+${speaker.lastName}&background=e2d5c6&color=593e35&bold=true&format=svg`"
-                                :alt="`${speaker.firstName} ${speaker.lastName}`"
+                                alt=""
                                 width="40"
                                 height="40"
                                 format="webp"
@@ -292,6 +300,8 @@ const hoverColors = computed(() => {
 {
     "en": {
         "{start} à {end}": "{start} to {end}",
+        "Ajouter aux favoris": "Add to favorites",
+        "Retirer des favoris": "Remove from favorites",
         "Découvre les invités": "Meet the guests"
     }
 }

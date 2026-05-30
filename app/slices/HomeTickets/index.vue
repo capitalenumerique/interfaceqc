@@ -8,15 +8,15 @@ defineProps(getSliceComponentProps<Content.HomeTicketsSlice>(['slice', 'index', 
 
 <template>
     <section class="block" :data-slice-type="slice.slice_type" :data-slice-variation="slice.variation">
-        <h2 v-if="slice.primary.section_title" v-reveal class="slice-title">
+        <!-- <h2 v-if="slice.primary.section_title" v-reveal class="slice-title">
             <span>{{ slice.primary.section_title }}</span>
-        </h2>
+        </h2> -->
         <div class="ticket-types-wrapper">
             <div class="ticket-types">
                 <div v-if="slice.primary.title" v-reveal="{ delay: 100 }" class="ticket-types-title-wrapper">
-                    <h3 class="ticket-types-title">
+                    <h2 class="ticket-types-title">
                         <span v-html="slice.primary.title"></span>
-                    </h3>
+                    </h2>
                 </div>
                 <ul
                     class="ticket-types-list"

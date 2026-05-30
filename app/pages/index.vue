@@ -11,6 +11,11 @@ const prismic = usePrismic();
 const { data: page } = await useAsyncData(`home-${locale.value}`, () => {
     return prismic.client.getSingle('home', { lang: `${locale.value}-ca` });
 });
+
+useSeoMeta({
+    title: '',
+    description: '',
+});
 </script>
 
 <template>

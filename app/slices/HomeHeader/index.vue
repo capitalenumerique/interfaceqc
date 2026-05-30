@@ -8,11 +8,16 @@ defineProps(getSliceComponentProps<Content.HomeHeaderSlice>(['slice', 'index', '
 const { t, locale, localeProperties } = useI18n();
 const duringOrAfterEvent = ref(false);
 const afterEvent = ref(true);
+
+const head = injectHead();
+const tags = await head.resolveTags();
+const titleTag = tags.find((t) => t.tag === 'title');
 </script>
 
 <template>
     <section class="home-header">
         <ClientOnly>
+            <h1 class="sr-only">{{ titleTag?.textContent }}</h1>
             <HeroPuzzle />
             <template #placeholder>
                 <div class="placeholder"></div>

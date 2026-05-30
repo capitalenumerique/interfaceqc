@@ -42,6 +42,7 @@ useSeoMeta({
 </script>
 
 <template>
+    <NuxtRouteAnnouncer />
     <NuxtLayout>
         <NuxtLoadingIndicator :height="5" color="#333230" :throttle="500" />
         <NuxtPage />

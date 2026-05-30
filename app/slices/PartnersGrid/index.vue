@@ -58,10 +58,11 @@ const sortedCategories = Object.fromEntries(
                             :href="item.partner.data.website.url"
                             target="_blank"
                         >
+                            <h4 class="sr-only">{{ item.partner.data.name }}</h4>
                             <NuxtImg
                                 class="partner-logo"
                                 :src="item.partner.data.logo.url?.split('?')[0]"
-                                :alt="item.partner.data.name"
+                                alt=""
                                 :width="item.partner.data.category === 'Partenaire présentateur' ? 300 : 200"
                                 :format="
                                     !item.partner.data.logo.url?.includes('interface-qc.cdn.prismic.io')

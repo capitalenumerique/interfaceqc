@@ -27,7 +27,7 @@ const { t } = useI18n();
         }"
     >
         <div class="top-section">
-            <h4 class="ticket-type-title">{{ item.ticket_type.data?.name }}</h4>
+            <h3 class="ticket-type-title">{{ item.ticket_type.data?.name }}</h3>
             <div class="ticket-type-price">
                 {{ $n(item.ticket_type.data?.price || 0, 'currency') }}
             </div>
@@ -43,7 +43,7 @@ const { t } = useI18n();
         <TransitionExpand>
             <div v-show="isOpen" :id="contentId" :aria-labelledby="triggerId" class="animation-wrapper">
                 <div class="bottom-section">
-                    <h5 class="inclusion-title">{{ t('Inclusions') }}</h5>
+                    <h4 class="inclusion-title">{{ t('Inclusions') }}</h4>
                     <p class="inclusion-description">{{ t('Tout ce que comprend le billet') }}</p>
                     <ul class="inclusion-list">
                         <li v-for="(inclusion, j) in item.ticket_type.data?.inclusions" :key="j" class="inclusion-item">

@@ -80,7 +80,7 @@ function formatDate(date: string) {
                             <NuxtImg
                                 v-if="speaker.photoUrl"
                                 :src="speaker.photoUrl"
-                                :alt="`${speaker.firstName} ${speaker.lastName}`"
+                                alt=""
                                 width="128"
                                 height="128"
                                 format="webp"
@@ -88,7 +88,7 @@ function formatDate(date: string) {
                             <NuxtImg
                                 v-else
                                 :src="`https://ui-avatars.com/api/?name=${speaker.firstName}+${speaker.lastName}&background=e2d5c6&color=593e35&bold=true&format=svg`"
-                                :alt="`${speaker.firstName} ${speaker.lastName}`"
+                                alt=""
                                 width="128"
                                 height="128"
                                 format="webp"

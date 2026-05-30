@@ -26,7 +26,7 @@ const isOpen = ref(false);
             <IconMinus v-else />
         </button>
         <TransitionExpand>
-            <div v-show="isOpen" :id="contentId" :aria-labelledby="triggerId">
+            <div v-show="isOpen" :id="contentId" role="region">
                 <div class="accordion-content">
                     <slot />
                 </div>

@@ -3,6 +3,7 @@ import { useBreakpoints, useScroll, useResizeObserver } from '@vueuse/core';
 import { useRoute } from 'vue-router';
 
 import IconArrow from '@/assets/svg/arrow.svg?component';
+import { capitalize } from 'vue';
 
 // FIXME: https://github.com/nuxt/nuxt/issues/31638
 definePageMeta({
@@ -18,6 +19,8 @@ const { data } = defineProps<{
     data: ScheduleData[];
 }>();
 
+const { $luxon } = useNuxtApp();
+const { t } = useI18n();
 const { formatSessionTime } = useTimeFormatter();
 const route = useRoute();
 const breakpoints = useBreakpoints({ lg: 1024 }, { ssrWidth: 1024 });
@@ -75,6 +78,18 @@ function stopScroll() {
 function slugify(str: string = ''): string {
     return str.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/\s+/g, '-');
 }
+
+useSeoMeta({
+    title: t('Programmation - {0}', [
+        capitalize(
+            $luxon.DateTime.fromISO(day.value!.date).toLocaleString({
+                weekday: 'long',
+                day: 'numeric',
+                month: 'long',
+            }),
+        ),
+    ]),
+});
 </script>
 
 <template>
@@ -116,14 +131,14 @@ function slugify(str: string = ''): string {
                         },
                     ]"
                 >
-                    <span
+                    <h2
                         class="time"
                         :class="{
                             'has-place': timeslot.type !== 'regular' || day.timeslots[i - 1]?.type !== 'regular',
                         }"
                     >
                         {{ formatSessionTime(timeslot.time) }}
-                    </span>
+                    </h2>
                     <div class="timeslot-sessions">
                         <div
                             v-for="(place, placeIndex) in timeslot.places"
@@ -286,6 +301,7 @@ function slugify(str: string = ''): string {
     }
 }
 .time {
+    font-size: rem(16px);
     display: block;
     font-weight: 500;
     @media (--md-down) {
@@ -384,6 +400,7 @@ function slugify(str: string = ''): string {
 <i18n lang="json">
 {
     "en": {
+        "Programmation - {0}": "Schedule - {0}",
         "À venir": "To be announced"
     }
 }
