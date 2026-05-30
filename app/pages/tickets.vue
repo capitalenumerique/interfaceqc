@@ -5,6 +5,7 @@ definePageMeta({
     i18n: {
         paths: {
             fr: '/billetterie',
+            en: '/tickets',
         },
     },
 });

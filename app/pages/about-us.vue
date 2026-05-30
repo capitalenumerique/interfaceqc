@@ -5,6 +5,7 @@ definePageMeta({
     i18n: {
         paths: {
             fr: '/a-propos',
+            en: '/about-us',
         },
     },
 });
