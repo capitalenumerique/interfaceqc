@@ -6,7 +6,7 @@ import type { Content } from '@prismicio/client';
 defineProps(getSliceComponentProps<Content.HomeHeaderSlice>(['slice', 'index', 'slices', 'context']));
 
 const { t, locale, localeProperties } = useI18n();
-const duringOrAfterEvent = ref(false);
+const duringOrAfterEvent = ref(true);
 const afterEvent = ref(true);
 
 const head = injectHead();
