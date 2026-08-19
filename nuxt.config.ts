@@ -63,7 +63,7 @@ export default defineNuxtConfig({
         public: {
             start_date: '2027-06-01T00:00:00',
             end_date: '2027-06-03T00:00:00',
-            ticketing_url: 'https://ti.to/cnum/interface2027',
+            ticketing_url: 'https://capitale-numerique.odoo.com/event/interface-quebec-2027-11/register',
             commitTag: process.env.COMMIT_TAG || process.env.NUXT_ENV_CURRENT_GIT_TAG,
             commitShortSha: process.env.COMMIT_SHORT_SHA || process.env.NUXT_ENV_CURRENT_GIT_SHA,
             swapcardGraphqlEndpoint: process.env.NUXT_PUBLIC_SWAPCARD_GRAPHQL_ENDPOINT,
