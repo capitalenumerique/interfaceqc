@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Content } from '@prismicio/client';
+import { resolveTags } from '@unhead/vue/utils';
 
 // The array passed to `getSliceComponentProps` is purely optional.
 // Consider it as a visual hint for you when templating your slice.
@@ -10,8 +11,8 @@ const duringOrAfterEvent = ref(true);
 const afterEvent = ref(true);
 
 const head = injectHead();
-const tags = await head.resolveTags();
-const titleTag = tags.find((t) => t.tag === 'title');
+const tags = resolveTags(head);
+const titleTag = tags.find((tag) => tag.tag === 'title');
 </script>
 
 <template>
