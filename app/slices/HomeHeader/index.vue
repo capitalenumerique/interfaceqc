@@ -91,6 +91,7 @@ const titleTag = tags.find((tag) => tag.tag === 'title');
     }
 }
 .placeholder {
+    width: 100%;
     aspect-ratio: 3 / 5;
     @media (--lg) {
         aspect-ratio: 5 / 3;
