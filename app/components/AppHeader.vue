@@ -12,9 +12,7 @@ const { home = false } = defineProps<{
 const { t } = useI18n();
 const isOpen = ref(false);
 const isAnimating = ref(false);
-const maxHeight = ref('0px');
 const menu = useTemplateRef<HTMLElement>('menu');
-const menuList = useTemplateRef('menuList');
 const items = computed(() => [
     // {
     //     label: t('Billetterie'),
@@ -77,12 +75,6 @@ watch(route, () => {
     isOpen.value = false;
 });
 
-const onEnter = () => {
-    const { height } = useElementSize(menuList);
-    isAnimating.value = true;
-    maxHeight.value = `${height.value}px`;
-};
-
 const onEscape = () => {
     isOpen.value = false;
 };
@@ -106,9 +98,9 @@ const onEscape = () => {
                     <LogoInterface />
                 </NuxtLinkLocale>
             </div>
-            <Transition name="collapse" @enter="onEnter" @after-leave="isAnimating = false">
+            <Transition name="collapse" @enter="isAnimating = true" @after-leave="isAnimating = false">
                 <nav v-show="isOpen" class="menu-inner">
-                    <ul ref="menuList" class="menu-list">
+                    <ul class="menu-list">
                         <li v-for="item in items" :key="item.label" class="menu-item">
                             <NuxtLinkLocale :to="item.path" class="menu-link">
                                 {{ item.label }}
@@ -249,7 +241,8 @@ const onEscape = () => {
     }
 }
 .menu-inner {
-    max-height: v-bind(maxHeight);
+    display: grid;
+    grid-template-rows: 1fr;
     overflow: hidden;
 }
 .menu-list {
@@ -257,7 +250,8 @@ const onEscape = () => {
     flex-direction: column;
     gap: 4px;
     margin: 0;
-    padding: 16px 8px 0;
+    padding: 0 8px;
+    min-height: 0;
     list-style: none;
     .primary-button.btn-cta {
         display: block;
@@ -268,6 +262,10 @@ const onEscape = () => {
 }
 .menu-item {
     opacity: 0;
+    &:first-child {
+        /* Spacing lives on the item, not the list, so the collapsed grid row can reach 0 */
+        margin-top: 16px;
+    }
     transition: opacity 500ms ease-in-out;
     .is-open & {
         &:nth-child(1) {
@@ -338,11 +336,11 @@ const onEscape = () => {
 }
 .collapse-enter-active,
 .collapse-leave-active {
-    transition: max-height 500ms ease;
+    transition: grid-template-rows 500ms ease;
 }
 .collapse-enter-from,
 .collapse-leave-to {
-    max-height: 0px;
+    grid-template-rows: 0fr;
 }
 </style>
 
