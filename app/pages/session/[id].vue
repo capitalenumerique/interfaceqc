@@ -38,7 +38,7 @@ const seoOgImage = computed(() => data.value?.bannerUrl || data.value?.speakers?
 
 useSeoMeta({
     title: seoTitle,
-    description: seoDescription,
+    description: () => seoDescription.value || undefined,
     ogImage: seoOgImage,
 });
 

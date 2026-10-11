@@ -59,7 +59,7 @@ const { page, data } = response.value ?? {};
 
 useSeoMeta({
     title: page?.data.meta_title,
-    description: page?.data.meta_description,
+    description: page?.data.meta_description || undefined,
 });
 
 const dates = computed(() => {

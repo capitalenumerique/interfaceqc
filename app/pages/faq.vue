@@ -10,7 +10,7 @@ const { data: page } = await useAsyncData(`faq-${locale.value}`, () => {
 
 useSeoMeta({
     title: page.value?.data.meta_title,
-    description: page.value?.data.meta_description,
+    description: page.value?.data.meta_description || undefined,
 });
 </script>
 

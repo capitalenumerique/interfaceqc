@@ -14,7 +14,6 @@ const { data: page } = await useAsyncData(`home-${locale.value}`, () => {
 
 useSeoMeta({
     title: '',
-    description: '',
 });
 </script>
 
