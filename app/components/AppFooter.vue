@@ -120,7 +120,7 @@ const archives = [2026, 2025];
                 <ul class="organizers">
                     <li>
                         <a class="organizer-link" href="https://capitalenumerique.com/" target="_blank">
-                            <span class="support-label">{{ t('supporté par') }}</span>
+                            <span class="support-label">{{ t('Supporté par') }}</span>
                             <img
                                 src="@/assets/img/capitale-numerique.svg"
                                 :alt="t('Capitale Numérique')"
@@ -334,7 +334,7 @@ const archives = [2026, 2025];
         "Politique de confidentialité": "Privacy policy",
         "Édition {year}": "{year} edition",
         "Ce projet est réalisé grâce au soutien financier de la Vision Entrepreneuriale Québec 2030 de la Ville de Québec propulsée par le Fond de la région de la Capitale-Nationale.": "This project is made possible through the financial support of the Entrepreneuriale Québec 2030 from Quebec City, powered by the Fond de la région de la Capitale-Nationale.",
-        "supporté par": "supported by",
+        "Supporté par": "Supported by",
         "© Interface - Québec {n}. Tous droits réservés.": "© Interface - Québec {n}. All rights reserved."
     }
 }
