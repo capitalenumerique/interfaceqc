@@ -14,6 +14,9 @@ export default defineNuxtPlugin((nuxtApp) => {
             return {
                 class: classes,
                 style: delay ? `--reveal-delay: ${delay}ms` : undefined,
+                // The client vnode never carries these (mounted() adds them
+                // imperatively), so tell Vue the class/style diff is intended.
+                'data-allow-mismatch': 'class,style',
             };
         },
         mounted(el, binding) {
