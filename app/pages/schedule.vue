@@ -9,22 +9,25 @@ definePageMeta({
             en: '/schedule',
         },
     },
+    // redirect to day 1 when schedule is enabled; runs on every navigation, unlike setup
+    // which is skipped when coming back from a child page (e.g. /programmation/1 → /programmation)
+    middleware: (to) => {
+        if (useRouteBaseName()(to) === 'schedule' && useNuxtApp().$luxon.DateTime.now() >= SCHEDULE_RELEASE_DATE) {
+            return navigateTo({ path: `${to.path.replace(/\/$/, '')}/1`, query: to.query });
+        }
+    },
 });
 
 const { $luxon } = useNuxtApp();
 let scheduleInterval: ReturnType<typeof setInterval>;
 
-const releaseDate = $luxon.DateTime.fromObject(
-    { year: 2026, month: 3, day: 25, hour: 17, minute: 0o0 },
-    { zone: 'America/Toronto' },
-);
-const scheduleEnabled = ref($luxon.DateTime.now() >= releaseDate);
+const scheduleEnabled = ref($luxon.DateTime.now() >= SCHEDULE_RELEASE_DATE);
 
 onMounted(() => {
     // FIXME: https://github.com/nuxt/nuxt/issues/31638
     window.scrollTo(0, 0);
     scheduleInterval = setInterval(() => {
-        if ($luxon.DateTime.now() >= releaseDate) {
+        if ($luxon.DateTime.now() >= SCHEDULE_RELEASE_DATE) {
             scheduleEnabled.value = true;
             clearInterval(scheduleInterval);
         }
@@ -33,16 +36,9 @@ onMounted(() => {
 onUnmounted(() => clearInterval(scheduleInterval));
 
 const prismic = usePrismic();
-const route = useRoute();
 const localePath = useLocalePath();
-const getRouteBaseName = useRouteBaseName();
 
 const { t, locale } = useI18n();
-
-// redirect to day 1 when schedule is enabled
-if (scheduleEnabled.value && getRouteBaseName(route.name!) !== 'schedule-day') {
-    await navigateTo(localePath({ name: 'schedule-day', params: { day: 1 } }));
-}
 
 function onCountdownDone() {
     scheduleEnabled.value = true;
@@ -84,7 +80,7 @@ const dates = computed(() => {
             <div class="schedule-grid">
                 <!-- <UpcomingSchedule v-if="!scheduleEnabled" /> -->
                 <ClientOnly v-if="!scheduleEnabled">
-                    <ScheduleCountdown :release-date="releaseDate" @done="onCountdownDone" />
+                    <ScheduleCountdown :release-date="SCHEDULE_RELEASE_DATE" @done="onCountdownDone" />
                 </ClientOnly>
                 <template v-else-if="dates.length">
                     <ul class="date-tabs">
