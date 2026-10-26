@@ -3,7 +3,7 @@ const i18nHead = useLocaleHead();
 
 const { locale, t } = useI18n();
 const config = useRuntimeConfig();
-const ogImage = computed(() => `${config.public.i18n.baseUrl}/og-image-${locale.value}.png`);
+const ogImage = computed(() => `${config.public.i18n.baseUrl}/og-image.png`);
 
 const { eventDates } = useEventDates();
 
