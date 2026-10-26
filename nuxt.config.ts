@@ -102,6 +102,7 @@ export default defineNuxtConfig({
                 '@limonische/vue3-transition-expand',
                 'vue3-marquee',
                 'luxon',
+                '@slicemachine/adapter-nuxt/simulator',
                 '@vueuse/integrations/useFocusTrap',
                 'canvas-confetti',
                 'es-toolkit/array',

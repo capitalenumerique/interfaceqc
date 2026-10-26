@@ -37,7 +37,7 @@ const route = useRoute();
 const localePath = useLocalePath();
 const getRouteBaseName = useRouteBaseName();
 
-const { locale } = useI18n();
+const { t, locale } = useI18n();
 
 // redirect to day 1 when schedule is enabled
 if (scheduleEnabled.value && getRouteBaseName(route.name!) !== 'schedule-day') {
@@ -49,7 +49,7 @@ function onCountdownDone() {
     navigateTo(localePath({ name: 'schedule-day', params: { day: 1 } }));
 }
 
-const { data: response } = await useAsyncData(`schedule-${locale.value}`, async () => {
+const { data: response, error } = await useAsyncData(`schedule-${locale.value}`, async () => {
     const { data, suspense } = useSchedule();
     const [page] = await Promise.all([prismic.client.getSingle('program', { lang: `${locale.value}-ca` }), suspense()]);
     return { page: page, data: data.value };
@@ -96,6 +96,9 @@ const dates = computed(() => {
                     </ul>
                     <NuxtPage :data="data" />
                 </template>
+                <p v-else-if="error">
+                    {{ t('La programmation est présentement indisponible, veuillez réessayer plus tard.') }}
+                </p>
             </div>
         </div>
     </div>
@@ -104,7 +107,7 @@ const dates = computed(() => {
 <style lang="postcss" scoped>
 .schedule-slice-zone {
     :deep(.page-header) {
-        max-width: none;
+        margin-inline: 0;
         @media (--xxl) {
             padding: 0 48px;
         }
