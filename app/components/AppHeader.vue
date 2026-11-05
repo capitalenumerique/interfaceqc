@@ -44,6 +44,7 @@ const items = computed(() => [
         label: t('Boutique'),
         path: config.public.shop_url,
         color: 'orange-DEFAULT',
+        target: '_blank',
     },
     {
         label: t('À propos'),
@@ -103,7 +104,7 @@ const onEscape = () => {
                 <nav v-show="isOpen" class="menu-inner">
                     <ul class="menu-list">
                         <li v-for="item in items" :key="item.label" class="menu-item">
-                            <NuxtLinkLocale :to="item.path" class="menu-link">
+                            <NuxtLinkLocale :to="item.path" :target="item.target" class="menu-link">
                                 {{ item.label }}
                                 <IconExternal v-if="item.path.startsWith('https://')" class="icon-external" />
                             </NuxtLinkLocale>
