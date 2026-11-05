@@ -13,6 +13,7 @@ const { t } = useI18n();
 const isOpen = ref(false);
 const isAnimating = ref(false);
 const menu = useTemplateRef<HTMLElement>('menu');
+const config = useRuntimeConfig();
 const items = computed(() => [
     // {
     //     label: t('Billetterie'),
@@ -41,7 +42,7 @@ const items = computed(() => [
     // },
     {
         label: t('Boutique'),
-        path: 'https://boutique.interfaceqc.com/',
+        path: config.public.shop_url,
         color: 'orange-DEFAULT',
     },
     {
