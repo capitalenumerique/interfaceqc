@@ -1,5 +1,5 @@
-import type { RouterConfig } from 'nuxt/schema'
-import { START_LOCATION } from 'vue-router'
+import type { RouterConfig } from 'nuxt/schema';
+import { START_LOCATION } from 'vue-router';
 
 // Same as Nuxt's built-in default (hash links get scroll-margin-aware
 // smooth scrolling, in-app route changes reset to top), except for the
@@ -15,16 +15,16 @@ import { START_LOCATION } from 'vue-router'
 // false here instead leaves the browser's restoration in place.
 export default <RouterConfig>{
     scrollBehavior(to, from, savedPosition) {
-        if (from === START_LOCATION) return false
+        if (from === START_LOCATION) return false;
 
         if (to.path.replace(/\/$/, '') === from.path.replace(/\/$/, '')) {
-            if (from.hash && !to.hash) return savedPosition ?? { left: 0, top: 0 }
-            if (to.hash) return { el: to.hash, top: 0, behavior: 'smooth' }
-            return false
+            if (from.hash && !to.hash) return savedPosition ?? { left: 0, top: 0 };
+            if (to.hash) return { el: to.hash, top: 0, behavior: 'smooth' };
+            return false;
         }
 
-        if (savedPosition) return savedPosition
-        if (to.hash) return { el: to.hash, top: 0, behavior: 'smooth' }
-        return { left: 0, top: 0 }
-    }
-}
+        if (savedPosition) return savedPosition;
+        if (to.hash) return { el: to.hash, top: 0, behavior: 'smooth' };
+        return { left: 0, top: 0 };
+    },
+};

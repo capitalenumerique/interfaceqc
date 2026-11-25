@@ -65,6 +65,8 @@ export default defineNuxtConfig({
             end_date: '2027-06-03T00:00:00',
             ticketing_url: 'https://www.capitalenumerique.com/event/interface-quebec-2027-26/register',
             shop_url: 'https://www.capitalenumerique.com/shop/category/boutique-4',
+            cfp_url: 'https://form.asana.com/?k=M5K32QEqIDsE2bGMFrnf1A&d=1207626177757620',
+            cfp_end_date: '2027-02-07T23:59:59-05:00',
             commitTag: process.env.COMMIT_TAG || process.env.NUXT_ENV_CURRENT_GIT_TAG,
             commitShortSha: process.env.COMMIT_SHORT_SHA || process.env.NUXT_ENV_CURRENT_GIT_SHA,
             swapcardGraphqlEndpoint: process.env.NUXT_PUBLIC_SWAPCARD_GRAPHQL_ENDPOINT,
