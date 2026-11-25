@@ -9,6 +9,7 @@ const { t } = useI18n();
 
 const timeLeft = ref(props.releaseDate.diff($luxon.DateTime.now(), ['days', 'hours', 'minutes', 'seconds']));
 
+const days = computed(() => Math.floor(timeLeft.value.days));
 const hours = computed(() => String(Math.floor(timeLeft.value.hours)).padStart(2, '0'));
 const minutes = computed(() => String(Math.floor(timeLeft.value.minutes)).padStart(2, '0'));
 const seconds = computed(() => String(Math.floor(timeLeft.value.seconds)).padStart(2, '0'));
@@ -32,6 +33,13 @@ onUnmounted(() => clearInterval(interval));
     <div class="countdown-wrapper">
         <h2 class="countdown-title">{{ t('Dévoilement de la programmation dans...') }}</h2>
         <div class="countdown">
+            <template v-if="days > 0">
+                <div class="countdown-unit">
+                    <span class="countdown-value">{{ String(days).padStart(2, '0') }}</span>
+                    <span class="countdown-label">{{ days > 1 ? t('jours') : t('jour') }}</span>
+                </div>
+                <span class="countdown-separator">:</span>
+            </template>
             <div class="countdown-unit">
                 <span class="countdown-value">{{ hours }}</span>
                 <span class="countdown-label">{{ t('heures') }}</span>
@@ -109,6 +117,8 @@ onUnmounted(() => clearInterval(interval));
 {
     "en": {
         "Dévoilement de la programmation dans...": "Schedule reveal in...",
+        "jour": "day",
+        "jours": "days",
         "heures": "hours",
         "minutes": "minutes",
         "secondes": "seconds"
