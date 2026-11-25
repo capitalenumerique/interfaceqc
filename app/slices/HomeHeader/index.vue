@@ -1,14 +1,20 @@
 <script setup lang="ts">
 import type { Content } from '@prismicio/client';
 import { resolveTags } from '@unhead/vue/utils';
+import IconGlyph from '@/assets/svg/shapes/glyph.svg?component';
 
 // The array passed to `getSliceComponentProps` is purely optional.
 // Consider it as a visual hint for you when templating your slice.
 defineProps(getSliceComponentProps<Content.HomeHeaderSlice>(['slice', 'index', 'slices', 'context']));
 
 const { t, locale, localeProperties } = useI18n();
-const duringOrAfterEvent = ref(true);
-const afterEvent = ref(true);
+const config = useRuntimeConfig();
+const { $luxon } = useNuxtApp();
+const callForSpeakersOpen = computed(
+    () => !!config.public.cfp_url && $luxon.DateTime.now() < $luxon.DateTime.fromISO(config.public.cfp_end_date),
+);
+const duringOrAfterEvent = ref(false);
+const afterEvent = ref(false);
 
 const head = injectHead();
 const tags = resolveTags(head);
@@ -31,6 +37,26 @@ const titleTag = tags.find((tag) => tag.tag === 'title');
                 <PrimaryButton v-reveal="{ delay: 200 }" :to="$config.public.ticketing_url" target="_blank">
                     {{ t('Participer') }}
                 </PrimaryButton>
+            </div>
+            <div v-if="callForSpeakersOpen" class="event-infos infos-bottom infos-cfp">
+                <IconGlyph class="cfp-icon" aria-hidden="true" />
+                <h2 v-reveal class="infos-title">{{ t('Appel à conférences') }}</h2>
+                <p v-reveal="{ delay: 100 }" class="infos-text">
+                    {{ t('Ta place est peut-être sur scène.') }}
+                </p>
+                <p v-reveal="{ delay: 150 }" class="infos-subtext">
+                    {{
+                        t(
+                            'Retours d’expérience, méthodes, points de vue, parcours qui sortent du cadre : la programmation d’Interface 2027, c’est la communauté qui la construit.',
+                        )
+                    }}
+                </p>
+                <PrimaryButton v-reveal="{ delay: 200 }" :to="$config.public.cfp_url" target="_blank">
+                    {{ t('Soumettre ma proposition') }}
+                </PrimaryButton>
+                <p v-reveal="{ delay: 250 }" class="infos-deadline">
+                    {{ t('Date limite : 7 février 2027') }}
+                </p>
             </div>
             <div v-if="duringOrAfterEvent" class="event-infos infos-bottom">
                 <h2 v-reveal class="infos-title">{{ t('Télécharge l’application SwapCard') }}</h2>
@@ -133,6 +159,55 @@ const titleTag = tags.find((tag) => tag.tag === 'title');
         font-size: rem(48px);
     }
 }
+.infos-cfp {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    @media (--lg) {
+        gap: 24px;
+    }
+    .infos-text,
+    .infos-subtext {
+        margin: 0;
+    }
+    .infos-deadline {
+        margin-top: -8px;
+    }
+}
+.cfp-icon {
+    position: absolute;
+    z-index: -1;
+    right: -40px;
+    bottom: -40px;
+    width: 180px;
+    height: auto;
+    fill: var(--color-secondary);
+    transform: rotate(-12deg);
+    pointer-events: none;
+    @media (--lg) {
+        right: 40px;
+        bottom: -60px;
+        width: 300px;
+    }
+}
+.infos-subtext {
+    max-width: 640px;
+    font-size: rem(16px);
+    line-height: 1.5;
+    text-wrap: balance;
+    @media (--lg) {
+        font-size: rem(18px);
+    }
+}
+.infos-deadline {
+    margin: 0;
+    font-size: rem(14px);
+    font-weight: 500;
+}
 .infos-links {
     display: flex;
     justify-content: center;
@@ -176,6 +251,11 @@ const titleTag = tags.find((tag) => tag.tag === 'title');
 {
     "en": {
         "Participer": "Participate",
+        "Appel à conférences": "Call for speakers",
+        "Ta place est peut-être sur scène.": "Your place might be on stage.",
+        "Retours d’expérience, méthodes, points de vue, parcours qui sortent du cadre : la programmation d’Interface 2027, c’est la communauté qui la construit.": "Real-world experiences, methods, points of view, unconventional journeys: Interface 2027’s lineup is built by the community.",
+        "Soumettre ma proposition": "Submit my proposal",
+        "Date limite : 7 février 2027": "Deadline: February 7, 2027",
         "Télécharge l’application SwapCard": "Download the SwapCard app",
         "Découvre la programmation et fait ton parcours comme tu le veux.": "Discover the schedule and plan your days as you want.",
         "Si tu as manqué des conférences à l’édition 2026, les rediffusions sont en cours.": "If you missed some talks at the 2026 edition, the replays are now available.",
