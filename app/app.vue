@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 const i18nHead = useLocaleHead();
 
-const { locale, t } = useI18n();
+const { t } = useI18n();
 const config = useRuntimeConfig();
 const ogImage = computed(() => `${config.public.i18n.baseUrl}/og-image.png`);
 
